@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/main_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/white"
+                    android:layout_height="@dimen/top_title_height">
+    <TextView android:layout_width="wrap_content"
+              android:drawableLeft="@drawable/tree_icons_back"
+              android:layout_centerVertical="true"
+              android:text="返回"
+              android:id="@+id/mback"
+              android:layout_marginLeft="8dp"
+              android:drawablePadding="10dp"
+              android:gravity="center_vertical"
+              android:textColor="@color/textColor"
+              android:textSize="14sp"
+              android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="内容详情"
+                  android:textColor="@color/text_color"
+                  android:textSize="18sp"
+                  android:layout_marginLeft="60dp"
+                  android:layout_marginRight="60dp"
+                  android:layout_centerInParent="true"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <com.Lbins.TreeHm.widget.ReboundScrollView android:layout_width="match_parent"
+                                               android:layout_height="match_parent">
+        <RelativeLayout android:layout_width="match_parent"
+                      android:orientation="vertical"
+                      android:layout_marginTop="1dp"
+                      android:background="@color/white"
+                      android:padding="8dp"
+                      android:layout_height="match_parent">
+            <com.Lbins.TreeHm.widget.CircleImageView
+                    android:src="@drawable/success_img"
+                    android:layout_width="60dp"
+                    android:id="@+id/head"
+                    android:layout_height="60dp"/>
+            <TextView android:layout_width="wrap_content"
+                      android:text="文采苗木 王晨"
+                      android:id="@+id/nickname"
+                      android:layout_toRightOf="@+id/head"
+                      android:layout_marginTop="12dp"
+                      android:layout_marginLeft="8dp"
+                      android:textColor="@color/orange"
+                      android:textSize="16sp"
+                      android:layout_height="wrap_content"/>
+            <TextView android:layout_width="wrap_content"
+                      android:text="10分钟前"
+                      android:textColor="@color/text_color"
+                      android:textSize="14sp"
+                      android:layout_marginLeft="8dp"
+                      android:layout_marginTop="6dp"
+                      android:layout_toRightOf="@+id/head"
+                      android:layout_below="@+id/nickname"
+                      android:id="@+id/dateline"
+                      android:layout_height="wrap_content"/>
+
+            <LinearLayout android:layout_width="wrap_content"
+                          android:orientation="horizontal"
+                          android:id="@+id/liner_type"
+                          android:layout_marginRight="8dp"
+                          android:layout_marginTop="2dp"
+                          android:layout_alignParentRight="true"
+                          android:layout_height="wrap_content">
+                <ImageView android:layout_width="wrap_content"
+                           android:id="@+id/type_one"
+                           android:src="@drawable/tree_icons_group"
+                           android:layout_height="30dp"/>
+                <ImageView android:layout_width="wrap_content"
+                           android:id="@+id/type_two"
+                           android:src="@drawable/tree_icons_trust"
+                           android:layout_height="30dp"/>
+            </LinearLayout>
+            <ImageView android:layout_width="wrap_content"
+                      android:src="@drawable/tree_icons_star_5"
+                      android:layout_marginRight="8dp"
+                      android:layout_marginTop="3dp"
+                      android:id="@+id/type_three"
+                      android:layout_alignParentRight="true"
+                      android:layout_below="@+id/liner_type"
+                      android:layout_height="20dp"/>
+            <View android:layout_width="match_parent"
+                  android:layout_below="@+id/head"
+                  android:layout_marginTop="8dp"
+                  android:id="@+id/line_one"
+                  android:background="@color/orange_color"
+                  android:layout_height="0.5dp">
+            </View>
+            <TextView android:layout_width="wrap_content"
+                      android:padding="1dp"
+                      android:lineSpacingMultiplier="1.2"
+                      android:textColor="@color/textColor"
+                      android:id="@+id/content"
+                      android:textSize="16sp"
+                      android:text="皂户李镇苗圃常年出售优质苗1500万株 大小、国槐、垂柳、合欢、法桐、白腊、枣树等各种品种苗木,我们以质量为根本，价格真实，诚实守信，与您精诚合作，竭诚为广大消费者服务 ，又有几十万亩农户连遍种植的大背景，我们信守“以量取胜、薄利多销”的营销准则，销售苗木比别人更便宜。 我们制定了严格的苗木质量标准并做到三个必须，必须每棵苗木验收合格后才能起苗，必须在起苗当天装车、启运，不合格苗木绝对不答应装车，必须做好苗木合理装车。我们愿和有识之士合作业务，共创一个绿色、环保的家园"
+                      android:layout_below="@+id/line_one"
+                      android:layout_marginTop="10dp"
+                      android:layout_height="wrap_content"/>
+
+            <com.Lbins.TreeHm.widget.PictureGridview
+                    android:id="@+id/gridView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:horizontalSpacing="4dip"
+                    android:numColumns="3"
+                    android:layout_below="@+id/content"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="4dip"
+                    android:padding="4dip"/>
+
+
+            <View android:layout_width="match_parent"
+                  android:layout_below="@+id/gridView"
+                  android:layout_marginTop="8dp"
+                  android:id="@+id/line_two"
+                  android:background="@color/orange_color"
+                  android:layout_height="0.5dp">
+            </View>
+
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_marginTop="15dp"
+                       android:id="@+id/sharebtn"
+                       android:layout_alignParentRight="true"
+                       android:layout_below="@+id/line_two"
+                       android:src="@drawable/button_selector_share_mine"
+                       android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:text="13181038186"
+                      android:layout_centerVertical="true"
+                      android:drawablePadding="12dp"
+                      android:gravity="center_vertical"
+                      android:layout_marginLeft="25dp"
+                      android:layout_marginRight="25dp"
+                      android:textColor="@color/white"
+                      android:layout_centerHorizontal="true"
+                      android:id="@+id/telbtn"
+                      android:layout_marginTop="8dp"
+                      android:paddingLeft="25dp"
+                      android:drawableLeft="@drawable/tree_icons_phone_big"
+                      android:textSize="26sp"
+                      android:textStyle="bold"
+                      android:background="@drawable/button_selector_detail_tel"
+                      android:layout_below="@+id/sharebtn"
+                      android:layout_height="60dp"/>
+        </RelativeLayout>
+    </com.Lbins.TreeHm.widget.ReboundScrollView>
+</LinearLayout>

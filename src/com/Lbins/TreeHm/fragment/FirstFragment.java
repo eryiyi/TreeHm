@@ -15,6 +15,7 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.ui.DetailRecordActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
+                startActivity(intent);
             }
         });
         adapter.setOnClickContentItemListener(this);
