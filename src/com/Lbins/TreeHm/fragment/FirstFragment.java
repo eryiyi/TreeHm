@@ -98,7 +98,19 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-
+        switch (flag){
+            case 1:
+                //分享
+                break;
+            case 2:
+                //电话
+                break;
+            case 3:
+                //头像
+            case 4:
+                //昵称
+                break;
+        }
     }
 
     void initData(){

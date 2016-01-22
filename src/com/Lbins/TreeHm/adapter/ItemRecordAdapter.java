@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -61,9 +62,9 @@ public class ItemRecordAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record,null);
             holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
-//            holder.sell_price = (TextView) convertView.findViewById(R.id.sell_price);
-//            holder.item_title = (TextView) convertView.findViewById(R.id.item_title);
-//            holder.price = (TextView) convertView.findViewById(R.id.price);
+            holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
+            holder.head = (CircleImageView) convertView.findViewById(R.id.head);
+            holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
 
             convertView.setTag(holder);
         }else{
@@ -97,16 +98,28 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 2, null);
             }
         });
-
+        holder.btn_tel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 3, null);
+            }
+        });
+        holder.nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 4, null);
+            }
+        });
 
 
         return convertView;
     }
     class ViewHolder {
         ImageView btn_share;
+        ImageView btn_pic;
         ImageView btn_tel;
-        TextView item_title;
-        TextView sell_price;
-        TextView price;
+        CircleImageView head;
+        TextView nickname;
+
     }
 }
