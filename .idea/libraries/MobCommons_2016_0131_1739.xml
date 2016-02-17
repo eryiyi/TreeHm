@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="MobCommons-2016.0131.1739">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../SMSSDK/libs/MobCommons-2016.0131.1739.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SMSSDK/libs/MobTools-2016.0131.1739.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SMSSDK/libs/SMSSDK-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
