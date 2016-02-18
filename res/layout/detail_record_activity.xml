@@ -4,31 +4,22 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <RelativeLayout android:layout_width="match_parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:background="@color/white"
-                    android:layout_height="@dimen/top_title_height">
-    <TextView android:layout_width="wrap_content"
-              android:drawableLeft="@drawable/tree_icons_back"
-              android:layout_centerVertical="true"
-              android:text="返回"
-              android:id="@+id/mback"
-              android:layout_marginLeft="8dp"
-              android:drawablePadding="10dp"
-              android:gravity="center_vertical"
-              android:textColor="@color/textColor"
-              android:textSize="14sp"
-              android:layout_height="wrap_content"/>
-        <TextView android:layout_width="wrap_content"
-                  android:text="内容详情"
-                  android:textColor="@color/text_color"
-                  android:textSize="18sp"
-                  android:layout_marginLeft="60dp"
-                  android:layout_marginRight="60dp"
-                  android:layout_centerInParent="true"
-                  android:layout_height="wrap_content"/>
-    </RelativeLayout>
+        <RelativeLayout android:layout_width="match_parent"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@color/mm_top_bg"
+                        android:layout_height="@dimen/top_title_height">
+            <TextView android:layout_width="wrap_content"
+                      android:text="内容详情"
+                      android:drawablePadding="8dp"
+                      android:textSize="16sp"
+                      android:padding="6dp"
+                      android:id="@+id/mback"
+                      android:drawableLeft="@drawable/back_white"
+                      android:textColor="@color/white"
+                      android:layout_centerVertical="true"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
     <com.Lbins.TreeHm.widget.ReboundScrollView android:layout_width="match_parent"
                                                android:layout_height="match_parent">

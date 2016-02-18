@@ -4,49 +4,11 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-    <RelativeLayout android:layout_width="match_parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:background="@color/white"
-                    android:layout_height="@dimen/top_title_height">
-        <TextView android:layout_width="wrap_content"
-                   android:drawableLeft="@drawable/tree_icons_location"
-                   android:layout_centerVertical="true"
-                   android:text="滨州市"
-                   android:id="@+id/mLocation"
-                   android:layout_marginLeft="8dp"
-                   android:drawablePadding="6dp"
-                   android:gravity="center_vertical"
-                   android:textColor="@color/textColor"
-                   android:textSize="14sp"
-                   android:layout_height="45dp"/>
-        <ImageView android:layout_width="45dp"
-                   android:src="@drawable/tree_icons_writenew"
-                   android:padding="8dp"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:layout_height="45dp"/>
-        <EditText android:layout_width="wrap_content"
-                  android:drawableRight="@drawable/index_sousuo"
-                  android:paddingLeft="8dp"
-                  android:paddingRight="8dp"
-                  android:layout_marginRight="50dp"
-                  android:layout_marginLeft="6dp"
-                  android:layout_toRightOf="@+id/mLocation"
-                  android:hint="搜索"
-                  android:textSize="14sp"
-                  android:textColorHighlight="@color/textColortwo"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginBottom="5dp"
-                  android:background="@drawable/index_sousuo_back"
-                  android:layout_centerInParent="true"
-                  android:layout_height="wrap_content"/>
-    </RelativeLayout>
-    <View android:layout_width="match_parent"
-          android:layout_alignTop="@+id/home_item_photo"
-          android:background="@color/gray_line_color"
-          android:layout_height="0.5dp"></View>
+    <include
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            layout="@layout/top_title_view"/>
 
     <com.Lbins.TreeHm.library.internal.PullToRefreshListView
             android:id="@+id/lstv"

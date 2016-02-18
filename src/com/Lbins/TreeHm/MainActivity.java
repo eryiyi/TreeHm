@@ -16,6 +16,7 @@ import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.fragment.ThreeFragment;
 import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
+import com.Lbins.TreeHm.util.StringUtil;
 import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if("0".equals(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) &&  (v.getId() == R.id.foot_four)){
+        if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) &&  (v.getId() == R.id.foot_four)){
             //未登录
             Intent loginV = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginV);

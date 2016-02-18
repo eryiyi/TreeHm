@@ -1,9 +1,11 @@
 package com.Lbins.TreeHm.module;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/2/14.
  */
-public class RecordVO extends Record {
+public class RecordVO extends Record implements Serializable{
     private String mm_emp_mobile;
     private String mm_emp_nickname;
     private String mm_emp_type;

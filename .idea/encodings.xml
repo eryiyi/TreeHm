@@ -10,6 +10,8 @@
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/push_bottom_in.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/anim/push_bottom_out.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_left.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/slide_in_from_right.xml" charset="UTF-8" />
@@ -39,6 +41,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/pull_to_refresh_arrow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/success_img.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/welcome.jpg" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/analyze_empty_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_gray_radius.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_home_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_payment.xml" charset="UTF-8" />
@@ -64,6 +67,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_work_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_wuliu_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_progress_bar.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/et_bule_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/home_item_shadow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
@@ -74,6 +78,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/spinner_item_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/zhuye_item_select.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable_xxhdpi/logo.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/gallery_url.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/jubao_dialog.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
@@ -88,10 +93,12 @@
     <file url="file://$PROJECT_DIR$/res/values/ids.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/pull_refresh_strings.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/UniversityApplication.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/AlbumGridViewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/AnimateFirstDisplayListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemDetailPhotoAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemRecordAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/OnClickContentItemListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/Publish_mood_GridView_Adapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/SpinnerListViewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ViewPagerAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/base/ActivityTack.java" charset="UTF-8" />
@@ -100,6 +107,14 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/base/InternetURL.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/base/MyBaseFragment.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/data/Data.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/BasePagerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/EclairMotionEvent.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/GalleryViewPager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/InputStreamWrapper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/TouchImageView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/UrlPagerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/UrlTouchImageView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/gallery/WrapMotionEvent.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/EmptyViewMethodAccessor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/FlipLoadingLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/ILoadingLayout.java" charset="UTF-8" />
@@ -115,6 +130,8 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/RotateLoadingLayout.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/Utils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/ViewCompat.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/media/MediaStoreBucket.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/media/MediaStoreCursorHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/CountryObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/Emp.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/FeiyongObj.java" charset="UTF-8" />
@@ -123,16 +140,29 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/ProvinceObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/RecordVO.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/ReportObj.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/AbsActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/AlbumActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/AlbumChanceActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/Constants.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/GalleryUrlActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/ImageDelActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/CommonUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/MultiPartRequest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/MultiPartStack.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/MultiPartStringRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/CommonDefine.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/FileUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/HttpUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/ImageUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/PicUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/StringUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/CircleImageView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/CustomerSpinner.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/NoScrollGridView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/PictureGridview.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/ReboundScrollView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/SelectPhoPop.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/Spinner_Dialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/SquareLayout.java" charset="UTF-8" />
   </component>
 </project>
