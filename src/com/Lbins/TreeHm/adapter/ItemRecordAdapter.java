@@ -18,6 +18,7 @@ import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ public class ItemRecordAdapter extends BaseAdapter {
     private ViewHolder holder;
     private List<RecordVO> lists;
     private Context mContect;
-    Resources res;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -38,11 +38,15 @@ public class ItemRecordAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-
     public ItemRecordAdapter(List<RecordVO> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
+    public void refresh(List<RecordVO> d) {
+        lists = d;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return lists.size();
@@ -60,7 +64,6 @@ public class ItemRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        res = mContect.getResources();
         if (convertView == null){
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record,null);

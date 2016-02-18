@@ -52,7 +52,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<RecordVO> lists = new ArrayList<RecordVO>();
+    private List<RecordVO> lists ;
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -72,9 +72,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     }
 
     void initView( ){
+        lists = new ArrayList<RecordVO>();
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         adapter = new ItemRecordAdapter(lists, getActivity());
-
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -159,9 +159,10 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                     if (IS_REFRESH) {
                                         lists.clear();
                                     }
-                                    lists .addAll(data.getData());
+                                    lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+//                                    adapter.refresh(lists);
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.get_data_error , Toast.LENGTH_SHORT).show();
