@@ -15,6 +15,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.module.Emp;
+import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -45,8 +46,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         this.findViewById(R.id.reg).setOnClickListener(this);
         this.findViewById(R.id.forgetpwr).setOnClickListener(this);
 
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("user", ""), String.class))){
-            mobile.setText(getGson().fromJson(getSp().getString("user", ""), String.class));
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class))){
+            mobile.setText(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
         }
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
             password.setText(getGson().fromJson(getSp().getString("password", ""), String.class));
@@ -55,7 +56,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         this.findViewById(R.id.btn_kf).setOnClickListener(this);
     }
 
+    boolean isMobileNet, isWifiNet;
+
     public void sureLogin(View view){
+        try {
+            isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
+            isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
+            if (!isMobileNet && !isWifiNet) {
+                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //登陆
         if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
             showMsg(LoginActivity.this, "请输入手机号");
@@ -135,9 +148,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 if(Integer.parseInt(code) == 200){
                                     EmpData data = getGson().fromJson(s, EmpData.class);
                                     saveAccount(data.getData());
+                                }else if(Integer.parseInt(code) == 1){
+                                    showMsg(LoginActivity.this, "请检查手机号是否存在");
+                                }
+                                else if(Integer.parseInt(code) == 2){
+                                    showMsg(LoginActivity.this, "请检查密码是否正确");
+                                }
+                                else if(Integer.parseInt(code) == 3){
+                                    showMsg(LoginActivity.this, "该用户已被禁用");
+                                }
+                                else if(Integer.parseInt(code) == 4){
+                                    showMsg(LoginActivity.this, "该用户尚未审核，请联系客服");
                                 }
                                 else{
-                                    Toast.makeText(LoginActivity.this, jo.getString("msg"), Toast.LENGTH_SHORT).show();
+                                    showMsg(LoginActivity.this, "登录失败");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -154,7 +178,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {

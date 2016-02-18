@@ -115,12 +115,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         initView();
 
-        Resources res = getBaseContext().getResources();
-        String message = res.getString(R.string.please_wait).toString();
-        progressDialog = new ProgressDialog(RegistActivity.this);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setMessage(message);
-        progressDialog.show();
         getProvince();
     }
 
@@ -190,16 +184,17 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 cityNames.clear();
                 cityNames.add(getResources().getString(R.string.select_city));
                 cityAdapter.notifyDataSetChanged();
-                ProvinceObj province = provinces.get(position);
-                provinceName = province.getProvince();
-                provinceCode = province.getProvinceID();
+                ProvinceObj province = null;
+                if(provinces != null && provinces.size() > 1 && position > 1){
+                    province = provinces.get(position-1);
+                    provinceName = province.getProvince();
+                    provinceCode = province.getProvinceID();
+                }else if(provinces != null ) {
+                    province = provinces.get(position);
+                    provinceName = province.getProvince();
+                    provinceCode = province.getProvinceID();
+                }
                 try {
-                    Resources res = getBaseContext().getResources();
-                    String message = res.getString(R.string.please_wait).toString();
-                    progressDialog = new ProgressDialog(RegistActivity.this);
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.setMessage(message);
-                    progressDialog.show();
                     getCitys();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -226,12 +221,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     cityName = city.getCity();
                     cityCode = city.getCityID();
                     try {
-                        Resources res = getBaseContext().getResources();
-                        String message = res.getString(R.string.please_wait).toString();
-                        progressDialog = new ProgressDialog(RegistActivity.this);
-                        progressDialog.setCanceledOnTouchOutside(false);
-                        progressDialog.setMessage(message);
-                        progressDialog.show();
                         getArea();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -325,7 +314,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请输入姓名");
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_type)){
+                if(StringUtil.isNullOrEmpty(mm_emp_type) || "请选择注册类型".equals(mm_emp_type)){
                     showMsg(RegistActivity.this, "请选择注册类型");
                     return;
                 }
@@ -333,7 +322,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请输公司名称");
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_company_type)){
+                if(StringUtil.isNullOrEmpty(mm_emp_company_type) || "请选择公司类型".equals(mm_emp_company_type)){
                     showMsg(RegistActivity.this, "请选择公司类型");
                     return;
                 }
@@ -353,8 +342,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请选择县区");
                     return;
                 }
-                SMSSDK.submitVerificationCode("86", phString, mm_emp_mobile.getText().toString());
-
+                reg();
+//                SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
                 break;
         }
     }
@@ -391,13 +380,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 if(Integer.parseInt(code) == 200) {
                                     showMsg(RegistActivity.this, "注册成功，请登录");
                                     finish();
-//                                    EmpData data = getGson().fromJson(s, EmpData.class);
-//                                    saveAccount(data.getData());
-//                                    Toast.makeText(RegActivity.this, "注册成功" , Toast.LENGTH_SHORT).show();
-//                                    finish();
-//                                    //huanxin
-////                                    register(data.getData());
-                                }else {
+                                }else if(Integer.parseInt(code) == 1){
+                                    showMsg(RegistActivity.this, "注册失败，请稍后重试");
+                                }else if(Integer.parseInt(code) == 2){
+                                    showMsg(RegistActivity.this, "该手机号已经注册，请直接登录");
+                                }
+                                else {
                                     Toast.makeText(RegistActivity.this, R.string.reg_error_one , Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -423,12 +411,22 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 params.put("mm_emp_password" , password.getText().toString());
                 params.put("mm_emp_company" , mm_emp_company.getText().toString());
                 params.put("mm_emp_company_address" , mm_emp_company_address.getText().toString());
-                params.put("mm_emp_type" , mm_emp_type);
-                params.put("mm_emp_company_type" , mm_emp_company_type);
+                if("苗木经营".equals(mm_emp_type)){
+                    params.put("mm_emp_type" , "0");
+                }
+                if("苗木会员".equals(mm_emp_type)){
+                    params.put("mm_emp_type" , "1");
+                }
+                if("苗木".equals(mm_emp_company_type)){
+                    params.put("mm_emp_company_type" , "0");
+                }
+                if("园林".equals(mm_emp_company_type)){
+                    params.put("mm_emp_company_type" , "1");
+                }
                 params.put("mm_emp_company_detail" , "");
                 params.put("mm_emp_provinceId" , provinceCode);
                 params.put("mm_emp_cityId" , cityCode);
-                params.put("mm_emp_ countryId" , countryCode);
+                params.put("mm_emp_countryId" , countryCode);
                 return params;
             }
 
@@ -465,7 +463,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
             } else {
 //				((Throwable) data).printStackTrace();
-//				Toast.makeText(MainActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegistActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
 //					Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
                 int status = 0;
                 try {
@@ -505,9 +503,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
+                                    provinceNames.add("请选择省份");
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     provinces = data.getData();
-                                    provinceNames.add("请选择省份");
                                     if(provinces != null){
                                         for(int i=0;i<provinces.size();i++){
                                             provinceNames.add(provinces.get(i).getProvince());
