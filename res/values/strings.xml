@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TreeHm</string>
+    <string name="app_name">花木通</string>
 
     <string name="pull_to_refresh">下拉可以刷新</string>
     <string name="release_to_refresh">松开可以刷新</string>
@@ -13,4 +13,21 @@
     <string name="pull_to_refresh_release_label" translatable="false">松开可以刷新</string>
     <string name="pull_to_refresh_refreshing_label" translatable="false">加载中&#8230;</string>
     <string name="pull_to_refresh_tap_label" translatable="false">点击刷新</string>
+
+    <string name="report_answer">"请简要描述举报原因"</string>
+    <string name="kefu_tel">"13181038186"</string>
+    <string name="get_cart_error">"获得验证码失败"</string>
+    <string name="daojishi_one">"倒计时"</string>
+    <string name="daojishi_two">"秒"</string>
+    <string name="daojishi_three">"重新获取"</string>
+    <string name="please_wait">"请稍后"</string>
+    <string name="reg_error_one">"注册失败"</string>
+    <string name="reg_error_two">"该手机号已经注册，请直接登录"</string>
+
+    <string name="select_city">请选择城市</string>
+    <string name="select_area">请选择地区</string>
+
+    <string name="get_data_error">获得数据失败</string>
+
+
 </resources>

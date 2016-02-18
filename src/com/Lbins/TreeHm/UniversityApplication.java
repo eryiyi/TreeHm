@@ -74,44 +74,8 @@ public class UniversityApplication extends Application {
         sp = getSharedPreferences("university_manage", Context.MODE_PRIVATE);
         imageLoader = new com.android.volley.toolbox.ImageLoader(requestQueue, new BitmapCache());
         initImageLoader(this);
-        //mob
-        SMSSDK.initSDK(this, "f8238165a882", "7b3833871687dfa31baa880701907b4e");
-        // 设置拍摄视频缓存路径
-//        File dcim = Environment
-//                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-//        if (DeviceUtils.isZte()) {
-//            if (dcim.exists()) {
-//                VCamera.setVideoCachePath(dcim + "/Lxpaopao/");
-//            } else {
-//                VCamera.setVideoCachePath(dcim.getPath().replace("/sdcard/",
-//                        "/sdcard-ext/")
-//                        + "/Lxpaopao/");
-//            }
-//        } else {
-//            VCamera.setVideoCachePath(dcim + "/Lxpaopao/");
-//        }
-//        // 开启log输出,ffmpeg输出到logcat
-//        VCamera.setDebugMode(true);
-//        // 初始化拍摄SDK，必须
-//        VCamera.initialize(this);
-//
-//        // 解压assert里面的文件
-//        startService(new Intent(this, AssertService.class));
-
-        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
-//        SDKInitializer.initialize(this);
-
-
-//        mLocationClient = new LocationClient(this.getApplicationContext());
-//        mMyLocationListener = new MyLocationListener();
-//        mLocationClient.registerLocationListener(mMyLocationListener);
-//        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-
-//        Config.LOGGING = true;
-//        EZOpenSDK.initLib(this, APP_KEY, "");
-//        // EZOpenSDK.getInstance().setAccessToken("at.dmtlxyp47nejsckiai1pdwzsdvxmo7jp-8ofxo9vacz-1s48ov1-p3r36v0vj");
-//        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
-
+//        //mob
+//        SMSSDK.initSDK(this, "f8238165a882", "7b3833871687dfa31baa880701907b4e");
     }
 
 

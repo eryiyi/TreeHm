@@ -4,12 +4,12 @@ package com.Lbins.TreeHm.base;
  * Created by liuzwei on 2015/1/12.
  */
 public class InternetURL {
-    public static final String INTERNAL = "http://yey.xqb668.com/";
+    public static final String INTERNAL = "http://192.168.1.100:8080/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String UPLOAD_TOKEN = INTERNAL + "token.json";
     //1登陆
-    public static final String LOGIN_URL = INTERNAL + "memberLogin.do";
+    public static final String LOGIN__URL = INTERNAL + "memberLogin.do";
     //2根据用户id获得用户信息
     public static final String GET_MEMBER_URL = INTERNAL + "getMemberInfoById.do";
     //3获得所有省份

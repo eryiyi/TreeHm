@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:padding="8dp"
-              android:background="@drawable/zhuye_item_select"
+              android:layout_marginLeft="8dp"
+              android:layout_marginRight="8dp"
+              android:background="@drawable/bg_home_item"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <com.Lbins.TreeHm.widget.CircleImageView

@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../SMSSDK/SMSSDK.iml" filepath="$PROJECT_DIR$/../SMSSDK/SMSSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../ShortMessageSDKGUI/ShortMessageSDKGUI.iml" filepath="$PROJECT_DIR$/../ShortMessageSDKGUI/ShortMessageSDKGUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/TreeHm.iml" filepath="$PROJECT_DIR$/TreeHm.iml" />
     </modules>
   </component>

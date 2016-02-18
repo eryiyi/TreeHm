@@ -52,6 +52,7 @@
     <color name="btn_blue_normal">#1e90ff</color>
     <color name="btn_blue_pressed">#0066FF</color>
     <color name="orange">#FFA500</color>
+    <color name="maincolor">#00BFFF</color>
     <color name="gray_pressed">#b5b5b6</color>
     <color name="gray_normal">#666667</color>
     <color name="grid_state_pressed">#1Affffff</color>
@@ -150,6 +151,11 @@
     <color name="result_minor_text">#ffc0c0c0</color>
     <color name="black_deep">#FF000000</color>
     <color name="green_title">#3ef94c</color>
+
+
+    <color name="mm_top_bg">#09893e</color>
+    <color name="mm_btn_bg">#47b42c</color>
+    <color name="mm_main_bg">#f6f6f6</color>
 
 
 </resources>

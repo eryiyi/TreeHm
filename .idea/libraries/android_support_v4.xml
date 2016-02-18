@@ -9,6 +9,9 @@
       <root url="jar://$PROJECT_DIR$/libs/volley.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/umeng-analytics-v5.6.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/umeng-update-v2.6.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/MobCommons.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/MobTools.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
