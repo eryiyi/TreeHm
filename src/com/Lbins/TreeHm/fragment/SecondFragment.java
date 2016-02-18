@@ -14,6 +14,7 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.module.RecordVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<String> lists = new ArrayList<String>();
+    private List<RecordVO> lists = new ArrayList<RecordVO>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -47,17 +48,6 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     void initView() {
         //
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         adapter = new ItemRecordAdapter(lists, getActivity());
 

@@ -1,17 +1,21 @@
 package com.Lbins.TreeHm;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.fragment.FirstFragment;
 import com.Lbins.TreeHm.fragment.FourFragment;
 import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.fragment.ThreeFragment;
+import com.Lbins.TreeHm.ui.LoginActivity;
+import com.Lbins.TreeHm.util.HttpUtils;
 import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -53,9 +57,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switchFragment(R.id.foot_one);
 
     }
+
+    boolean isMobileNet, isWifiNet;
+
     @Override
     public void onClick(View v) {
-        switchFragment(v.getId());
+        try {
+            isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
+            isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
+            if (!isMobileNet && !isWifiNet) {
+                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if("0".equals(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) &&  (v.getId() == R.id.foot_four)){
+            //未登录
+            Intent loginV = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginV);
+        }else {
+            switchFragment(v.getId());
+        }
+
     }
 
     private void initView() {

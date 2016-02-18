@@ -9,16 +9,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.module.RecordVO;
+import com.Lbins.TreeHm.module.ReportObj;
 import com.Lbins.TreeHm.ui.DetailRecordActivity;
+import com.Lbins.TreeHm.util.StringUtil;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/1/22.
@@ -28,10 +43,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<String> lists = new ArrayList<String>();
+    private List<RecordVO> lists = new ArrayList<RecordVO>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,23 +57,11 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         view = inflater.inflate(R.layout.one_fragment, null);
         res = getActivity().getResources();
         initView();
-
+        initData();
         return view;
     }
 
     void initView( ){
-        //
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         adapter = new ItemRecordAdapter(lists, getActivity());
 
@@ -115,8 +117,59 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         }
     }
 
+
     void initData(){
-        //
-        lstv.onRefreshComplete();
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_RECORD_LIST_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200){
+//                                    EmpData data = getGson().fromJson(s, EmpData.class);
+                                }
+                                else{
+//                                    showMsg(LoginActivity.this, "登录失败");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("index", String.valueOf(pageIndex));
+                params.put("size", "10");
+                params.put("mm_msg_type", "");
+                params.put("provinceid", "");
+                params.put("cityid", "");
+                params.put("countryid", "");
+                params.put("accessToken", "");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 }

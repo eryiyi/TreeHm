@@ -3,6 +3,7 @@ package com.Lbins.TreeHm.adapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Paint;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
+import com.Lbins.TreeHm.module.RecordVO;
+import com.Lbins.TreeHm.module.ReportObj;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -21,7 +25,7 @@ import java.util.List;
  */
 public class ItemRecordAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> lists;
+    private List<RecordVO> lists;
     private Context mContect;
     Resources res;
 
@@ -35,7 +39,7 @@ public class ItemRecordAdapter extends BaseAdapter {
     }
 
 
-    public ItemRecordAdapter(List<String> lists, Context mContect){
+    public ItemRecordAdapter(List<RecordVO> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -65,25 +69,42 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
             holder.head = (CircleImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
+            holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
+            holder.content = (TextView) convertView.findViewById(R.id.content);
+            holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
+            holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
+            holder.star = (ImageView) convertView.findViewById(R.id.star);
 
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-//        final ProducteObj cell = lists.get(position);
-//        if(cell != null){
-//            String title = cell.getProduct_name()==null?"":cell.getProduct_name();
-//            if(title.length() > 13){
-//                title = title.substring(0,12) + "...";
+        final RecordVO cell = lists.get(position);
+        if(cell != null){
+            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) + (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+            holder.nickname.setText(title);
+            holder.dateline.setText(cell.getDateline());
+            String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
+            if(msg.length() > 200){
+                msg = msg.substring(0,199);
+            }
+            holder.content.setText(msg);
+            if("1".equals(cell.getIs_chengxin())){
+                holder.img_xinyong.setVisibility(View.VISIBLE);
+            }else {
+                holder.img_xinyong.setVisibility(View.GONE);
+            }
+            if("1".equals(cell.getIs_miaomu())){
+                holder.img_xiehui.setVisibility(View.VISIBLE);
+            }else {
+                holder.img_xiehui.setVisibility(View.GONE);
+            }
+//            switch (){
+//                case 1:
+//                    break;
 //            }
-//            holder.item_title.setText(title);
-//            holder.sell_price.setText( res.getString(R.string.money) + cell.getPrice_tuangou());
-//            holder.price.setText( res.getString(R.string.money) + cell.getPrice());
-//            holder.price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
-////            holder.item_pic.setImageResource(cell.getImg());
-//            imageLoader.displayImage( cell.getProduct_pic(), holder.item_pic, UniversityApplication.options, animateFirstListener);
-//        }
-
+            imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
+        }
 
         //
         holder.btn_share.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +141,12 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView btn_tel;
         CircleImageView head;
         TextView nickname;
+        TextView dateline;
+        TextView content;
+        ImageView img_xinyong;
+        ImageView img_xiehui;
+        ImageView star;
+
 
     }
 }
