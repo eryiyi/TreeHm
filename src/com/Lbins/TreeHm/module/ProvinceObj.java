@@ -1,9 +1,11 @@
 package com.Lbins.TreeHm.module;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/2/16.
  */
-public class ProvinceObj {
+public class ProvinceObj implements Serializable{
     private String id;
     private String provinceID;
     private String province;

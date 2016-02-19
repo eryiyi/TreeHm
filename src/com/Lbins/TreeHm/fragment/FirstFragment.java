@@ -25,10 +25,7 @@ import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.Record;
 import com.Lbins.TreeHm.module.RecordVO;
 import com.Lbins.TreeHm.module.ReportObj;
-import com.Lbins.TreeHm.ui.AddRecordActivity;
-import com.Lbins.TreeHm.ui.Constants;
-import com.Lbins.TreeHm.ui.DetailRecordActivity;
-import com.Lbins.TreeHm.ui.LoginActivity;
+import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
@@ -311,6 +308,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 break;
             case R.id.mLocation:
                 //
+                Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
+                startActivity(selectV);
                 break;
         }
     }

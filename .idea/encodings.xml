@@ -97,7 +97,10 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/UniversityApplication.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/AlbumGridViewAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/AnimateFirstDisplayListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemCityAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemCountryAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemDetailPhotoAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemRecordAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/OnClickContentItemListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/Publish_mood_GridView_Adapter.java" charset="UTF-8" />
