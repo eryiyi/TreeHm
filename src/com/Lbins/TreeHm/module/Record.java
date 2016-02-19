@@ -20,7 +20,15 @@ public class Record implements Serializable{
     private String countryid;
     private String accessToken;
 
+    private String is_read;
 
+    public String getIs_read() {
+        return is_read;
+    }
+
+    public void setIs_read(String is_read) {
+        this.is_read = is_read;
+    }
 
     public String getMm_msg_id() {
         return mm_msg_id;

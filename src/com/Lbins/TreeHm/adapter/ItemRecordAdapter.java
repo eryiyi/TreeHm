@@ -14,6 +14,7 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.RecordVO;
 import com.Lbins.TreeHm.module.ReportObj;
+import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -77,6 +78,7 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             holder.star = (ImageView) convertView.findViewById(R.id.star);
+            holder.is_read = (ImageView) convertView.findViewById(R.id.is_read);
 
             convertView.setTag(holder);
         }else{
@@ -84,12 +86,12 @@ public class ItemRecordAdapter extends BaseAdapter {
         }
         final RecordVO cell = lists.get(position);
         if(cell != null){
-            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) + (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);
             holder.dateline.setText(cell.getDateline());
             String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
-            if(msg.length() > 200){
-                msg = msg.substring(0,199);
+            if(msg.length() > 80){
+                msg = msg.substring(0,79)+"...";
             }
             holder.content.setText(msg);
             if("1".equals(cell.getIs_chengxin())){
@@ -102,11 +104,35 @@ public class ItemRecordAdapter extends BaseAdapter {
             }else {
                 holder.img_xiehui.setVisibility(View.GONE);
             }
-//            switch (){
-//                case 1:
-//                    break;
-//            }
+            switch (Integer.parseInt((cell.getMm_level_num()==null?"0":cell.getMm_level_num()))){
+                case 0:
+                    holder.star.setImageResource(R.drawable.tree_icons_star_1);
+                    break;
+                case 1:
+                    holder.star.setImageResource(R.drawable.tree_icons_star_2);
+                    break;
+                case 2:
+                    holder.star.setImageResource(R.drawable.tree_icons_star_3);
+                    break;
+                case 3:
+                    holder.star.setImageResource(R.drawable.tree_icons_star_4);
+                    break;
+                case 4:
+                    holder.star.setImageResource(R.drawable.tree_icons_star_5);
+                    break;
+            }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
+            if(StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())){
+                holder.btn_pic.setVisibility(View.GONE);
+            }else {
+                holder.btn_pic.setVisibility(View.VISIBLE);
+            }
+            if("1".equals(cell.getIs_read())){
+                //已读
+                holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
+            }else {
+                holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
+            }
         }
 
         //
@@ -116,7 +142,7 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 1, null);
             }
         });
-        holder.btn_tel.setOnClickListener(new View.OnClickListener() {
+        holder.head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickContentItemListener.onClickContentItem(position, 2, null);
@@ -134,6 +160,18 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 4, null);
             }
         });
+        holder.btn_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 5, null);
+            }
+        });
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 6, null);
+            }
+        });
 
 
         return convertView;
@@ -149,7 +187,6 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView img_xinyong;
         ImageView img_xiehui;
         ImageView star;
-
-
+        ImageView is_read;
     }
 }

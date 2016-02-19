@@ -21,10 +21,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.RecordSingData;
-import com.Lbins.TreeHm.util.CommonDefine;
-import com.Lbins.TreeHm.util.FileUtils;
-import com.Lbins.TreeHm.util.ImageUtils;
-import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.util.*;
 import com.Lbins.TreeHm.widget.CustomerSpinner;
 import com.Lbins.TreeHm.widget.NoScrollGridView;
 import com.Lbins.TreeHm.widget.SelectPhoPop;
@@ -115,14 +112,34 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         this.findViewById(R.id.btn).setOnClickListener(this);
     }
 
+    boolean isMobileNet, isWifiNet;
     @Override
     public void onClick(View view) {
+        try {
+            isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
+            isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
+            if (!isMobileNet && !isWifiNet) {
+                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         switch (view.getId()){
             case R.id.back:
                 finish();
                 break;
             case R.id.btn:
-                //
+                //先判断权限
+                if("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                   //已登录
+
+                }else {
+                    //未登录
+                    Intent loginV = new Intent(AddRecordActivity.this, LoginActivity.class);
+                    startActivity(loginV);
+                    return;
+                }
                 if(StringUtil.isNullOrEmpty(mm_msg_type) || "请选择信息类型".equals(mm_msg_type)){
                     showMsg(AddRecordActivity.this, "请选择发布信息类型");
                     return;
@@ -131,6 +148,32 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     showMsg(AddRecordActivity.this, "请输入内容");
                     return;
                 }
+                if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && "苗木供应".equals(mm_msg_type)){
+                    //没有发布苗木供应的权限
+                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木供应信息，请在'服务中心'升级权限");
+                    return;
+                }
+                if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && "苗木求购".equals(mm_msg_type)){
+                    //没有发布苗木供应的权限
+                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木求购信息，请在'服务中心'升级权限");
+                    return;
+                }
+                if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
+                    //不允许发布图片
+                    showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级权限");
+                }
+                if("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>4){
+                    //允许发布图片 3
+                    showMsg(AddRecordActivity.this, "您可以发布3张图片，请在'服务中心'升级权限");
+                }
+                if("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>7){
+                    //允许发布图片 6
+                    showMsg(AddRecordActivity.this, "您可以发布6张图片，请在'服务中心'升级权限");
+                }
+                if("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>10){
+                    //允许发布图片 9
+                    showMsg(AddRecordActivity.this, "您可以发布9张图片，请在'服务中心'升级权限");
+                }
                 addRecord();
                 break;
         }
@@ -138,9 +181,14 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 
     // 选择相册，相机
     private void showSelectImageDialog() {
-        selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
-        //显示窗口
-        selectPhoPop.showAtLocation(AddRecordActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
+            //不允许发布图片
+            showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级权限");
+        }else {
+            selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
+            //显示窗口
+            selectPhoPop.showAtLocation(AddRecordActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        }
     }
 
     private void openCamera() {

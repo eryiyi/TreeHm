@@ -110,6 +110,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         View picAddInflate = View.inflate(this, R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(getResources().getString(R.string.kefu_tel));
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 

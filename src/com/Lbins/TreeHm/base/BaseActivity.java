@@ -57,7 +57,7 @@ public class BaseActivity extends FragmentActivity{
      */
     public static void showMsg(Context mContext,String msg) {
         Toast toast=new Toast(mContext);
-        toast= Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
+        toast= Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0);//设置居中
         toast.show();//显示,(缺了这句不显示)
     }

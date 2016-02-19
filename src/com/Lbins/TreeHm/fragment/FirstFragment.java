@@ -1,18 +1,18 @@
 package com.Lbins.TreeHm.fragment;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
@@ -52,9 +52,10 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<RecordVO> lists ;
+    private List<RecordVO> lists = new ArrayList<RecordVO>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
+    private ImageView no_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,10 +73,13 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     }
 
     void initView( ){
-        lists = new ArrayList<RecordVO>();
+        view.findViewById(R.id.mLocation).setOnClickListener(this);
+        view.findViewById(R.id.add).setOnClickListener(this);
+        no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         adapter = new ItemRecordAdapter(lists, getActivity());
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
+        lstv.setAdapter(adapter);
         lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -113,34 +117,95 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }
             }
         });
-        lstv.setAdapter(adapter);
+
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-                startActivity(intent);
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
             }
         });
         adapter.setOnClickContentItemListener(this);
-        view.findViewById(R.id.mLocation).setOnClickListener(this);
-        view.findViewById(R.id.add).setOnClickListener(this);
+
     }
 
+    RecordVO recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag){
             case 1:
                 //分享
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
                 break;
             case 2:
-                //电话
+            {
+               //头像
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
+            }
                 break;
             case 3:
-                //头像
+                //电话
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(position-1);
+                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                    showTel(recordVO.getMm_emp_mobile());
+                }else{
+                    //
+                    Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                }
             case 4:
                 //昵称
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
+
+                break;
+            case 5:
+            case 6:
+                //图片
+                Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
+                recordVO = lists.get(position);
+                intent.putExtra("info", recordVO);
+                startActivity(intent);
+
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    // 拨打电话窗口
+    private void showTel(String tel) {
+        final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
+        View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(tel);
+        //提交
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String contreport = jubao_cont.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                startActivity(intent);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     void initData(){
@@ -162,10 +227,16 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                     lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-//                                    adapter.refresh(lists);
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.get_data_error , Toast.LENGTH_SHORT).show();
+                                }
+                                if(lists.size() == 0){
+                                    no_data.setVisibility(View.VISIBLE);
+                                    lstv.setVisibility(View.GONE);
+                                }else {
+                                    no_data.setVisibility(View.GONE);
+                                    lstv.setVisibility(View.VISIBLE);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
