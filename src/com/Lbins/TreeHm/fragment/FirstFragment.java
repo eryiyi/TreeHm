@@ -118,7 +118,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lists.get(position-1).setIs_read("1");
+                lists.get((position==0?1:position)-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
             }
         });
@@ -324,6 +324,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 RecordVO record1 = (RecordVO) intent.getExtras().get("addRecord");
                 lists.add(0, record1);
                 adapter.notifyDataSetChanged();
+                lstv.setVisibility(View.VISIBLE);
+                no_data.setVisibility(View.GONE);
             }
         }
     };

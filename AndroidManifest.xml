@@ -73,6 +73,7 @@
         <activity android:name=".ui.SelectCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
 
 
         <!--友盟-->

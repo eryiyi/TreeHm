@@ -173,6 +173,7 @@
                 </View>
                 <RelativeLayout android:layout_width="0dp"
                                 android:padding="5dp"
+                                android:id="@+id/relate_set"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"

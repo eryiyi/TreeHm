@@ -19,6 +19,7 @@ import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
+import com.Lbins.TreeHm.ui.SettingActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -91,7 +92,6 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.img_one).setOnClickListener(this);
         view.findViewById(R.id.img_two).setOnClickListener(this);
         view.findViewById(R.id.img_three).setOnClickListener(this);
-        view.findViewById(R.id.img_four).setOnClickListener(this);
         view.findViewById(R.id.img_five).setOnClickListener(this);
         view.findViewById(R.id.img_six).setOnClickListener(this);
         view.findViewById(R.id.img_seven).setOnClickListener(this);
@@ -100,6 +100,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.img_ten).setOnClickListener(this);
         view.findViewById(R.id.img_evelen).setOnClickListener(this);
         view.findViewById(R.id.img_twelven).setOnClickListener(this);
+        view.findViewById(R.id.relate_set).setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -242,6 +243,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.relate_set:
+                Intent setV = new Intent(getActivity(), SettingActivity.class);
+                startActivity(setV);
+                break;
+        }
     }
 }

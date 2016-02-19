@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.R;
@@ -51,6 +52,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
+    private ImageView no_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     void initView() {
         //
+        no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         adapter = new ItemRecordAdapter(lists, getActivity());
 
@@ -114,7 +117,8 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                lists.get((position==0?1:position)-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
             }
         });
         adapter.setOnClickContentItemListener(this);
@@ -168,6 +172,13 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                             }
                         }
 
+                        if(lists.size() > 0){
+                            no_data.setVisibility(View.GONE);
+                            lstv.setVisibility(View.VISIBLE);
+                        }else{
+                            no_data.setVisibility(View.VISIBLE);
+                            lstv.setVisibility(View.GONE);
+                        }
                     }
                 },
                 new Response.ErrorListener() {

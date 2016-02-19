@@ -342,8 +342,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请选择县区");
                     return;
                 }
-                reg();
-//                SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
+//                reg();
+                SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
                 break;
         }
     }
