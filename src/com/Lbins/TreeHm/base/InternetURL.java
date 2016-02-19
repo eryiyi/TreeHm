@@ -28,5 +28,7 @@ public class InternetURL {
     public static final String GET_RECORD_BY_ID_URL = INTERNAL + "getRecordById.do";
     //10.分享求购供应信息
     public static final String VIEW_RECORD_BYID_URL = INTERNAL + "viewRecord.do";
+    //11根据用户id获得用户发布的信息
+    public static final String GET_RECORDS_BYID_URL = INTERNAL + "recordListById.do";
 
 }

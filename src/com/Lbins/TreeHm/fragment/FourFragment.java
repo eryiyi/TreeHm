@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
@@ -41,6 +43,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     private Runnable runnable;
     private int autoChangeTime = 5000;
     private List<String> lists = new ArrayList<String>();
+
+    private ImageView head;
+    private TextView nickname;
+    private TextView type;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +65,29 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         lists.add("");
         lists.add("");
         initViewPager();
+
+        initData();
         return view;
+    }
+
+    private void initData() {
+        imageLoader.displayImage(getGson().fromJson(getSp().getString("mm_emp_cover", ""), String.class), head, UniversityApplication.txOptions, animateFirstListener);
+        nickname.setText(getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class));
+        if("0".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
+            type.setText("苗木经营");
+        }
+        if("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
+            type.setText("苗木会员");
+        }
+
     }
 
     void initView( ){
         //
+        head = (ImageView) view.findViewById(R.id.head);
+        nickname = (TextView) view.findViewById(R.id.nickname);
+        type = (TextView) view.findViewById(R.id.type);
+
         view.findViewById(R.id.img_one).setOnClickListener(this);
         view.findViewById(R.id.img_two).setOnClickListener(this);
         view.findViewById(R.id.img_three).setOnClickListener(this);

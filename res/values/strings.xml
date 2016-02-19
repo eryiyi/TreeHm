@@ -30,4 +30,6 @@
     <string name="get_data_error">获得数据失败</string>
     <string name="album_all">All Photos</string>
     <string name="add_record_error_one">"发布信息失败"</string>
+    <string name="no_data">暂无数据</string>
+
 </resources>

@@ -83,6 +83,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/gallery_url.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/jubao_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/listview_footer.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_horizontal.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/pull_to_refresh_header_vertical.xml" charset="UTF-8" />
@@ -161,7 +162,9 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/ImageUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/PicUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/StringUtil.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/util/TimeUtils.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/CircleImageView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/ContentListView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/CustomerSpinner.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/NoScrollGridView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/widget/PictureGridview.java" charset="UTF-8" />

@@ -132,43 +132,43 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         switch (flag){
             case 1:
                 //分享
-                lists.get(position-1).setIs_read("1");
+                lists.get((position==0?1:position)-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
             case 2:
+            case 4:
             {
                //头像
-                lists.get(position-1).setIs_read("1");
+                recordVO = lists.get((position==0?1:position)-1);
+                lists.get((position==0?1:position)-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
+                Intent mineV = new Intent(getActivity(), ProfileActivity.class);
+                mineV.putExtra("id", recordVO.getMm_emp_id());
+                startActivity(mineV);
             }
                 break;
             case 3:
                 //电话
-                lists.get(position-1).setIs_read("1");
+                lists.get((position==0?1:position)-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
 
-                recordVO = lists.get(position-1);
+                recordVO = lists.get((position==0?1:position)-1);
                 if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
                     //
                     Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
                 }
-            case 4:
-                //昵称
-                lists.get(position-1).setIs_read("1");
-                adapter.notifyDataSetChanged();
 
-                break;
             case 5:
             case 6:
                 //图片
                 Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-                recordVO = lists.get(position);
+                recordVO = lists.get((position==0?1:position));
                 intent.putExtra("info", recordVO);
                 startActivity(intent);
 
-                lists.get(position-1).setIs_read("1");
+                lists.get((position==0?1:position)-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
         }
