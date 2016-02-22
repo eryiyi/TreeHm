@@ -37,5 +37,7 @@ public class InternetURL {
     public static final String GET_FUWU_MSG_BY_LOCATION_URL = INTERNAL + "getFuwuByLocationAndType.do";
     //获得关于我们
     public static final String GET_ABOUT_US_URL = INTERNAL + "getAboutUs.do";
+    //添加意见
+    public static final String ADD_SUGGEST_URL = INTERNAL + "suggest/addSuggest.do";
 
 }

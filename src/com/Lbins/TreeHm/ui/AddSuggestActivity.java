@@ -2,7 +2,7 @@ package com.Lbins.TreeHm.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
@@ -23,27 +23,39 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/22.
  */
-public class AboutUsActivity extends BaseActivity implements View.OnClickListener {
-    private TextView tel;
-    private TextView address;
-    private TextView content;
+public class AddSuggestActivity extends BaseActivity implements View.OnClickListener {
+    private EditText face_content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_us_activity);
-
+        setContentView(R.layout.add_suggest_activity);
+        face_content = (EditText) this.findViewById(R.id.face_content);
         this.findViewById(R.id.back).setOnClickListener(this);
-        tel = (TextView) this.findViewById(R.id.tel);
-        address = (TextView) this.findViewById(R.id.address);
-        content = (TextView) this.findViewById(R.id.content);
-        initData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.back:
+                finish();
+                break;
+        }
+    }
+
+    public void sureSub(View view){
+        //
+        if(StringUtil.isNullOrEmpty(face_content.getText().toString())){
+         showMsg(AddSuggestActivity.this, "请输入内容！");
+            return;
+        }
+        add();
 
     }
 
-    public void initData(){
+    void add(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_ABOUT_US_URL,
+                InternetURL.ADD_SUGGEST_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -52,20 +64,16 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                    AboutUsData data = getGson().fromJson(s, AboutUsData.class);
-                                    if(data.getData() != null && data.getData().size()>0){
-                                        AboutUs aboutUs = data.getData().get(0);
-                                        tel.setText(aboutUs.getMm_about_tel());
-                                        address.setText(aboutUs.getMm_abou_address());
-                                        content.setText(aboutUs.getMm_about_cont());
-                                    }
-
+                                        showMsg(AddSuggestActivity.this, "感谢您的参与！");
+                                        finish();
+                                }else {
+                                    showMsg(AddSuggestActivity.this, "提交失败");
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                         }else {
-                            Toast.makeText(AboutUsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                            showMsg(AddSuggestActivity.this, "提交失败");
                         }
                         if (progressDialog != null) {
                             progressDialog.dismiss();
@@ -78,13 +86,15 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(AboutUsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        showMsg(AddSuggestActivity.this, "提交失败");
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_suggest_cont", face_content.getText().toString());
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
                 return params;
             }
 
@@ -96,15 +106,5 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             }
         };
         getRequestQueue().add(request);
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.back:
-                finish();
-                break;
-        }
     }
 }

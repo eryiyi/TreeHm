@@ -20,6 +20,7 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.ui.AboutUsActivity;
+import com.Lbins.TreeHm.ui.AddSuggestActivity;
 import com.Lbins.TreeHm.ui.FourShopActivity;
 import com.Lbins.TreeHm.ui.SettingActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -323,6 +324,10 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 break;
             case R.id.relate_suggest:
                 //意见反馈
+            {
+                Intent suggestV = new Intent(getActivity(), AddSuggestActivity.class);
+                startActivity(suggestV);
+            }
                 break;
         }
     }

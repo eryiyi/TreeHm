@@ -107,18 +107,22 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     saveAccount(data.getData());
                                 }else if(Integer.parseInt(code) == 1){
                                     showMsg(WelcomeActivity.this, "请检查手机号是否存在");
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 2){
                                     showMsg(WelcomeActivity.this, "请检查密码是否正确");
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 3){
                                     showMsg(WelcomeActivity.this, "该用户已被禁用");
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 4){
                                     showMsg(WelcomeActivity.this, "该用户尚未审核，请联系客服");
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else{
-                                    showMsg(WelcomeActivity.this, "登录失败");
+                                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -135,7 +139,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(WelcomeActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                     }
                 }
         ) {

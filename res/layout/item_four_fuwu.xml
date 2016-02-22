@@ -26,7 +26,7 @@
               android:id="@+id/address"
               android:textColor="@color/text_color"
               android:layout_height="wrap_content"/>
-    <TextView android:layout_width="180dp"
+    <TextView android:layout_width="160dp"
               android:layout_below="@+id/address"
               android:textSize="18sp"
               android:layout_marginLeft="6dp"
@@ -36,7 +36,7 @@
               android:textStyle="bold"
               android:background="@drawable/button_selector_detail_tel"
               android:textColor="@color/white"
-              android:layout_height="50dp"/>
+              android:layout_height="40dp"/>
     <!--<TextView android:layout_width="wrap_content"-->
               <!--android:text="主营：沙龙封口胶奥拉夫"-->
               <!--android:textSize="16sp"-->

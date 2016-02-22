@@ -141,7 +141,7 @@
                       android:textStyle="bold"
                       android:background="@drawable/button_selector_detail_tel"
                       android:layout_below="@+id/sharebtn"
-                      android:layout_height="60dp"/>
+                      android:layout_height="55dp"/>
         </RelativeLayout>
     </com.Lbins.TreeHm.widget.ReboundScrollView>
 </LinearLayout>
