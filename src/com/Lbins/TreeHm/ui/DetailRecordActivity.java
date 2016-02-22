@@ -162,8 +162,10 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
-                startActivity(intent);
+                if(!StringUtil.isNullOrEmpty(contreport)){
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                    startActivity(intent);
+                }
                 picAddDialog.dismiss();
             }
         });

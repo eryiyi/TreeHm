@@ -19,6 +19,8 @@ import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
+import com.Lbins.TreeHm.ui.AboutUsActivity;
+import com.Lbins.TreeHm.ui.FourShopActivity;
 import com.Lbins.TreeHm.ui.SettingActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -89,18 +91,29 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         nickname = (TextView) view.findViewById(R.id.nickname);
         type = (TextView) view.findViewById(R.id.type);
 
-        view.findViewById(R.id.img_one).setOnClickListener(this);
-        view.findViewById(R.id.img_two).setOnClickListener(this);
-        view.findViewById(R.id.img_three).setOnClickListener(this);
-        view.findViewById(R.id.img_five).setOnClickListener(this);
-        view.findViewById(R.id.img_six).setOnClickListener(this);
-        view.findViewById(R.id.img_seven).setOnClickListener(this);
-        view.findViewById(R.id.img_eight).setOnClickListener(this);
-        view.findViewById(R.id.img_nine).setOnClickListener(this);
-        view.findViewById(R.id.img_ten).setOnClickListener(this);
-        view.findViewById(R.id.img_evelen).setOnClickListener(this);
-        view.findViewById(R.id.img_twelven).setOnClickListener(this);
+//        view.findViewById(R.id.img_one).setOnClickListener(this);
+//        view.findViewById(R.id.img_two).setOnClickListener(this);
+//        view.findViewById(R.id.img_three).setOnClickListener(this);
+//        view.findViewById(R.id.img_five).setOnClickListener(this);
+//        view.findViewById(R.id.img_six).setOnClickListener(this);
+//        view.findViewById(R.id.img_seven).setOnClickListener(this);
+//        view.findViewById(R.id.img_eight).setOnClickListener(this);
+//        view.findViewById(R.id.img_nine).setOnClickListener(this);
+//        view.findViewById(R.id.img_ten).setOnClickListener(this);
+//        view.findViewById(R.id.img_evelen).setOnClickListener(this);
+//        view.findViewById(R.id.img_twelven).setOnClickListener(this);
         view.findViewById(R.id.relate_set).setOnClickListener(this);
+        view.findViewById(R.id.relate_shop).setOnClickListener(this);
+        view.findViewById(R.id.relate_bank).setOnClickListener(this);
+        view.findViewById(R.id.relate_work).setOnClickListener(this);
+        view.findViewById(R.id.relate_wuliu).setOnClickListener(this);
+        view.findViewById(R.id.relate_jiajie).setOnClickListener(this);
+        view.findViewById(R.id.relate_msg).setOnClickListener(this);
+        view.findViewById(R.id.realte_diaoche).setOnClickListener(this);
+        view.findViewById(R.id.relate_about).setOnClickListener(this);
+        view.findViewById(R.id.realte_ziliao).setOnClickListener(this);
+        view.findViewById(R.id.relate_updatepwr).setOnClickListener(this);
+        view.findViewById(R.id.relate_suggest).setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -247,6 +260,69 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_set:
                 Intent setV = new Intent(getActivity(), SettingActivity.class);
                 startActivity(setV);
+                break;
+            case R.id.relate_shop:
+                //商店
+            {
+                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                shopV.putExtra("mm_fuwu_type", "0" );
+                startActivity(shopV);
+            }
+                break;
+            case R.id.relate_bank:
+                //银行
+
+                break;
+            case R.id.relate_work:
+                //装车工人
+            {
+                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                shopV.putExtra("mm_fuwu_type", "1" );
+                startActivity(shopV);
+            }
+                break;
+            case R.id.relate_wuliu:
+                //物流中心
+            {
+                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                shopV.putExtra("mm_fuwu_type", "2" );
+                startActivity(shopV);
+            }
+                break;
+            case R.id.relate_jiajie:
+                //嫁接
+            {
+                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                shopV.putExtra("mm_fuwu_type", "3" );
+                startActivity(shopV);
+            }
+                break;
+            case R.id.relate_msg:
+                //短信
+                break;
+            case R.id.realte_diaoche:
+                //调车
+            {
+                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                shopV.putExtra("mm_fuwu_type", "4" );
+                startActivity(shopV);
+            }
+                break;
+            case R.id.relate_about:
+                //关于我们
+            {
+                Intent aboutV = new Intent(getActivity(), AboutUsActivity.class);
+                startActivity(aboutV);
+            }
+                break;
+            case R.id.realte_ziliao:
+                //用户资料
+                break;
+            case R.id.relate_updatepwr:
+                //跟新资料
+                break;
+            case R.id.relate_suggest:
+                //意见反馈
                 break;
         }
     }

@@ -105,6 +105,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/realte_ziliao"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_one"
@@ -128,6 +129,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/relate_updatepwr"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_two"
@@ -150,6 +152,7 @@
                 </View>
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:id="@+id/relate_suggest"
                                 android:padding="5dp"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
@@ -211,6 +214,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/relate_bank"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_five"
@@ -234,6 +238,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/relate_shop"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_six"
@@ -257,6 +262,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/relate_work"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_seven"
@@ -279,6 +285,7 @@
                 </View>
                 <RelativeLayout android:layout_width="0dp"
                                 android:padding="5dp"
+                                android:id="@+id/relate_wuliu"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
@@ -310,6 +317,7 @@
                           android:layout_height="wrap_content">
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
+                                android:id="@+id/relate_jiajie"
                                 android:padding="5dp"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
@@ -334,6 +342,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/relate_msg"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_ten"
@@ -357,6 +366,7 @@
                 <RelativeLayout android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:padding="5dp"
+                                android:id="@+id/realte_diaoche"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"
                                android:id="@+id/img_evelen"
@@ -379,6 +389,7 @@
                 </View>
                 <RelativeLayout android:layout_width="0dp"
                                 android:padding="5dp"
+                                android:id="@+id/relate_about"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content">
                     <ImageView android:layout_width="wrap_content"

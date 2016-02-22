@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/libs/AMap_3DMap_V3.2.0.1_20160122.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/arm64-v8a" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/armeabi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
@@ -26,6 +29,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo_back.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/indicator_arrow.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/line_bg.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/no_data.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/pic_none.png" charset="UTF-8" />
@@ -64,6 +68,8 @@
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/jubao_shape.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/line_bg.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/line_bg.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/spinner1.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/spinner2.png" charset="UTF-8" />
@@ -90,6 +96,7 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemCityAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemCountryAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemDetailPhotoAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemFourFuwuAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemRecordAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/OnClickContentItemListener.java" charset="UTF-8" />
@@ -127,9 +134,11 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/library/internal/ViewCompat.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/media/MediaStoreBucket.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/media/MediaStoreCursorHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/AboutUs.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/CountryObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/Emp.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/FeiyongObj.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/FuwuObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/Level.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/OrderObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/ProvinceObj.java" charset="UTF-8" />

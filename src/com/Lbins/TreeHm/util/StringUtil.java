@@ -3,6 +3,8 @@ package com.Lbins.TreeHm.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
@@ -183,7 +186,41 @@ public class StringUtil {
     }
 
 
+    public static  final String distanceCon(String latStr1, String lngStr1, String latStr2,String lngStr2){
+
+        LatLng lat1=new LatLng(Double.valueOf(latStr1),Double.valueOf(lngStr1));
+        LatLng lat2=new LatLng(Double.valueOf(latStr2),Double.valueOf(lngStr2));
+        float dis = AMapUtils.calculateLineDistance(lat1, lat2);
+        dis = dis/1000;
+        return String.valueOf(dis);
+    }
 
 
+    /**
+     * 计算两点之间距离
+     * @param start
+     * @param end
+     * @return 米
+     */
+    public static  String getDistance(LatLng start,LatLng end){
+        double lat1 = (Math.PI/180)*start.latitude;
+        double lat2 = (Math.PI/180)*end.latitude;
+
+        double lon1 = (Math.PI/180)*start.longitude;
+        double lon2 = (Math.PI/180)*end.longitude;
+
+//      double Lat1r = (Math.PI/180)*(gp1.getLatitudeE6()/1E6);
+//      double Lat2r = (Math.PI/180)*(gp2.getLatitudeE6()/1E6);
+//      double Lon1r = (Math.PI/180)*(gp1.getLongitudeE6()/1E6);
+//      double Lon2r = (Math.PI/180)*(gp2.getLongitudeE6()/1E6);
+
+        //地球半径
+        double R = 6371;
+
+        //两点间距离 km，如果想要米的话，结果*1000就可以了
+        double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(d);
+    }
 
 }

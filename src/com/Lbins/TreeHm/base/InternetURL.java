@@ -33,5 +33,9 @@ public class InternetURL {
     public static final String GET_RECORDS_BYID_URL = INTERNAL + "recordListById.do";
     //上传经纬度
     public static final String SEND_LOCATION_BYID_URL = INTERNAL + "sendLocation.do";
+    //获得服务信息
+    public static final String GET_FUWU_MSG_BY_LOCATION_URL = INTERNAL + "getFuwuByLocationAndType.do";
+    //获得关于我们
+    public static final String GET_ABOUT_US_URL = INTERNAL + "getAboutUs.do";
 
 }
