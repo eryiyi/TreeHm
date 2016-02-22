@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
     private ImageView no_data;
+    private EditText keyword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,8 +126,41 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             }
         });
         adapter.setOnClickContentItemListener(this);
-
+        keyword = (EditText) view.findViewById(R.id.keyword);
+        keyword.addTextChangedListener(watcher);
     }
+
+    private TextWatcher watcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
+            IS_REFRESH = true;
+            pageIndex = 1;
+            if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                initData();
+            }else {
+                lstv.onRefreshComplete();
+                //未登录
+                Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginV);
+            }
+        }
+    };
+
 
     RecordVO recordVO;
     @Override
@@ -159,7 +195,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                     //
                     Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
                 }
-
+                break;
             case 5:
             case 6:
                 //图片
@@ -275,6 +311,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
                 }else {
                     params.put("accessToken", "");
+                }
+                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
+                    params.put("keyword", keyword.getText().toString());
                 }
                 return params;
             }

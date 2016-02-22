@@ -12,6 +12,7 @@
       <root url="jar://$PROJECT_DIR$/libs/MobCommons.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/MobTools.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

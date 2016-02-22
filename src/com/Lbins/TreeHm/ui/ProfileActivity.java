@@ -107,6 +107,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         back = (TextView) this.findViewById(R.id.back);
         back.setOnClickListener(this);
         adapter = new ItemRecordAdapter(lists, ProfileActivity.this);
+        adapter.setOnClickContentItemListener(this);
         lstv.setAdapter(adapter);
         lstv.addHeaderView(headLiner);
         lstv.setOnRefreshListener(this);

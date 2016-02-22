@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
-    <file url="file://$PROJECT_DIR$/libs/MobCommons-2016.0131.1739.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/MobTools-2016.0131.1739.jar" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/SMSSDK-2.0.1.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
@@ -28,14 +26,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo_back.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/indicator_arrow.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_0.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_1.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_2.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_3.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_4.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_5.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_6.png" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/loading_7.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/no_data.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/pic_none.png" charset="UTF-8" />
@@ -79,7 +69,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable/spinner2.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/spinner_item_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/zhuye_item_select.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable_xxhdpi/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/gallery_url.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/item_main_viewpage_xml.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/jubao_dialog.xml" charset="UTF-8" />
