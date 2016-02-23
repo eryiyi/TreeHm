@@ -19,9 +19,11 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.EmpAdObjData;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.module.Emp;
+import com.Lbins.TreeHm.module.EmpAdObj;
 import com.Lbins.TreeHm.module.RecordVO;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.ContentListView;
@@ -71,7 +73,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private ImageView dot, dots[];
     private Runnable runnable;
     private int autoChangeTime = 5000;
-    private List<String> listsAd = new ArrayList<String>();
+    private List<EmpAdObj> listsAd = new ArrayList<EmpAdObj>();
 
 
     /**
@@ -112,15 +114,18 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         lstv.addHeaderView(headLiner);
         lstv.setOnRefreshListener(this);
         lstv.setOnLoadListener(this);
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lists.get(i-2).setIs_read("1");
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         getProfile();
         loadData(ContentListView.REFRESH);
 
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        listsAd.add("");
-        initViewPager();
+        getAd();
 
     }
 
@@ -275,24 +280,24 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         switch (flag){
             case 1:
                 //分享
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
             case 2:
             case 4:
             {
 //                头像
-                recordVO = lists.get((position==0?1:position)-1);
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                recordVO = lists.get(position);
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
             }
             break;
             case 3:
                 //电话
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
 
-                recordVO = lists.get((position==0?1:position)-1);
+                recordVO = lists.get(position);
                 if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
@@ -304,11 +309,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             case 6:
                 //图片
                 Intent intent = new Intent(ProfileActivity.this, DetailRecordActivity.class);
-                recordVO = lists.get((position==0?1:position));
+                recordVO = lists.get(position);
                 intent.putExtra("info", recordVO);
                 startActivity(intent);
 
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
         }
@@ -467,5 +472,60 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
 
     };
+
+
+
+    private void getAd() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    EmpAdObjData data = getGson().fromJson(s, EmpAdObjData.class);
+                                    listsAd.clear();
+                                    if(data != null && data.getData().size() > 0){
+                                        listsAd.addAll(data.getData());
+                                    }
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id", id);
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 
 }

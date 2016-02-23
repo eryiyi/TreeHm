@@ -41,5 +41,9 @@ public class InternetURL {
     public static final String ADD_SUGGEST_URL = INTERNAL + "suggest/addSuggest.do";
     //修改密码
     public static final String UPDATE_PWR_URL = INTERNAL + "updatePwr.do";
+    //获得用户广告图
+    public static final String GET_AD_URL = INTERNAL + "getEmpAd.do";
+    //获得附近商家
+    public static final String GET_NEARBY_URL = INTERNAL + "getNearby.do";
 
 }

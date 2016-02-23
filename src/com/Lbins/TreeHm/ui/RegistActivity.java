@@ -49,6 +49,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     private EditText password;
     private EditText surepass;
     private EditText mm_emp_nickname;
+    private EditText mm_emp_card;
     private EditText mm_emp_company_address;
     private Button btn_code;
     private Button btn;
@@ -125,6 +126,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         surepass = (EditText) this.findViewById(R.id.surepass);
         mm_emp_company = (EditText) this.findViewById(R.id.mm_emp_company);
         mm_emp_nickname = (EditText) this.findViewById(R.id.mm_emp_nickname);
+        mm_emp_card = (EditText) this.findViewById(R.id.mm_emp_card);
         mm_emp_company_address = (EditText) this.findViewById(R.id.mm_emp_company_address);
         btn_code = (Button) this.findViewById(R.id.btn_code);
         btn = (Button) this.findViewById(R.id.btn);
@@ -313,6 +315,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 if(StringUtil.isNullOrEmpty(mm_emp_nickname.getText().toString())){
                     showMsg(RegistActivity.this, "请输入姓名");
                     return;
+                }if(StringUtil.isNullOrEmpty(mm_emp_card.getText().toString())){
+                    showMsg(RegistActivity.this, "请输入身份证号");
+                    return;
                 }
                 if(StringUtil.isNullOrEmpty(mm_emp_type) || "请选择注册类型".equals(mm_emp_type)){
                     showMsg(RegistActivity.this, "请选择注册类型");
@@ -342,6 +347,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请选择县区");
                     return;
                 }
+                progressDialog = new ProgressDialog(RegistActivity.this);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
 //                reg();
                 SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
                 break;
@@ -394,11 +402,17 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         } else {
                             Toast.makeText(RegistActivity.this, R.string.reg_error_one, Toast.LENGTH_SHORT).show();
                         }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(RegistActivity.this, R.string.reg_error_one, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -411,6 +425,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 params.put("mm_emp_password" , password.getText().toString());
                 params.put("mm_emp_company" , mm_emp_company.getText().toString());
                 params.put("mm_emp_company_address" , mm_emp_company_address.getText().toString());
+                params.put("mm_emp_card" , mm_emp_card.getText().toString());
                 if("苗木经营".equals(mm_emp_type)){
                     params.put("mm_emp_type" , "0");
                 }
@@ -481,12 +496,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     SMSLog.getInstance().w(e);
                 }
             }
-
-
         };
     };
 
     public void onDestroy() {
+        super.onPause();
         SMSSDK.unregisterAllEventHandler();
     };
 

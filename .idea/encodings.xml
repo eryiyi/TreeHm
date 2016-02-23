@@ -25,11 +25,14 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/default_ptr_flip.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/default_ptr_rotate.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotc.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotc.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotn.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/dotn.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/index_sousuo_back.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/indicator_arrow.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/line_bg.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/ling_bg.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/logo.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/no_data.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/pic_none.png" charset="UTF-8" />
@@ -51,6 +54,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_detail_tel.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_jiajie_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_msg_mine.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/button_selector_nearby_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_pic_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_pwr_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_set_mine.xml" charset="UTF-8" />
@@ -60,6 +64,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_suggest_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_tel_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_user_mine.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/button_selector_vip_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_work_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/button_selector_wuliu_mine.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/custom_progress_bar.xml" charset="UTF-8" />
@@ -68,7 +73,6 @@
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_bottom.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/indicator_bg_top.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/jubao_shape.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/res/drawable/line_bg.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/line_bg.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/spinner1.png" charset="UTF-8" />
@@ -97,6 +101,7 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemCountryAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemDetailPhotoAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemFourFuwuAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemNearbyAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemProvinceAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/ItemRecordAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/adapter/OnClickContentItemListener.java" charset="UTF-8" />
@@ -137,6 +142,7 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/AboutUs.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/CountryObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/Emp.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/EmpAdObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/FeiyongObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/FuwuObj.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/module/Level.java" charset="UTF-8" />

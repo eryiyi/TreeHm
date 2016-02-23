@@ -13,25 +13,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.EmpAdObjData;
+import com.Lbins.TreeHm.module.EmpAdObj;
 import com.Lbins.TreeHm.ui.*;
+import com.Lbins.TreeHm.util.StringUtil;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/1/22.
  */
 public class FourFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
     private View view;
-
     private final static int SCANNIN_GREQUEST_CODE = 1;
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -43,12 +56,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     private ImageView dot, dots[];
     private Runnable runnable;
     private int autoChangeTime = 5000;
-    private List<String> lists = new ArrayList<String>();
+    private List<EmpAdObj> lists = new ArrayList<EmpAdObj>();
 
     private ImageView head;
     private TextView nickname;
     private TextView type;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,13 +72,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view = inflater.inflate(R.layout.four_fragment, null);
         res = getActivity().getResources();
         initView();
-
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        lists.add("");
-        initViewPager();
-
+        getAd();
         initData();
         return view;
     }
@@ -80,26 +86,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         if("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
             type.setText("苗木会员");
         }
-
     }
 
     void initView( ){
-        //
         head = (ImageView) view.findViewById(R.id.head);
         nickname = (TextView) view.findViewById(R.id.nickname);
         type = (TextView) view.findViewById(R.id.type);
-
-//        view.findViewById(R.id.img_one).setOnClickListener(this);
-//        view.findViewById(R.id.img_two).setOnClickListener(this);
-//        view.findViewById(R.id.img_three).setOnClickListener(this);
-//        view.findViewById(R.id.img_five).setOnClickListener(this);
-//        view.findViewById(R.id.img_six).setOnClickListener(this);
-//        view.findViewById(R.id.img_seven).setOnClickListener(this);
-//        view.findViewById(R.id.img_eight).setOnClickListener(this);
-//        view.findViewById(R.id.img_nine).setOnClickListener(this);
-//        view.findViewById(R.id.img_ten).setOnClickListener(this);
-//        view.findViewById(R.id.img_evelen).setOnClickListener(this);
-//        view.findViewById(R.id.img_twelven).setOnClickListener(this);
         view.findViewById(R.id.relate_set).setOnClickListener(this);
         view.findViewById(R.id.relate_shop).setOnClickListener(this);
         view.findViewById(R.id.relate_bank).setOnClickListener(this);
@@ -112,6 +104,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.realte_ziliao).setOnClickListener(this);
         view.findViewById(R.id.relate_updatepwr).setOnClickListener(this);
         view.findViewById(R.id.relate_suggest).setOnClickListener(this);
+        view.findViewById(R.id.relate_vip).setOnClickListener(this);
+        view.findViewById(R.id.relate_nearby).setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -238,14 +232,14 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     };
 
-    String slidePic;
+    EmpAdObj slidePic;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         slidePic = lists.get(position);
         switch (flag){
             case 0:
 //                Intent webView = new Intent(getActivity(), WebViewActivity.class);
-//                webView.putExtra("strurl", slidePic.getHref_url());
+//                webView.putExtra("strurl", slidePic.getMm_emp_ad_url());
 //                startActivity(webView);
                 break;
         }
@@ -335,6 +329,74 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 startActivity(suggestV);
             }
                 break;
+            case R.id.relate_vip:
+            {
+                //购买VIP
+                Intent vipV = new Intent(getActivity(), VipActivity.class);
+                startActivity(vipV);
+            }
+                break;
+            case R.id.relate_nearby:
+            {
+                //附近商家
+                Intent nearbyV= new Intent(getActivity(), NearbyActivity.class);
+                startActivity(nearbyV);
+            }
+                break;
         }
     }
+
+    private void getAd() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    EmpAdObjData data = getGson().fromJson(s, EmpAdObjData.class);
+                                    lists.clear();
+                                    if(data != null && data.getData().size() > 0){
+                                        lists.addAll(data.getData());
+                                    }
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 }

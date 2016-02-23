@@ -7,6 +7,7 @@ public class Emp {
     private String mm_emp_id;
     private String mm_emp_mobile;
     private String mm_emp_nickname;
+    private String mm_emp_card;
     private String mm_emp_password;
     private String mm_emp_cover;
     private String mm_emp_type;
@@ -37,10 +38,37 @@ public class Emp {
     private String ischeck;
     private String access_token;
 
+    private String mm_level_num;
     private String levelName;
     private String provinceName;
     private String cityName;
     private String areaName;
+
+    private String distance;
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getMm_level_num() {
+        return mm_level_num;
+    }
+
+    public void setMm_level_num(String mm_level_num) {
+        this.mm_level_num = mm_level_num;
+    }
+
+    public String getMm_emp_card() {
+        return mm_emp_card;
+    }
+
+    public void setMm_emp_card(String mm_emp_card) {
+        this.mm_emp_card = mm_emp_card;
+    }
 
     public String getLevelName() {
         return levelName;

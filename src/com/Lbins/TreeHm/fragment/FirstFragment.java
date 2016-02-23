@@ -121,7 +121,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
             }
         });
@@ -168,15 +168,18 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         switch (flag){
             case 1:
                 //分享
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
             case 2:
             case 4:
             {
                //头像
-                recordVO = lists.get((position==0?1:position)-1);
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(position);
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 Intent mineV = new Intent(getActivity(), ProfileActivity.class);
                 mineV.putExtra("id", recordVO.getMm_emp_id());
@@ -185,10 +188,10 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 break;
             case 3:
                 //电话
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
 
-                recordVO = lists.get((position==0?1:position)-1);
+                recordVO = lists.get(position);
                 if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
@@ -200,11 +203,11 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             case 6:
                 //图片
                 Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
-                recordVO = lists.get((position==0?1:position));
+                recordVO = lists.get(position);
                 intent.putExtra("info", recordVO);
                 startActivity(intent);
 
-                lists.get((position==0?1:position)-1).setIs_read("1");
+                lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 break;
         }

@@ -1,5 +1,6 @@
 package com.Lbins.TreeHm.ui;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -129,7 +130,9 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
                     showMsg(UpdatePwrActivity.this, "两次输入密码不一致");
                     return;
                 }
-
+                progressDialog = new ProgressDialog(UpdatePwrActivity.this);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
                 break;
             case R.id.back:
@@ -180,11 +183,17 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
                         } else {
                             Toast.makeText(UpdatePwrActivity.this, "修改密码失败，请稍后重试", Toast.LENGTH_SHORT).show();
                         }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(UpdatePwrActivity.this, "修改密码失败，请稍后重试", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -253,7 +262,10 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         };
     };
 
+
     public void onDestroy() {
+        super.onPause();
         SMSSDK.unregisterAllEventHandler();
     };
+
 }

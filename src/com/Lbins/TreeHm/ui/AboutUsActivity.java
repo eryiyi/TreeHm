@@ -1,5 +1,8 @@
 package com.Lbins.TreeHm.ui;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +41,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         address = (TextView) this.findViewById(R.id.address);
         content = (TextView) this.findViewById(R.id.content);
         initData();
+        tel.setOnClickListener(this);
 
     }
 
@@ -105,6 +110,42 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             case R.id.back:
                 finish();
                 break;
+            case R.id.tel:
+                showTel(tel.getText().toString());
+                break;
         }
     }
+    // 拨打电话窗口
+    private void showTel(String tel) {
+        final Dialog picAddDialog = new Dialog(AboutUsActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(AboutUsActivity.this, R.layout.tel_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(tel);
+        //提交
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String contreport = jubao_cont.getText().toString();
+                if(!StringUtil.isNullOrEmpty(contreport)){
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                    startActivity(intent);
+                }
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 }

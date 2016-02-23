@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:padding="8dp"
+              android:layout_marginLeft="8dp"
+              android:layout_marginRight="8dp"
+              android:background="@drawable/bg_home_item"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.Lbins.TreeHm.widget.CircleImageView
+            android:src="@drawable/success_img"
+            android:layout_width="55dp"
+            android:id="@+id/head"
+            android:layout_height="55dp"/>
+    <TextView android:layout_width="wrap_content"
+              android:text="文采苗木 王晨"
+              android:layout_marginTop="8dp"
+              android:singleLine="true"
+              android:layout_marginLeft="8dp"
+              android:textSize="16sp"
+              android:id="@+id/nickname"
+              android:layout_toRightOf="@+id/head"
+              android:textColor="@color/textColor"
+              android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content"
+              android:id="@+id/distance"
+              android:text="12KM"
+              android:layout_marginLeft="10dp"
+              android:layout_marginTop="5dp"
+              android:textColor="@color/text_color"
+              android:layout_below="@+id/nickname"
+              android:layout_toRightOf="@+id/head"
+              android:layout_height="wrap_content"/>
+    <ImageView android:layout_width="wrap_content"
+               android:layout_marginTop="1dp"
+               android:id="@+id/img_xinyong"
+               android:layout_marginRight="8dp"
+               android:layout_alignParentRight="true"
+               android:src="@drawable/tree_icons_trust"
+               android:layout_height="30dp"/>
+    <ImageView android:layout_width="wrap_content"
+               android:layout_marginTop="1dp"
+               android:id="@+id/img_xiehui"
+              android:layout_toLeftOf="@+id/img_xinyong"
+               android:src="@drawable/tree_icons_group"
+               android:layout_height="30dp"/>
+    <ImageView android:layout_width="wrap_content"
+               android:layout_marginRight="15dp"
+               android:layout_marginTop="8dp"
+               android:id="@+id/star"
+               android:layout_below="@+id/img_xinyong"
+               android:layout_alignParentRight="true"
+               android:src="@drawable/tree_icons_star"
+               android:layout_height="12dp"/>
+
+
+
+</RelativeLayout>

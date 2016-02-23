@@ -145,6 +145,21 @@
                           android:background="@drawable/login_edit_bg"
                           android:layout_height="wrap_content">
                 </EditText>
+                <EditText android:layout_width="match_parent"
+                          android:layout_marginLeft="25dp"
+                          android:layout_marginRight="25dp"
+                          android:singleLine="true"
+                          android:layout_marginTop="8dp"
+                          android:paddingLeft="15dp"
+                          android:id="@+id/mm_emp_card"
+                          android:numeric="integer"
+                          android:drawablePadding="8dp"
+                          android:textSize="14sp"
+                          android:hint="身份证号"
+                          android:drawableLeft="@drawable/login_user"
+                          android:background="@drawable/login_edit_bg"
+                          android:layout_height="wrap_content">
+                </EditText>
                 <com.Lbins.TreeHm.widget.CustomerSpinner
                         android:background="@drawable/login_edit_bg"
                         android:layout_marginLeft="25dp"

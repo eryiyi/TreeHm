@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
+import com.Lbins.TreeHm.module.EmpAdObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -22,7 +24,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-    private List<String> mPaths;
+    private List<EmpAdObj> mPaths;
     private Context mContext;
 
     public void setOnClickContentItemListener(OnClickContentItemListener onClickContentItemListener) {
@@ -33,7 +35,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         mContext = cx;
     }
 
-    public void change(List<String> paths) {
+    public void change(List<EmpAdObj> paths) {
         mPaths = paths;
     }
 
@@ -59,8 +61,8 @@ public class ViewPagerAdapter extends PagerAdapter {
                 onClickContentItemListener.onClickContentItem(position, 1, null);
             }
         });
-        String slidePic = mPaths.get(position);
-//        imageLoader.displayImage((slidePic.getPic() == null ? "" : slidePic.getPic()), holder.iv, UniversityApplication.options, animateFirstListener);
+        EmpAdObj slidePic = mPaths.get(position);
+        imageLoader.displayImage((slidePic.getMm_emp_ad_pic() == null ? "" : slidePic.getMm_emp_ad_pic()), holder.iv, UniversityApplication.options, animateFirstListener);
         holder.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
