@@ -19,10 +19,7 @@ import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
-import com.Lbins.TreeHm.ui.AboutUsActivity;
-import com.Lbins.TreeHm.ui.AddSuggestActivity;
-import com.Lbins.TreeHm.ui.FourShopActivity;
-import com.Lbins.TreeHm.ui.SettingActivity;
+import com.Lbins.TreeHm.ui.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -318,9 +315,18 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 break;
             case R.id.realte_ziliao:
                 //用户资料
+            {
+                Intent profileV = new Intent(getActivity(), ProfileActivity.class);
+                profileV.putExtra("id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                startActivity(profileV);
+            }
                 break;
             case R.id.relate_updatepwr:
-                //跟新资料
+                //修改密码
+            {
+                Intent updateP = new Intent(getActivity(), UpdatePwrActivity.class);
+                startActivity(updateP);
+            }
                 break;
             case R.id.relate_suggest:
                 //意见反馈

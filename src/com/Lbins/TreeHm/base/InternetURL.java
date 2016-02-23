@@ -39,5 +39,7 @@ public class InternetURL {
     public static final String GET_ABOUT_US_URL = INTERNAL + "getAboutUs.do";
     //添加意见
     public static final String ADD_SUGGEST_URL = INTERNAL + "suggest/addSuggest.do";
+    //修改密码
+    public static final String UPDATE_PWR_URL = INTERNAL + "updatePwr.do";
 
 }

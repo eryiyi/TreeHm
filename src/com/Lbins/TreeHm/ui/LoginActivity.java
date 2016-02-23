@@ -127,8 +127,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.forgetpwr:
-//                Intent forgetV = new Intent(LoginActivity.this, ForgetPwrActivity.class);
-//                startActivity(forgetV);
+                Intent forgetV = new Intent(LoginActivity.this, UpdatePwrActivity.class);
+                startActivity(forgetV);
                 break;
             case R.id.reg:
                 Intent regV = new Intent(LoginActivity.this, RegistActivity.class);

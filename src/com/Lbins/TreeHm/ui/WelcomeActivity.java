@@ -107,21 +107,26 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     saveAccount(data.getData());
                                 }else if(Integer.parseInt(code) == 1){
                                     showMsg(WelcomeActivity.this, "请检查手机号是否存在");
+                                    save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 2){
                                     showMsg(WelcomeActivity.this, "请检查密码是否正确");
+                                    save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 3){
                                     showMsg(WelcomeActivity.this, "该用户已被禁用");
+                                    save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 4){
                                     showMsg(WelcomeActivity.this, "该用户尚未审核，请联系客服");
+                                    save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else{
+                                    save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                             } catch (JSONException e) {
@@ -139,6 +144,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
+                        save("isLogin", "0");//1已经登录了  0未登录
                         startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                     }
                 }
