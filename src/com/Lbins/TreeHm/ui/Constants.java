@@ -92,8 +92,8 @@ public class Constants {
     public static final String SEND_SUCCESS = "send_success";
     public static final String SEND_VALUE_ONE = "send_success_one";
     public static final String SEND_PIC_TX_SUCCESS = "send_pic_tx_success";
-    public static final String SEND_INDEX_SUCCESS_QIUGOU = "send_index_success";
-    public static final String SEND_INDEX_SUCCESS_GONGYING = "send_index_success";
+    public static final String SEND_INDEX_SUCCESS_QIUGOU = "send_index_success_qiugou";
+    public static final String SEND_INDEX_SUCCESS_GONGYING = "send_index_success_gongying";
     public static final String SEND_COMMENT_RECORD_SUCCESS = "send_comment_record_success";
     public static final String SEND_DELETE_RECORD_SUCCESS = "send_delete_record_success";
     public static final String SEND_GOOD_SUCCESS = "send_good_success";

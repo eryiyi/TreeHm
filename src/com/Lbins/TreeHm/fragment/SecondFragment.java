@@ -373,6 +373,8 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 RecordVO record1 = (RecordVO) intent.getExtras().get("addRecord");
                 lists.add(0, record1);
                 adapter.notifyDataSetChanged();
+                lstv.setVisibility(View.VISIBLE);
+                no_data.setVisibility(View.GONE);
             }
         }
     };

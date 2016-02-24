@@ -381,6 +381,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 adapter.notifyDataSetChanged();
                 lstv.setVisibility(View.VISIBLE);
                 no_data.setVisibility(View.GONE);
+                lstv.setVisibility(View.VISIBLE);
+                no_data.setVisibility(View.GONE);
             }
         }
     };

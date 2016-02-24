@@ -150,38 +150,41 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 }
                 if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && "苗木供应".equals(mm_msg_type)){
                     //没有发布苗木供应的权限
-                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木供应信息，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木供应信息，请在'服务中心'升级vip");
                     return;
                 }
                 if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && "苗木求购".equals(mm_msg_type)){
                     //没有发布苗木供应的权限
-                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木求购信息，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木求购信息，请在'服务中心'升级vip");
                     return;
                 }
-                if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
+                if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>1){
                     //不允许发布图片
-                    showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级vip");
                     return;
                 }
                 if("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>4){
                     //允许发布图片 3
-                    showMsg(AddRecordActivity.this, "您可以发布3张图片，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您可以发布3张图片，请在'服务中心'升级vip");
                     return;
                 }
                 if("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>7){
                     //允许发布图片 6
-                    showMsg(AddRecordActivity.this, "您可以发布6张图片，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您可以发布6张图片，请在'服务中心'升级vip");
                     return;
                 }
                 if("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>10){
                     //允许发布图片 9
-                    showMsg(AddRecordActivity.this, "您可以发布9张图片，请在'服务中心'升级权限");
+                    showMsg(AddRecordActivity.this, "您可以发布9张图片，请在'服务中心'升级vip");
                     return;
                 }
                 if(StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))){
                     showMsg(AddRecordActivity.this, "您每天最多发布"+(getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条信息");
                     return;
                 }
+                progressDialog = new ProgressDialog(AddRecordActivity.this);
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
                 addRecord();
                 break;
         }
@@ -191,7 +194,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     private void showSelectImageDialog() {
         if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
             //不允许发布图片
-            showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级权限");
+            showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级vip");
         }else {
             selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
             //显示窗口
@@ -423,11 +426,17 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                         } else {
                             Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
                         }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
                         Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
                     }
                 }
