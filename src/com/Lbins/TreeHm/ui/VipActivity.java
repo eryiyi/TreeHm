@@ -1,10 +1,9 @@
 package com.Lbins.TreeHm.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemVipAdapter;
@@ -35,6 +34,11 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
     private ListView lstv;
     private ItemVipAdapter adapter;
     List<FeiyongObj> lists ;
+
+    private TextView msg_time;
+    private TextView msg_jine;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,17 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
         adapter.setOnClickContentItemListener(this);
         lstv.setAdapter(adapter);
         initData();
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent detailV = new Intent(VipActivity.this, VipDetailActivity.class);
+                FeiyongObj feiyongObj1 = lists.get(i);
+                detailV.putExtra("level_id", feiyongObj1.getMm_level_id());
+                startActivity(detailV);
+            }
+        });
+        msg_time = (TextView) this.findViewById(R.id.msg_time);
+        msg_jine = (TextView) this.findViewById(R.id.msg_jine);
     }
 
     public void initData(){
@@ -65,6 +80,10 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
                                     FeiyongData data = getGson().fromJson(s, FeiyongData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
+                                    if(lists != null && lists.size()>0){
+                                        lists.get(0).setIs_select("1");
+                                    }
+                                    toC();
                                     adapter.notifyDataSetChanged();
                                 }
                             }catch (Exception e){
@@ -124,13 +143,34 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
         switch (flag){
             case 1:
                 feiyongObj = lists.get(position);
-                if("1".equals(feiyongObj.getIs_select())){
-                    lists.get(position).setIs_select("0");
-                }else {
-                    lists.get(position).setIs_select("1");
+                for(int i=0;i<lists.size();i++){
+                    FeiyongObj cell = lists.get(i);
+                    if(cell.getMm_feiyong_id().equals(feiyongObj.getMm_feiyong_id())){
+                        //如果是当前的
+                        lists.get(i).setIs_select("1");
+                        msg_time.setText(feiyongObj.getMm_feiyong_name());
+                        msg_jine.setText("￥"+feiyongObj.getMm_feiyong_jine());
+                    }else{
+                        lists.get(i).setIs_select("0");
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    public void goToPay(View view){
+        //
+        if(StringUtil.isNullOrEmpty(msg_jine.getText().toString())){
+            showMsg(VipActivity.this, "请先选择");
+        }else {
+
+        }
+    }
+
+    void toC(){
+        FeiyongObj feiyongObj = lists.get(0);
+        msg_time.setText(feiyongObj.getMm_feiyong_name());
+        msg_jine.setText("￥"+feiyongObj.getMm_feiyong_jine());
     }
 }

@@ -52,9 +52,11 @@
     <file url="file://$PROJECT_DIR$/res/drawable/bg_btn_green_radius.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_gray_radius.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_green_radius.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/bg_green_radius_big.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_home_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_payment.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_spinner_shape.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/bg_white_radius.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_blue_normal_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_blue_pressed_shape.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/btn_jubao_normal_shape.xml" charset="UTF-8" />

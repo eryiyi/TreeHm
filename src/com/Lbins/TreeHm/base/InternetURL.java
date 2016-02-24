@@ -49,5 +49,7 @@ public class InternetURL {
     public static final String GET_TOP_URL = INTERNAL + "getTopMsg.do";
     //获得vip列表
     public static final String GET_VIP_URL = INTERNAL + "getVipList.do";
+    //获得等级详情
+    public static final String GET_VIP_DETAIL_URL = INTERNAL + "getLevelById.do";
 
 }
