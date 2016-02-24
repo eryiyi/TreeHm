@@ -1,19 +1,20 @@
 package com.Lbins.TreeHm.fragment;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
@@ -23,9 +24,7 @@ import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.RecordVO;
-import com.Lbins.TreeHm.ui.AddRecordActivity;
-import com.Lbins.TreeHm.ui.Constants;
-import com.Lbins.TreeHm.ui.LoginActivity;
+import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -53,7 +52,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private static boolean IS_REFRESH = true;
 
     private ImageView no_data;
-
+    private EditText keyword;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,23 +124,119 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
         view.findViewById(R.id.mLocation).setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
+        keyword = (EditText) view.findViewById(R.id.keyword);
+        keyword.addTextChangedListener(watcher);
     }
+    private TextWatcher watcher = new TextWatcher() {
 
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
+            IS_REFRESH = true;
+            pageIndex = 1;
+            if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                initData();
+            }else {
+                lstv.onRefreshComplete();
+                //未登录
+                Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginV);
+            }
+        }
+    };
+    RecordVO recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag) {
+        switch (flag){
             case 1:
                 //分享
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
                 break;
             case 2:
-                //电话
-                break;
-            case 3:
-                //头像
             case 4:
-                //昵称
+            {
+                //头像
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(position);
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+                Intent mineV = new Intent(getActivity(), ProfileActivity.class);
+                mineV.putExtra("id", recordVO.getMm_emp_id());
+                startActivity(mineV);
+            }
+            break;
+            case 3:
+                //电话
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(position);
+                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                    showTel(recordVO.getMm_emp_mobile());
+                }else{
+                    //
+                    Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 5:
+            case 6:
+                //图片
+                Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
+                recordVO = lists.get(position);
+                intent.putExtra("info", recordVO);
+                startActivity(intent);
+
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    // 拨打电话窗口
+    private void showTel(String tel) {
+        final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
+        View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(tel);
+        //提交
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String contreport = jubao_cont.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                startActivity(intent);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     void initData(){
@@ -215,6 +310,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 }else {
                     params.put("accessToken", "");
                 }
+                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
+                    params.put("keyword", keyword.getText().toString());
+                }
                 return params;
             }
 
@@ -247,6 +345,8 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             break;
             case R.id.mLocation:
                 //
+                Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
+                startActivity(selectV);
                 break;
         }
     }

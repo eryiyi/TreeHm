@@ -1,7 +1,9 @@
 package com.Lbins.TreeHm.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.Lbins.TreeHm.R;
@@ -62,6 +64,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                                     if(data != null && data.getData().size() > 0){
                                         //计算距离
                                         List<Emp> listsAll = new ArrayList<Emp>();
+                                        listsAll.addAll(data.getData());
                                         for(int i=0;i<listsAll.size();i++){
                                             Emp fuwuObj = listsAll.get(i);
                                             if(fuwuObj != null && !StringUtil.isNullOrEmpty(fuwuObj.getLat()) && !StringUtil.isNullOrEmpty(fuwuObj.getLng())){
@@ -76,10 +79,9 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                                                 }
                                             }
                                         }
-                                        lists.clear();
-                                        lists.addAll(data.getData());
+
                                         adapter.notifyDataSetChanged();
-                                        if(listsAll.size() > 0){
+                                        if(lists.size() > 0){
                                             no_data.setVisibility(View.GONE);
                                             lstv.setVisibility(View.VISIBLE);
                                         }else{
@@ -134,7 +136,15 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         adapter = new ItemNearbyAdapter(lists, NearbyActivity.this);
         lstv.setAdapter(adapter);
         no_data = (ImageView) this.findViewById(R.id.no_data);
-
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent profileV = new Intent(NearbyActivity.this, ProfileActivity.class);
+                Emp emp = lists.get(i);
+                profileV.putExtra("id", emp.getMm_emp_id());
+                startActivity(profileV);
+            }
+        });
     }
     @Override
     public void onClick(View view) {

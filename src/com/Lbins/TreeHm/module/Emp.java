@@ -15,6 +15,7 @@ public class Emp {
     private String mm_emp_company_type;
     private String mm_emp_company_address;
     private String mm_emp_company_detail;
+    private String mm_emp_company_url;
     private String mm_emp_provinceId;
     private String mm_emp_cityId;
     private String mm_emp_countryId;
@@ -45,6 +46,14 @@ public class Emp {
     private String areaName;
 
     private String distance;
+
+    public String getMm_emp_company_url() {
+        return mm_emp_company_url;
+    }
+
+    public void setMm_emp_company_url(String mm_emp_company_url) {
+        this.mm_emp_company_url = mm_emp_company_url;
+    }
 
     public String getDistance() {
         return distance;

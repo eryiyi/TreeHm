@@ -45,5 +45,7 @@ public class InternetURL {
     public static final String GET_AD_URL = INTERNAL + "getEmpAd.do";
     //获得附近商家
     public static final String GET_NEARBY_URL = INTERNAL + "getNearby.do";
+    //产品推荐
+    public static final String GET_TOP_URL = INTERNAL + "getTopMsg.do";
 
 }

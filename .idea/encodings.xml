@@ -42,6 +42,7 @@
     <file url="file://$PROJECT_DIR$/res/drawable-xhdpi/welcome.jpg" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/analyze_empty_bg.9.png" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_gray_radius.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/drawable/bg_green_radius.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_home_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_payment.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/drawable/bg_spinner_shape.xml" charset="UTF-8" />
@@ -90,6 +91,7 @@
     <file url="file://$PROJECT_DIR$/res/layout/spinner_item.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/spinner_tv_bg.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/layout/tel_dialog.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/res/layout/webview.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/attrs.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/colors.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/values/ids.xml" charset="UTF-8" />
@@ -156,6 +158,7 @@
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/Constants.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/GalleryUrlActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/ImageDelActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/ui/WebViewActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/CommonUtil.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/MultiPartRequest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/Lbins/TreeHm/upload/MultiPartStack.java" charset="UTF-8" />

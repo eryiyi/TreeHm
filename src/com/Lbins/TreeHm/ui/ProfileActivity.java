@@ -528,4 +528,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         getRequestQueue().add(request);
     }
 
+    public void companyIndex(View view){
+        //
+        if(StringUtil.isNullOrEmpty(emp.getMm_emp_company_url())){
+            showMsg(ProfileActivity.this, "暂无微网站");
+        }else{
+            Intent webV = new Intent(ProfileActivity.this, WebViewActivity.class);
+            webV.putExtra("strurl", emp.getMm_emp_company_url());
+            startActivity(webV);
+        }
+    }
+
 }
