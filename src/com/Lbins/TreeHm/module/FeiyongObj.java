@@ -7,6 +7,25 @@ public class FeiyongObj {
     private String mm_feiyong_id;
     private String mm_feiyong_name;
     private String mm_feiyong_jine;
+    private String mm_feiyong_num;
+
+    private String is_select;
+
+    public String getIs_select() {
+        return is_select;
+    }
+
+    public void setIs_select(String is_select) {
+        this.is_select = is_select;
+    }
+
+    public String getMm_feiyong_num() {
+        return mm_feiyong_num;
+    }
+
+    public void setMm_feiyong_num(String mm_feiyong_num) {
+        this.mm_feiyong_num = mm_feiyong_num;
+    }
 
     public String getMm_feiyong_id() {
         return mm_feiyong_id;

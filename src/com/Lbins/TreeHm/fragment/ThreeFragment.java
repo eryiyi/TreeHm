@@ -114,6 +114,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
             }
         });
         adapter.setOnClickContentItemListener(this);
+        no_data.setOnClickListener(this);
     }
 
     RecordVO recordVO;
@@ -264,7 +265,18 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-
+            case R.id.no_data:
+                IS_REFRESH = true;
+                pageIndex = 1;
+                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    initData();
+                }else {
+                    lstv.onRefreshComplete();
+                    //未登录
+                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(loginV);
+                }
+                break;
         }
     }
 }

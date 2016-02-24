@@ -89,6 +89,8 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         InitImageView();
         InitTextView();
         InitViewPager();
+
+
         initData();
     }
 

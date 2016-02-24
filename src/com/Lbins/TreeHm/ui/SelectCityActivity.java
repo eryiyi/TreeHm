@@ -101,7 +101,7 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent countryV= new Intent(SelectCityActivity.this, SelectCountryActivity.class);
-                CityObj cityObj = lists.get(position);
+                CityObj cityObj = lists.get(position-1);
                 countryV.putExtra("cityObj", cityObj);
                 startActivity(countryV);
             }

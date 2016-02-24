@@ -433,7 +433,7 @@
                                android:src="@drawable/button_selector_vip_mine"
                                android:layout_height="60dp"/>
                     <TextView android:layout_width="wrap_content"
-                              android:text="vip"
+                              android:text="升级vip"
                               android:padding="5dp"
                               android:layout_centerHorizontal="true"
                               android:textSize="12sp"

@@ -97,7 +97,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent cityV = new Intent(SelectProvinceActivity.this, SelectCityActivity.class);
-                ProvinceObj provinceObj = lists.get(position);
+                ProvinceObj provinceObj = lists.get(position-1);
                 cityV.putExtra("provinceObj" ,provinceObj);
                 startActivity(cityV);
             }

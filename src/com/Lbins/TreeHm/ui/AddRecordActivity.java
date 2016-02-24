@@ -161,18 +161,26 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
                     //不允许发布图片
                     showMsg(AddRecordActivity.this, "您暂无权限发布图片，请在'服务中心'升级权限");
+                    return;
                 }
                 if("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>4){
                     //允许发布图片 3
                     showMsg(AddRecordActivity.this, "您可以发布3张图片，请在'服务中心'升级权限");
+                    return;
                 }
                 if("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>7){
                     //允许发布图片 6
                     showMsg(AddRecordActivity.this, "您可以发布6张图片，请在'服务中心'升级权限");
+                    return;
                 }
                 if("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>10){
                     //允许发布图片 9
                     showMsg(AddRecordActivity.this, "您可以发布9张图片，请在'服务中心'升级权限");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))){
+                    showMsg(AddRecordActivity.this, "您每天最多发布"+(getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条信息");
+                    return;
                 }
                 addRecord();
                 break;
@@ -401,6 +409,10 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     }
 
                                     finish();
+                                }else if(Integer.parseInt(code) == 3){
+                                    Toast.makeText(AddRecordActivity.this,
+                                            "发布信息数量超出限制，您每天最多发布"+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条" ,
+                                            Toast.LENGTH_SHORT).show();
                                 }
                                 else {
                                     Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one , Toast.LENGTH_SHORT).show();
@@ -424,6 +436,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
                 params.put("mm_msg_content" , mm_msg_content.getText().toString());
                 if("苗木求购".equals(mm_msg_type)){
                     params.put("mm_msg_type" , "0");

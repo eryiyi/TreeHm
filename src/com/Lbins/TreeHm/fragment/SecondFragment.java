@@ -126,6 +126,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         view.findViewById(R.id.add).setOnClickListener(this);
         keyword = (EditText) view.findViewById(R.id.keyword);
         keyword.addTextChangedListener(watcher);
+        no_data.setOnClickListener(this);
     }
     private TextWatcher watcher = new TextWatcher() {
 
@@ -347,6 +348,18 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 //
                 Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
                 startActivity(selectV);
+                break;
+            case R.id.no_data:
+                IS_REFRESH = true;
+                pageIndex = 1;
+                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    initData();
+                }else {
+                    lstv.onRefreshComplete();
+                    //未登录
+                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(loginV);
+                }
                 break;
         }
     }

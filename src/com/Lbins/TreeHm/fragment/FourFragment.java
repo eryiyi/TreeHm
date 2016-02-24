@@ -106,6 +106,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_suggest).setOnClickListener(this);
         view.findViewById(R.id.relate_vip).setOnClickListener(this);
         view.findViewById(R.id.relate_nearby).setOnClickListener(this);
+        head.setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -341,6 +342,14 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 //附近商家
                 Intent nearbyV= new Intent(getActivity(), NearbyActivity.class);
                 startActivity(nearbyV);
+            }
+                break;
+            case R.id.head:
+                //
+            {
+                Intent profileV = new Intent(getActivity(), ProfileActivity.class);
+                profileV.putExtra("id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                startActivity(profileV);
             }
                 break;
         }
