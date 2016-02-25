@@ -100,6 +100,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                 ProvinceObj provinceObj = lists.get(position-1);
                 cityV.putExtra("provinceObj" ,provinceObj);
                 startActivity(cityV);
+                finish();
             }
         });
     }

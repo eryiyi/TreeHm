@@ -285,6 +285,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("cityName", emp.getCityName());
         save("areaName", emp.getAreaName());
         save("access_token", emp.getAccess_token());
+        save("mm_level_num", emp.getMm_level_num());
 
         save("isLogin", "1");//1已经登录了  0未登录
 

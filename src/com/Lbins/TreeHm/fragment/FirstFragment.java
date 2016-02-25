@@ -57,6 +57,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private ImageView no_data;
     private EditText keyword;
 
+    private TextView mLocation;
+    String countryId; //选择的县区
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +76,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     }
 
     void initView( ){
-        view.findViewById(R.id.mLocation).setOnClickListener(this);
+        mLocation = (TextView) view.findViewById(R.id.mLocation);
+        mLocation.setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
         no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
@@ -319,6 +323,26 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
                     params.put("keyword", keyword.getText().toString());
                 }
+                //当前登陆者的等级vip 0  -- 4
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+                    params.put("mm_level_num", getGson().fromJson(getSp().getString("mm_level_num", ""), String.class));
+                }else {
+                    params.put("mm_level_num", "");
+                }
+                //权限-- 查看全部信息
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))){
+                    params.put("is_see_all", getGson().fromJson(getSp().getString("is_see_all", ""), String.class));
+                }else {
+                    params.put("is_see_all", "");
+                }
+
+                //是否是选择的县区
+                if(!StringUtil.isNullOrEmpty(countryId)){
+                    params.put("is_select_countryId", countryId);
+                }else {
+                    params.put("is_select_countryId", "");
+                }
+
                 return params;
             }
 
@@ -384,14 +408,29 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 lstv.setVisibility(View.VISIBLE);
                 no_data.setVisibility(View.GONE);
             }
+            if(action.equals("select_country")){
+                countryId = intent.getExtras().getString("countryId");
+                String countryName = intent.getExtras().getString("countryName");
+                mLocation.setText(countryName);
+                IS_REFRESH = true;
+                pageIndex = 1;
+                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    initData();
+                }else {
+                    lstv.onRefreshComplete();
+                    //未登录
+                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(loginV);
+                }
+            }
         }
     };
 
     //注册广播
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
-
-        myIntentFilter.addAction(Constants.SEND_INDEX_SUCCESS_QIUGOU);//添加说说和添加视频成功，刷新首页
+        myIntentFilter.addAction(Constants.SEND_INDEX_SUCCESS_QIUGOU);//添加成功，刷新首页
+        myIntentFilter.addAction("select_country");//选择县区
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

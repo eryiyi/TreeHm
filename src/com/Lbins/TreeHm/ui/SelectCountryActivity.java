@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.Lbins.TreeHm.MainActivity;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ItemCountryAdapter;
 import com.Lbins.TreeHm.adapter.ItemProvinceAdapter;
@@ -43,12 +44,14 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
     private static boolean IS_REFRESH = true;
 
     private CityObj cityObj;
+    private ProvinceObj provinceObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_province);
         cityObj = (CityObj) getIntent().getExtras().get("cityObj");
+        provinceObj = (ProvinceObj) getIntent().getExtras().get("provinceObj");
         initView();
         initData();
     }
@@ -100,10 +103,67 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CountryObj countryObj = lists.get(position-1);
                 //这里需要判断
+                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                    //未登录
+                    Intent loginV = new Intent(SelectCountryActivity.this, LoginActivity.class);
+                    startActivity(loginV);
+                }else {
+                    if("1".equals(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))){
+                        //可以查看所有信息
+                        goTo(countryObj.getAreaID(),countryObj.getArea());
+                    }else {
+                        switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+                            case 0:
+                                //县区
+                                if(countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                                    //如果是当前用户登陆的县区 可以查看该信息
+                                    goTo(countryObj.getAreaID(),countryObj.getArea());
+                                }else {
+                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    finish();
+                                }
+                                break;
+                            case 1:
+                                //是市级vip
+                                if(cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                                    //如果是当前用户登陆的县区 可以查看该信息
+                                    goTo(countryObj.getAreaID(),countryObj.getArea());
+                                }else {
+                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    finish();
+                                }
+                                break;
+                            case 2:
+                                //是省级vip
+                                if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+                                    //如果是当前用户登陆的县区 可以查看该信息
+                                    goTo(countryObj.getAreaID(),countryObj.getArea());
+                                }else {
+                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    finish();
+                                }
+                                break;
+                            case 3:
+                            case 4:
+                                goTo(countryObj.getAreaID(),countryObj.getArea());
+                                break;
+                        }
+                    }
 
+                }
             }
         });
+    }
+
+    void goTo(String countryId,String countryName){
+        //调用广播，刷新主页
+        Intent intent1 = new Intent("select_country");
+        intent1.putExtra("countryId", countryId);
+        intent1.putExtra("countryName", countryName);
+        sendBroadcast(intent1);
+        finish();
     }
 
     @Override

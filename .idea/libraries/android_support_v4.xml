@@ -14,6 +14,9 @@
       <root url="jar://$PROJECT_DIR$/libs/SMSSDK-2.0.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/AMap_3DMap_V3.2.0.1_20160122.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/android-async-http-1.4.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/qiniu-android-sdk-7.0.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/happy-dns-0.2.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

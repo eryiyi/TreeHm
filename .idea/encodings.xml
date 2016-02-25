@@ -3,12 +3,15 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/libs/AMap_3DMap_V3.2.0.1_20160122.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/android-async-http-1.4.8.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-support-v4.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/arm64-v8a" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/armeabi" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/gson-2.0.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/happy-dns-0.2.5.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpcore-4.3.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/httpmime-4.3.5.jar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/libs/qiniu-android-sdk-7.0.7.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/universal-image-loader-1.9.2.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/volley.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/res/anim/push_bottom_in.xml" charset="UTF-8" />

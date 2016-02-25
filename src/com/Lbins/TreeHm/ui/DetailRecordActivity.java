@@ -75,7 +75,6 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         adapterPhot = new ItemDetailPhotoAdapter(lists, DetailRecordActivity.this);
         gridView.setAdapter(adapterPhot);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-
     }
 
     void initData(){
@@ -145,6 +144,11 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.head:
                 //头像
+            {
+                Intent profileV = new Intent(DetailRecordActivity.this, ProfileActivity.class);
+                profileV.putExtra("id", recordVO.getMm_emp_id());
+                startActivity(profileV);
+            }
                 break;
         }
     }

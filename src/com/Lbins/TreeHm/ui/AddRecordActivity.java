@@ -30,6 +30,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,6 +67,9 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     private String mm_msg_type;
     ArrayAdapter<String> adapterEmpType;
     private ArrayList<String> empTypeList = new ArrayList<String>();
+
+
+    AsyncHttpClient client = new AsyncHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +195,49 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 progressDialog = new ProgressDialog(AddRecordActivity.this);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();
-                addRecord();
+
+                //检查有没有选择图片
+                if (dataList.size() <=1 ) {
+                    addRecord();
+                    return;
+                } else {
+                    for (int i = 1; i < dataList.size(); i++) {
+                        //七牛
+                        Bitmap bm = FileUtils.getSmallBitmap(dataList.get(i));
+                        final String cameraImagePath = FileUtils.saveBitToSD(bm, System.currentTimeMillis() + ".jpg");
+                        Map<String,String> map = new HashMap<>();
+                        map.put("space", "hmmm-pic");
+                        RequestParams params = new RequestParams(map);
+                        client.get(InternetURL.UPLOAD_TOKEN ,params, new JsonHttpResponseHandler(){
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                super.onSuccess(statusCode, headers, response);
+                                try {
+                                    String token = response.getString("data");
+                                    UploadManager uploadManager = new UploadManager();
+                                    uploadManager.put(StringUtil.getBytes(cameraImagePath), StringUtil.getUUID(), token,
+                                            new UpCompletionHandler() {
+                                                @Override
+                                                public void complete(String key, ResponseInfo info, JSONObject response) {
+                                                    //key
+                                                    uploadPaths.add(key);
+                                                    if (uploadPaths.size() == (dataList.size()-1)) {
+                                                        publishAll();
+                                                    }
+                                                }
+                                            }, null);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                super.onFailure(statusCode, headers, throwable, errorResponse);
+                            }
+                        });
+                    }
+                }
+
                 break;
         }
     }
@@ -469,4 +521,102 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         };
         getRequestQueue().add(request);
     }
+
+
+    //上传完图片后开始发布
+    private void publishAll() {
+//        final String contentStr = et_sendmessage.getText().toString();
+        final StringBuffer filePath = new StringBuffer();
+        for (int i = 0; i < uploadPaths.size(); i++) {
+            filePath.append(uploadPaths.get(i));
+            if (i != uploadPaths.size() - 1) {
+                filePath.append(",");
+            }
+        }
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.SEND_RECORD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200) {
+                                    RecordSingData data = getGson().fromJson(s, RecordSingData.class);
+                                    showMsg(AddRecordActivity.this, "发布成功");
+                                    if("苗木求购".equals(mm_msg_type)){
+                                        //调用广播，刷新主页
+                                        Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_QIUGOU);
+                                        intent1.putExtra("addRecord", data.getData());
+                                        sendBroadcast(intent1);
+                                    }
+                                    if("苗木供应".equals(mm_msg_type)){
+                                        //调用广播，刷新主页
+                                        Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_GONGYING);
+                                        intent1.putExtra("addRecord", data.getData());
+                                        sendBroadcast(intent1);
+                                    }
+
+                                    finish();
+                                }else if(Integer.parseInt(code) == 3){
+                                    Toast.makeText(AddRecordActivity.this,
+                                            "发布信息数量超出限制，您每天最多发布"+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条" ,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one , Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
+                params.put("mm_msg_content" , mm_msg_content.getText().toString());
+                if("苗木求购".equals(mm_msg_type)){
+                    params.put("mm_msg_type" , "0");
+                }
+                if("苗木供应".equals(mm_msg_type)){
+                    params.put("mm_msg_type" , "1");
+                }
+                params.put("mm_msg_picurl" , String.valueOf(filePath));
+                params.put("provinceid" , getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
+                params.put("cityid" , getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
+                params.put("countryid" , getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
 }

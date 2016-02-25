@@ -103,7 +103,9 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 Intent countryV= new Intent(SelectCityActivity.this, SelectCountryActivity.class);
                 CityObj cityObj = lists.get(position-1);
                 countryV.putExtra("cityObj", cityObj);
+                countryV.putExtra("provinceObj" ,provinceObj);
                 startActivity(countryV);
+                finish();
             }
         });
     }

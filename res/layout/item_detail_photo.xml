@@ -7,5 +7,5 @@
                android:src="@drawable/pic"
                android:scaleType="centerCrop"
                android:id="@+id/item_pic"
-               android:layout_height="wrap_content"/>
+               android:layout_height="100dp"/>
 </LinearLayout>

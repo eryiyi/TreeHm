@@ -22,11 +22,11 @@
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-    <com.Lbins.TreeHm.widget.ContentListView
-            android:id="@+id/lstv"
-            android:layout_weight="1"
-            android:divider="@drawable/home_item_shadow"
-            android:dividerHeight="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <com.Lbins.TreeHm.widget.ContentListView
+                android:id="@+id/lstv"
+                android:layout_weight="1"
+                android:divider="@drawable/home_item_shadow"
+                android:dividerHeight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 </LinearLayout>

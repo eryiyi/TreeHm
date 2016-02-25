@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -65,19 +66,14 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-//        final ProducteObj cell = lists.get(position);
-//        if(cell != null){
-//            String title = cell.getProduct_name()==null?"":cell.getProduct_name();
-//            if(title.length() > 13){
-//                title = title.substring(0,12) + "...";
-//            }
-//            holder.item_title.setText(title);
-//            holder.sell_price.setText( res.getString(R.string.money) + cell.getPrice_tuangou());
-//            holder.price.setText( res.getString(R.string.money) + cell.getPrice());
-//            holder.price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
-////            holder.item_pic.setImageResource(cell.getImg());
-//            imageLoader.displayImage( cell.getProduct_pic(), holder.item_pic, UniversityApplication.options, animateFirstListener);
-//        }
+        String cell = lists.get(position);
+        if(cell != null){
+            if(cell.indexOf("7xqzj9.com1.z0.glb.clouddn.com") > 0){
+                //图片保存到七牛上了，有缩率图
+                cell = cell + "-yasuoone";
+            }
+            imageLoader.displayImage(cell, holder.item_pic, UniversityApplication.options, animateFirstListener);
+        }
 
         return convertView;
     }
