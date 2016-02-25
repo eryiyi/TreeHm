@@ -421,6 +421,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                     startActivity(loginV);
                 }
             }
+            if(action.equals("change_color_size")){
+                adapter.notifyDataSetChanged();
+            }
         }
     };
 
@@ -430,6 +433,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
         myIntentFilter.addAction(Constants.SEND_INDEX_SUCCESS_GONGYING);//添加说说和添加视频成功，刷新首页
         myIntentFilter.addAction("select_country");//选择县区
+        myIntentFilter.addAction("change_color_size");//
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }

@@ -2,6 +2,7 @@ package com.Lbins.TreeHm.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.Image;
 import android.view.LayoutInflater;
@@ -132,6 +133,29 @@ public class ItemRecordAdapter extends BaseAdapter {
                 holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
             }else {
                 holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
+            }
+
+
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+                holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+            }
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
+                if("black".equals(UniversityApplication.fontColor)){
+                    holder.content.setTextColor(Color.BLACK);
+                }
+                if("gray".equals(UniversityApplication.fontColor)){
+                    holder.content.setTextColor(Color.GRAY);
+                }
+                if("blue".equals(UniversityApplication.fontColor)){
+                    holder.content.setTextColor(Color.BLUE);
+                }
+                if("orange".equals(UniversityApplication.fontColor)){
+                    holder.content.setTextColor(Color.YELLOW);
+                }
+                if("red".equals(UniversityApplication.fontColor)){
+                    holder.content.setTextColor(Color.RED);
+                }
+
             }
         }
 

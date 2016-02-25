@@ -62,6 +62,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         switchFragment(R.id.foot_one);
 
+        //控制字体 颜色和大小
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            UniversityApplication.fontSize = getGson().fromJson(getSp().getString("font_size", ""), String.class);
+        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+            UniversityApplication.fontColor = getGson().fromJson(getSp().getString("font_color", ""), String.class);
+        }
     }
 
     boolean isMobileNet, isWifiNet;
