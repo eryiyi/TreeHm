@@ -61,6 +61,7 @@ public class UniversityApplication extends Application {
     public static String APP_KEY = "aaffb8b381ad41889df1590f4d870485"; // 2015/10/29
     public static String lat;
     public static String lng;
+    public static String area;
     @Override
     public void onCreate() {
         super.onCreate();

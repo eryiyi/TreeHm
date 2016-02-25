@@ -45,6 +45,7 @@ public class Utils {
 //			sb.append("lat: " + location.getLatitude() );
 			UniversityApplication.lat = String.valueOf(location.getLatitude());
 			UniversityApplication.lng = String.valueOf(location.getLongitude());
+			UniversityApplication.area = String.valueOf(location.getDistrict());
 //			sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
 //			sb.append("提供者    : " + location.getProvider() + "\n");
 //

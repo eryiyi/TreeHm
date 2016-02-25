@@ -1,8 +1,12 @@
 package com.Lbins.TreeHm.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -62,9 +66,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     private TextView nickname;
     private TextView type;
 
+    private LinearLayout login_one;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerBoradcastReceiver();
     }
 
     @Override
@@ -107,6 +114,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_vip).setOnClickListener(this);
         view.findViewById(R.id.relate_nearby).setOnClickListener(this);
         head.setOnClickListener(this);
+        login_one = (LinearLayout) view.findViewById(R.id.login_one);
+        login_one.setVisibility(View.VISIBLE);
     }
 
     private void initViewPager() {
@@ -292,6 +301,14 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 break;
             case R.id.relate_msg:
                 //短信
+            {
+//                Intent webV = new Intent(getActivity(), WebViewActivity.class);
+//                webV.putExtra("strurl",Constants.DUANXIN_URL);
+//                startActivity(webV);
+                final Uri uri = Uri.parse(Constants.DUANXIN_URL);
+                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
+            }
                 break;
             case R.id.realte_diaoche:
                 //调车
@@ -406,6 +423,32 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             }
         };
         getRequestQueue().add(request);
+    }
+
+
+    //广播接收动作
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals("sure_quite")){
+                login_one.setVisibility(View.GONE);
+            }
+        }
+    };
+
+    //注册广播
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction("sure_quite");
+        //注册广播
+        getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
 }

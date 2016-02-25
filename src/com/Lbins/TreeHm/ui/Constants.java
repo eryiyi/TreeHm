@@ -170,5 +170,8 @@ public class Constants {
     //七牛
     public static final String PIC_STYPE = "-yasuoone";
 
+    //短信平台
+    public static final String DUANXIN_URL = "http://hmt.sdhmmm.cn/loginFront.aspx";
+
 
 }

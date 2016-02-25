@@ -3,6 +3,7 @@ package com.Lbins.TreeHm.ui;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -133,7 +134,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     public void onClick(DialogInterface dialog, int which) {
                         save("password" ,"");
                         save("isLogin" ,"0");
-                        ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
+                        //调用广播，刷新主页
+                        Intent intent1 = new Intent("sure_quite");
+                        sendBroadcast(intent1);
+                        finish();
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

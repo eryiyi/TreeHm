@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
@@ -72,6 +73,11 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         res = getActivity().getResources();
         initView();
         initData();
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
+            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class));
+        }else if(!StringUtil.isNullOrEmpty(UniversityApplication.area)){
+            mLocation.setText(UniversityApplication.area);
+        }
         return view;
     }
 
