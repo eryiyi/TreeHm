@@ -212,7 +212,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }
                 break;
             case 5:
-            case 6:
                 //图片
                 Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
                 recordVO = lists.get(position);

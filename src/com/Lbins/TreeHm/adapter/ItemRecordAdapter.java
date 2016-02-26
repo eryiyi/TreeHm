@@ -91,9 +91,9 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.nickname.setText(title);
             holder.dateline.setText(cell.getDateline());
             String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
-            if(msg.length() > 80){
-                msg = msg.substring(0,79)+"...";
-            }
+//            if(msg.length() > 80){
+//                msg = msg.substring(0,79)+"...";
+//            }
             holder.content.setText(msg);
             if("1".equals(cell.getIs_chengxin())){
                 holder.img_xinyong.setVisibility(View.VISIBLE);
@@ -190,12 +190,12 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 5, null);
             }
         });
-        holder.content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 6, null);
-            }
-        });
+//        holder.content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickContentItemListener.onClickContentItem(position, 6, null);
+//            }
+//        });
 
 
         return convertView;
