@@ -14,8 +14,7 @@ import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.ItemDetailPhotoAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.FuwuObjData;
-import com.Lbins.TreeHm.module.RecordVO;
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -53,13 +52,13 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
     private List<String> lists = new ArrayList<String>();
     ItemDetailPhotoAdapter adapterPhot ;
 
-    private RecordVO recordVO;
+    private RecordMsg recordVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_record_activity);
-        recordVO = (RecordVO) getIntent().getExtras().get("info");
+        recordVO = (RecordMsg) getIntent().getExtras().get("info");
         initView();
         initData();
     }

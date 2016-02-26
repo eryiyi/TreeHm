@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.Emp;
-import com.Lbins.TreeHm.module.RecordVO;
+
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.amap.api.maps.model.LatLng;

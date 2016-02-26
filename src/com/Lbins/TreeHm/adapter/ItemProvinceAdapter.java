@@ -5,14 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.ProvinceObj;
-import com.Lbins.TreeHm.module.RecordVO;
-import com.Lbins.TreeHm.util.StringUtil;
-import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 

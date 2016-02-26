@@ -19,18 +19,14 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
-import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.EmpData;
+import com.Lbins.TreeHm.dao.DBHelper;
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
-import com.Lbins.TreeHm.module.Record;
-import com.Lbins.TreeHm.module.RecordVO;
-import com.Lbins.TreeHm.module.ReportObj;
 import com.Lbins.TreeHm.ui.*;
-import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -53,7 +49,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<RecordVO> lists = new ArrayList<RecordVO>();
+    private List<RecordMsg> lists = new ArrayList<RecordMsg>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
     private ImageView no_data;
@@ -72,6 +68,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.one_fragment, null);
         res = getActivity().getResources();
+//        lists.addAll(DBHelper.getInstance(getActivity()).getRecordList());
         initView();
         initData();
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
@@ -174,7 +171,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     };
 
 
-    RecordVO recordVO;
+    RecordMsg recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag){
@@ -272,6 +269,15 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                         lists.clear();
                                     }
                                     lists.addAll(data.getData());
+
+//                                    if(data.getData() != null && data.getData().size() > 0){
+//                                        for(RecordMsg recordMsg:data.getData()){
+//                                            DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
+//                                        }
+//                                        //最后再把所有的数据取出来
+//                                        lists.addAll(DBHelper.getInstance(getActivity()).getRecordList());
+//                                    }
+
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else if(Integer.parseInt(code) == 9){
@@ -412,7 +418,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if(action.equals(Constants.SEND_INDEX_SUCCESS_QIUGOU)){
-                RecordVO record1 = (RecordVO) intent.getExtras().get("addRecord");
+                RecordMsg record1 = (RecordMsg) intent.getExtras().get("addRecord");
                 lists.add(0, record1);
                 adapter.notifyDataSetChanged();
                 lstv.setVisibility(View.VISIBLE);

@@ -1,7 +1,6 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.*;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,12 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.Lbins.TreeHm.MainActivity;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
-import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseActivity;
-import com.Lbins.TreeHm.module.RecordVO;
+
 import com.Lbins.TreeHm.module.SetFontColor;
 import com.Lbins.TreeHm.module.SetFontSize;
 import com.Lbins.TreeHm.util.StringUtil;

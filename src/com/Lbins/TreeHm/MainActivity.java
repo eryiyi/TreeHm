@@ -1,10 +1,6 @@
 package com.Lbins.TreeHm;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -17,8 +13,6 @@ import com.Lbins.TreeHm.fragment.FirstFragment;
 import com.Lbins.TreeHm.fragment.FourFragment;
 import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.fragment.ThreeFragment;
-import com.Lbins.TreeHm.module.RecordVO;
-import com.Lbins.TreeHm.ui.Constants;
 import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -56,6 +50,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         UmengUpdateAgent.update(this);
+        //获得上一次登陆时间
+
+        //保存这次登陆时间
+        save("denglu_time", System.currentTimeMillis() + "");
         res = getResources();
         fm = getSupportFragmentManager();
         initView();

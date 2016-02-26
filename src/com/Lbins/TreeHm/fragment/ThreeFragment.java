@@ -18,10 +18,10 @@ import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
-import com.Lbins.TreeHm.module.RecordVO;
 import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
@@ -45,7 +45,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
     private Resources res;
     private PullToRefreshListView lstv;
     private ItemRecordAdapter adapter;
-    private List<RecordVO> lists = new ArrayList<RecordVO>();
+    private List<RecordMsg> lists = new ArrayList<RecordMsg>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -122,7 +122,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         no_data.setOnClickListener(this);
     }
 
-    RecordVO recordVO;
+    RecordMsg recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag){

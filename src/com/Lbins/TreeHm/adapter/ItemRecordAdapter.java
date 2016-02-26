@@ -1,10 +1,7 @@
 package com.Lbins.TreeHm.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
-import com.Lbins.TreeHm.module.RecordVO;
-import com.Lbins.TreeHm.module.ReportObj;
+
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +24,7 @@ import java.util.List;
  */
 public class ItemRecordAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<RecordVO> lists;
+    private List<RecordMsg> lists;
     private Context mContect;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -40,11 +36,11 @@ public class ItemRecordAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemRecordAdapter(List<RecordVO> lists, Context mContect){
+    public ItemRecordAdapter(List<RecordMsg> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
-    public void refresh(List<RecordVO> d) {
+    public void refresh(List<RecordMsg> d) {
         lists = d;
         notifyDataSetChanged();
     }
@@ -85,7 +81,7 @@ public class ItemRecordAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        final RecordVO cell = lists.get(position);
+        final RecordMsg cell = lists.get(position);
         if(cell != null){
             String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);

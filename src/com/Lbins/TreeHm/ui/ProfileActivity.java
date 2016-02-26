@@ -19,12 +19,13 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.EmpAdObjData;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.EmpAdObj;
-import com.Lbins.TreeHm.module.RecordVO;
+
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.ContentListView;
 import com.android.volley.AuthFailureError;
@@ -50,7 +51,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private ContentListView lstv;
     private int pageIndex = 1;
     private ItemRecordAdapter adapter;
-    private List<RecordVO> lists = new ArrayList<RecordVO>();
+    private List<RecordMsg> lists = new ArrayList<RecordMsg>();
 
     //header
     LinearLayout headLiner;
@@ -280,7 +281,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         back.setText(emp.getMm_emp_nickname());
     }
 
-    RecordVO recordVO;
+    RecordMsg recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag){
