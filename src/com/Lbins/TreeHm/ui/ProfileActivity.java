@@ -219,7 +219,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                                         lstv.setResultSize(data.getData().size());
                                         adapter.notifyDataSetChanged();
                                     }
-                                } else {
+                                } else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(ProfileActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(ProfileActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
+                                }else {
                                     Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {

@@ -31,5 +31,6 @@
     <string name="album_all">All Photos</string>
     <string name="add_record_error_one">"发布信息失败"</string>
     <string name="no_data">暂无数据</string>
+    <string name="login_out">您的登陆已过期，请重新登陆</string>
 
 </resources>

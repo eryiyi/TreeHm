@@ -270,6 +270,12 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                                     lists .addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(loginV);
+                                    getActivity().finish();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();

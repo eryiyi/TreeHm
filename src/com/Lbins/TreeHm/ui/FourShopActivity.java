@@ -118,6 +118,14 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                                         gridView2.setVisibility(View.GONE);
                                     }
                                     initDataLocation();
+                                }else if(Integer.parseInt(code1) == 9){
+                                    Toast.makeText(FourShopActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(FourShopActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
+                                }else{
+                                    Toast.makeText(FourShopActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -151,6 +159,12 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                 }
                 if(!StringUtil.isNullOrEmpty(UniversityApplication.lng)){
                     params.put("lng", UniversityApplication.lng);
+                }
+
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
                 }
                 return params;
             }

@@ -468,6 +468,12 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     Toast.makeText(AddRecordActivity.this,
                                             "发布信息数量超出限制，您每天最多发布"+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条" ,
                                             Toast.LENGTH_SHORT).show();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(AddRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(AddRecordActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
                                 }
                                 else {
                                     Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one , Toast.LENGTH_SHORT).show();
@@ -509,6 +515,12 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 params.put("provinceid" , getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
                 params.put("cityid" , getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
                 params.put("countryid" , getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
                 return params;
             }
 

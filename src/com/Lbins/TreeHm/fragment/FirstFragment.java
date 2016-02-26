@@ -19,6 +19,7 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
+import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpData;
@@ -274,6 +275,12 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                     lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(loginV);
+                                    getActivity().finish();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.get_data_error , Toast.LENGTH_SHORT).show();

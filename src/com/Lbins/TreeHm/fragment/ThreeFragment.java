@@ -222,6 +222,12 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                                     lists .addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(loginV);
+                                    getActivity().finish();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
@@ -253,6 +259,11 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
                 return params;
             }
 
