@@ -13,13 +13,23 @@ import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.ItemDetailPhotoAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.FuwuObjData;
 import com.Lbins.TreeHm.module.RecordVO;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/1/22.
@@ -75,6 +85,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         adapterPhot = new ItemDetailPhotoAdapter(lists, DetailRecordActivity.this);
         gridView.setAdapter(adapterPhot);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        this.findViewById(R.id.reportbtn).setOnClickListener(this);
     }
 
     void initData(){
@@ -150,6 +161,10 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 startActivity(profileV);
             }
                 break;
+            case R.id.reportbtn:
+                //举报
+                showJubao();
+                break;
         }
     }
 
@@ -184,5 +199,101 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         });
         picAddDialog.setContentView(picAddInflate);
         picAddDialog.show();
+    }
+
+    // 举报
+    private void showJubao() {
+        final Dialog picAddDialog = new Dialog(DetailRecordActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(this, R.layout.jubao_dialog, null);
+        TextView jubao_sure = (TextView) picAddInflate.findViewById(R.id.jubao_sure);
+        final EditText jubao_cont = (EditText) picAddInflate.findViewById(R.id.jubao_cont);
+        //举报提交
+        jubao_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String contreport = jubao_cont.getText().toString();
+                if (StringUtil.isNullOrEmpty(contreport)) {
+                    Toast.makeText(DetailRecordActivity.this, R.string.report_answer, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                report(contreport);
+                picAddDialog.dismiss();
+            }
+        });
+
+        //举报取消
+        TextView jubao_cancle = (TextView) picAddInflate.findViewById(R.id.jubao_cancle);
+        jubao_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
+
+    public void report(final String contReport) {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.ADD_REPORT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 =  jo.getString("code");
+                                if(Integer.parseInt(code1) == 200){
+                                    showMsg(DetailRecordActivity.this, "举报成功，请等待管理员审核！");
+                                }else if(Integer.parseInt(code1) == 9){
+                                    Toast.makeText(DetailRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(DetailRecordActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
+                                }else{
+                                    Toast.makeText(DetailRecordActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(DetailRecordActivity.this, R.string.report_error_one, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(DetailRecordActivity.this, R.string.report_error_one, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_msg_id", recordVO.getMm_msg_id());
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_id_t", recordVO.getMm_emp_id());
+                params.put("mm_report_content", contReport);
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
     }
 }

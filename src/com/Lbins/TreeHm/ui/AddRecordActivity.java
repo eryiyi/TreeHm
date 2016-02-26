@@ -158,6 +158,10 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     showMsg(AddRecordActivity.this, "请输入内容");
                     return;
                 }
+                if(mm_msg_content.getText().toString().length() > 200){
+                    showMsg(AddRecordActivity.this, "内容200字以内");
+                    return;
+                }
                 if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && "苗木供应".equals(mm_msg_type)){
                     //没有发布苗木供应的权限
                     showMsg(AddRecordActivity.this, "您暂无权限发布苗木供应信息，请在'服务中心'升级vip");

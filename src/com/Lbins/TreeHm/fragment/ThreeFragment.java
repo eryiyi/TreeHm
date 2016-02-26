@@ -114,7 +114,8 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                lists.get(position-1).setIs_read("1");
+                adapter.notifyDataSetChanged();
             }
         });
         adapter.setOnClickContentItemListener(this);

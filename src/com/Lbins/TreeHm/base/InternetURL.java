@@ -51,5 +51,7 @@ public class InternetURL {
     public static final String GET_VIP_URL = INTERNAL + "getVipList.do";
     //获得等级详情
     public static final String GET_VIP_DETAIL_URL = INTERNAL + "getLevelById.do";
+    //添加举报
+    public static final String ADD_REPORT_URL = INTERNAL + "saveReport.do";
 
 }
