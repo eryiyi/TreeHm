@@ -135,8 +135,6 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
             case 4:
             {
                 //头像
-                lists.get(position).setIs_read("1");
-                adapter.notifyDataSetChanged();
 
                 recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");

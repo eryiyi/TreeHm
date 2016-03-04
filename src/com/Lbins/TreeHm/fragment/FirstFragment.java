@@ -1,6 +1,7 @@
 package com.Lbins.TreeHm.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -184,8 +185,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             case 4:
             {
                //头像
-                lists.get(position).setIs_read("1");
-                adapter.notifyDataSetChanged();
 
                 recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");
@@ -217,6 +216,16 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
 
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+                break;
+            case 6:
+                //收藏图标
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+                recordVO = lists.get(position);
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setIndeterminate(true);
+                progressDialog.show();
+                saveFavour(recordVO.getMm_msg_id());
                 break;
         }
     }
@@ -269,15 +278,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                         lists.clear();
                                     }
                                     lists.addAll(data.getData());
-
-//                                    if(data.getData() != null && data.getData().size() > 0){
-//                                        for(RecordMsg recordMsg:data.getData()){
-//                                            DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
-//                                        }
-//                                        //最后再把所有的数据取出来
-//                                        lists.addAll(DBHelper.getInstance(getActivity()).getRecordList());
-//                                    }
-
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else if(Integer.parseInt(code) == 9){
@@ -462,4 +462,79 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         super.onDestroy();
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
+
+
+    void saveFavour(final String mm_msg_id){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.ADD_FAVOUR_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200){
+                                    Toast.makeText(getActivity(), R.string.favour_success , Toast.LENGTH_SHORT).show();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(loginV);
+                                    getActivity().finish();
+                                }
+                                else{
+                                    Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
+                                }
+                                if(lists.size() == 0){
+                                    no_data.setVisibility(View.VISIBLE);
+                                    lstv.setVisibility(View.GONE);
+                                }else {
+                                    no_data.setVisibility(View.GONE);
+                                    lstv.setVisibility(View.VISIBLE);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(getActivity(), R.string.no_favour, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_msg_id", mm_msg_id);
+                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
 }

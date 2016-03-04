@@ -14,12 +14,13 @@ import java.io.Serializable;
 /**
  * Entity mapped to table RECORD_MSG.
  */
-public class RecordMsg implements Serializable{
+public class RecordMsg implements Serializable {
 
     /** Not-null value. */
     private String mm_msg_id;
     private String mm_emp_id;
     private String mm_msg_type;
+    private String mm_msg_title;
     private String mm_msg_content;
     private String mm_msg_picurl;
     private String dateline;
@@ -29,6 +30,7 @@ public class RecordMsg implements Serializable{
     private String provinceid;
     private String cityid;
     private String countryid;
+    private String area;
     private String accessToken;
     private String mm_emp_mobile;
     private String mm_emp_nickname;
@@ -59,10 +61,11 @@ public class RecordMsg implements Serializable{
         this.mm_msg_id = mm_msg_id;
     }
 
-    public RecordMsg(String mm_msg_id, String mm_emp_id, String mm_msg_type, String mm_msg_content, String mm_msg_picurl, String dateline, String is_del, String is_top, String top_num, String provinceid, String cityid, String countryid, String accessToken, String mm_emp_mobile, String mm_emp_nickname, String mm_emp_type, String mm_emp_cover, String mm_emp_company_type, String mm_emp_company, String mm_level_id, String is_chengxin, String is_miaomu, String mm_level_num, String is_read) {
+    public RecordMsg(String mm_msg_id, String mm_emp_id, String mm_msg_type, String mm_msg_title, String mm_msg_content, String mm_msg_picurl, String dateline, String is_del, String is_top, String top_num, String provinceid, String cityid, String countryid, String area, String accessToken, String mm_emp_mobile, String mm_emp_nickname, String mm_emp_type, String mm_emp_cover, String mm_emp_company_type, String mm_emp_company, String mm_level_id, String is_chengxin, String is_miaomu, String mm_level_num, String is_read) {
         this.mm_msg_id = mm_msg_id;
         this.mm_emp_id = mm_emp_id;
         this.mm_msg_type = mm_msg_type;
+        this.mm_msg_title = mm_msg_title;
         this.mm_msg_content = mm_msg_content;
         this.mm_msg_picurl = mm_msg_picurl;
         this.dateline = dateline;
@@ -72,6 +75,7 @@ public class RecordMsg implements Serializable{
         this.provinceid = provinceid;
         this.cityid = cityid;
         this.countryid = countryid;
+        this.area = area;
         this.accessToken = accessToken;
         this.mm_emp_mobile = mm_emp_mobile;
         this.mm_emp_nickname = mm_emp_nickname;
@@ -116,6 +120,14 @@ public class RecordMsg implements Serializable{
 
     public void setMm_msg_type(String mm_msg_type) {
         this.mm_msg_type = mm_msg_type;
+    }
+
+    public String getMm_msg_title() {
+        return mm_msg_title;
+    }
+
+    public void setMm_msg_title(String mm_msg_title) {
+        this.mm_msg_title = mm_msg_title;
     }
 
     public String getMm_msg_content() {
@@ -188,6 +200,14 @@ public class RecordMsg implements Serializable{
 
     public void setCountryid(String countryid) {
         this.countryid = countryid;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getAccessToken() {

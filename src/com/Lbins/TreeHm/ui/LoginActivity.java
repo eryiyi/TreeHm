@@ -18,6 +18,7 @@ import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpData;
+import com.Lbins.TreeHm.data.KefuTelData;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -47,6 +48,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
 
+    private TextView btn_kf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         mobile = (EditText) this.findViewById(R.id.mobile);
         password = (EditText) this.findViewById(R.id.password);
+        btn_kf = (TextView) this.findViewById(R.id.btn_kf);
 
         this.findViewById(R.id.reg).setOnClickListener(this);
         this.findViewById(R.id.forgetpwr).setOnClickListener(this);
@@ -76,6 +79,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         // 设置定位监听
         locationClient.setLocationListener(this);
 
+        btn_kf.setText("联系客服："+getGson().fromJson(getSp().getString("kefuTel", ""), String.class));
     }
 
     @Override
@@ -396,6 +400,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         getRequestQueue().add(request);
     }
-
 
 }

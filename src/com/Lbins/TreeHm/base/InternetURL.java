@@ -4,8 +4,8 @@ package com.Lbins.TreeHm.base;
  * Created by liuzwei on 2015/1/12.
  */
 public class InternetURL {
-//    public static final String INTERNAL = "http://192.168.1.100:8080/";
-    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
+    public static final String INTERNAL = "http://192.168.1.101:8080/";
+//    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String UPLOAD_TOKEN = INTERNAL + "token.json";
@@ -53,5 +53,11 @@ public class InternetURL {
     public static final String GET_VIP_DETAIL_URL = INTERNAL + "getLevelById.do";
     //添加举报
     public static final String ADD_REPORT_URL = INTERNAL + "saveReport.do";
+    //查询收藏信息
+    public static final String LIST_FAVOUR_URL = INTERNAL + "getFavourById.do";
+    //保存收藏信息
+    public static final String ADD_FAVOUR_URL = INTERNAL + "saveFavour.do";
+    //获得客服电话
+    public static final String GET_TEL_URL = INTERNAL + "getKefuTel.do";
 
 }

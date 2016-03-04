@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
-
 import com.Lbins.TreeHm.dao.RecordMsg;
+import com.Lbins.TreeHm.module.Favour;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,9 +22,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ItemRecordAdapter extends BaseAdapter {
+public class ItemFavourAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<RecordMsg> lists;
+    private List<Favour> lists;
     private Context mContect;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -36,11 +36,11 @@ public class ItemRecordAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemRecordAdapter(List<RecordMsg> lists, Context mContect){
+    public ItemFavourAdapter(List<Favour> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
-    public void refresh(List<RecordMsg> d) {
+    public void refresh(List<Favour> d) {
         lists = d;
         notifyDataSetChanged();
     }
@@ -64,7 +64,7 @@ public class ItemRecordAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_favour,null);
             holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
             holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
@@ -75,25 +75,22 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.content = (TextView) convertView.findViewById(R.id.content);
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
-            holder.star = (ImageView) convertView.findViewById(R.id.star);
-            holder.is_read = (ImageView) convertView.findViewById(R.id.is_read);
-            holder.btn_favour = (ImageView) convertView.findViewById(R.id.btn_favour);
-
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        final RecordMsg cell = lists.get(position);
+        final Favour cell = lists.get(position);
         if(cell != null){
             String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);
-            holder.dateline.setText(cell.getDateline() + " " +cell.getArea());
+            holder.dateline.setText(cell.getDatelineRecord() );
             String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
 //            if(msg.length() > 80){
 //                msg = msg.substring(0,79)+"...";
 //            }
             holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
             holder.content.setText(msg);
+
             if("1".equals(cell.getIs_chengxin())){
                 holder.img_xinyong.setVisibility(View.VISIBLE);
             }else {
@@ -104,34 +101,12 @@ public class ItemRecordAdapter extends BaseAdapter {
             }else {
                 holder.img_xiehui.setVisibility(View.GONE);
             }
-            switch (Integer.parseInt((cell.getMm_level_num()==null?"0":cell.getMm_level_num()))){
-                case 0:
-                    holder.star.setImageResource(R.drawable.tree_icons_star_1);
-                    break;
-                case 1:
-                    holder.star.setImageResource(R.drawable.tree_icons_star_2);
-                    break;
-                case 2:
-                    holder.star.setImageResource(R.drawable.tree_icons_star_3);
-                    break;
-                case 3:
-                    holder.star.setImageResource(R.drawable.tree_icons_star_4);
-                    break;
-                case 4:
-                    holder.star.setImageResource(R.drawable.tree_icons_star_5);
-                    break;
-            }
+
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
             if(StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())){
                 holder.btn_pic.setVisibility(View.GONE);
             }else {
                 holder.btn_pic.setVisibility(View.VISIBLE);
-            }
-            if("1".equals(cell.getIs_read())){
-                //已读
-                holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-            }else {
-                holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
             }
 
 
@@ -189,18 +164,7 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 5, null);
             }
         });
-        holder.btn_favour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 6, null);
-            }
-        });
-//        holder.content.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickContentItemListener.onClickContentItem(position, 6, null);
-//            }
-//        });
+
 
 
         return convertView;
@@ -216,8 +180,7 @@ public class ItemRecordAdapter extends BaseAdapter {
         TextView content;
         ImageView img_xinyong;
         ImageView img_xiehui;
-        ImageView star;
-        ImageView is_read;
-        ImageView btn_favour;
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.Lbins.TreeHm.base;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import com.Lbins.TreeHm.UniversityApplication;
@@ -12,6 +13,7 @@ import java.util.concurrent.ExecutorService;
  * Created by liuzwei on 2015/1/17.
  */
 public class MyBaseFragment extends Fragment {
+    public ProgressDialog progressDialog;
 
     /**
      * 获取当前Application

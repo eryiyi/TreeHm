@@ -113,6 +113,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_suggest).setOnClickListener(this);
         view.findViewById(R.id.relate_vip).setOnClickListener(this);
         view.findViewById(R.id.relate_nearby).setOnClickListener(this);
+        view.findViewById(R.id.relate_favour).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -367,6 +368,13 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 Intent profileV = new Intent(getActivity(), ProfileActivity.class);
                 profileV.putExtra("id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 startActivity(profileV);
+            }
+                break;
+            case R.id.relate_favour:
+            {
+                //我的收藏
+                Intent mineFavourV = new Intent(getActivity(), MineFavour.class);
+                startActivity(mineFavourV);
             }
                 break;
         }

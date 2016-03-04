@@ -1,14 +1,15 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.*;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.base.BaseActivity;
@@ -17,6 +18,10 @@ import com.Lbins.TreeHm.module.SetFontColor;
 import com.Lbins.TreeHm.module.SetFontSize;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CustomerSpinner;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
 
 import java.util.ArrayList;
 
@@ -41,6 +46,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private TextView fontsize_text;
     private TextView fontcolor_text;
+    private TextView check_version;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +60,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
         fontsize_text = (TextView) this.findViewById(R.id.fontsize_text);
         fontcolor_text = (TextView) this.findViewById(R.id.fontcolor_text);
-
+        check_version = (TextView) this.findViewById(R.id.check_version);
+        check_version.setOnClickListener(this);
+        check_version.setText(getVersion());
         switch_shengyin = (ImageView) this.findViewById(R.id.switch_shengyin);
         switch_zhendong = (ImageView) this.findViewById(R.id.switch_zhendong);
         switch_shengyin.setOnClickListener(this);
@@ -140,7 +148,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     switch_zhendong.setImageResource(R.drawable.switch_open);
                     save("switch_zhendong", "1");
                 }
-
                 break;
             case R.id.switch_shengyin:
                 if("1".equals(getGson().fromJson(getSp().getString("switch_shengyin", ""), String.class))){
@@ -151,7 +158,37 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     switch_shengyin.setImageResource(R.drawable.switch_open);
                     save("switch_shengyin", "1");
                 }
+                break;
+            case R.id.check_version:
+                //检查版本
+            {
+                //
+                Resources res = getBaseContext().getResources();
+                String message = res.getString(R.string.check_new_version).toString();
+                progressDialog = new ProgressDialog(SettingActivity.this);
+                progressDialog.setMessage(message);
+                progressDialog.show();
 
+                UmengUpdateAgent.forceUpdate(this);
+
+                UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+                    @Override
+                    public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+                        progressDialog.dismiss();
+                        switch (i) {
+                            case UpdateStatus.Yes:
+//                                Toast.makeText(mContext, "有新版本发现", Toast.LENGTH_SHORT).show();
+                                break;
+                            case UpdateStatus.No:
+                                Toast.makeText(SettingActivity.this, "已是最新版本", Toast.LENGTH_SHORT).show();
+                                break;
+                            case UpdateStatus.Timeout:
+                                Toast.makeText(SettingActivity.this, "连接超时", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+            }
                 break;
         }
     }
@@ -262,4 +299,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         unregisterReceiver(mBroadcastReceiver);
     }
 
+    public String getVersion() {
+        try {
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            String version = info.versionName;
+            return this.getString(R.string.version_name) + version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return this.getString(R.string.can_not_find_version_name);
+        }
+    }
 }

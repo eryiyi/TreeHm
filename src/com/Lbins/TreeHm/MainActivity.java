@@ -9,20 +9,33 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.KefuTelData;
+import com.Lbins.TreeHm.data.RecordDataSingle;
 import com.Lbins.TreeHm.fragment.FirstFragment;
 import com.Lbins.TreeHm.fragment.FourFragment;
 import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.fragment.ThreeFragment;
+import com.Lbins.TreeHm.ui.DetailRecordActivity;
 import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.umeng.update.UmengUpdateAgent;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     /**
      * Called when the activity is first created.
      */
-
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
@@ -35,7 +48,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ImageView foot_two;
     private ImageView foot_three;
     private ImageView foot_four;
-    private ImageView foot_five;
 
     private long waitTime = 2000;
     private long touchTime = 0;
@@ -67,6 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
             UniversityApplication.fontColor = getGson().fromJson(getSp().getString("font_color", ""), String.class);
         }
+
     }
 
     boolean isMobileNet, isWifiNet;
@@ -179,7 +192,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             ft.hide(fourFragment);
         }
     }
-
-
 
 }

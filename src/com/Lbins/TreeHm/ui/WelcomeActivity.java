@@ -12,6 +12,7 @@ import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpData;
+import com.Lbins.TreeHm.data.KefuTelData;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -45,6 +46,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+        getTel();
         //定位
         locationClient = new AMapLocationClient(this.getApplicationContext());
         locationOption = new AMapLocationClientOption();
@@ -331,5 +333,52 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    void getTel(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_TEL_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200){
+                                    KefuTelData data = getGson().fromJson(s, KefuTelData.class);
+                                    if(data != null && data.getData() != null && data.getData().get(0) != null){
+                                        save("kefuTel", data.getData().get(0).getMm_tel());
+                                    }
+                                }else{
+                                    Toast.makeText(WelcomeActivity.this, R.string.get_data_error , Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 
 }

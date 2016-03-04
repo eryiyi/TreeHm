@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/libs/AMap_3DMap_V3.2.0.1_20160122.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/AMap_Location_v2.3.0_20160112.jar" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/android-async-http-1.4.8.jar" charset="UTF-8" />
