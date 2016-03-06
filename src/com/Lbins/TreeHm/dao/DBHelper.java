@@ -132,4 +132,29 @@ public class DBHelper {
     public long saveRecord(RecordMsg test){
         return recordDao.insertOrReplace(test);
     }
+
+    //查询是否存在该动态
+    public boolean isRecord(String id)
+    {
+        QueryBuilder<RecordMsg> qb = recordDao.queryBuilder();
+        qb.where(RecordMsgDao.Properties.Mm_msg_id.eq(id));
+        qb.buildCount().count();
+        return qb.buildCount().count() > 0 ? true : false;
+    }
+
+     //查询动态
+    public RecordMsg getRecord(String id)
+    {
+        RecordMsg recordMsg = recordDao.load(id);
+
+        return recordMsg;
+    }
+
+    /**
+     * 更新数据
+     * @param test
+     */
+    public void updateRecord(RecordMsg test){
+        recordDao.update(test);
+    }
 }

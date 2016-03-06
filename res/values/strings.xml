@@ -36,5 +36,6 @@
     <string name="version_name">"检查版本"</string>
     <string name="can_not_find_version_name">"没有最新版本信息"</string>
     <string name="favour_success">"收藏成功"</string>
+    <string name="favour_error_one">"已经收藏，不能重复收藏"</string>
     <string name="no_favour">"收藏失败"</string>
 </resources>

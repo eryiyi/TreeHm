@@ -19,6 +19,7 @@ import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.EmpAdObjData;
 import com.Lbins.TreeHm.data.EmpData;
@@ -120,6 +121,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lists.get(i-2).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(i-2);
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
             }
         });
 
@@ -220,6 +225,18 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                                         lstv.setResultSize(data.getData().size());
                                         adapter.notifyDataSetChanged();
                                     }
+
+                                    if(data != null && data.getData() != null){
+                                        for(RecordMsg recordMsg:data.getData()){
+                                            RecordMsg recordMsgLocal = DBHelper.getInstance(ProfileActivity.this).getRecord(recordMsg.getMm_msg_id());
+                                            if(recordMsgLocal != null){
+                                                //已经存在了 不需要插入了
+                                            }else{
+                                                DBHelper.getInstance(ProfileActivity.this).saveRecord(recordMsg);
+                                            }
+                                        }
+                                    }
+
                                 } else if(Integer.parseInt(code) == 9){
                                     Toast.makeText(ProfileActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
                                     save("password", "");
@@ -289,6 +306,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 //分享
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+                recordVO = lists.get(position);
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
             case 2:
             case 4:
@@ -297,6 +317,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
             }
             break;
             case 3:
@@ -311,6 +334,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     //
                     Toast.makeText(ProfileActivity.this, "商户暂无电话!", Toast.LENGTH_SHORT).show();
                 }
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
             case 5:
             case 6:
@@ -322,6 +347,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
         }
     }
@@ -332,12 +360,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
         jubao_cont.setText(tel);
-        //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String contreport = jubao_cont.getText().toString();
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
                 startActivity(intent);
                 picAddDialog.dismiss();

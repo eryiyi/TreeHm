@@ -56,6 +56,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_area,null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
+            holder.msgnum = (TextView) convertView.findViewById(R.id.msgnum);
 
             convertView.setTag(holder);
         }else{
@@ -63,11 +64,18 @@ public class ItemProvinceAdapter extends BaseAdapter {
         }
         final ProvinceObj cell = lists.get(position);
         if(cell != null){
+            if(position == 0 || position == 1 || position==2 || position==3){
+                holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_btn_bg));
+            }else{
+                holder.title.setTextColor(mContect.getResources().getColor(R.color.text_color));
+            }
             holder.title.setText(cell.getProvince());
+            holder.msgnum.setText((cell.getMsgNum()==null?"0":cell.getMsgNum()));
         }
         return convertView;
     }
     class ViewHolder {
+        TextView msgnum;
         TextView title;
     }
 }

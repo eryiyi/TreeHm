@@ -1,10 +1,13 @@
 package com.Lbins.TreeHm.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.R;
@@ -32,7 +35,7 @@ import java.util.Map;
  * Created by Administrator on 2016/2/19.
  */
 public class SelectProvinceActivity extends BaseActivity implements View.OnClickListener {
-    private PullToRefreshListView lstv;
+    private GridView lstv;
     private ItemProvinceAdapter adapter;
     private List<ProvinceObj> lists = new ArrayList<ProvinceObj>();
     private int pageIndex = 1;
@@ -49,56 +52,56 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 
     private void initView() {
         this.findViewById(R.id.back).setOnClickListener(this);
-        lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
+        lstv = (GridView) this.findViewById(R.id.lstv);
         adapter = new ItemProvinceAdapter(lists, SelectProvinceActivity.this);
-        lstv.setMode(PullToRefreshBase.Mode.BOTH);
+//        lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
-        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = true;
-                pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
-                    initData();
-                }else {
-                    lstv.onRefreshComplete();
-                    //未登录
-                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
-                    startActivity(loginV);
-                }
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                IS_REFRESH = false;
-                pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
-                    initData();
-                }else {
-                    lstv.onRefreshComplete();
-                    //未登录
-                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
-                    startActivity(loginV);
-                }
-            }
-        });
+        lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
+//        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//                IS_REFRESH = true;
+//                pageIndex = 1;
+//                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+//                    initData();
+//                }else {
+//                    lstv.onRefreshComplete();
+//                    //未登录
+//                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
+//                    startActivity(loginV);
+//                }
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//                IS_REFRESH = false;
+//                pageIndex++;
+//                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+//                    initData();
+//                }else {
+//                    lstv.onRefreshComplete();
+//                    //未登录
+//                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
+//                    startActivity(loginV);
+//                }
+//            }
+//        });
 
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent cityV = new Intent(SelectProvinceActivity.this, SelectCityActivity.class);
-                ProvinceObj provinceObj = lists.get(position-1);
-                cityV.putExtra("provinceObj" ,provinceObj);
+                Intent cityV = new Intent(SelectProvinceActivity.this, CityAreaActivity.class);
+                ProvinceObj provinceObj = lists.get(position);
+                cityV.putExtra("provinceObj", provinceObj);
                 startActivity(cityV);
-                finish();
             }
         });
     }
@@ -126,7 +129,6 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }
                             }catch (Exception e){

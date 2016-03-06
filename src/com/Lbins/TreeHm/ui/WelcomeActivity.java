@@ -243,7 +243,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     String result = Utils.getLocationStr(loc);
                     if("true".equals(result)){
                         //定位成功
-                        sendLocation();
+                        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+                            sendLocation();
+                        }
                     }else if("false".equals(result)){
 
                     }
@@ -303,8 +305,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", UniversityApplication.lat);
-                params.put("lng", UniversityApplication.lng);
+                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
                 return params;
             }
@@ -349,8 +351,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     if(data != null && data.getData() != null && data.getData().get(0) != null){
                                         save("kefuTel", data.getData().get(0).getMm_tel());
                                     }
-                                }else{
-                                    Toast.makeText(WelcomeActivity.this, R.string.get_data_error , Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

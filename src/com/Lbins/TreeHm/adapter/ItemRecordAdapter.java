@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 
+import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CircleImageView;
@@ -87,7 +88,7 @@ public class ItemRecordAdapter extends BaseAdapter {
         if(cell != null){
             String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);
-            holder.dateline.setText(cell.getDateline() + " " +cell.getArea());
+            holder.dateline.setText((cell.getDateline()==null?"":cell.getDateline()) + " " +(cell.getArea()==null?"":cell.getArea()));
             String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
 //            if(msg.length() > 80){
 //                msg = msg.substring(0,79)+"...";
@@ -127,13 +128,22 @@ public class ItemRecordAdapter extends BaseAdapter {
             }else {
                 holder.btn_pic.setVisibility(View.VISIBLE);
             }
-            if("1".equals(cell.getIs_read())){
-                //已读
-                holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-            }else {
-                holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
+            RecordMsg recordMsg = DBHelper.getInstance(mContect).getRecord(cell.getMm_msg_id());
+            if(recordMsg != null){
+                if("1".equals(recordMsg.getIs_read())){
+                    //已读
+                    holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
+                }else {
+                    holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
+                }
+            }else{
+                if("1".equals(cell.getIs_read())){
+                    //已读
+                    holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
+                }else {
+                    holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
+                }
             }
-
 
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));

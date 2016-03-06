@@ -69,7 +69,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.one_fragment, null);
         res = getActivity().getResources();
-//        lists.addAll(DBHelper.getInstance(getActivity()).getRecordList());
         initView();
         initData();
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
@@ -80,7 +79,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         return view;
     }
 
-    void initView( ){
+    void initView(){
         mLocation = (TextView) view.findViewById(R.id.mLocation);
         mLocation.setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
@@ -132,6 +131,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 lists.get(position-1).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO = lists.get(position-1);
+                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
             }
         });
         adapter.setOnClickContentItemListener(this);
@@ -141,23 +143,17 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     }
 
     private TextWatcher watcher = new TextWatcher() {
-
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
                                       int after) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            // TODO Auto-generated method stub
             IS_REFRESH = true;
             pageIndex = 1;
             if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
@@ -171,27 +167,32 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         }
     };
 
-
     RecordMsg recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag){
             case 1:
                 //分享
+                recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 break;
             case 2:
             case 4:
             {
                //头像
-
                 recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 Intent mineV = new Intent(getActivity(), ProfileActivity.class);
                 mineV.putExtra("id", recordVO.getMm_emp_id());
                 startActivity(mineV);
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
             }
                 break;
             case 3:
@@ -203,9 +204,11 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
-                    //
                     Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
                 }
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 break;
             case 5:
                 //图片
@@ -216,16 +219,28 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
 
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
+
+                recordVO.setIs_read("1");
+                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 break;
             case 6:
                 //收藏图标
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
-                recordVO = lists.get(position);
-                progressDialog = new ProgressDialog(getActivity());
-                progressDialog.setIndeterminate(true);
-                progressDialog.show();
-                saveFavour(recordVO.getMm_msg_id());
+                if("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    recordVO = lists.get(position);
+                    progressDialog = new ProgressDialog(getActivity());
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.show();
+                    saveFavour(recordVO.getMm_msg_id());
+
+                    recordVO.setIs_read("1");
+                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
+                }else {
+                    //未登录
+                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(loginV);
+                }
                 break;
         }
     }
@@ -278,6 +293,17 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                         lists.clear();
                                     }
                                     lists.addAll(data.getData());
+                                    if(data != null && data.getData() != null){
+                                        for(RecordMsg recordMsg:data.getData()){
+                                            RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
+                                            if(recordMsgLocal != null){
+                                                //已经存在了 不需要插入了
+                                            }else{
+                                                DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
+                                            }
+
+                                        }
+                                    }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }else if(Integer.parseInt(code) == 9){
@@ -483,6 +509,8 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
+                                }else if(Integer.parseInt(code) == 2){
+                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();

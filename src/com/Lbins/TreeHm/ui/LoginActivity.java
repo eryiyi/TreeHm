@@ -79,7 +79,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         // 设置定位监听
         locationClient.setLocationListener(this);
 
-        btn_kf.setText("联系客服："+getGson().fromJson(getSp().getString("kefuTel", ""), String.class));
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("kefuTel", ""), String.class))){
+            btn_kf.setText("联系客服："+getGson().fromJson(getSp().getString("kefuTel", ""), String.class));
+        }
+
     }
 
     @Override
@@ -325,7 +328,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     String result = Utils.getLocationStr(loc);
                     if("true".equals(result)){
                         //定位成功
-                        sendLocation();
+                        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+                            sendLocation();
+                        }
                     }else if("false".equals(result)){
 
                     }
@@ -346,6 +351,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             mHandler.sendMessage(msg);
         }
     }
+
     void sendLocation(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -385,8 +391,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", UniversityApplication.lat);
-                params.put("lng", UniversityApplication.lng);
+                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
                 return params;
             }

@@ -9,6 +9,15 @@ public class ProvinceObj implements Serializable{
     private String id;
     private String provinceID;
     private String province;
+    private String msgNum;
+
+    public String getMsgNum() {
+        return msgNum;
+    }
+
+    public void setMsgNum(String msgNum) {
+        this.msgNum = msgNum;
+    }
 
     public String getId() {
         return id;

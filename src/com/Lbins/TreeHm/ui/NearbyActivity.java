@@ -45,7 +45,18 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.nearby_activity);
 
         initView();
-        getData();
+        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+            getData();
+        }else{
+            if(lists.size() > 0){
+                no_data.setVisibility(View.GONE);
+                lstv.setVisibility(View.VISIBLE);
+            }else{
+                no_data.setVisibility(View.VISIBLE);
+                lstv.setVisibility(View.GONE);
+            }
+        }
+
     }
 
     void getData(){
@@ -108,6 +119,13 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
+                        if(lists.size() > 0){
+                            no_data.setVisibility(View.GONE);
+                            lstv.setVisibility(View.VISIBLE);
+                        }else{
+                            no_data.setVisibility(View.VISIBLE);
+                            lstv.setVisibility(View.GONE);
+                        }
                         showMsg(NearbyActivity.this, getResources().getString(R.string.get_data_error));
                     }
                 }
@@ -115,8 +133,8 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", UniversityApplication.lat);
-                params.put("lng", UniversityApplication.lng);
+                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
                 return params;
             }
 
