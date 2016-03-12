@@ -130,7 +130,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-
+        this.findViewById(R.id.btn_kf).setOnClickListener(this);
     }
 
     @Override
@@ -189,6 +189,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     }
                 });
             }
+                break;
+            case R.id.btn_kf:
+                Intent kefuV = new Intent(SettingActivity.this , SelectTelActivity.class);
+                startActivity(kefuV);
                 break;
         }
     }

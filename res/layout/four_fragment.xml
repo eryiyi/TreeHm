@@ -66,12 +66,13 @@
                                 android:paddingTop="1dp" >
                         </LinearLayout>
                     </LinearLayout>
-                    <com.Lbins.TreeHm.widget.CircleImageView
+                    <ImageView
                             android:layout_width="60dp"
                             android:id="@+id/head"
                             android:layout_marginLeft="25dp"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/success_img"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/default_avatar"
                             android:layout_height="60dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="王婧"
@@ -284,10 +285,24 @@
                           android:layout_height="95dp">
                     </View>
                     <RelativeLayout android:layout_width="0dp"
-                                    android:padding="5dp"
                                     android:layout_weight="1"
+                                    android:padding="5dp"
+                                    android:id="@+id/relate_kefu"
                                     android:layout_height="wrap_content">
-
+                        <ImageView android:layout_width="wrap_content"
+                                   android:id="@+id/img_kefu"
+                                   android:layout_centerHorizontal="true"
+                                   android:src="@drawable/button_selector_kefu_mine"
+                                   android:layout_height="60dp"/>
+                        <TextView android:layout_width="wrap_content"
+                                  android:text="客服中心"
+                                  android:padding="5dp"
+                                  android:layout_centerHorizontal="true"
+                                  android:textSize="12sp"
+                                  android:gravity="center"
+                                  android:layout_below="@+id/img_kefu"
+                                  android:textColor="@color/text_color"
+                                  android:layout_height="wrap_content"/>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -114,6 +114,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_vip).setOnClickListener(this);
         view.findViewById(R.id.relate_nearby).setOnClickListener(this);
         view.findViewById(R.id.relate_favour).setOnClickListener(this);
+        view.findViewById(R.id.relate_kefu).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -375,6 +376,13 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 //我的收藏
                 Intent mineFavourV = new Intent(getActivity(), MineFavour.class);
                 startActivity(mineFavourV);
+            }
+                break;
+            case R.id.relate_kefu:
+            {
+                //客服中心
+                Intent kefuV = new Intent(getActivity(), SelectTelActivity.class);
+                startActivity(kefuV);
             }
                 break;
         }

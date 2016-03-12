@@ -83,7 +83,7 @@
                   android:gravity="center"
                   android:textSize="16sp"
                   android:textColor="@color/mm_btn_bg"
-                  android:text="联系客服："
+                  android:text="客服中心"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
 

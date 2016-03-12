@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mobile = (EditText) this.findViewById(R.id.mobile);
         password = (EditText) this.findViewById(R.id.password);
         btn_kf = (TextView) this.findViewById(R.id.btn_kf);
-
+        btn_kf.setOnClickListener(this);
         this.findViewById(R.id.reg).setOnClickListener(this);
         this.findViewById(R.id.forgetpwr).setOnClickListener(this);
 
@@ -79,9 +79,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         // 设置定位监听
         locationClient.setLocationListener(this);
 
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("kefuTel", ""), String.class))){
-            btn_kf.setText("联系客服："+getGson().fromJson(getSp().getString("kefuTel", ""), String.class));
-        }
 
     }
 
@@ -143,41 +140,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_kf:
                 //联系客服
-                showTel();
+               Intent kefuV = new Intent(LoginActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
                 break;
         }
     }
 
-    // 客服电话窗口
-    private void showTel() {
-        final Dialog picAddDialog = new Dialog(LoginActivity.this, R.style.dialog);
-        View picAddInflate = View.inflate(this, R.layout.tel_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
-        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(getResources().getString(R.string.kefu_tel));
-        //提交
-        btn_sure.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                String contreport = jubao_cont.getText().toString();
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
-                startActivity(intent);
-                picAddDialog.dismiss();
-            }
-        });
-
-        //取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
-        picAddDialog.setContentView(picAddInflate);
-        picAddDialog.show();
-    }
 
     void loginData(){
         StringRequest request = new StringRequest(

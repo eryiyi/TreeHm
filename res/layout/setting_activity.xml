@@ -96,6 +96,8 @@
           android:background="@color/orange_color"
           android:layout_height="0.5dp"></View>
 
+
+
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="horizontal"
                   android:padding="15dp"
@@ -149,4 +151,14 @@
             android:background="@drawable/bg_green_radius"
             android:layout_height="wrap_content"/>
 
+    <TextView android:layout_width="match_parent"
+              android:padding="8dp"
+              android:id="@+id/btn_kf"
+              android:layout_marginTop="25dp"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:textSize="16sp"
+              android:textColor="@color/mm_btn_bg"
+              android:text="客服中心"
+              android:layout_height="wrap_content"/>
 </LinearLayout>

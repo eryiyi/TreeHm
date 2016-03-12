@@ -14,7 +14,7 @@ import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.util.StringUtil;
-import com.Lbins.TreeHm.widget.CircleImageView;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -69,7 +69,7 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
             holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
-            holder.head = (CircleImageView) convertView.findViewById(R.id.head);
+            holder.head = (ImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
             holder.title = (TextView) convertView.findViewById(R.id.title);
@@ -166,6 +166,13 @@ public class ItemRecordAdapter extends BaseAdapter {
                 }
 
             }
+
+//            if(position % 2 == 0){
+//                //偶数
+//                convertView.setBackgroundColor(Color.argb(250, 255, 255, 255)); //颜色设置
+//            }else {
+//                convertView.setBackgroundColor(Color.argb(255, 224, 243, 250));//颜色设置
+//            }
         }
 
         //
@@ -219,7 +226,7 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView btn_share;
         ImageView btn_pic;
         ImageView btn_tel;
-        CircleImageView head;
+        ImageView head;
         TextView nickname;
         TextView dateline;
         TextView title;

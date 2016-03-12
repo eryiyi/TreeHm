@@ -1,7 +1,6 @@
 package com.Lbins.TreeHm.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
+import com.Lbins.TreeHm.module.Emp;
+import com.Lbins.TreeHm.module.KefuTel;
+import com.Lbins.TreeHm.util.StringUtil;
+import com.amap.api.maps.model.LatLng;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -18,11 +21,10 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ItemDetailPhotoAdapter extends BaseAdapter {
+public class ItemTelAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<String> lists;
+    private List<KefuTel> lists;
     private Context mContect;
-    Resources res;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -33,11 +35,11 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-
-    public ItemDetailPhotoAdapter(List<String> lists, Context mContect){
+    public ItemTelAdapter(List<KefuTel> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
+
     @Override
     public int getCount() {
         return lists.size();
@@ -55,28 +57,29 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        res = mContect.getResources();
         if (convertView == null){
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_detail_photo,null);
-            holder.item_pic = (ImageView) convertView.findViewById(R.id.item_pic);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_tel,null);
+            holder.tel = (TextView) convertView.findViewById(R.id.tel);
+            holder.address = (TextView) convertView.findViewById(R.id.address);
 
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        String cell = lists.get(position);
+        final KefuTel cell = lists.get(position);
         if(cell != null){
-            if(cell.indexOf("7xqzj9.com1.z0.glb.clouddn.com") > 0){
-                //图片保存到七牛上了，有缩率图
-                cell = cell + "-yasuoone";
-            }
-            imageLoader.displayImage(cell, holder.item_pic, UniversityApplication.options, animateFirstListener);
+            holder.tel.setText(cell.getMm_tel());
+            holder.address.setText((cell.getProvinceName()==null?"":cell.getProvinceName())
+                    +(cell.getCityName()==null?"":cell.getCityName())
+                    +(cell.getAreaName()==null?"":cell.getAreaName()));
         }
 
         return convertView;
     }
     class ViewHolder {
-        ImageView item_pic;
+        TextView address;
+        TextView tel;
+
     }
 }

@@ -12,7 +12,6 @@ import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.Emp;
 
 import com.Lbins.TreeHm.util.StringUtil;
-import com.Lbins.TreeHm.widget.CircleImageView;
 import com.amap.api.maps.model.LatLng;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -65,7 +64,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
         if (convertView == null){
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_nearby,null);
-            holder.head = (CircleImageView) convertView.findViewById(R.id.head);
+            holder.head = (ImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
             holder.distance = (TextView) convertView.findViewById(R.id.distance);
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
@@ -120,7 +119,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
         return convertView;
     }
     class ViewHolder {
-        CircleImageView head;
+        ImageView head;
         TextView nickname;
         TextView distance;
         ImageView img_xinyong;
