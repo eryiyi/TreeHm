@@ -143,7 +143,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 if("1".equals(getGson().fromJson(getSp().getString("switch_zhendong", ""), String.class))){
                     //打开的
                     switch_zhendong.setImageResource(R.drawable.switch_close);
-                    save("switch_shengyin", "0");
+                    save("switch_shengyin", "0");//0关闭  1打开
                 }else {
                     switch_zhendong.setImageResource(R.drawable.switch_open);
                     save("switch_zhendong", "1");
@@ -153,7 +153,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 if("1".equals(getGson().fromJson(getSp().getString("switch_shengyin", ""), String.class))){
                     //打开的
                     switch_shengyin.setImageResource(R.drawable.switch_close);
-                    save("switch_shengyin", "0");
+                    save("switch_shengyin", "0");//0关闭  1打开
                 }else {
                     switch_shengyin.setImageResource(R.drawable.switch_open);
                     save("switch_shengyin", "1");

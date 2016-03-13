@@ -122,6 +122,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             }
         });
         this.findViewById(R.id.btn).setOnClickListener(this);
+        this.findViewById(R.id.btn_kf).setOnClickListener(this);
     }
 
     boolean isMobileNet, isWifiNet;
@@ -140,6 +141,11 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+            case R.id.btn_kf:
+                //联系客服
+                Intent kefuV = new Intent(AddRecordActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
                 break;
             case R.id.btn:
                 //先判断权限
@@ -632,6 +638,11 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 params.put("provinceid" , getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
                 params.put("cityid" , getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
                 params.put("countryid" , getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
                 return params;
             }
 

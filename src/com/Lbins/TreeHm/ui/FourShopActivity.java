@@ -199,8 +199,9 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         LayoutInflater inflater=getLayoutInflater();
         view1=inflater.inflate(R.layout.four_shop_lay1, null);
         view2=inflater.inflate(R.layout.four_shop_lay2, null);
-        views.add(view2);
+
         views.add(view1);
+        views.add(view2);
 
         viewPager.setAdapter(new MyViewPagerAdapter(views));
         viewPager.setCurrentItem(0);

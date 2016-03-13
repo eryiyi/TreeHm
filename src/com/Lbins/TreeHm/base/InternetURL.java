@@ -2,7 +2,7 @@ package com.Lbins.TreeHm.base;
 
 public class InternetURL {
 //    public static final String INTERNAL = "http://114.215.121.7:7777/";
-    public static final String INTERNAL = "http://192.168.1.104:8080/";
+    public static final String INTERNAL = "http://192.168.1.106:8080/";
 //    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
 //    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
@@ -58,5 +58,9 @@ public class InternetURL {
     public static final String ADD_FAVOUR_URL = INTERNAL + "saveFavour.do";
     //获得客服电话
     public static final String GET_TEL_URL = INTERNAL + "getKefuTel.do";
+    //获得收藏数量
+    public static final String GET_FAVOUR_COUNT_URL = INTERNAL + "getFavourCount.do";
+    //删除收藏
+    public static final String DELETE_FAVOUR_URL = INTERNAL + "deleteFavour.do";
 
 }

@@ -26,6 +26,7 @@ import com.Lbins.TreeHm.adapter.ViewPagerAdapter;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpAdObjData;
+import com.Lbins.TreeHm.data.FavourCountData;
 import com.Lbins.TreeHm.module.EmpAdObj;
 import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -68,6 +69,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     private LinearLayout login_one;
 
+    private TextView count_favour;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         getAd();
         initData();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFavourCount();
     }
 
     private void initData() {
@@ -118,6 +127,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
+        count_favour = (TextView) view.findViewById(R.id.count_favour);
+        count_favour.setVisibility(View.GONE);
     }
 
     private void initViewPager() {
@@ -467,4 +478,56 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
+    void getFavourCount(){
+        //
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_FAVOUR_COUNT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    FavourCountData data = getGson().fromJson(s, FavourCountData.class);
+                                    if(data != null && data.getData() != null){
+                                        count_favour.setVisibility(View.VISIBLE);
+                                        count_favour.setText(data.getData()==""?"0":data.getData());
+                                    }
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

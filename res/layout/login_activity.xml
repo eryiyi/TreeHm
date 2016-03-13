@@ -76,21 +76,26 @@
                 android:layout_height="wrap_content"/>
 
         <TextView android:layout_width="match_parent"
-                  android:padding="8dp"
+                  android:padding="12dp"
                   android:id="@+id/btn_kf"
                   android:layout_marginTop="20dp"
+                  android:paddingBottom="8dp"
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:textSize="16sp"
-                  android:textColor="@color/mm_btn_bg"
+                  android:textColor="@color/white"
                   android:text="客服中心"
+                  android:layout_marginLeft="30dp"
+                  android:layout_marginRight="30dp"
+                  android:background="@drawable/bg_green_radius"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <!--广告-->
 
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="horizontal"
-                  android:padding="25dp"
+                  android:padding="20dp"
                   android:layout_height="wrap_content">
         <TextView android:layout_width="0dp"
                   android:layout_weight="1"

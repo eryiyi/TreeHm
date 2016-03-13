@@ -5,11 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemFavourAdapter;
@@ -23,7 +22,10 @@ import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.data.RecordDataSingle;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.Favour;
+import com.Lbins.TreeHm.util.CommonDefine;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.widget.SelectDelPop;
+import com.Lbins.TreeHm.widget.SelectPhoPop;
 import com.amap.api.maps.model.LatLng;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,6 +35,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +50,11 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     private ListView lstv;
     private List<Favour> lists = new ArrayList<Favour>();
     private ItemFavourAdapter adapter;
+
+    private SelectDelPop selectPhoPop;
+
+    private int positionTmp;
+    private Favour favourTmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +82,41 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
         adapter = new ItemFavourAdapter(lists, MineFavour.this);
         lstv.setAdapter(adapter);
         adapter.setOnClickContentItemListener(this);
+        lstv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                favourTmp = lists.get(i);
+                positionTmp = i;
+                showSelectImageDialog();
+                return false;
+            }
+        });
+
     }
+
+    // 选择相册，相机
+    private void showSelectImageDialog() {
+        selectPhoPop = new SelectDelPop(MineFavour.this, itemsOnClick);
+          //显示窗口
+        selectPhoPop.showAtLocation(MineFavour.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            selectPhoPop.dismiss();
+            switch (v.getId()) {
+                case R.id.camera: {
+                    //删除
+                    DeleteFavour();
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
     void getData(){
         StringRequest request = new StringRequest(
@@ -289,5 +331,80 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
         };
         getRequestQueue().add(request);
     }
+
+
+    void DeleteFavour(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.DELETE_FAVOUR_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200) {
+                                    lists.remove(positionTmp);
+                                    adapter.notifyDataSetChanged();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(MineFavour.this, R.string.login_out, Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(MineFavour.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
+                                }else {
+                                    showMsg(MineFavour.this,getResources().getString(R.string.get_data_error));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        if (lists.size() > 0) {
+                            no_data.setVisibility(View.GONE);
+                            lstv.setVisibility(View.VISIBLE);
+                        } else {
+                            no_data.setVisibility(View.VISIBLE);
+                            lstv.setVisibility(View.GONE);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        showMsg(MineFavour.this, getResources().getString(R.string.get_data_error));
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_record_favour_id" , (favourTmp.getMm_record_favour_id()==null?"":favourTmp.getMm_record_favour_id()));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+
 
 }
