@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.Lbins.TreeHm"
-          android:versionCode="2"
-          android:versionName="1.1">
-    <uses-sdk android:minSdkVersion="16"/>
+          android:versionCode="3"
+          android:versionName="1.2">
+    <uses-sdk android:minSdkVersion="14"/>
 
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
@@ -44,9 +44,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--高德地图sdk-->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
     <!--<uses-permission android:name="android.permission.WRITE_CONTACTS" />-->
@@ -103,7 +105,33 @@
                 android:name="com.umeng.update.UpdateDialogActivity"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <activity
+                android:name="com.umeng.socialize.editorpage.ShareActivity"
+                android:theme="@style/Theme.UMDefault"
+                android:excludeFromRecents="true"/>
 
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
+                android:name="com.tencent.tauth.AuthActivity"
+                android:launchMode="singleTask"
+                android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105177727" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.tencent.connect.common.AssistActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--mob-->
         <activity
@@ -119,6 +147,7 @@
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" >
         </service>
+
 
     </application>
 </manifest>

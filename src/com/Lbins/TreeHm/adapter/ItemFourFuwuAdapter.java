@@ -21,6 +21,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
     private ViewHolder holder;
     private List<FuwuObj> lists;
     private Context mContect;
+    private String mm_fuwu_type;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -31,9 +32,10 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemFourFuwuAdapter(List<FuwuObj> lists, Context mContect){
+    public ItemFourFuwuAdapter(List<FuwuObj> lists, Context mContect,String mm_fuwu_type){
         this.lists = lists;
         this.mContect = mContect;
+        this.mm_fuwu_type = mm_fuwu_type;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             holder.address = (TextView) convertView.findViewById(R.id.address);
             holder.distance = (TextView) convertView.findViewById(R.id.distance);
             holder.tel = (TextView) convertView.findViewById(R.id.tel);
-//            holder.content = (TextView) convertView.findViewById(R.id.content);
+            holder.weiwangzhan = (TextView) convertView.findViewById(R.id.weiwangzhan);
 
             convertView.setTag(holder);
         }else{
@@ -68,12 +70,48 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         }
         final FuwuObj cell = lists.get(position);
         if(cell != null){
-            holder.title.setText(cell.getMm_fuwu_nickname());
-            holder.address.setText(cell.getMm_fuwu_content());
+            String strname = "";
+            switch (Integer.parseInt(mm_fuwu_type)){
+                case 0:
+                    strname = "商店名称:";
+                    holder.weiwangzhan.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    strname = "工人名称:";
+                    holder.weiwangzhan.setVisibility(View.GONE);
+                    break;
+                case 2:
+                    strname = "物流:";
+                    holder.weiwangzhan.setVisibility(View.GONE);
+                    break;
+                case 3:
+                    strname = "团队名称:";
+                    holder.weiwangzhan.setVisibility(View.GONE);
+                    break;
+                case 4:
+                    strname = "";
+                    holder.weiwangzhan.setVisibility(View.GONE);
+                    break;
+
+                };
+            holder.title.setText(strname + cell.getMm_fuwu_nickname());
+            holder.address.setText("服务内容:"+cell.getMm_fuwu_content());
             holder.tel.setText(cell.getMm_fuwu_tel());
             if(cell.getDistance() != null){
                 holder.distance.setText(cell.getDistance()==null?"未知距离":cell.getDistance());
             }
+            holder.weiwangzhan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 1, null);
+                }
+            });
+            holder.tel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 2, null);
+                }
+            });
         }
         return convertView;
     }
@@ -82,6 +120,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         TextView address;
         TextView distance;
         TextView tel;
+        TextView weiwangzhan;
 //        TextView content;
     }
 }

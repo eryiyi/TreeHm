@@ -202,6 +202,7 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
+                params.put("mm_emp_card" , getGson().fromJson(getSp().getString("mm_emp_card", ""), String.class));
                 params.put("newpass" , password.getText().toString());
                 return params;
             }

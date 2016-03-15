@@ -119,12 +119,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lists.get(i-2).setIs_read("1");
-                adapter.notifyDataSetChanged();
+                if(i >1 && lists.size() > i-2){
+                    lists.get(i-2).setIs_read("1");
+                    adapter.notifyDataSetChanged();
 
-                recordVO = lists.get(i-2);
-                recordVO.setIs_read("1");
-                DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
+                    recordVO = lists.get(i-2);
+                    recordVO.setIs_read("1");
+                    DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
+                }
+
             }
         });
 

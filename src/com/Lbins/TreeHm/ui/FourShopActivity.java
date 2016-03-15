@@ -18,6 +18,7 @@ import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemFourFuwuAdapter;
+import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.FuwuObjData;
@@ -40,7 +41,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/22.
  */
-public class FourShopActivity extends BaseActivity implements View.OnClickListener {
+public class FourShopActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
     private ViewPager viewPager;
     private ImageView imageView;
     private TextView textView1,textView2;
@@ -89,7 +90,6 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         InitImageView();
         InitTextView();
         InitViewPager();
-
 
         initData();
     }
@@ -212,30 +212,27 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         no_data1 = (ImageView) view1.findViewById(R.id.no_data);
         no_data2 = (ImageView) view2.findViewById(R.id.no_data);
 
-        adapter = new ItemFourFuwuAdapter(lists, FourShopActivity.this);
-        adapterVideo = new ItemFourFuwuAdapter(listsAll, FourShopActivity.this);
+        adapter = new ItemFourFuwuAdapter(lists, FourShopActivity.this,mm_fuwu_type);
+        adapterVideo = new ItemFourFuwuAdapter(listsAll, FourShopActivity.this,mm_fuwu_type);
 
         gridView.setAdapter(adapter);
         gridView2.setAdapter(adapterVideo);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FuwuObj fuwuObj = lists.get(i);
-                if(fuwuObj != null){
-                    showTel(fuwuObj.getMm_fuwu_tel());
-                }
-            }
-        });
-        gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FuwuObj fuwuObj = listsAll.get(i);
-                if(fuwuObj != null){
-                    showTel(fuwuObj.getMm_fuwu_tel());
-                }
-            }
-        });
+        adapter.setOnClickContentItemListener(this);
+        adapterVideo.setOnClickContentItemListener(this);
+
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//        });
+//        gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//            }
+//        });
 
     }
     // 拨打电话窗口
@@ -291,6 +288,65 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         Matrix matrix = new Matrix();
         matrix.postTranslate(offset, 0);
         imageView.setImageMatrix(matrix);
+    }
+
+    @Override
+    public void onClickContentItem(int position, int flag, Object object) {
+        switch (flag){
+            case 1:
+                switch (currIndex){
+                    case 0:
+                    {
+                        FuwuObj fuwuObj = lists.get(position);
+                        String mm_fuwu_url = fuwuObj.getMm_fuwu_url();
+                        if(!StringUtil.isNullOrEmpty(mm_fuwu_url)){
+                            Intent webV = new Intent(FourShopActivity.this, WebViewActivity.class);
+                            webV.putExtra("strurl", mm_fuwu_url);
+                            startActivity(webV);
+                        }else {
+                            showMsg(FourShopActivity.this, "暂无微网站，请联系管理员在后台设置");
+                        }
+
+                    }
+                        break;
+                    case 1:
+                    {
+                        FuwuObj fuwuObj = listsAll.get(position);
+                        String mm_fuwu_url = fuwuObj.getMm_fuwu_url();
+                        if(!StringUtil.isNullOrEmpty(mm_fuwu_url)){
+                            Intent webV = new Intent(FourShopActivity.this, WebViewActivity.class);
+                            webV.putExtra("strurl", mm_fuwu_url);
+                            startActivity(webV);
+                        }else {
+                            showMsg(FourShopActivity.this, "暂无微网站，请联系管理员在后台设置");
+                        }
+                    }
+                        break;
+                }
+                break;
+            case 2:
+                switch (currIndex){
+                    case 0:
+                    {
+                        FuwuObj fuwuObj = lists.get(position);
+                        if(fuwuObj != null){
+                            showTel(fuwuObj.getMm_fuwu_tel());
+                        }
+
+                    }
+                    break;
+                    case 1:
+                    {
+                        FuwuObj fuwuObj = listsAll.get(position);
+                        if(fuwuObj != null){
+                            showTel(fuwuObj.getMm_fuwu_tel());
+                        }
+                    }
+                    break;
+                }
+                break;
+        }
+
     }
 
 

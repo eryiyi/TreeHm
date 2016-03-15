@@ -494,7 +494,13 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                                     FavourCountData data = getGson().fromJson(s, FavourCountData.class);
                                     if(data != null && data.getData() != null){
                                         count_favour.setVisibility(View.VISIBLE);
-                                        count_favour.setText(data.getData()==""?"0":data.getData());
+                                        String count = data.getData()==""?"0":data.getData();
+                                        int countInt = Integer.parseInt(count);
+                                        if(countInt >99){
+                                            count_favour.setText("99+");
+                                        }else {
+                                            count_favour.setText(count);
+                                        }
                                     }
                                 } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();

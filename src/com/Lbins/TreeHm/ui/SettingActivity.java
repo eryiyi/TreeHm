@@ -44,6 +44,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private ImageView switch_shengyin;
     private ImageView switch_zhendong;
 
+    private LinearLayout switch_zhendong_liner;
+    private LinearLayout switch_shengyin_liner;
+
     private TextView fontsize_text;
     private TextView fontcolor_text;
     private TextView check_version;
@@ -65,8 +68,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         check_version.setText(getVersion());
         switch_shengyin = (ImageView) this.findViewById(R.id.switch_shengyin);
         switch_zhendong = (ImageView) this.findViewById(R.id.switch_zhendong);
-        switch_shengyin.setOnClickListener(this);
-        switch_zhendong.setOnClickListener(this);
+
+        switch_zhendong_liner = (LinearLayout) this.findViewById(R.id.switch_zhendong_liner);
+        switch_shengyin_liner = (LinearLayout) this.findViewById(R.id.switch_shengyin_liner);
+        switch_zhendong_liner.setOnClickListener(this);
+        switch_shengyin_liner.setOnClickListener(this);
+
         this.findViewById(R.id.back).setOnClickListener(this);
         textSize = (CustomerSpinner) this.findViewById(R.id.textSize);
         textColor = (CustomerSpinner) this.findViewById(R.id.textColor);
@@ -139,17 +146,17 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.back:
                 finish();
                 break;
-            case R.id.switch_zhendong:
+            case R.id.switch_zhendong_liner:
                 if("1".equals(getGson().fromJson(getSp().getString("switch_zhendong", ""), String.class))){
                     //打开的
                     switch_zhendong.setImageResource(R.drawable.switch_close);
-                    save("switch_shengyin", "0");//0关闭  1打开
+                    save("switch_zhendong", "0");//0关闭  1打开
                 }else {
                     switch_zhendong.setImageResource(R.drawable.switch_open);
                     save("switch_zhendong", "1");
                 }
                 break;
-            case R.id.switch_shengyin:
+            case R.id.switch_shengyin_liner:
                 if("1".equals(getGson().fromJson(getSp().getString("switch_shengyin", ""), String.class))){
                     //打开的
                     switch_shengyin.setImageResource(R.drawable.switch_close);

@@ -16,6 +16,15 @@ public class FuwuObj {
     private String dateline;
     private String lat;
     private String lng;
+    private String mm_fuwu_url;
+
+    public String getMm_fuwu_url() {
+        return mm_fuwu_url;
+    }
+
+    public void setMm_fuwu_url(String mm_fuwu_url) {
+        this.mm_fuwu_url = mm_fuwu_url;
+    }
 
     private String distance;
 

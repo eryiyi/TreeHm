@@ -171,7 +171,7 @@ public class Constants {
     public static final String PIC_STYPE = "-yasuoone";
 
     //短信平台
-    public static final String DUANXIN_URL = "http://hmt.sdhmmm.cn/loginFront.aspx";
+    public static final String DUANXIN_URL = "http://mhmt.sdhmmm.cn/loginFront.aspx";
 
 
 }
