@@ -35,6 +35,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -188,6 +195,8 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
                 recordVO.setIs_read("1");
                 DBHelper.getInstance(getActivity()).updateRecord(recordVO);
+
+                share(recordVO);
                 break;
             case 2:
             case 4:
@@ -284,6 +293,57 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         });
         picAddDialog.setContentView(picAddInflate);
         picAddDialog.show();
+    }
+
+    private RecordMsg recordMsgTmp;
+
+    void share(RecordMsg recordVO){
+        //
+        recordMsgTmp = recordVO;
+
+        new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(shareBoardlistener)
+                .open();
+    }
+
+    private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
+
+        @Override
+        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+            UMImage image = new UMImage(getActivity(), (recordVO.getMm_emp_cover()==null?"":recordVO.getMm_emp_cover()));
+            String msg = recordMsgTmp.getMm_msg_title()==""?recordMsgTmp.getMm_msg_content():recordMsgTmp.getMm_msg_title();
+            String msgC = recordMsgTmp.getMm_msg_content()==""?"花木通":recordMsgTmp.getMm_msg_content();
+            new ShareAction(getActivity()).setPlatform(share_media).setCallback(umShareListener)
+                    .withText(msgC)
+                    .withTitle(msg)
+                    .withTargetUrl(InternetURL.VIEW_RECORD_BYID_URL + "?id=" + recordMsgTmp.getMm_msg_id())
+                    .withMedia(image)
+                    .share();
+        }
+    };
+
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /** attention to this below ,must add this**/
+        UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
     }
 
     void initData(){
