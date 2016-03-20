@@ -112,8 +112,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }else {
                     lstv.onRefreshComplete();
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }
             }
 
@@ -130,8 +129,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }else {
                     lstv.onRefreshComplete();
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }
             }
         });
@@ -171,8 +169,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             }else {
                 lstv.onRefreshComplete();
                 //未登录
-                Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                startActivity(loginV);
+                showLogin();
             }
         }
     };
@@ -250,8 +247,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                     DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 }else {
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }
                 break;
         }
@@ -470,8 +466,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             {
                 if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }else {
                     Intent addV = new Intent(getActivity(), AddRecordActivity.class);
                     startActivity(addV);
@@ -491,13 +486,41 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }else {
                     lstv.onRefreshComplete();
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }
                 break;
         }
     }
 
+    // 登陆注册选择窗口
+    private void showLogin() {
+        final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
+        View picAddInflate = View.inflate(getActivity(), R.layout.login_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText("真实注册后，查看更多信息");
+        //登陆
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        //注册
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(getActivity(), RegistActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
 
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -524,8 +547,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 }else {
                     lstv.onRefreshComplete();
                     //未登录
-                    Intent loginV = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(loginV);
+                    showLogin();
                 }
             }
             if(action.equals("change_color_size")){

@@ -1,5 +1,6 @@
 package com.Lbins.TreeHm;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,30 +8,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
-import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.KefuTelData;
-import com.Lbins.TreeHm.data.RecordDataSingle;
 import com.Lbins.TreeHm.fragment.FirstFragment;
 import com.Lbins.TreeHm.fragment.FourFragment;
 import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.fragment.ThreeFragment;
-import com.Lbins.TreeHm.ui.DetailRecordActivity;
 import com.Lbins.TreeHm.ui.LoginActivity;
+import com.Lbins.TreeHm.ui.RegistActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.umeng.update.UmengUpdateAgent;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     /**
@@ -98,12 +87,41 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
         if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) &&  (v.getId() == R.id.foot_four)){
             //未登录
-            Intent loginV = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginV);
+            showLogin();
         }else {
             switchFragment(v.getId());
         }
 
+    }
+
+    // 登陆注册选择窗口
+    private void showLogin() {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(MainActivity.this, R.layout.login_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText("真实注册后，查看更多信息");
+        //登陆
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        //注册
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(MainActivity.this, RegistActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 
     private void initView() {

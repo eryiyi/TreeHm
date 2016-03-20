@@ -2,6 +2,7 @@ package com.Lbins.TreeHm.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -23,6 +24,7 @@ import com.Lbins.TreeHm.data.ProvinceData;
 import com.Lbins.TreeHm.module.CityObj;
 import com.Lbins.TreeHm.module.CountryObj;
 import com.Lbins.TreeHm.module.ProvinceObj;
+import com.Lbins.TreeHm.receiver.SMSBroadcastReceiver;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CustomerSpinner;
 import com.android.volley.AuthFailureError;
@@ -54,15 +56,15 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     private Button btn_code;
     private Button btn;
 
-    private CustomerSpinner empTypeSpinner;
-    ArrayAdapter<String> adapterEmpType;
-    private ArrayList<String> empTypeList = new ArrayList<String>();
-    private String mm_emp_type;//注册类型   用户
+//    private CustomerSpinner empTypeSpinner;
+//    ArrayAdapter<String> adapterEmpType;
+//    private ArrayList<String> empTypeList = new ArrayList<String>();
+    private String mm_emp_type ="1";//注册类型   用户 1苗木会员
 
-     private CustomerSpinner companyTypeSpinner;
-    ArrayAdapter<String> adapterCompanyType;
-    private ArrayList<String> companyTypeList = new ArrayList<String>();
-    private String mm_emp_company_type;//注册类型  公司
+//     private CustomerSpinner companyTypeSpinner;
+//    ArrayAdapter<String> adapterCompanyType;
+//    private ArrayList<String> companyTypeList = new ArrayList<String>();
+    private String mm_emp_company_type ="0";//注册类型 公司 0苗木
 
 
     //省市县
@@ -93,10 +95,15 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     private static String APPSECRET = "7b3833871687dfa31baa880701907b4e";
     public String phString;//手机号码
 
+    //短信读取
+    private SMSBroadcastReceiver mSMSBroadcastReceiver;
+    private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reg_activity);
+
         res = getResources();
         //mob短信无GUI
         SMSSDK.initSDK(this, APPKEY, APPSECRET, true);
@@ -116,8 +123,30 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         initView();
 
+
+        //生成广播处理
+        mSMSBroadcastReceiver = new SMSBroadcastReceiver();
+        //实例化过滤器并设置要过滤的广播
+        IntentFilter intentFilter = new IntentFilter(ACTION);
+        intentFilter.setPriority(Integer.MAX_VALUE);
+        //注册广播
+        this.registerReceiver(mSMSBroadcastReceiver, intentFilter);
+        mSMSBroadcastReceiver.setOnReceivedMessageListener(new SMSBroadcastReceiver.MessageListener() {
+            @Override
+            public void onReceived(String message) {
+                //花木通的验证码：8469【掌淘科技】
+                if(!StringUtil.isNullOrEmpty(message) && message.startsWith("花木通")){
+                    String codestr = StringUtil.valuteNumber(message);
+                    if(!StringUtil.isNullOrEmpty(codestr)){
+                        code.setText(codestr);
+                    }
+                }
+            }
+        });
+
         getProvince();
     }
+
 
     void initView(){
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
@@ -137,42 +166,42 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         this.findViewById(R.id.reg_msg).setOnClickListener(this);
 
         //个人注册类型
-        empTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_emp_type);
-        empTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mm_emp_type = empTypeList.get(position);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        empTypeList.add("请选择注册类型");
-        empTypeList.add("苗木经营");
-        empTypeList.add("苗木会员");
-        adapterEmpType = new ArrayAdapter<String>(RegistActivity.this, android.R.layout.simple_spinner_item, empTypeList);
-        empTypeSpinner.setList(empTypeList);
-        empTypeSpinner.setAdapter(adapterEmpType);
+//        empTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_emp_type);
+//        empTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                mm_emp_type = empTypeList.get(position);
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        empTypeList.add("请选择注册类型");
+//        empTypeList.add("苗木经营");
+//        empTypeList.add("苗木会员");
+//        adapterEmpType = new ArrayAdapter<String>(RegistActivity.this, android.R.layout.simple_spinner_item, empTypeList);
+//        empTypeSpinner.setList(empTypeList);
+//        empTypeSpinner.setAdapter(adapterEmpType);
 
         //公司注册类型
-        companyTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_emp_company_type);
-        companyTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mm_emp_company_type = companyTypeList.get(position);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        companyTypeList.add("请选择公司类型");
-        companyTypeList.add("苗木");
-        companyTypeList.add("园林");
-        adapterCompanyType = new ArrayAdapter<String>(RegistActivity.this, android.R.layout.simple_spinner_item, companyTypeList);
-        companyTypeSpinner.setList(companyTypeList);
-        companyTypeSpinner.setAdapter(adapterCompanyType);
+//        companyTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_emp_company_type);
+//        companyTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                mm_emp_company_type = companyTypeList.get(position);
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//        companyTypeList.add("请选择公司类型");
+//        companyTypeList.add("苗木");
+//        companyTypeList.add("园林");
+//        adapterCompanyType = new ArrayAdapter<String>(RegistActivity.this, android.R.layout.simple_spinner_item, companyTypeList);
+//        companyTypeSpinner.setList(companyTypeList);
+//        companyTypeSpinner.setAdapter(adapterCompanyType);
 
         ProvinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, provinceNames);
         ProvinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -187,10 +216,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 cityNames.add(getResources().getString(R.string.select_city));
                 cityAdapter.notifyDataSetChanged();
                 ProvinceObj province = null;
-                if(provinces != null && provinces.size() > 1 && position > 1){
+                if(provinces != null  && position > 0){
                     province = provinces.get(position-1);
                     provinceName = province.getProvince();
                     provinceCode = province.getProvinceID();
+                    mm_emp_company_address.setText(provinceName);
                 }else if(provinces != null ) {
                     province = provinces.get(position);
                     provinceName = province.getProvince();
@@ -222,6 +252,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     CityObj city = citys.get(position-1);
                     cityName = city.getCity();
                     cityCode = city.getCityID();
+                    mm_emp_company_address.setText(provinceName + cityName);
                     try {
                         getArea();
                     } catch (Exception e) {
@@ -253,6 +284,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     CountryObj country = countrys.get(position - 1);
                     countryCode = country.getAreaID();
                     countryName = country.getArea();
+                    mm_emp_company_address.setText(provinceName + cityName + countryName);
                 }
             }
             @Override
@@ -274,7 +306,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_code:
                 //验证码
-                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString())){
+                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11){
                     SMSSDK.getVerificationCode("86",mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
                     phString=mm_emp_mobile.getText().toString();
                     btn_code.setClickable(false);//不可点击
@@ -319,22 +351,19 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "请输入身份证号");
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_type) || "请选择注册类型".equals(mm_emp_type)){
-                    showMsg(RegistActivity.this, "请选择注册类型");
-                    return;
-                }
+//                if(StringUtil.isNullOrEmpty(mm_emp_type) || "请选择注册类型".equals(mm_emp_type)){
+//                    showMsg(RegistActivity.this, "请选择注册类型");
+//                    return;
+//                }
                 if(StringUtil.isNullOrEmpty(mm_emp_company.getText().toString())){
                     showMsg(RegistActivity.this, "请输公司名称");
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_company_type) || "请选择公司类型".equals(mm_emp_company_type)){
-                    showMsg(RegistActivity.this, "请选择公司类型");
-                    return;
-                }
-                if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
-                    showMsg(RegistActivity.this, "请输公司地址");
-                    return;
-                }
+//                if(StringUtil.isNullOrEmpty(mm_emp_company_type) || "请选择公司类型".equals(mm_emp_company_type)){
+//                    showMsg(RegistActivity.this, "请选择公司类型");
+//                    return;
+//                }
+
                 if(StringUtil.isNullOrEmpty(provinceCode)){
                     showMsg(RegistActivity.this, "请选择省份");
                     return;
@@ -345,6 +374,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 }
                 if(StringUtil.isNullOrEmpty(countryCode)){
                     showMsg(RegistActivity.this, "请选择县区");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
+                    showMsg(RegistActivity.this, "请输公司地址");
                     return;
                 }
                 progressDialog = new ProgressDialog(RegistActivity.this);
@@ -426,18 +459,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 params.put("mm_emp_company" , mm_emp_company.getText().toString());
                 params.put("mm_emp_company_address" , mm_emp_company_address.getText().toString());
                 params.put("mm_emp_card" , mm_emp_card.getText().toString());
-                if("苗木经营".equals(mm_emp_type)){
-                    params.put("mm_emp_type" , "0");
-                }
-                if("苗木会员".equals(mm_emp_type)){
-                    params.put("mm_emp_type" , "1");
-                }
-                if("苗木".equals(mm_emp_company_type)){
-                    params.put("mm_emp_company_type" , "0");
-                }
-                if("园林".equals(mm_emp_company_type)){
-                    params.put("mm_emp_company_type" , "1");
-                }
+                params.put("mm_emp_type" , mm_emp_type);
+                params.put("mm_emp_company_type" , mm_emp_company_type);
                 params.put("mm_emp_company_detail" , "");
                 params.put("mm_emp_provinceId" , provinceCode);
                 params.put("mm_emp_cityId" , cityCode);
@@ -502,6 +525,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     public void onDestroy() {
         super.onPause();
         SMSSDK.unregisterAllEventHandler();
+        //注销短信监听广播
+        this.unregisterReceiver(mSMSBroadcastReceiver);
     };
 
     //获得省份

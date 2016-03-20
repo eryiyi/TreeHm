@@ -120,7 +120,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 type_three.setImageResource(R.drawable.tree_icons_star_5);
                 break;
         }
-        telbtn.setText(recordVO.getMm_emp_mobile());
+        telbtn.setText(recordVO.getMm_emp_nickname() + recordVO.getMm_emp_mobile());
         if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_picurl())){
             final String[] picUrls = recordVO.getMm_msg_picurl().split(",");//图片链接切割
             for(String str:picUrls){

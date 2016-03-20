@@ -2,8 +2,8 @@ package com.Lbins.TreeHm.base;
 
 public class InternetURL {
 //    public static final String INTERNAL = "http://114.215.121.7:7777/";
-//    public static final String INTERNAL = "http://192.168.1.109:8080/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+    public static final String INTERNAL = "http://192.168.1.103:8080/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
 //    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
@@ -39,7 +39,7 @@ public class InternetURL {
     //添加意见
     public static final String ADD_SUGGEST_URL = INTERNAL + "suggest/addSuggest.do";
     //修改密码
-    public static final String UPDATE_PWR_URL = INTERNAL + "updatePwr.do";
+    public static final String UPDATE_PWR_URL = INTERNAL + "updatePwrApp.do";
     //获得用户广告图
     public static final String GET_AD_URL = INTERNAL + "getEmpAd.do";
     //获得附近商家

@@ -1,6 +1,7 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.ProgressDialog;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.receiver.SMSBroadcastReceiver;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -51,6 +53,9 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
     private static String APPSECRET = "7b3833871687dfa31baa880701907b4e";
     public String phString;//手机号码
 
+    //短信读取
+    private SMSBroadcastReceiver mSMSBroadcastReceiver;
+    private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,26 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         };
         SMSSDK.registerEventHandler(eh);
         initView();
+
+        //生成广播处理
+        mSMSBroadcastReceiver = new SMSBroadcastReceiver();
+        //实例化过滤器并设置要过滤的广播
+        IntentFilter intentFilter = new IntentFilter(ACTION);
+        intentFilter.setPriority(Integer.MAX_VALUE);
+        //注册广播
+        this.registerReceiver(mSMSBroadcastReceiver, intentFilter);
+        mSMSBroadcastReceiver.setOnReceivedMessageListener(new SMSBroadcastReceiver.MessageListener() {
+            @Override
+            public void onReceived(String message) {
+                //花木通的验证码：8469【掌淘科技】
+                if(!StringUtil.isNullOrEmpty(message) && message.startsWith("花木通")){
+                    String codestr = StringUtil.valuteNumber(message);
+                    if(!StringUtil.isNullOrEmpty(codestr)){
+                        code.setText(codestr);
+                    }
+                }
+            }
+        });
     }
 
     void initView(){
@@ -92,7 +117,7 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_code:
                 //验证码
-                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString())){
+                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11){
                     SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
                     phString=mm_emp_mobile.getText().toString();
                     btn_code.setClickable(false);//不可点击
@@ -202,7 +227,6 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
-                params.put("mm_emp_card" , getGson().fromJson(getSp().getString("mm_emp_card", ""), String.class));
                 params.put("newpass" , password.getText().toString());
                 return params;
             }
@@ -267,6 +291,8 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
     public void onDestroy() {
         super.onPause();
         SMSSDK.unregisterAllEventHandler();
+        //注销短信监听广播
+        this.unregisterReceiver(mSMSBroadcastReceiver);
     };
 
 }

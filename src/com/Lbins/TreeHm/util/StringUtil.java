@@ -223,4 +223,14 @@ public class StringUtil {
         return df.format(d);
     }
 
+    public static  String valuteNumber(String str){
+        Pattern p = Pattern.compile("[0-9\\.]+");
+        Matcher m = p.matcher(str);
+        String string  = "";
+        while(m.find()){
+            string += m.group();
+        }
+        return string;
+    }
+
 }

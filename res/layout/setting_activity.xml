@@ -163,7 +163,7 @@
                       android:gravity="center"
                       android:textSize="16sp"
                       android:textColor="@color/white"
-                      android:text="客服中心"
+                      android:text="客服咨询中心"
                       android:layout_marginLeft="30dp"
                       android:layout_marginRight="30dp"
                       android:background="@drawable/bg_green_radius"

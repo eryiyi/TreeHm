@@ -77,47 +77,54 @@
 
         <TextView android:layout_width="match_parent"
                   android:padding="12dp"
-                  android:id="@+id/btn_kf"
+                  android:id="@+id/reg"
                   android:layout_marginTop="20dp"
                   android:paddingBottom="8dp"
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:textSize="16sp"
                   android:textColor="@color/white"
-                  android:text="客服中心"
+                  android:text="新用户注册"
                   android:layout_marginLeft="30dp"
                   android:layout_marginRight="30dp"
                   android:background="@drawable/bg_green_radius"
                   android:layout_height="wrap_content"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="20dp"
+                      android:layout_height="wrap_content">
+            <TextView android:layout_width="0dp"
+                      android:padding="12dp"
+                      android:layout_weight="1"
+                      android:id="@+id/btn_kf"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:textSize="16sp"
+                      android:textColor="@color/white"
+                      android:text="客服咨询中心"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      android:background="@drawable/bg_green_radius"
+                      android:layout_height="wrap_content"/>
+
+            <TextView android:layout_width="0dp"
+                      android:padding="12dp"
+                      android:layout_weight="1"
+                      android:id="@+id/forgetpwr"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      android:textSize="16sp"
+                      android:textColor="@color/white"
+                      android:text="忘记密码"
+                      android:layout_marginLeft="30dp"
+                      android:layout_marginRight="30dp"
+                      android:background="@drawable/bg_green_radius"
+                      android:layout_height="wrap_content"/>
+        </LinearLayout>
+
     </LinearLayout>
+
 
     <!--广告-->
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="horizontal"
-                  android:padding="20dp"
-                  android:layout_height="wrap_content">
-        <TextView android:layout_width="0dp"
-                  android:layout_weight="1"
-                  android:padding="8dp"
-                  android:text="立即注册"
-                  android:id="@+id/reg"
-                  android:layout_gravity="center"
-                  android:gravity="center|right"
-                  android:textColor="@color/button_color_orange_p"
-                  android:layout_height="wrap_content"/>
-        <ImageView android:layout_width="wrap_content"
-                   android:src="@drawable/line_orange"
-                   android:padding="8dp"
-                   android:layout_height="wrap_content"/>
-        <TextView android:layout_width="0dp"
-                  android:text="忘记密码"
-                  android:layout_weight="1"
-                  android:id="@+id/forgetpwr"
-                  android:padding="8dp"
-                  android:layout_gravity="center"
-                  android:gravity="center|left"
-                  android:textColor="@color/button_color_orange_p"
-                  android:layout_height="wrap_content"/>
-    </LinearLayout>
 </LinearLayout>

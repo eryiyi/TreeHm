@@ -160,18 +160,19 @@
                           android:background="@drawable/login_edit_bg"
                           android:layout_height="wrap_content">
                 </EditText>
-                <com.Lbins.TreeHm.widget.CustomerSpinner
-                        android:background="@drawable/login_edit_bg"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        android:paddingLeft="15dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/mm_emp_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <!--<com.Lbins.TreeHm.widget.CustomerSpinner-->
+                        <!--android:background="@drawable/login_edit_bg"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_marginRight="25dp"-->
+                        <!--android:paddingLeft="15dp"-->
+                        <!---->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:id="@+id/mm_emp_type"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                </com.Lbins.TreeHm.widget.CustomerSpinner>
+                <!--</com.Lbins.TreeHm.widget.CustomerSpinner>-->
 
                 <EditText android:layout_width="match_parent"
                           android:layout_marginLeft="25dp"
@@ -187,33 +188,20 @@
                           android:background="@drawable/login_edit_bg"
                           android:layout_height="wrap_content">
                 </EditText>
-                <com.Lbins.TreeHm.widget.CustomerSpinner
-                        android:background="@drawable/login_edit_bg"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginTop="8dp"
-                        android:paddingLeft="15dp"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/mm_emp_company_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp">
+                <!--<com.Lbins.TreeHm.widget.CustomerSpinner-->
+                        <!--android:background="@drawable/login_edit_bg"-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_marginRight="25dp"-->
+                        <!--android:layout_marginTop="8dp"-->
+                        <!--android:paddingLeft="15dp"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:id="@+id/mm_emp_company_type"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="40dp">-->
 
-                </com.Lbins.TreeHm.widget.CustomerSpinner>
+                <!--</com.Lbins.TreeHm.widget.CustomerSpinner>-->
 
-                <EditText android:layout_width="match_parent"
-                          android:layout_marginLeft="25dp"
-                          android:layout_marginRight="25dp"
-                          android:singleLine="true"
-                          android:layout_marginTop="8dp"
-                          android:paddingLeft="15dp"
-                          android:id="@+id/mm_emp_company_address"
-                          android:drawablePadding="8dp"
-                          android:textSize="14sp"
-                          android:hint="公司地址"
-                          android:drawableLeft="@drawable/login_user"
-                          android:background="@drawable/login_edit_bg"
-                          android:layout_height="wrap_content">
-                </EditText>
+
                 <com.Lbins.TreeHm.widget.CustomerSpinner
                         android:background="@drawable/login_edit_bg"
                         android:layout_marginLeft="25dp"
@@ -249,7 +237,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
                 </com.Lbins.TreeHm.widget.CustomerSpinner>
-
+                <EditText android:layout_width="match_parent"
+                          android:layout_marginLeft="25dp"
+                          android:layout_marginRight="25dp"
+                          android:singleLine="true"
+                          android:layout_marginTop="8dp"
+                          android:paddingLeft="15dp"
+                          android:id="@+id/mm_emp_company_address"
+                          android:drawablePadding="8dp"
+                          android:textSize="14sp"
+                          android:hint="公司地址"
+                          android:drawableLeft="@drawable/login_user"
+                          android:background="@drawable/login_edit_bg"
+                          android:layout_height="wrap_content">
+                </EditText>
 
                 <Button android:layout_width="match_parent"
                         android:padding="12dp"
