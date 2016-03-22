@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         View picAddInflate = View.inflate(MainActivity.this, R.layout.login_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText("真实注册后，查看更多信息");
+        jubao_cont.setText(getResources().getString(R.string.please_reg_or_login));
         //登陆
         btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
