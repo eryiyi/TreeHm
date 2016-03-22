@@ -38,4 +38,8 @@
     <string name="favour_success">"收藏成功"</string>
     <string name="favour_error_one">"已经收藏，不能重复收藏"</string>
     <string name="no_favour">"收藏失败"</string>
+
+    <string name="publish_error_one">"发布失败"</string>
+    <string name="publish_error_two">"网络异常，稍后重试"</string>
+
 </resources>

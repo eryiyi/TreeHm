@@ -2,11 +2,13 @@ package com.Lbins.TreeHm.base;
 
 public class InternetURL {
 //    public static final String INTERNAL = "http://114.215.121.7:7777/";
-    public static final String INTERNAL = "http://192.168.1.103:8080/";
-//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+//    public static final String INTERNAL = "http://192.168.1.103:8080/";
+    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
 //    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
+    //多媒体文件上传接口
+    public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
     public static final String UPLOAD_TOKEN = INTERNAL + "token.json";
     //1登陆
     public static final String LOGIN__URL = INTERNAL + "memberLogin.do";

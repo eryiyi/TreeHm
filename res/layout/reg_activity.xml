@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:id="@+id/main"
               android:background="@color/mm_main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -131,6 +132,44 @@
                           android:layout_marginTop="12dp"
                           android:textColor="@color/text_color"
                           android:layout_height="wrap_content"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_weight="1"
+                               android:id="@+id/pic_one"
+                               android:layout_marginLeft="25dp"
+                               android:src="@drawable/addphoto_button_pressed"
+                               android:layout_height="50dp"/>
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_marginLeft="25dp"
+                               android:layout_weight="1"
+                               android:id="@+id/pic_two"
+                               android:src="@drawable/addphoto_button_pressed"
+                               android:layout_height="50dp"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:orientation="horizontal"
+                              android:layout_height="wrap_content">
+                    <TextView android:layout_width="0dp"
+                              android:text="法人照片，点击查看实例"
+                              android:padding="8dp"
+                              android:textSize="14sp"
+                              android:id="@+id/btn_one"
+                              android:textColor="@color/mm_btn_bg"
+                              android:gravity="center"
+                              android:layout_weight="1"
+                              android:layout_height="wrap_content"/>
+                    <TextView android:layout_width="0dp"
+                              android:text="营业执照或公司门头"
+                              android:gravity="center"
+                              android:padding="8dp"
+                              android:textSize="14sp"
+                              android:id="@+id/btn_two"
+                              android:textColor="@color/mm_btn_bg"
+                              android:layout_weight="1"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
                 <EditText android:layout_width="match_parent"
                           android:layout_marginLeft="25dp"
                           android:layout_marginRight="25dp"

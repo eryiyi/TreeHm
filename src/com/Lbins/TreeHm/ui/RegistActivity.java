@@ -1,40 +1,51 @@
 package com.Lbins.TreeHm.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.*;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.CityData;
 import com.Lbins.TreeHm.data.CountrysData;
 import com.Lbins.TreeHm.data.ProvinceData;
+import com.Lbins.TreeHm.data.SuccessData;
 import com.Lbins.TreeHm.module.CityObj;
 import com.Lbins.TreeHm.module.CountryObj;
 import com.Lbins.TreeHm.module.ProvinceObj;
 import com.Lbins.TreeHm.receiver.SMSBroadcastReceiver;
-import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.upload.CommonUtil;
+import com.Lbins.TreeHm.util.*;
 import com.Lbins.TreeHm.widget.CustomerSpinner;
+import com.Lbins.TreeHm.widget.SelectPhoPop;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +76,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 //    ArrayAdapter<String> adapterCompanyType;
 //    private ArrayList<String> companyTypeList = new ArrayList<String>();
     private String mm_emp_company_type ="0";//注册类型 公司 0苗木
+
 
 
     //省市县
@@ -98,6 +110,18 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     //短信读取
     private SMSBroadcastReceiver mSMSBroadcastReceiver;
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+
+    private ImageView pic_one;
+    private ImageView pic_two;
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
+    private static final File PHOTO_CACHE_DIR = new File(Environment.getExternalStorageDirectory() + "/liangxun/PhotoCache");
+    private String txpic = "";
+    private String pics = "";
+
+    private String piconeStr = "";
+    private String pictwoStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +173,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
     void initView(){
+        this.findViewById(R.id.btn_one).setOnClickListener(this);
+        this.findViewById(R.id.btn_two).setOnClickListener(this);
+        pic_one = (ImageView) this.findViewById(R.id.pic_one);
+        pic_two = (ImageView) this.findViewById(R.id.pic_two);
+        pic_one.setOnClickListener(this);
+        pic_two.setOnClickListener(this);
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
         code = (EditText) this.findViewById(R.id.code);
         password = (EditText) this.findViewById(R.id.password);
@@ -344,6 +374,14 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, "两次输入密码不一致");
                     return;
                 }
+                if(StringUtil.isNullOrEmpty(txpic)){
+                    showMsg(RegistActivity.this, "请选择法人头像");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty(pics)){
+                    showMsg(RegistActivity.this, "请选择营业执照");
+                    return;
+                }
                 if(StringUtil.isNullOrEmpty(mm_emp_nickname.getText().toString())){
                     showMsg(RegistActivity.this, "请输入姓名");
                     return;
@@ -383,9 +421,237 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 progressDialog = new ProgressDialog(RegistActivity.this);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();
-//                reg();
-                SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
+                uploadPic();
                 break;
+            case R.id.btn_one:
+                //点击实例
+            {
+                Intent ViewOne = new Intent(RegistActivity.this, DemoOneActivity.class);
+                startActivity(ViewOne);
+            }
+                break;
+            case R.id.btn_two:
+                //点击实例
+            {
+                Intent ViewOne = new Intent(RegistActivity.this, DemoTwoActivity.class);
+                startActivity(ViewOne);
+            }
+                break;
+            case R.id.pic_one:
+                //
+                tmpSelect = "1";
+                showSelectImageDialog();
+                break;
+            case R.id.pic_two:
+                //
+                tmpSelect = "2";
+                showSelectImageDialog();
+                break;
+        }
+    }
+
+    //
+    void uploadPic(){
+        File file = new File(txpic);
+        Map<String, File> files = new HashMap<String, File>();
+        files.put("file", file);
+        Map<String, String> params = new HashMap<String, String>();
+        CommonUtil.addPutUploadFileRequest(
+                this,
+                InternetURL.UPLOAD_FILE,
+                files,
+                params,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (Integer.parseInt(data.getCode()) == 200) {
+                                piconeStr = data.getData();
+                                uploadPicT();
+                            } else {
+                                Toast.makeText(RegistActivity.this, R.string.publish_error_one, Toast.LENGTH_SHORT).show();
+                                if (progressDialog != null) {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(RegistActivity.this, R.string.publish_error_two, Toast.LENGTH_SHORT).show();
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                null);
+    }
+
+    void uploadPicT(){
+        File file = new File(pics);
+        Map<String, File> files = new HashMap<String, File>();
+        files.put("file", file);
+        Map<String, String> params = new HashMap<String, String>();
+        CommonUtil.addPutUploadFileRequest(
+                this,
+                InternetURL.UPLOAD_FILE,
+                files,
+                params,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (Integer.parseInt(data.getCode()) == 200) {
+                                pictwoStr = data.getData();
+                                SMSSDK.submitVerificationCode("86", phString, code.getText().toString());
+                            } else {
+                                Toast.makeText(RegistActivity.this, R.string.publish_error_one, Toast.LENGTH_SHORT).show();
+                                if (progressDialog != null) {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(RegistActivity.this, R.string.publish_error_two, Toast.LENGTH_SHORT).show();
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                null);
+    }
+
+
+    private Uri uri;
+    private SelectPhoPop selectPhoPop;
+    String tmpSelect = "";
+    // 选择相册，相机
+    private void showSelectImageDialog() {
+            selectPhoPop = new SelectPhoPop(RegistActivity.this, itemsOnClick);
+            //显示窗口
+            selectPhoPop.showAtLocation(RegistActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            selectPhoPop.dismiss();
+            switch (v.getId()) {
+                case R.id.camera: {
+                    Intent camera = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                            .fromFile(new File(Environment
+                                    .getExternalStorageDirectory(),
+                                    "ppCover.jpg")));
+                    startActivityForResult(camera, 2);
+                }
+                break;
+                case R.id.mapstorage: {
+                    Intent mapstorage = new Intent(Intent.ACTION_PICK, null);
+                    mapstorage.setDataAndType(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            "image/*");
+                    startActivityForResult(mapstorage, 1);
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // 如果是直接从相册获取
+            case 1:
+                if (data != null) {
+                    startPhotoZoom(data.getData());
+//                    setPicToView(data);
+                }
+                break;
+            // 如果是调用相机拍照时
+            case 2:
+                File temp = new File(Environment.getExternalStorageDirectory()
+                        + "/ppCover.jpg");
+                startPhotoZoom(Uri.fromFile(temp));
+                break;
+            // 取得裁剪后的图片
+            case 3:
+                if (data != null) {
+                    setPicToView(data);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+//    private void setPicToView(Intent picdata) {
+//        Bundle extras = picdata.getExtras();
+//        if (extras != null) {
+//            Bitmap photo = extras.getParcelable("data");
+//            Drawable drawable = new BitmapDrawable(photo);
+//            if (photo != null) {
+//                if("1".equals(tmpSelect)){
+//                    txpic = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+//                    pic_one.setImageBitmap(photo);
+//                }else{
+//                    pics = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+//                    pic_two.setImageBitmap(photo);
+//                }
+//            }
+//        }
+//    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 0);
+        intent.putExtra("aspectY", 0);
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     *
+     * @param picdata
+     */
+    private void setPicToView(Intent picdata) {
+        Bundle extras = picdata.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
+            if (photo != null) {
+                if("1".equals(tmpSelect)){
+                    txpic = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+                    pic_one.setImageBitmap(photo);
+                }else{
+                    pics = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+                    pic_two.setImageBitmap(photo);
+                }
+            }
         }
     }
 
@@ -420,6 +686,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 String code =  jo.getString("code");
                                 if(Integer.parseInt(code) == 200) {
                                     showMsg(RegistActivity.this, "注册成功，请登录");
+                                    save("mm_emp_mobile", mm_emp_mobile.getText().toString());
+                                    Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
                                     finish();
                                 }else if(Integer.parseInt(code) == 1){
                                     showMsg(RegistActivity.this, "注册失败，请稍后重试");
@@ -465,6 +734,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 params.put("mm_emp_provinceId" , provinceCode);
                 params.put("mm_emp_cityId" , cityCode);
                 params.put("mm_emp_countryId" , countryCode);
+                if(!StringUtil.isNullOrEmpty(piconeStr)){
+                    params.put("mm_emp_cover" , piconeStr);
+                }
+                if(!StringUtil.isNullOrEmpty(pictwoStr)){
+                    params.put("mm_emp_company_pic" , pictwoStr);
+                }
                 return params;
             }
 
