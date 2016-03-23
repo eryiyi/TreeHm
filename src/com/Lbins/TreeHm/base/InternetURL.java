@@ -68,4 +68,6 @@ public class InternetURL {
     public static final String GET_AD_LOGIN_URL = INTERNAL + "getLoginAd.do";
     //完善个人资料
     public static final String UPDATE_PROFILE_URL = INTERNAL + "memberUpdateProfile.do";
+    //获得微信客服列表
+    public static final String GET_WEIXINS_URL = INTERNAL + "getKefuWeixin.do";
 }

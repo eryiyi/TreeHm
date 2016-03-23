@@ -1,32 +1,34 @@
 package com.Lbins.TreeHm.module;
 
 /**
- * Created by zhanghailong on 2016/3/20.
+ * Created by zhanghailong on 2016/3/23.
  */
 public class WeixinObj {
-    private String name;
-    private String number;
+    private String mm_weixin_id;
+    private String mm_weixin;
+    private String mm_weixin_name;
 
-    public String getName() {
-        return name;
+    public String getMm_weixin_name() {
+        return mm_weixin_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMm_weixin_name(String mm_weixin_name) {
+        this.mm_weixin_name = mm_weixin_name;
     }
 
-    public String getNumber() {
-        return number;
+    public String getMm_weixin_id() {
+        return mm_weixin_id;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setMm_weixin_id(String mm_weixin_id) {
+        this.mm_weixin_id = mm_weixin_id;
     }
 
-    public WeixinObj(String name, String number) {
-        this.name = name;
-        this.number = number;
+    public String getMm_weixin() {
+        return mm_weixin;
     }
 
-
+    public void setMm_weixin(String mm_weixin) {
+        this.mm_weixin = mm_weixin;
+    }
 }

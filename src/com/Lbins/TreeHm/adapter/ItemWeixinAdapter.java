@@ -65,8 +65,8 @@ public class ItemWeixinAdapter extends BaseAdapter {
         }
         final WeixinObj cell = lists.get(position);
         if(cell != null){
-            holder.title.setText(cell.getName());
-            holder.msgnum.setText(cell.getNumber());
+            holder.title.setText(cell.getMm_weixin_name());
+            holder.msgnum.setText(cell.getMm_weixin());
         }
         return convertView;
     }

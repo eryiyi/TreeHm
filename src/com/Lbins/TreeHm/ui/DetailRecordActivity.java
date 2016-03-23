@@ -90,7 +90,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
     void initData(){
         //
         imageLoader.displayImage(recordVO.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
-        nickname.setText(recordVO.getMm_emp_nickname());
+        nickname.setText(recordVO.getMm_emp_company() + recordVO.getMm_emp_nickname());
         dateline.setText((recordVO.getDateline()==null?"":recordVO.getDateline()) + " " +(recordVO.getArea()==null?"":recordVO.getArea()));
         content.setText(recordVO.getMm_msg_content());
         if("1".equals(recordVO.getIs_chengxin())){
