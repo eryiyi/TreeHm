@@ -2,7 +2,10 @@ package com.Lbins.TreeHm.ui;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +20,7 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.KefuTelData;
 import com.Lbins.TreeHm.module.Emp;
@@ -54,7 +58,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
         mobile = (EditText) this.findViewById(R.id.mobile);
         password = (EditText) this.findViewById(R.id.password);
         btn_kf = (TextView) this.findViewById(R.id.btn_kf);
@@ -146,8 +149,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-
-
     void loginData(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -231,6 +232,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("mm_emp_cover", emp.getMm_emp_cover());
         save("mm_emp_type", emp.getMm_emp_type());
         save("mm_emp_company", emp.getMm_emp_company());
+        save("mm_emp_company_pic", emp.getMm_emp_company_pic());
         save("mm_emp_company_type", emp.getMm_emp_company_type());
         save("mm_emp_company_address", emp.getMm_emp_company_address());
         save("mm_emp_company_detail", emp.getMm_emp_company_detail());
@@ -264,11 +266,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("mm_level_num", emp.getMm_level_num());
 
         save("isLogin", "1");//1已经登录了  0未登录
+        save("is_upate_profile", emp.getIs_upate_profile());//1是否补充资料 0否 1是
 
         Intent intent  =  new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
 
@@ -375,5 +377,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         getRequestQueue().add(request);
     }
+
+
+
 
 }

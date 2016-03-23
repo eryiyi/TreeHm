@@ -22,6 +22,8 @@
     <string name="daojishi_three">"重新获取"</string>
     <string name="please_wait">"请稍后"</string>
     <string name="reg_error_one">"注册失败"</string>
+    <string name="caozuo_success">"操作成功！"</string>
+    <string name="caozuo_error_one">"操作失败，请稍后重试！"</string>
     <string name="reg_error_two">"该手机号已经注册，请直接登录"</string>
 
     <string name="select_city">请选择城市</string>
@@ -31,7 +33,7 @@
     <string name="album_all">All Photos</string>
     <string name="add_record_error_one">"发布信息失败"</string>
     <string name="no_data">暂无数据</string>
-    <string name="login_out">您的登陆已过期，请重新登陆</string>
+    <string name="login_out">您的账号在其它设备上登录，请重新登录！</string>
     <string name="report_error_one">举报失败，请稍后重试！</string>
     <string name="version_name">"检查版本"</string>
     <string name="can_not_find_version_name">"没有最新版本信息"</string>
@@ -42,5 +44,7 @@
     <string name="publish_error_one">"发布失败"</string>
     <string name="publish_error_two">"网络异常，稍后重试"</string>
     <string name="please_reg_or_login">请先注册或联系管理员</string>
+    <string name="update_profile_msg">您的个人信息不完整，请先补充资料！</string>
+    <string name="notice">提示</string>
 
 </resources>

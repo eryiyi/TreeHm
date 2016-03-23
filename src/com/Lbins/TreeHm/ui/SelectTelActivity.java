@@ -2,7 +2,6 @@ package com.Lbins.TreeHm.ui;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;

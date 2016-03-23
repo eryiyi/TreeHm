@@ -1,12 +1,12 @@
 package com.Lbins.TreeHm.base;
 
 public class InternetURL {
-//    public static final String INTERNAL = "http://114.215.121.7:7777/";
-//    public static final String INTERNAL = "http://192.168.1.103:8080/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
-//    public static final String INTERNAL = "http://smilekyle.xicp.net:26389/";
-    public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
+    public static final String INTERNAL = "http://192.168.1.105:8080/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+    public static final String QINIU_URL =  "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
+    public static final String QINIU_SPACE = "hmmm-pic";
     //多媒体文件上传接口
     public static final String UPLOAD_FILE = INTERNAL + "uploadImage.do";
     public static final String UPLOAD_TOKEN = INTERNAL + "token.json";
@@ -66,5 +66,6 @@ public class InternetURL {
     public static final String DELETE_FAVOUR_URL = INTERNAL + "deleteFavour.do";
     //查詢廣告
     public static final String GET_AD_LOGIN_URL = INTERNAL + "getLoginAd.do";
-
+    //完善个人资料
+    public static final String UPDATE_PROFILE_URL = INTERNAL + "memberUpdateProfile.do";
 }

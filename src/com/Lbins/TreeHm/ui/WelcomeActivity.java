@@ -211,11 +211,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         save("mm_level_num", emp.getMm_level_num());
 
         save("isLogin", "1");//1已经登录了  0未登录
+        save("is_upate_profile", emp.getIs_upate_profile());//1是否补充资料 0否 1是
 
         Intent intent  =  new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     // 根据控件的选择，重新设置定位参数

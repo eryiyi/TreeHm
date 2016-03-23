@@ -97,6 +97,7 @@
         <activity android:name=".ui.DemoOneActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.DemoTwoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.WeixinKefuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.UpdateProfiletActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
 
 
         <!--友盟-->

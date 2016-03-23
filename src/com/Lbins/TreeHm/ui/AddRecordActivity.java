@@ -1,6 +1,7 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -69,7 +70,6 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     ArrayAdapter<String> adapterEmpType;
     private ArrayList<String> empTypeList = new ArrayList<String>();
 
-
     AsyncHttpClient client = new AsyncHttpClient();
 
     @Override
@@ -77,6 +77,9 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record_activity);
         initView();
+        if("0".endsWith(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
+            showUpdateProfile();
+        }
     }
 
     void initView() {
@@ -158,6 +161,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     startActivity(loginV);
                     return;
                 }
+
                 if(StringUtil.isNullOrEmpty(mm_msg_type) || "请选择信息类型".equals(mm_msg_type)){
                     showMsg(AddRecordActivity.this, "请选择发布信息类型");
                     return;
@@ -225,7 +229,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                         Bitmap bm = FileUtils.getSmallBitmap(dataList.get(i));
                         final String cameraImagePath = FileUtils.saveBitToSD(bm, System.currentTimeMillis() + ".jpg");
                         Map<String,String> map = new HashMap<String,String>();
-                        map.put("space", "hmmm-pic");
+                        map.put("space", InternetURL.QINIU_SPACE);
                         RequestParams params = new RequestParams(map);
                         client.get(InternetURL.UPLOAD_TOKEN ,params, new JsonHttpResponseHandler(){
                             @Override
@@ -656,5 +660,31 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         getRequestQueue().add(request);
     }
 
+
+    // 补充资料窗口
+    private void showUpdateProfile() {
+        final Dialog picAddDialog = new Dialog(AddRecordActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(AddRecordActivity.this, R.layout.update_profile_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        //确定
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent updateV = new Intent(AddRecordActivity.this, UpdateProfiletActivity.class);
+                startActivity(updateV);
+                picAddDialog.dismiss();
+            }
+        });
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
 
 }

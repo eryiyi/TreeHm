@@ -12,7 +12,7 @@
             >
         <TextView android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:text="@string/notice"
+                  android:text="温馨提示"
                   android:textColor="@color/white"
                   android:textSize="16sp"
                   android:textStyle="bold"
@@ -34,6 +34,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:padding="8dp"
+                android:text="@string/update_profile_msg"
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textSize="16sp"
@@ -56,7 +57,7 @@
                     android:gravity="center"
                     android:layout_marginRight="10dp"
                     android:textSize="16dp"
-                    android:text="注 册"
+                    android:text="取  消"
                     android:layout_marginLeft="20dp"
                     android:textColor="@color/white"/>
 
@@ -73,7 +74,7 @@
                     android:paddingBottom="8dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center"
-                    android:text="登 录"
+                    android:text="确 定"
                     android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
