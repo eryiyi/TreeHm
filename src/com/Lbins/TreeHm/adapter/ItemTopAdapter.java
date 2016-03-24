@@ -10,11 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
-
 import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
+import com.Lbins.TreeHm.module.PaihangObj;
 import com.Lbins.TreeHm.util.StringUtil;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -23,9 +22,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ItemRecordAdapter extends BaseAdapter {
+public class ItemTopAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<RecordMsg> lists;
+    private List<PaihangObj> lists;
     private Context mContect;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -37,11 +36,11 @@ public class ItemRecordAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemRecordAdapter(List<RecordMsg> lists, Context mContect){
+    public ItemTopAdapter(List<PaihangObj> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
-    public void refresh(List<RecordMsg> d) {
+    public void refresh(List<PaihangObj> d) {
         lists = d;
         notifyDataSetChanged();
     }
@@ -65,10 +64,8 @@ public class ItemRecordAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record,null);
-            holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_top,null);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
-            holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
             holder.head = (ImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
@@ -77,24 +74,18 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             holder.star = (ImageView) convertView.findViewById(R.id.star);
-            holder.is_read = (ImageView) convertView.findViewById(R.id.is_read);
-            holder.btn_favour = (ImageView) convertView.findViewById(R.id.btn_favour);
 
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        final RecordMsg cell = lists.get(position);
+        final PaihangObj cell = lists.get(position);
         if(cell != null){
-            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+            String title = (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);
-            holder.dateline.setText((cell.getDateline()==null?"":cell.getDateline()) + " " +(cell.getArea()==null?"":cell.getArea()));
-            String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
-//            if(msg.length() > 80){
-//                msg = msg.substring(0,79)+"...";
-//            }
-            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
-            holder.content.setText(msg);
+            holder.dateline.setText("");
+            holder.title.setText(cell.getMm_emp_company());
+            holder.content.setText(cell.getMm_emp_company_detail());
             if("1".equals(cell.getIs_chengxin())){
                 holder.img_xinyong.setVisibility(View.VISIBLE);
             }else {
@@ -123,27 +114,6 @@ public class ItemRecordAdapter extends BaseAdapter {
                     break;
             }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
-            if(StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())){
-                holder.btn_pic.setVisibility(View.GONE);
-            }else {
-                holder.btn_pic.setVisibility(View.VISIBLE);
-            }
-            RecordMsg recordMsg = DBHelper.getInstance(mContect).getRecord(cell.getMm_msg_id());
-            if(recordMsg != null){
-                if("1".equals(recordMsg.getIs_read())){
-                    //已读
-                    holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-                }else {
-                    holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
-                }
-            }else{
-                if("1".equals(cell.getIs_read())){
-                    //已读
-                    holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-                }else {
-                    holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
-                }
-            }
 
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
@@ -164,7 +134,6 @@ public class ItemRecordAdapter extends BaseAdapter {
                 if("red".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.RED);
                 }
-
             }
 
 //            if(position % 2 == 0){
@@ -175,56 +144,27 @@ public class ItemRecordAdapter extends BaseAdapter {
 //            }
         }
 
-        //
-        holder.btn_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 1, "111");
-            }
-        });
         holder.head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 2, "111");
+                onClickContentItemListener.onClickContentItem(position, 2, null);
             }
         });
         holder.btn_tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 3, "111");
+                onClickContentItemListener.onClickContentItem(position, 3, null);
             }
         });
         holder.nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 4, "111");
+                onClickContentItemListener.onClickContentItem(position, 4, null);
             }
         });
-        holder.btn_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 5, "111");
-            }
-        });
-        holder.btn_favour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 6, "111");
-            }
-        });
-//        holder.content.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickContentItemListener.onClickContentItem(position, 6, null);
-//            }
-//        });
-
-
         return convertView;
     }
     class ViewHolder {
-        ImageView btn_share;
-        ImageView btn_pic;
         ImageView btn_tel;
         ImageView head;
         TextView nickname;
@@ -234,7 +174,5 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView img_xinyong;
         ImageView img_xiehui;
         ImageView star;
-        ImageView is_read;
-        ImageView btn_favour;
     }
 }

@@ -11,10 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
-import com.Lbins.TreeHm.fragment.FirstFragment;
-import com.Lbins.TreeHm.fragment.FourFragment;
-import com.Lbins.TreeHm.fragment.SecondFragment;
-import com.Lbins.TreeHm.fragment.ThreeFragment;
+import com.Lbins.TreeHm.fragment.*;
 import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.ui.RegistActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
@@ -30,7 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private FirstFragment oneFragment;
     private SecondFragment twoFragment;
-    private ThreeFragment threeFragment;
+    private TopFragment threeFragment;
     private FourFragment fourFragment;
 
     private ImageView foot_one;
@@ -169,7 +166,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.foot_three:
                 if (threeFragment == null) {
-                    threeFragment = new ThreeFragment();
+                    threeFragment = new TopFragment();
                     fragmentTransaction.add(R.id.content_frame, threeFragment);
                 } else {
                     fragmentTransaction.show(threeFragment);
