@@ -1,9 +1,9 @@
 package com.Lbins.TreeHm.base;
 
 public class InternetURL {
-    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
 //    public static final String INTERNAL = "http://192.168.1.105:8080/";
-//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
     public static final String QINIU_URL =  "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String QINIU_SPACE = "hmmm-pic";
