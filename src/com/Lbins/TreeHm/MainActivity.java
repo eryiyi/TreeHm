@@ -251,7 +251,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                 break;
             case 1:
                 //一键关注区域
-                getGuanzhuArea();
+                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                    //未登录
+                    showLogin();
+                }else {
+                    getGuanzhuArea();
+                }
+
                 break;
         }
     }
