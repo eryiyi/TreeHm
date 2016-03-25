@@ -72,4 +72,8 @@ public class InternetURL {
     public static final String GET_PAIHANG_URL = INTERNAL + "getPaihangs.do";
     //获得微信客服列表
     public static final String GET_WEIXINS_URL = INTERNAL + "getKefuWeixin.do";
+    //保存关注区域
+    public static final String SAVE_GUANZHU_URL = INTERNAL + "saveGuanzhuArea.do";
+    //查询关注区域
+    public static final String GET_GUANZHU_URL = INTERNAL + "getGuanzhuArea.do";
 }

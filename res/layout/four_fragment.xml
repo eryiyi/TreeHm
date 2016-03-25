@@ -167,7 +167,7 @@
                                    android:src="@drawable/button_selector_suggest_mine"
                                    android:layout_height="60dp"/>
                         <TextView android:layout_width="wrap_content"
-                                  android:text="关注更多区域"
+                                  android:text="设置关注区域"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"
                                   android:textSize="12sp"

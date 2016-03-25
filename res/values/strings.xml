@@ -47,4 +47,8 @@
     <string name="update_profile_msg">您的个人信息不完整，请先补充资料！</string>
     <string name="notice">提示</string>
 
+    <string-array name="main_menu_arry">
+        <item>发布信息</item>
+        <item>关注区域</item>
+    </string-array>
 </resources>

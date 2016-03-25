@@ -400,7 +400,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             }
                 break;
             case R.id.relate_more_area:
-                Toast.makeText(getActivity(), "暂未开通，请等待！",Toast.LENGTH_SHORT).show();
+            {
+                //设置关注区域
+                Intent guanzhuV = new Intent(getActivity(), SetGuanzhuActivity.class);
+                startActivity(guanzhuV);
+            }
                 break;
             case R.id.relate_weixinkefu:
                 Intent weixinV = new Intent(getActivity(), WeixinKefuActivity.class);

@@ -11,14 +11,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
 import com.Lbins.TreeHm.fragment.*;
+import com.Lbins.TreeHm.module.GuanzhuAreaObj;
+import com.Lbins.TreeHm.ui.AddRecordActivity;
+import com.Lbins.TreeHm.ui.Constants;
 import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.ui.RegistActivity;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.widget.MainPopMenu;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.umeng.update.UmengUpdateAgent;
+import org.json.JSONObject;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener,MainPopMenu.OnItemClickListener{
     /**
      * Called when the activity is first created.
      */
@@ -42,6 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     Resources res;
 
     private int index;
+    public MainPopMenu mainPopMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +82,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
             UniversityApplication.fontColor = getGson().fromJson(getSp().getString("font_color", ""), String.class);
         }
+
+        mainPopMenu = new MainPopMenu(this);
+        mainPopMenu.setOnItemClickListener(this);
+
 
     }
 
@@ -208,4 +229,107 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+
+
+    //弹出顶部主菜单
+    public void onTopMenuPopupButtonClick(View view) {
+        mainPopMenu.showAsDropDown(view);
+    }
+
+    @Override
+    public void onItemClick(int index) {
+        switch (index){
+            case 0:
+                //发布信息
+                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                    //未登录
+                    showLogin();
+                }else {
+                    Intent addV = new Intent(MainActivity.this, AddRecordActivity.class);
+                    startActivity(addV);
+                }
+                break;
+            case 1:
+                //一键关注区域
+                getGuanzhuArea();
+                break;
+        }
+    }
+
+    //查询关注区域
+    public void getGuanzhuArea(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_GUANZHU_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 =  jo.getString("code");
+                                if(Integer.parseInt(code1) == 200){
+                                    GuanzhuAreaObjData data = getGson().fromJson(s, GuanzhuAreaObjData.class);
+                                    if(data.getData() != null && data.getData().size() > 0){
+                                        //说明已经申请了
+                                        List<GuanzhuAreaObj> listgz = data.getData();
+                                        if(listgz != null && listgz.size()>0){
+                                            GuanzhuAreaObj guanzhuAreaObj = listgz.get(0);
+                                            if(guanzhuAreaObj != null){
+                                                if("0".equals(guanzhuAreaObj.getIscheck())){
+                                                    showMsg(MainActivity.this, "您已经设置关注区域，不能重复设置！请等待管理员审核");
+                                                }
+                                                if("1".equals(guanzhuAreaObj.getIscheck())){
+//                                                    showMsg(MainActivity.this, "您已经设置关注区域，不能重复设置！");
+                                                    //调用广播，刷新主页
+                                                    Intent intent1 = new Intent("change_guanzhu_area");
+                                                    save("gz_areaId", guanzhuAreaObj.getAreaid());
+                                                    sendBroadcast(intent1);
+                                                }
+                                                if("2".equals(guanzhuAreaObj.getIscheck())){
+                                                    showMsg(MainActivity.this, "您申请的关注区域未通过审核，请联系管理员！");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }else {
+                            Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("index", "1");
+                params.put("size", "10");
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

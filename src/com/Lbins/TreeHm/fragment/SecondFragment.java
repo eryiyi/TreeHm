@@ -67,6 +67,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     String countryId; //选择的县区
     private TextView mLocation;
+    private String is_guanzhu= "0";//0不是查询关注区域 1是查询关注的区域
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +146,6 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         });
         adapter.setOnClickContentItemListener(this);
 
-        view.findViewById(R.id.add).setOnClickListener(this);
         keyword = (EditText) view.findViewById(R.id.keyword);
         keyword.addTextChangedListener(watcher);
         no_data.setOnClickListener(this);
@@ -421,11 +421,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 }else {
                     params.put("cityid", "");
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
-                    params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
-                }else {
-                    params.put("countryid", "");
-                }
+
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
                 }else {
@@ -453,6 +449,20 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 }else {
                     params.put("is_select_countryId", "");
                 }
+
+                if("1".equals(is_guanzhu)){
+                    params.put("is_guanzhu", "1");
+                    params.put("countryid", getGson().fromJson(getSp().getString("gz_areaId", ""), String.class));
+                }else {
+                    params.put("is_guanzhu", "0");
+                    //默认情况下
+                    if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                        params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                    }else {
+                        params.put("countryid", "");
+                    }
+                }
+
                 return params;
             }
 
@@ -470,18 +480,6 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.add:
-                //添加信息
-            {
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
-                    //未登录
-                    showLogin();
-                }else {
-                    Intent addV = new Intent(getActivity(), AddRecordActivity.class);
-                    startActivity(addV);
-                }
-            }
-            break;
             case R.id.mLocation:
                 //
                 Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
@@ -530,6 +528,11 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             if(action.equals("change_color_size")){
                 adapter.notifyDataSetChanged();
             }
+            if(action.equals("change_guanzhu_area")){
+                //查询关注的区域
+                is_guanzhu = "1";
+                initData();
+            }
         }
     };
 
@@ -540,6 +543,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         myIntentFilter.addAction(Constants.SEND_INDEX_SUCCESS_GONGYING);//添加说说和添加视频成功，刷新首页
         myIntentFilter.addAction("select_country");//选择县区
         myIntentFilter.addAction("change_color_size");//
+        myIntentFilter.addAction("change_guanzhu_area");//查询关注的区域
         //注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
