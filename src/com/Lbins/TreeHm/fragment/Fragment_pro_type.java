@@ -122,6 +122,7 @@ public class Fragment_pro_type extends BaseFragment {
 		intent1.putExtra("countryName", countryName);
 		getActivity().sendBroadcast(intent1);
 		ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
+//		getActivity().finish();
 	}
 
 

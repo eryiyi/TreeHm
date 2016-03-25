@@ -164,7 +164,7 @@
                         <ImageView android:layout_width="wrap_content"
                                    android:id="@+id/img_three"
                                    android:layout_centerHorizontal="true"
-                                   android:src="@drawable/button_selector_suggest_mine"
+                                   android:src="@drawable/button_selector_gz_mine"
                                    android:layout_height="60dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="设置关注区域"
@@ -360,7 +360,7 @@
                         <ImageView android:layout_width="wrap_content"
                                    android:id="@+id/img_nearby1"
                                    android:layout_centerHorizontal="true"
-                                   android:src="@drawable/button_selector_nearby_mine"
+                                   android:src="@drawable/button_selector_wx_mine"
                                    android:layout_height="60dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="微信客服"
@@ -383,7 +383,7 @@
                                     android:layout_height="wrap_content">
                         <ImageView android:layout_width="wrap_content"
                                    android:id="@+id/img_favour1"
-                                   android:src="@drawable/button_selector_nearby_mine"
+                                   android:src="@drawable/button_selector_zs_mine"
                                    android:layout_centerHorizontal="true"
                                    android:layout_height="60dp"/>
                         <TextView android:layout_width="wrap_content"

@@ -576,6 +576,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 no_data.setVisibility(View.GONE);
             }
             if(action.equals("select_country")){
+                is_guanzhu = "0";
                 countryId = intent.getExtras().getString("countryId");
                 String countryName = intent.getExtras().getString("countryName");
                 mLocation.setText(countryName);
