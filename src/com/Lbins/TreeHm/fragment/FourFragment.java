@@ -127,6 +127,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_more_area).setOnClickListener(this);
         view.findViewById(R.id.relate_weixinkefu).setOnClickListener(this);
         view.findViewById(R.id.relate_zhaoshang).setOnClickListener(this);
+        view.findViewById(R.id.relate_notice).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -412,6 +413,13 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 break;
             case R.id.relate_zhaoshang:
                 Toast.makeText(getActivity(), "暂未开通，请等待！",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.relate_notice:
+            {
+                //公告
+                Intent noticeV = new Intent(getActivity(), NoticeActivity.class);
+                startActivity(noticeV);
+            }
                 break;
         }
     }

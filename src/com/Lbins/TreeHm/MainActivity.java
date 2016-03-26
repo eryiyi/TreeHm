@@ -15,10 +15,7 @@ import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
 import com.Lbins.TreeHm.fragment.*;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
-import com.Lbins.TreeHm.ui.AddRecordActivity;
-import com.Lbins.TreeHm.ui.Constants;
-import com.Lbins.TreeHm.ui.LoginActivity;
-import com.Lbins.TreeHm.ui.RegistActivity;
+import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.MainPopMenu;
@@ -283,21 +280,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                                             GuanzhuAreaObj guanzhuAreaObj = listgz.get(0);
                                             if(guanzhuAreaObj != null){
                                                 if("0".equals(guanzhuAreaObj.getIscheck())){
-                                                    showMsg(MainActivity.this, "您已经设置关注区域，不能重复设置！请等待管理员审核");
-                                                }
+                                                    showMsg(MainActivity.this, "您已经申请了关注区域！请等待管理员审核");
+                                                }else
                                                 if("1".equals(guanzhuAreaObj.getIscheck())){
 //                                                    showMsg(MainActivity.this, "您已经设置关注区域，不能重复设置！");
                                                     //调用广播，刷新主页
                                                     Intent intent1 = new Intent("change_guanzhu_area");
                                                     save("gz_areaId", guanzhuAreaObj.getAreaid());
                                                     sendBroadcast(intent1);
-                                                }
+                                                }else
                                                 if("2".equals(guanzhuAreaObj.getIscheck())){
-                                                    showMsg(MainActivity.this, "您申请的关注区域未通过审核，请联系管理员！");
+                                                    showMsg(MainActivity.this, "您申请的关注区域未通过审核，请联系客服！");
+                                                }else{
+                                                    showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                                    Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
+                                                    startActivity(guanzhuV);
                                                 }
                                             }
+                                        }else{
+                                            showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                            Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
+                                            startActivity(guanzhuV);
                                         }
+                                    }else{
+                                        showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                        Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
+                                        startActivity(guanzhuV);
                                     }
+                                }else {
+                                    showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                    Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
+                                    startActivity(guanzhuV);
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();

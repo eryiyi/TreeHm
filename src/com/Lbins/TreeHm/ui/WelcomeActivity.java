@@ -26,6 +26,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +48,11 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+
+        PushManager.startWork(getApplicationContext(),
+
+                PushConstants.LOGIN_TYPE_API_KEY,
+                com.Lbins.TreeHm.baidu.Utils.getMetaValue(WelcomeActivity.this, "api_key"));
 
         //定位
         locationClient = new AMapLocationClient(this.getApplicationContext());

@@ -246,6 +246,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
+                params.put("is_del", "0");
                 params.put("size", "10");
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));

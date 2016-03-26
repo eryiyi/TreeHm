@@ -14,5 +14,6 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="AMap_3DMap_V3.2.0.1_20160122" level="project" />
+    <orderEntry type="library" name="pushservice-4.6.2.39" level="project" />
   </component>
 </module>
