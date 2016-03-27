@@ -49,6 +49,6 @@
 
     <string-array name="main_menu_arry">
         <item>发布信息</item>
-        <item>关注区域</item>
+        <item>查看关注区域信息</item>
     </string-array>
 </resources>

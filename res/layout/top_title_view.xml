@@ -20,7 +20,7 @@
                   android:textSize="14sp"
                   android:layout_height="45dp"/>
         <ImageView android:layout_width="45dp"
-                   android:scaleType="centerInside"
+                   android:scaleType="fitCenter"
                    android:onClick="onTopMenuPopupButtonClick"
                    android:gravity="center"
                    android:src="@drawable/write"
