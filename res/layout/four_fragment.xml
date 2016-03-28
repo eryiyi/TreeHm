@@ -117,7 +117,8 @@
                                    android:id="@+id/img_one"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_user_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="用户资料"
                                   android:padding="5dp"
@@ -141,7 +142,8 @@
                                    android:id="@+id/img_two"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_pwr_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="修改密码"
                                   android:padding="5dp"
@@ -165,7 +167,8 @@
                                    android:id="@+id/img_three"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_gz_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="设置关注区域"
                                   android:padding="5dp"
@@ -189,7 +192,8 @@
                                    android:id="@+id/img_four"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_set_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="设置"
                                   android:padding="5dp"
@@ -221,7 +225,8 @@
                                    android:id="@+id/img_vip"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_vip_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="升级vip"
                                   android:padding="5dp"
@@ -245,7 +250,8 @@
                                    android:id="@+id/img_nearby"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_nearby_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="附近商家"
                                   android:padding="5dp"
@@ -270,7 +276,8 @@
                                    android:id="@+id/img_favour"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_favour"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="我的收藏"
                                   android:padding="5dp"
@@ -304,7 +311,8 @@
                                    android:id="@+id/img_kefu"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_kefu_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="客服中心"
                                   android:padding="5dp"
@@ -337,7 +345,8 @@
                                    android:id="@+id/img_vip1"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_suggest_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="意见反馈"
                                   android:padding="5dp"
@@ -361,7 +370,8 @@
                                    android:id="@+id/img_nearby1"
                                    android:layout_centerHorizontal="true"
                                    android:src="@drawable/button_selector_wx_mine"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:text="微信客服"
                                   android:padding="5dp"
@@ -385,7 +395,8 @@
                                    android:id="@+id/img_favour1"
                                    android:src="@drawable/button_selector_zs_mine"
                                    android:layout_centerHorizontal="true"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:padding="5dp"
                                   android:text="全国招商合作伙伴"
@@ -410,7 +421,8 @@
                                    android:id="@+id/img_kefu1"
                                    android:src="@drawable/button_selector_zs_mine"
                                    android:layout_centerHorizontal="true"
-                                   android:layout_height="60dp"/>
+                                   android:layout_height="45dp"
+                                   android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"

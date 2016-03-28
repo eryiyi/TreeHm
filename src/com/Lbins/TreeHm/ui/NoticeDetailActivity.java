@@ -35,6 +35,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
     private String id;
     private TextView title;
     private TextView content;
+    private TextView dateline;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.back).setOnClickListener(this);
         title  = (TextView) this.findViewById(R.id.title);
         content  = (TextView) this.findViewById(R.id.content);
+        dateline  = (TextView) this.findViewById(R.id.dateline);
         initData();
     }
 
@@ -63,6 +65,7 @@ public class NoticeDetailActivity extends BaseActivity implements View.OnClickLi
                                     Notice notice = data.getData();
                                     title.setText(notice.getMm_notice_title());
                                     content.setText(notice.getMm_notice_content());
+                                    dateline.setText(notice.getDateline());
                                 }else if(Integer.parseInt(code) == 9){
                                     Toast.makeText(NoticeDetailActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");

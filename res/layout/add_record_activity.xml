@@ -50,6 +50,7 @@
 
             <TextView android:layout_width="wrap_content"
                       android:text="信息标题:"
+                      android:visibility="gone"
                       android:layout_marginLeft="15dp"
                       android:layout_marginTop="10dp"
                       android:textSize="16sp"
@@ -57,6 +58,7 @@
                       android:layout_height="wrap_content"/>
             <EditText
                     android:id="@+id/mm_msg_title"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxHeight="200dp"
@@ -74,7 +76,7 @@
                     android:textColor="#ff000000"/>
 
             <TextView android:layout_width="wrap_content"
-                      android:text="详细信息:"
+                      android:text="信息描述:"
                       android:layout_marginLeft="15dp"
                       android:layout_marginTop="15dp"
                       android:textSize="16sp"
@@ -84,8 +86,7 @@
                     android:id="@+id/mm_msg_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="80dp"
-                    android:maxHeight="200dp"
+                    android:minHeight="120dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingBottom="10dp"
@@ -95,7 +96,7 @@
                     android:background="@drawable/et_bule_bg"
                     android:textSize="16sp"
                     android:gravity="top"
-                    android:hint="点击输入内容，200字以内"
+                    android:hint="请输入您要发布的信息内容，包括您要求的品种、规格、质量及联系方式。您将对您发布信息的真实性负法律责任，请谨慎填写！"
                     android:padding="10dp"
                     android:textColor="#ff000000"/>
             <com.Lbins.TreeHm.widget.NoScrollGridView

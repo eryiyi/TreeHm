@@ -63,7 +63,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     private SelectPhoPop selectPhoPop;
 
     //内容
-    private EditText mm_msg_title;
+//    private EditText mm_msg_title;
     private EditText mm_msg_content;
     private CustomerSpinner msgTypeSpinner;
     private String mm_msg_type;
@@ -85,7 +85,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     void initView() {
         dataList.add("camera_default");
         this.findViewById(R.id.back).setOnClickListener(this);
-        mm_msg_title = (EditText) this.findViewById(R.id.mm_msg_title);
+//        mm_msg_title = (EditText) this.findViewById(R.id.mm_msg_title);
         mm_msg_content = (EditText) this.findViewById(R.id.mm_msg_content);
         msgTypeSpinner  = (CustomerSpinner) this.findViewById(R.id.mm_msg_type);
         msgTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -176,19 +176,20 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     showMsg(AddRecordActivity.this, "请选择发布信息类型");
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_msg_title.getText().toString())){
-                    showMsg(AddRecordActivity.this, "请输入标题");
-                    return;
-                }
+//                if(StringUtil.isNullOrEmpty(mm_msg_title.getText().toString())){
+//                    showMsg(AddRecordActivity.this, "请输入标题");
+//                    return;
+//                }
                 if(StringUtil.isNullOrEmpty(mm_msg_content.getText().toString())){
                     showMsg(AddRecordActivity.this, "请输入内容");
                     return;
                 }
-                if(mm_msg_title.getText().toString().length() > 100){
-                    showMsg(AddRecordActivity.this, "标题100字以内");
-                    return;
-                }if(mm_msg_content.getText().toString().length() > 200){
-                    showMsg(AddRecordActivity.this, "内容200字以内");
+//                if(mm_msg_title.getText().toString().length() > 100){
+//                    showMsg(AddRecordActivity.this, "标题100字以内");
+//                    return;
+//                }
+                if(mm_msg_content.getText().toString().length() > 300){
+                    showMsg(AddRecordActivity.this, "内容300字以内");
                     return;
                 }
 
@@ -528,7 +529,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
-                params.put("mm_msg_title" , mm_msg_title.getText().toString());
+                params.put("mm_msg_title" , "");
                 params.put("mm_msg_content" , mm_msg_content.getText().toString());
                 if("苗木求购".equals(mm_msg_type)){
                     params.put("mm_msg_type" , "0");
@@ -631,7 +632,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
-                params.put("mm_msg_title" , mm_msg_title.getText().toString());
+                params.put("mm_msg_title" , "");
                 params.put("mm_msg_content" , mm_msg_content.getText().toString());
                 if("苗木求购".equals(mm_msg_type)){
                     params.put("mm_msg_type" , "0");

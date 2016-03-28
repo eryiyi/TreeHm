@@ -283,11 +283,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                                                     showMsg(MainActivity.this, "您已经申请了关注区域！请等待管理员审核");
                                                 }else
                                                 if("1".equals(guanzhuAreaObj.getIscheck())){
-                                                    showMsg(MainActivity.this, "已为您切换到关注区域");
-                                                    //调用广播，刷新主页
-                                                    Intent intent1 = new Intent("change_guanzhu_area");
-                                                    save("gz_areaId", guanzhuAreaObj.getAreaid());
-                                                    sendBroadcast(intent1);
+                                                    Intent intent = new Intent(MainActivity.this, RecordGzActivity.class);
+                                                    intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
+                                                    startActivity(intent);
                                                 }else
                                                 if("2".equals(guanzhuAreaObj.getIscheck())){
                                                     showMsg(MainActivity.this, "您申请的关注区域未通过审核，请联系客服！");

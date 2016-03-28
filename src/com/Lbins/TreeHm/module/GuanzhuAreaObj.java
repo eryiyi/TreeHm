@@ -1,9 +1,11 @@
 package com.Lbins.TreeHm.module;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/3/24 0024.
  */
-public class GuanzhuAreaObj {
+public class GuanzhuAreaObj implements Serializable {
     private String mm_guanzhu_id;
     private String mm_emp_id;
     private String areaid;
@@ -11,7 +13,6 @@ public class GuanzhuAreaObj {
     private String reg_time;
     private String ischeck;
     private String accessToken;
-
 
     public String getMm_guanzhu_id() {
         return mm_guanzhu_id;

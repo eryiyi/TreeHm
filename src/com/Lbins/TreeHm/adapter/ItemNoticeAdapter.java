@@ -58,6 +58,7 @@ public class ItemNoticeAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_notice,null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.content = (TextView) convertView.findViewById(R.id.content);
+            holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
 
             convertView.setTag(holder);
         }else{
@@ -67,12 +68,13 @@ public class ItemNoticeAdapter extends BaseAdapter {
         if(cell != null){
             holder.title.setText(cell.getMm_notice_title());
             holder.content.setText(cell.getMm_notice_content());
+            holder.dateline.setText(cell.getDateline());
         }
         return convertView;
     }
     class ViewHolder {
         TextView title;
         TextView content;
-
+        TextView dateline;
     }
 }

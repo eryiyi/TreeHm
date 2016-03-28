@@ -78,7 +78,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
 
     private RecordMsg recordMsgTmp;
 
-
     private LinearLayout headLiner;
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -858,6 +857,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_ad_type", "0");
                 return params;
             }
             @Override

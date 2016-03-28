@@ -69,41 +69,43 @@ public class Fragment_pro_type extends BaseFragment {
 						//可以查看所有信息
 						goTo(countryObj.getAreaID(),countryObj.getArea());
 					}else {
-						switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
-							case 0:
-								//县区
-								if(countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
-									//如果是当前用户登陆的县区 可以查看该信息
+						if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+							switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+								case 0:
+									//县区
+									if(countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+										//如果是当前用户登陆的县区 可以查看该信息
+										goTo(countryObj.getAreaID(),countryObj.getArea());
+									}else {
+										Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
+										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
+									}
+									break;
+								case 1:
+									//是市级vip
+									if(cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+										//如果是当前用户登陆的县区 可以查看该信息
+										goTo(countryObj.getAreaID(),countryObj.getArea());
+									}else {
+										Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
+										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
+									}
+									break;
+								case 2:
+									//是省级vip
+									if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+										//如果是当前用户登陆的县区 可以查看该信息
+										goTo(countryObj.getAreaID(),countryObj.getArea());
+									}else {
+										Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
+										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
+									}
+									break;
+								case 3:
+								case 4:
 									goTo(countryObj.getAreaID(),countryObj.getArea());
-								}else {
-									Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
-									ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
-								}
-								break;
-							case 1:
-								//是市级vip
-								if(cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
-									//如果是当前用户登陆的县区 可以查看该信息
-									goTo(countryObj.getAreaID(),countryObj.getArea());
-								}else {
-									Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
-									ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
-								}
-								break;
-							case 2:
-								//是省级vip
-								if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
-									//如果是当前用户登陆的县区 可以查看该信息
-									goTo(countryObj.getAreaID(),countryObj.getArea());
-								}else {
-									Toast.makeText(getActivity(), "您权限不够，不能查看！请前往服务中心升级VIP",Toast.LENGTH_SHORT).show();
-									ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
-								}
-								break;
-							case 3:
-							case 4:
-								goTo(countryObj.getAreaID(),countryObj.getArea());
-								break;
+									break;
+							}
 						}
 					}
 				}
