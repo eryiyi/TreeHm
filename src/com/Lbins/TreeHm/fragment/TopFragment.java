@@ -1,5 +1,6 @@
 package com.Lbins.TreeHm.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -9,34 +10,36 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
-import com.Lbins.TreeHm.adapter.ItemTopAdapter;
-import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
+import com.Lbins.TreeHm.adapter.*;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
+import com.Lbins.TreeHm.data.AdObjData;
 import com.Lbins.TreeHm.data.PaihangObjData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.module.AdObj;
 import com.Lbins.TreeHm.module.PaihangObj;
-import com.Lbins.TreeHm.ui.DetailRecordActivity;
-import com.Lbins.TreeHm.ui.LoginActivity;
-import com.Lbins.TreeHm.ui.ProfileActivity;
-import com.Lbins.TreeHm.ui.RegistActivity;
+import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -66,6 +69,19 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
 
     private ImageView no_data;
 
+    private LinearLayout headLiner;
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
+    //导航
+    private ViewPager viewpager;
+    private AdViewPagerAdapter adapterAd;
+    private LinearLayout viewGroup;
+    private ImageView dot, dots[];
+    private Runnable runnable;
+    private int autoChangeTime = 5000;
+    private List<AdObj> listsAd = new ArrayList<AdObj>();
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,13 +94,19 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         res = getActivity().getResources();
         initView();
         initData();
+        getAd();
         return view;
     }
 
     void initView() {
         //
+        headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.ad_header, null);
+
         no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
+        ListView listView = lstv.getRefreshableView();
+
+        listView.addHeaderView(headLiner);
         adapter = new ItemTopAdapter(lists, getActivity());
 
         lstv.setMode(PullToRefreshBase.Mode.BOTH);
@@ -128,28 +150,42 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
     PaihangObj recordVO;
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
-            case 2:
-            case 4:
-            {
-                //头像
-                recordVO = lists.get(position);
-                Intent mineV = new Intent(getActivity(), ProfileActivity.class);
-                mineV.putExtra("id", recordVO.getMm_emp_id());
-                startActivity(mineV);
+        String str = (String) object;
+        if("000".equals(str)){
+            switch (flag){
+                case 0:
+                    AdObj adObj = listsAd.get(position);
+                    Intent webV = new Intent(getActivity(), WebViewActivity.class);
+                    webV.putExtra("strurl", adObj.getMm_ad_url()==null?"":adObj.getMm_ad_url());
+                    startActivity(webV);
+                    break;
             }
-            break;
-            case 3:
-                //电话
-                recordVO = lists.get(position);
-                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
-                    showTel(recordVO.getMm_emp_mobile());
-                }else{
-                    //
-                    Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+        }
+        if("111".equals(str)){
+            switch (flag){
+                case 2:
+                case 4:
+                {
+                    //头像
+                    recordVO = lists.get(position);
+                    Intent mineV = new Intent(getActivity(), ProfileActivity.class);
+                    mineV.putExtra("id", recordVO.getMm_emp_id());
+                    startActivity(mineV);
                 }
                 break;
+                case 3:
+                    //电话
+                    recordVO = lists.get(position);
+                    if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                        showTel(recordVO.getMm_emp_mobile());
+                    }else{
+                        //
+                        Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
         }
+
     }
 
     private RecordMsg recordMsgTmp;
@@ -339,4 +375,179 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         picAddDialog.show();
     }
 
+    private void initViewPager() {
+        adapterAd = new AdViewPagerAdapter(getActivity());
+        adapterAd.change(listsAd);
+        adapterAd.setOnClickContentItemListener(this);
+        viewpager = (ViewPager) headLiner.findViewById(R.id.viewpager);
+        viewpager.setAdapter(adapterAd);
+        viewpager.setOnPageChangeListener(myOnPageChangeListener);
+        initDot();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                int next = viewpager.getCurrentItem() + 1;
+                if (next >= adapterAd.getCount()) {
+                    next = 0;
+                }
+                viewHandler.sendEmptyMessage(next);
+            }
+        };
+        viewHandler.postDelayed(runnable, autoChangeTime);
+    }
+
+
+    // 初始化dot视图
+    private void initDot() {
+        viewGroup = (LinearLayout) headLiner.findViewById(R.id.viewGroup);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                20, 20);
+        layoutParams.setMargins(4, 3, 4, 3);
+
+        dots = new ImageView[adapterAd.getCount()];
+        for (int i = 0; i < adapterAd.getCount(); i++) {
+            dot = new ImageView(getActivity());
+            dot.setLayoutParams(layoutParams);
+            dots[i] = dot;
+            dots[i].setTag(i);
+            dots[i].setOnClickListener(onClick);
+
+            if (i == 0) {
+                dots[i].setBackgroundResource(R.drawable.dotc);
+            } else {
+                dots[i].setBackgroundResource(R.drawable.dotn);
+            }
+
+            viewGroup.addView(dots[i]);
+        }
+    }
+
+    ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageSelected(int arg0) {
+            setCurDot(arg0);
+            viewHandler.removeCallbacks(runnable);
+            viewHandler.postDelayed(runnable, autoChangeTime);
+        }
+
+    };
+    // 实现dot点击响应功能,通过点击事件更换页面
+    View.OnClickListener onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = (Integer) v.getTag();
+            setCurView(position);
+        }
+
+    };
+
+    /**
+     * 设置当前的引导页
+     */
+    private void setCurView(int position) {
+        if (position < 0 || position > adapterAd.getCount()) {
+            return;
+        }
+        viewpager.setCurrentItem(position);
+//        if (!StringUtil.isNullOrEmpty(lists.get(position).getNewsTitle())){
+//            titleSlide = lists.get(position).getNewsTitle();
+//            if(titleSlide.length() > 13){
+//                titleSlide = titleSlide.substring(0,12);
+//                article_title.setText(titleSlide);//当前新闻标题显示
+//            }else{
+//                article_title.setText(titleSlide);//当前新闻标题显示
+//            }
+//        }
+
+    }
+
+    /**
+     * 选中当前引导小点
+     */
+    private void setCurDot(int position) {
+        for (int i = 0; i < dots.length; i++) {
+            if (position == i) {
+                dots[i].setBackgroundResource(R.drawable.dotc);
+            } else {
+                dots[i].setBackgroundResource(R.drawable.dotn);
+            }
+        }
+    }
+
+    /**
+     * 每隔固定时间切换广告栏图片
+     */
+    @SuppressLint("HandlerLeak")
+    private final Handler viewHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            setCurView(msg.what);
+        }
+
+    };
+
+    private void getAd() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_AD_LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    AdObjData data = getGson().fromJson(s, AdObjData.class);
+                                    listsAd.clear();
+                                    if(data != null && data.getData().size() > 0){
+                                        listsAd.addAll(data.getData());
+                                    }
+                                    initViewPager();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_ad_type", "1");
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

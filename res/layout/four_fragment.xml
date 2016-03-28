@@ -419,7 +419,7 @@
                                     android:layout_height="wrap_content">
                         <ImageView android:layout_width="wrap_content"
                                    android:id="@+id/img_kefu1"
-                                   android:src="@drawable/button_selector_zs_mine"
+                                   android:src="@drawable/button_selector_notice_mine"
                                    android:layout_centerHorizontal="true"
                                    android:layout_height="45dp"
                                    android:layout_marginTop="10dp"/>
@@ -460,7 +460,8 @@
                                android:id="@+id/img_five"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_shangyebank_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="农村商业银行"
                               android:padding="5dp"
@@ -484,7 +485,8 @@
                                android:id="@+id/img_six"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_shop_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="苗木商店"
                               android:padding="6dp"
@@ -508,7 +510,8 @@
                                android:id="@+id/img_seven"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_work_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="装车工人"
                               android:padding="6dp"
@@ -532,7 +535,8 @@
                                android:id="@+id/img_eight"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_wuliu_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="物流中心"
                               android:padding="6dp"
@@ -565,7 +569,8 @@
                                android:id="@+id/img_nine"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_jiajie_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="嫁接团队"
                               android:padding="5dp"
@@ -589,7 +594,8 @@
                                android:id="@+id/img_ten"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_msg_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="短信平台"
                               android:padding="5dp"
@@ -613,7 +619,8 @@
                                android:id="@+id/img_evelen"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_car_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="吊车服务"
                               android:padding="5dp"
@@ -637,7 +644,8 @@
                                android:id="@+id/img_twelven"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/button_selector_about_mine"
-                               android:layout_height="60dp"/>
+                               android:layout_height="45dp"
+                               android:layout_marginTop="10dp"/>
                     <TextView android:layout_width="wrap_content"
                               android:text="关于我们"
                               android:padding="5dp"

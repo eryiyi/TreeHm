@@ -70,9 +70,16 @@ public class ItemTelAdapter extends BaseAdapter {
         final KefuTel cell = lists.get(position);
         if(cell != null){
             holder.tel.setText(cell.getMm_tel());
-            holder.address.setText((cell.getProvinceName()==null?"":cell.getProvinceName())
+            if(!StringUtil.isNullOrEmpty((cell.getProvinceName()==null?"":cell.getProvinceName())
                     +(cell.getCityName()==null?"":cell.getCityName())
-                    +(cell.getAreaName()==null?"":cell.getAreaName()));
+                    +(cell.getAreaName()==null?"":cell.getAreaName()))){
+                holder.address.setText((cell.getProvinceName()==null?"":cell.getProvinceName())
+                        +(cell.getCityName()==null?"":cell.getCityName())
+                        +(cell.getAreaName()==null?"":cell.getAreaName()));
+            }else {
+                holder.address.setText("全国客服");
+            }
+
         }
 
         return convertView;

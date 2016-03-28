@@ -290,7 +290,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 break;
             case R.id.relate_bank:
                 //银行
-
+            {
+                final Uri uri = Uri.parse(Constants.BANK_URL);
+                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
+            }
                 break;
             case R.id.relate_work:
                 //装车工人

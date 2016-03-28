@@ -147,19 +147,19 @@ public class ItemTopAdapter extends BaseAdapter {
         holder.head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 2, null);
+                onClickContentItemListener.onClickContentItem(position, 2, "111");
             }
         });
         holder.btn_tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 3, null);
+                onClickContentItemListener.onClickContentItem(position, 3, "111");
             }
         });
         holder.nickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickContentItemListener.onClickContentItem(position, 4, null);
+                onClickContentItemListener.onClickContentItem(position, 4, "111");
             }
         });
         return convertView;

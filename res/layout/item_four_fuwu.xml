@@ -44,6 +44,7 @@
               android:textSize="18sp"
               android:layout_marginLeft="6dp"
               android:gravity="center"
+              android:text="微网站"
               android:layout_marginTop="8dp"
               android:id="@+id/weiwangzhan"
               android:textStyle="bold"

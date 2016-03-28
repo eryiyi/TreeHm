@@ -39,6 +39,11 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
     private ItemTelAdapter adapter;
     private List<KefuTel> lists = new ArrayList<KefuTel>();
 
+    private TextView btn_one;
+    private TextView btn_two;
+
+    private String countryId="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +58,18 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 KefuTel kefuTel = lists.get(i);
-                if(kefuTel != null){
+                if (kefuTel != null) {
                     showTel(kefuTel.getMm_tel());
                 }
             }
         });
+        btn_one = (TextView) this.findViewById(R.id.btn_one);
+        btn_two = (TextView) this.findViewById(R.id.btn_two);
+        btn_one.setTextColor(getResources().getColor(R.color.greeny));
+        btn_two.setTextColor(getResources().getColor(R.color.text_color));
+        btn_one.setOnClickListener(this);
+        btn_two.setOnClickListener(this);
+        countryId = getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class);
         getTel();
     }
 
@@ -97,6 +109,20 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             case R.id.back:
                 finish();
                 break;
+            case R.id.btn_one:
+                btn_one.setTextColor(getResources().getColor(R.color.greeny));
+                btn_two.setTextColor(getResources().getColor(R.color.text_color));
+                countryId = getGson().fromJson(getSp().getString("gz_areaId", ""), String.class);
+                lists.clear();
+                getTel();
+                break;
+            case R.id.btn_two:
+                btn_one.setTextColor(getResources().getColor(R.color.text_color));
+                btn_two.setTextColor(getResources().getColor(R.color.greeny));
+                countryId = "";
+                lists.clear();
+                getTel();
+                break;
         }
     }
 
@@ -115,13 +141,12 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                                     KefuTelData data = getGson().fromJson(s, KefuTelData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    adapter.notifyDataSetChanged();
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-
                         if(lists != null && lists.size() >0){
                             lstv.setVisibility(View.VISIBLE);
                             no_data.setVisibility(View.GONE);
@@ -129,6 +154,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                             lstv.setVisibility(View.GONE);
                             no_data.setVisibility(View.VISIBLE);
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 },
                 new Response.ErrorListener() {
@@ -140,6 +166,9 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                if(!StringUtil.isNullOrEmpty(countryId)){
+                    params.put("mm_emp_countryId", countryId);
+                }
                 return params;
             }
 

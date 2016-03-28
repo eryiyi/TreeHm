@@ -82,7 +82,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     public void run() {
         try {
             // 3秒后跳转到登录界面
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
                 loginData();
             }else{
