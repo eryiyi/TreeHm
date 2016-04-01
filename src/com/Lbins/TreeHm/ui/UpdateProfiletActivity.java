@@ -113,15 +113,6 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.btn:
                 //确定
-
-                if(StringUtil.isNullOrEmpty(txpic)){
-                    showMsg(UpdateProfiletActivity.this, "请选择法人头像");
-                    return;
-                }
-                if(StringUtil.isNullOrEmpty(pics)){
-                    showMsg(UpdateProfiletActivity.this, "请选择营业执照");
-                    return;
-                }
                 if(StringUtil.isNullOrEmpty(mm_emp_card.getText().toString())){
                     showMsg(UpdateProfiletActivity.this, "请输入身份证号");
                     return;
@@ -132,6 +123,14 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                 }
                 if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
                     showMsg(UpdateProfiletActivity.this, "请输公司地址");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty(txpic)){
+                    showMsg(UpdateProfiletActivity.this, "请选择法人头像");
+                    return;
+                }
+                if(StringUtil.isNullOrEmpty(pics)){
+                    showMsg(UpdateProfiletActivity.this, "请选择营业执照");
                     return;
                 }
                 progressDialog = new ProgressDialog(UpdateProfiletActivity.this);
@@ -425,6 +424,7 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
 
                                     save("mm_emp_cover", piconeStr);
                                     save("mm_emp_company_pic", pictwoStr);
+                                    save("is_upate_profile", "1");
 
                                     finish();
                                 }else if(Integer.parseInt(code) == 1){

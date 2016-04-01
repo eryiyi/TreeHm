@@ -58,4 +58,12 @@ public class EmpAdObj {
     public void setMm_emp_ad_num(String mm_emp_ad_num) {
         this.mm_emp_ad_num = mm_emp_ad_num;
     }
+
+    public EmpAdObj() {
+    }
+
+    public EmpAdObj(String mm_emp_ad_pic, String mm_emp_ad_url) {
+        this.mm_emp_ad_pic = mm_emp_ad_pic;
+        this.mm_emp_ad_url = mm_emp_ad_url;
+    }
 }

@@ -445,6 +445,9 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                                     if(data != null && data.getData().size() > 0){
                                         lists.addAll(data.getData());
                                     }
+                                    if(lists.size() == 0){
+                                        lists.add(new EmpAdObj("http://xhmt.sdhmmm.cn:7777/upload/20160313/1457875390482.jpg","http://xhmt.sdhmmm.cn:7777/html/download.html"));
+                                    }
                                     initViewPager();
                                 } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();

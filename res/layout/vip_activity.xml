@@ -89,7 +89,7 @@
                 android:onClick="goToPay"
                 android:layout_below="@+id/msg_jine"
                 android:textColor="@color/white"
-                android:background="@drawable/bg_green_radius_big"
+                android:background="@drawable/btn_green_shape"
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
 </LinearLayout>

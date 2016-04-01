@@ -66,12 +66,11 @@
                                 android:paddingTop="1dp" >
                         </LinearLayout>
                     </LinearLayout>
-                    <ImageView
+                    <com.Lbins.TreeHm.widget.CircleImageView
                             android:layout_width="60dp"
                             android:id="@+id/head"
                             android:layout_marginLeft="25dp"
                             android:layout_centerVertical="true"
-                            android:scaleType="centerCrop"
                             android:src="@drawable/default_avatar"
                             android:layout_height="60dp"/>
                     <TextView android:layout_width="wrap_content"

@@ -585,6 +585,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                                     if(data != null && data.getData().size() > 0){
                                         listsAd.addAll(data.getData());
                                     }
+                                    if(lists.size() == 0){
+                                        listsAd.add(new EmpAdObj("http://xhmt.sdhmmm.cn:7777/upload/20160313/1457875390482.jpg","http://xhmt.sdhmmm.cn:7777/html/download.html"));
+                                    }
                                     initViewPager();
                                 } else {
                                     Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();

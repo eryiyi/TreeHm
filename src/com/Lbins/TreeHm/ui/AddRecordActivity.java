@@ -77,9 +77,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record_activity);
         initView();
-        if("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
-            showUpdateProfile();
-        }
+
     }
 
     void initView() {
@@ -663,30 +661,6 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    // 补充资料窗口
-    private void showUpdateProfile() {
-        final Dialog picAddDialog = new Dialog(AddRecordActivity.this, R.style.dialog);
-        View picAddInflate = View.inflate(AddRecordActivity.this, R.layout.update_profile_dialog, null);
-        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
-        //确定
-        btn_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent updateV = new Intent(AddRecordActivity.this, UpdateProfiletActivity.class);
-                startActivity(updateV);
-                picAddDialog.dismiss();
-            }
-        });
-        //取消
-        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                picAddDialog.dismiss();
-            }
-        });
-        picAddDialog.setContentView(picAddInflate);
-        picAddDialog.show();
-    }
+
 
 }

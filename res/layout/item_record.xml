@@ -7,10 +7,9 @@
               android:background="@drawable/zhuye_item_select"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <ImageView
+    <com.Lbins.TreeHm.widget.CircleImageView
             android:src="@drawable/default_avatar"
             android:layout_width="60dp"
-            android:scaleType="centerCrop"
             android:layout_marginTop="8dp"
             android:id="@+id/head"
             android:layout_height="60dp"/>

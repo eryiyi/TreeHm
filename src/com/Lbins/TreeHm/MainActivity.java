@@ -242,8 +242,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                     //未登录
                     showLogin();
                 }else {
-                    Intent addV = new Intent(MainActivity.this, AddRecordActivity.class);
-                    startActivity(addV);
+                    if("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
+                        showUpdateProfile();
+                    }else {
+                        Intent addV = new Intent(MainActivity.this, AddRecordActivity.class);
+                        startActivity(addV);
+                    }
                 }
                 break;
             case 1:
@@ -348,5 +352,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
             }
         };
         getRequestQueue().add(request);
+    }
+
+    // 补充资料窗口
+    private void showUpdateProfile() {
+        final Dialog picAddDialog = new Dialog(MainActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(MainActivity.this, R.layout.update_profile_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        //确定
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent updateV = new Intent(MainActivity.this, UpdateProfiletActivity.class);
+                startActivity(updateV);
+                picAddDialog.dismiss();
+            }
+        });
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
     }
 }
