@@ -45,7 +45,7 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
     public void sureSub(View view){
         //
         if(StringUtil.isNullOrEmpty(face_content.getText().toString())){
-         showMsg(AddSuggestActivity.this, "请输入内容！");
+         showMsg(AddSuggestActivity.this, getResources().getString(R.string.please_input_text));
             return;
         }
         add();
@@ -64,16 +64,16 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                        showMsg(AddSuggestActivity.this, "感谢您的参与！");
-                                        finish();
+                                        showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_one));
+                                    finish();
                                 }else {
-                                    showMsg(AddSuggestActivity.this, "提交失败");
+                                    showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_two));
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                         }else {
-                            showMsg(AddSuggestActivity.this, "提交失败");
+                            showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_two));
                         }
                         if (progressDialog != null) {
                             progressDialog.dismiss();
@@ -86,7 +86,7 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        showMsg(AddSuggestActivity.this, "提交失败");
+                        showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_two));
                     }
                 }
         ) {

@@ -222,7 +222,7 @@ public class ItemRecordAdapter extends BaseAdapter {
 
         return convertView;
     }
-    class ViewHolder {
+    public static  class ViewHolder {
         ImageView btn_share;
         ImageView btn_pic;
         ImageView btn_tel;

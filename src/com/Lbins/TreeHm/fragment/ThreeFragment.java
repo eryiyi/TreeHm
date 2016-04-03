@@ -523,6 +523,15 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 picAddDialog.dismiss();
             }
         });
+        TextView kefuzhongxin = (TextView) picAddInflate.findViewById(R.id.kefuzhongxin);
+        kefuzhongxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kefuV = new Intent(getActivity(), SelectTelActivity.class);
+                startActivity(kefuV);
+                picAddDialog.dismiss();
+            }
+        });
         picAddDialog.setContentView(picAddInflate);
         picAddDialog.show();
     }

@@ -1,8 +1,8 @@
 package com.Lbins.TreeHm.base;
 
 public class InternetURL {
-//    public static final String INTERNAL = "http://192.168.0.224:8080/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
     public static final String QINIU_URL =  "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String QINIU_SPACE = "hmmm-pic";
@@ -79,4 +79,7 @@ public class InternetURL {
     public static final String GET_NOTICE_URL = INTERNAL + "getNotices.do";
     //公告详情
     public static final String GET_NOTICE_DETAIL_URL = INTERNAL + "getNoticesDetail.do";
+
+    public static final String APP_MOB_KEY = "f8238165a882";
+    public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
 }

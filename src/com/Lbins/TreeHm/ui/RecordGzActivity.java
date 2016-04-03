@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.fragment.RecordOneFragment;
+import com.Lbins.TreeHm.fragment.RecordTwoFragment;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -25,7 +26,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
     private FragmentManager fm;
 
     private RecordOneFragment oneFragment;
-    private RecordOneFragment twoFragment;
+    private RecordTwoFragment twoFragment;
     private ImageView foot_one;
     private ImageView foot_two;
     //设置底部图标
@@ -70,7 +71,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.foot_two:
                 if (twoFragment == null) {
-                    twoFragment = new RecordOneFragment();
+                    twoFragment = new RecordTwoFragment();
                     fragmentTransaction.add(R.id.content_frame, twoFragment);
                 } else {
                     fragmentTransaction.show(twoFragment);
@@ -142,6 +143,15 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
             public void onClick(View v) {
                 Intent loginV = new Intent(RecordGzActivity.this, RegistActivity.class);
                 startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        TextView kefuzhongxin = (TextView) picAddInflate.findViewById(R.id.kefuzhongxin);
+        kefuzhongxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kefuV = new Intent(RecordGzActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
                 picAddDialog.dismiss();
             }
         });

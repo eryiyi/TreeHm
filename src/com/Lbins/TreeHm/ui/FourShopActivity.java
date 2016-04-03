@@ -71,19 +71,19 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         initView();
         switch (Integer.parseInt(mm_fuwu_type)){
             case 0:
-                back.setText("苗木商店");
+                back.setText(getResources().getString(R.string.miaomushop));
                 break;
             case 1:
-                back.setText("装车工人");
+                back.setText(getResources().getString(R.string.zhuangchework));
                 break;
             case 2:
-                back.setText("物流中心");
+                back.setText(getResources().getString(R.string.wuliucenter));
                 break;
             case 3:
-                back.setText("嫁接团队");
+                back.setText(getResources().getString(R.string.jiajieteam));
                 break;
             case 4:
-                back.setText("吊车服务");
+                back.setText(getResources().getString(R.string.diaocheservie));
                 break;
 
         };
@@ -304,7 +304,7 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                             webV.putExtra("strurl", mm_fuwu_url);
                             startActivity(webV);
                         }else {
-                            showMsg(FourShopActivity.this, "暂无微网站，请联系管理员在后台设置");
+                            showMsg(FourShopActivity.this, getResources().getString(R.string.zanwu_www));
                         }
 
                     }
@@ -318,7 +318,7 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                             webV.putExtra("strurl", mm_fuwu_url);
                             startActivity(webV);
                         }else {
-                            showMsg(FourShopActivity.this, "暂无微网站，请联系管理员在后台设置");
+                            showMsg(FourShopActivity.this, getResources().getString(R.string.zanwu_www));
                         }
                     }
                         break;

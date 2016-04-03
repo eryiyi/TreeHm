@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
             if (!isMobileNet && !isWifiNet) {
-                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception e) {
@@ -115,11 +115,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         //登陆
         if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
-            showMsg(LoginActivity.this, "请输入手机号");
+            showMsg(LoginActivity.this, getResources().getString(R.string.pwr_error_seven));
             return;
         }
         if(StringUtil.isNullOrEmpty(password.getText().toString())){
-            showMsg(LoginActivity.this, "请输入密码");
+            showMsg(LoginActivity.this,  getResources().getString(R.string.pwr_error_three));
             return;
         }
         progressDialog = new ProgressDialog(LoginActivity.this);
@@ -171,19 +171,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     saveAccount(data.getData());
 
                                 }else if(Integer.parseInt(code) == 1){
-                                    showMsg(LoginActivity.this, "请检查手机号是否存在");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error_one));
                                 }
                                 else if(Integer.parseInt(code) == 2){
-                                    showMsg(LoginActivity.this, "请检查密码是否正确");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error_two));
                                 }
                                 else if(Integer.parseInt(code) == 3){
-                                    showMsg(LoginActivity.this, "该用户已被禁用");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error_three));
                                 }
                                 else if(Integer.parseInt(code) == 4){
-                                    showMsg(LoginActivity.this, "该用户尚未审核，请联系客服");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error_four));
                                 }
                                 else{
-                                    showMsg(LoginActivity.this, "登录失败");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -200,7 +200,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,  R.string.login_error, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -338,7 +338,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                                 }
                                 else{
-                                    showMsg(LoginActivity.this, "定位失败！");
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.location_error_one));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -355,7 +355,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        showMsg(LoginActivity.this, "定位失败！");
+                        showMsg(LoginActivity.this, getResources().getString(R.string.location_error_one));
                     }
                 }
         ) {

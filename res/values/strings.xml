@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">花木通</string>
 
+    <string name="back">返回</string>
     <string name="pull_to_refresh">下拉可以刷新</string>
     <string name="release_to_refresh">松开可以刷新</string>
     <string name="lastUpdateTime">最近更新：%s</string>
@@ -27,7 +28,7 @@
     <string name="reg_error_two">"该手机号已经注册，请直接登录"</string>
 
     <string name="select_city">请选择城市</string>
-    <string name="select_area">请选择地区</string>
+    <string name="select_area">请选择县区</string>
 
     <string name="get_data_error">获得数据失败</string>
     <string name="album_all">All Photos</string>
@@ -51,4 +52,53 @@
         <item>发布信息</item>
         <item>查看关注区域信息</item>
     </string-array>
+
+    <string name="pwr_error_one">原始密码输入错误，请确认！</string>
+    <string name="pwr_error_two">请输入原始密码</string>
+    <string name="pwr_error_three">请输入密码</string>
+    <string name="pwr_error_four">密码长度在6到18位之间</string>
+    <string name="pwr_error_five">请输入确认密码</string>
+    <string name="pwr_error_six">两次输入密码不一致</string>
+    <string name="pwr_error_seven">请输入手机号码</string>
+    <string name="pwr_error_eight">请输入验证码</string>
+    <string name="pwr_success_one">修改密码成功</string>
+    <string name="pwr_error_nine">修改密码失败，请稍后重试</string>
+    <string name="code_msg_one">验证码已经发送</string>
+    <string name="code_msg_two">验证码错误</string>
+    <string name="reg_msg_one">请勾选注册协议！</string>
+    <string name="reg_msg_two">该手机号已经注册，请直接登录</string>
+    <string name="reg_msg_three">注册失败，请稍后重试</string>
+    <string name="reg_msg_four">注册成功，请登录</string>
+    <string name="select_province">请选择省份</string>
+    <string name="input_name">请输入姓名</string>
+    <string name="please_select_msg_type">请选择信息类型</string>
+    <string name="type_qiugou">苗木求购</string>
+    <string name="type_gongying">苗木供应</string>
+    <string name="net_work_error">当前网络连接不可用</string>
+    <string name="add_error_one">您暂无权限发布苗木供应信息，请联系客服！</string>
+    <string name="add_error_two">您暂无权限发布苗木求购信息，请联系客服！</string>
+    <string name="add_error_three">请选择信息类型</string>
+    <string name="please_input_text">请输入内容</string>
+    <string name="add_error_four">内容300字以内</string>
+    <string name="add_error_five">您暂无权限发布图片，请联系客服！</string>
+    <string name="add_error_six">您可以发布3张图片，请联系客服！</string>
+    <string name="add_error_seven">您可以发布6张图片，请联系客服！</string>
+    <string name="add_error_eight">您可以发布9张图片，请联系客服！</string>
+    <string name="add_error_nine">您每天最多发布</string>
+    <string name="add_error_ten">条信息</string>
+    <string name="suggest_add_one">感谢您的参与</string>
+    <string name="suggest_add_two">提交失败</string>
+    <string name="miaomushop">苗木商店</string>
+    <string name="zhuangchework">装车工人</string>
+    <string name="wuliucenter">物流中心</string>
+    <string name="jiajieteam">嫁接团队</string>
+    <string name="diaocheservie">吊车服务</string>
+    <string name="zanwu_www">暂无微网站，请联系管理员在后台设置</string>
+    <string name="yisaveutil">已保存至</string>
+    <string name="location_error_one">定位失败</string>
+    <string name="login_error_one">请检查手机号是否存在</string>
+    <string name="login_error_two">请检查密码是否正确</string>
+    <string name="login_error_three">该用户已被禁用</string>
+    <string name="login_error_four">该用户尚未审核，请联系客服</string>
+    <string name="login_error">登录失败</string>
 </resources>

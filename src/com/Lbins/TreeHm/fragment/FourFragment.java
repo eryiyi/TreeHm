@@ -357,7 +357,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_updatepwr:
                 //修改密码
             {
-                Intent updateP = new Intent(getActivity(), UpdatePwrActivity.class);
+                Intent updateP = new Intent(getActivity(), FindPwrActivity.class);
                 startActivity(updateP);
             }
                 break;

@@ -1,6 +1,5 @@
 package com.Lbins.TreeHm.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -10,27 +9,20 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.*;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.UniversityApplication;
-import com.Lbins.TreeHm.adapter.*;
+import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
+import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.dao.RecordMsg;
-import com.Lbins.TreeHm.data.AdObjData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
-import com.Lbins.TreeHm.module.AdObj;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
 import com.Lbins.TreeHm.module.NewsClassify;
 import com.Lbins.TreeHm.ui.*;
@@ -42,8 +34,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -62,7 +52,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class RecordOneFragment extends BaseFragment implements OnClickContentItemListener,View.OnClickListener{
+public class RecordTwoFragment extends BaseFragment implements OnClickContentItemListener,View.OnClickListener{
     private View view;
     private Resources res;
     private PullToRefreshListView lstv;
@@ -622,7 +612,7 @@ public class RecordOneFragment extends BaseFragment implements OnClickContentIte
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
-                params.put("mm_msg_type", "0");
+                params.put("mm_msg_type", "1");
 
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));

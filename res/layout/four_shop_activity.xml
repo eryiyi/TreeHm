@@ -11,14 +11,21 @@
                     android:background="@color/mm_top_bg"
                     android:layout_height="@dimen/top_title_height">
         <TextView android:layout_width="wrap_content"
-                  android:text="苗木商店"
+                  android:text="@string/back"
                   android:drawablePadding="8dp"
                   android:textSize="16sp"
                   android:padding="6dp"
                   android:id="@+id/back"
-                  android:drawableLeft="@drawable/back_white"
+                  android:drawableLeft="@drawable/button_selector_back"
                   android:textColor="@color/white"
                   android:layout_centerVertical="true"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="服务"
+                  android:textSize="18sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="true"
+                  android:textColor="@color/white"
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
     <LinearLayout

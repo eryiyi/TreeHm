@@ -96,9 +96,9 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 
             }
         });
-        empTypeList.add("请选择信息类型");
-        empTypeList.add("苗木求购");
-        empTypeList.add("苗木供应");
+        empTypeList.add(getResources().getString(R.string.please_select_msg_type));
+        empTypeList.add(getResources().getString(R.string.type_qiugou));
+        empTypeList.add(getResources().getString(R.string.type_gongying));
         adapterEmpType = new ArrayAdapter<String>(AddRecordActivity.this, android.R.layout.simple_spinner_item, empTypeList);
         msgTypeSpinner.setList(empTypeList);
         msgTypeSpinner.setAdapter(adapterEmpType);
@@ -133,7 +133,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
             if (!isMobileNet && !isWifiNet) {
-                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception e) {
@@ -161,17 +161,17 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 }
                 if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && "苗木供应".equals(mm_msg_type)){
                     //没有发布苗木供应的权限
-                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木供应信息，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_one));
                     return;
                 }
                 if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && "苗木求购".equals(mm_msg_type)){
                     //没有发布苗木供应的权限
-                    showMsg(AddRecordActivity.this, "您暂无权限发布苗木求购信息，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_two));
                     return;
                 }
 
-                if(StringUtil.isNullOrEmpty(mm_msg_type) || "请选择信息类型".equals(mm_msg_type)){
-                    showMsg(AddRecordActivity.this, "请选择发布信息类型");
+                if(StringUtil.isNullOrEmpty(mm_msg_type) || getResources().getString(R.string.add_error_three).equals(mm_msg_type)){
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.please_select_msg_type));
                     return;
                 }
 //                if(StringUtil.isNullOrEmpty(mm_msg_title.getText().toString())){
@@ -179,7 +179,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 //                    return;
 //                }
                 if(StringUtil.isNullOrEmpty(mm_msg_content.getText().toString())){
-                    showMsg(AddRecordActivity.this, "请输入内容");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.please_input_text));
                     return;
                 }
 //                if(mm_msg_title.getText().toString().length() > 100){
@@ -187,32 +187,32 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 //                    return;
 //                }
                 if(mm_msg_content.getText().toString().length() > 300){
-                    showMsg(AddRecordActivity.this, "内容300字以内");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_four));
                     return;
                 }
 
                 if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>1){
                     //不允许发布图片
-                    showMsg(AddRecordActivity.this, "您暂无权限发布图片，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_five));
                     return;
                 }
                 if("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>4){
                     //允许发布图片 3
-                    showMsg(AddRecordActivity.this, "您可以发布3张图片，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_six));
                     return;
                 }
                 if("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>7){
                     //允许发布图片 6
-                    showMsg(AddRecordActivity.this, "您可以发布6张图片，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_seven));
                     return;
                 }
                 if("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>10){
                     //允许发布图片 9
-                    showMsg(AddRecordActivity.this, "您可以发布9张图片，请联系客服！");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_eight));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))){
-                    showMsg(AddRecordActivity.this, "您每天最多发布"+(getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条信息");
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_nine)+(getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ getResources().getString(R.string.add_error_ten));
                     return;
                 }
                 progressDialog = new ProgressDialog(AddRecordActivity.this);

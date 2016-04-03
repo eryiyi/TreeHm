@@ -76,5 +76,17 @@
                     android:text="登 录"
                     android:textColor="@color/white"/>
         </LinearLayout>
+        <TextView android:layout_width="match_parent"
+                  android:text="客服中心"
+                  android:layout_marginTop="8dp"
+                  android:gravity="center"
+                  android:id="@+id/kefuzhongxin"
+                  android:paddingTop="6dp"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginRight="20dp"
+                  android:paddingBottom="6dp"
+                  android:textColor="@color/white"
+                  android:background="@drawable/jubao_shape"
+                  android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>

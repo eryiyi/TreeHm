@@ -79,8 +79,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     private RecordMsg recordMsgTmp;
 
     private LinearLayout headLiner;
-    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-    ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
 
     //导航
     private ViewPager viewpager;
@@ -558,6 +556,15 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                 picAddDialog.dismiss();
             }
         });
+        TextView kefuzhongxin = (TextView) picAddInflate.findViewById(R.id.kefuzhongxin);
+        kefuzhongxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kefuV = new Intent(getActivity(), SelectTelActivity.class);
+                startActivity(kefuV);
+                picAddDialog.dismiss();
+            }
+        });
         picAddDialog.setContentView(picAddInflate);
         picAddDialog.show();
     }
@@ -858,6 +865,15 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_ad_type", "0");
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+                    params.put("mm_emp_provinceId", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
+                }
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                    params.put("mm_emp_cityId", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
+                }
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                    params.put("mm_emp_countryId", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                }
                 return params;
             }
             @Override

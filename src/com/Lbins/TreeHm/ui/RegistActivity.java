@@ -63,6 +63,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     private EditText mm_emp_nickname;
     private Button btn_code;
     private Button btn;
+    private CheckBox reg;
 
 //    private CustomerSpinner empTypeSpinner;
 //    ArrayAdapter<String> adapterEmpType;
@@ -99,9 +100,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     //mob短信
     // 填写从短信SDK应用后台注册得到的APPKEY
-    private static String APPKEY = "f8238165a882";//"69d6705af33d";0d786a4efe92bfab3d5717b9bc30a10d
+    private static String APPKEY = InternetURL.APP_MOB_KEY;//"69d6705af33d";0d786a4efe92bfab3d5717b9bc30a10d
     // 填写从短信SDK应用后台注册得到的APPSECRET
-    private static String APPSECRET = "7b3833871687dfa31baa880701907b4e";
+    private static String APPSECRET = InternetURL.APP_MOB_SCRECT;
     public String phString;//手机号码
 
     //短信读取
@@ -144,7 +145,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onReceived(String message) {
                 //花木通的验证码：8469【掌淘科技】
-                if(!StringUtil.isNullOrEmpty(message) && message.startsWith("花木通")){
+                if(!StringUtil.isNullOrEmpty(message)){
                     String codestr = StringUtil.valuteNumber(message);
                     if(!StringUtil.isNullOrEmpty(codestr)){
                         code.setText(codestr);
@@ -158,6 +159,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
     void initView(){
+        reg = (CheckBox) this.findViewById(R.id.reg);
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
         code = (EditText) this.findViewById(R.id.code);
         password = (EditText) this.findViewById(R.id.password);
@@ -278,52 +280,56 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     MyTimer myTimer = new MyTimer(60000,1000);
                     myTimer.start();
                 }else {
-                    showMsg(RegistActivity.this, "请输入手机号码");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_seven));
                     return;
                 }
                 break;
             case R.id.btn:
                 //确定
                 if(StringUtil.isNullOrEmpty(mm_emp_mobile.getText().toString())){
-                    showMsg(RegistActivity.this, "请输入手机号码");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_seven));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(code.getText().toString())){
-                    showMsg(RegistActivity.this, "请输入验证码");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_eight));
                     return;
                 }
 
                 if(StringUtil.isNullOrEmpty(password.getText().toString())){
-                    showMsg(RegistActivity.this, "请输入密码");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_three));
                     return;
                 }
                 if(password.getText().toString().length()>18 || password.getText().toString().length()<6){
-                    showMsg(RegistActivity.this, "密码长度在6到18位之间");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_four));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(surepass.getText().toString())){
-                    showMsg(RegistActivity.this, "请输入确认密码");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_five));
                     return;
                 }
                 if(!password.getText().toString().equals(surepass.getText().toString())){
-                    showMsg(RegistActivity.this, "两次输入密码不一致");
+                    showMsg(RegistActivity.this, res.getString(R.string.pwr_error_six));
                     return;
                 }
 
                 if(StringUtil.isNullOrEmpty(mm_emp_nickname.getText().toString())){
-                    showMsg(RegistActivity.this, "请输入姓名");
+                    showMsg(RegistActivity.this, res.getString(R.string.input_name));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(provinceCode)){
-                    showMsg(RegistActivity.this, "请选择省份");
+                    showMsg(RegistActivity.this, res.getString(R.string.select_province));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(cityCode)){
-                    showMsg(RegistActivity.this, "请选择城市");
+                    showMsg(RegistActivity.this, res.getString(R.string.select_city));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(countryCode)){
-                    showMsg(RegistActivity.this, "请选择县区");
+                    showMsg(RegistActivity.this, res.getString(R.string.select_area));
+                    return;
+                }
+                if(reg.isChecked() == false){
+                    showMsg(RegistActivity.this, res.getString(R.string.reg_msg_one));
                     return;
                 }
                 progressDialog = new ProgressDialog(RegistActivity.this);
@@ -364,25 +370,28 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 JSONObject jo = new JSONObject(s);
                                 String code =  jo.getString("code");
                                 if(Integer.parseInt(code) == 200) {
-                                    showMsg(RegistActivity.this, "注册成功，请登录");
+                                    showMsg(RegistActivity.this, res.getString(R.string.reg_msg_four));
                                     save("mm_emp_mobile", mm_emp_mobile.getText().toString());
                                     save("mm_emp_password", password.getText().toString());
                                     Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
                                 }else if(Integer.parseInt(code) == 1){
-                                    showMsg(RegistActivity.this, "注册失败，请稍后重试");
+                                    showMsg(RegistActivity.this, res.getString(R.string.reg_msg_three));
                                 }else if(Integer.parseInt(code) == 2){
-                                    showMsg(RegistActivity.this, "该手机号已经注册，请直接登录");
+                                    showMsg(RegistActivity.this, res.getString(R.string.reg_msg_two));
+                                    Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                    finish();
                                 }
                                 else {
-                                    Toast.makeText(RegistActivity.this, R.string.reg_error_one , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistActivity.this, R.string.reg_msg_three , Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(RegistActivity.this, R.string.reg_error_one, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistActivity.this, R.string.reg_msg_three, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
                             progressDialog.dismiss();
@@ -395,7 +404,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(RegistActivity.this, R.string.reg_error_one, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistActivity.this, R.string.reg_msg_three, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -441,12 +450,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                     //已经验证
-                    Toast.makeText(getApplicationContext(), "验证码已经发送", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.code_msg_one, Toast.LENGTH_SHORT).show();
                 }
 
             } else {
 //				((Throwable) data).printStackTrace();
-				Toast.makeText(RegistActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegistActivity.this, R.string.code_msg_two, Toast.LENGTH_SHORT).show();
 //					Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
                 int status = 0;
                 try {
@@ -487,7 +496,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                    provinceNames.add("请选择省份");
+                                    provinceNames.add(res.getString(R.string.select_province));
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     provinces = data.getData();
                                     if(provinces != null){

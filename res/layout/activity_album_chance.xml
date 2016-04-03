@@ -30,8 +30,9 @@
                 android:layout_centerVertical="true"
                 android:id="@+id/cancel_button"
                 android:paddingLeft="10dp"
-                android:src="@drawable/back_white"
+                android:src="@drawable/button_selector_back"
                 android:paddingRight="10dp"/>
+
     </RelativeLayout>
 
 
