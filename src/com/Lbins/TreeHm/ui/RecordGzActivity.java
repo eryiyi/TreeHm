@@ -33,21 +33,28 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
     Resources res;
     private int index;
     public static GuanzhuAreaObj guanzhuAreaObj;//关注的区域
+    public static String idPostion;//关注的区域
+    public static String name;//关注的区域
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         guanzhuAreaObj = (GuanzhuAreaObj) getIntent().getExtras().get("guanzhuAreaObj");
+        idPostion = getIntent().getExtras().getString("idPostion");
+        name = getIntent().getExtras().getString("name");
         setContentView(R.layout.record_main);
         res = getResources();
         fm = getSupportFragmentManager();
         initView();
+        title.setText(name);
         switchFragment(R.id.foot_one);
     }
 
     private void initView() {
         foot_one = (ImageView) this.findViewById(R.id.foot_one);
         foot_two = (ImageView) this.findViewById(R.id.foot_two);
+        title = (TextView) this.findViewById(R.id.title);
         foot_one.setOnClickListener(this);
         foot_two.setOnClickListener(this);
         this.findViewById(R.id.back).setOnClickListener(this);

@@ -75,8 +75,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 //    private ArrayList<String> companyTypeList = new ArrayList<String>();
     private String mm_emp_company_type ="0";//注册类型 公司 0苗木
 
-
-
     //省市县
     private CustomerSpinner province;
     private CustomerSpinner city;
@@ -160,6 +158,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     void initView(){
         reg = (CheckBox) this.findViewById(R.id.reg);
+        this.findViewById(R.id.btn_kf).setOnClickListener(this);
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
         code = (EditText) this.findViewById(R.id.code);
         password = (EditText) this.findViewById(R.id.password);
@@ -263,6 +262,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btn_kf:
+                Intent kefuV = new Intent(RegistActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
+                break;
             case R.id.reg_msg:
                 //注册协议
                 Intent regMsg = new Intent(RegistActivity.this, RegistMsgActivity.class);
@@ -274,11 +277,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_code:
                 //验证码
                 if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11){
-                    SMSSDK.getVerificationCode("86",mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
-                    phString=mm_emp_mobile.getText().toString();
-                    btn_code.setClickable(false);//不可点击
-                    MyTimer myTimer = new MyTimer(60000,1000);
-                    myTimer.start();
+                    //先判断手机号是否注册了
+                    checkMObile();
                 }else {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_seven));
                     return;
@@ -651,6 +651,72 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("father", cityCode);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    void checkMObile(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_EMP_MOBILE ,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200) {
+                                    showMsg(RegistActivity.this, getResources().getString(R.string.reg_error_is_use));
+                                }else {
+                                    SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
+                                    phString=mm_emp_mobile.getText().toString();
+                                    btn_code.setClickable(false);//不可点击
+                                    MyTimer myTimer = new MyTimer(60000,1000);
+                                    myTimer.start();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
+                            phString=mm_emp_mobile.getText().toString();
+                            btn_code.setClickable(false);//不可点击
+                            MyTimer myTimer = new MyTimer(60000,1000);
+                            myTimer.start();
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
+                        phString=mm_emp_mobile.getText().toString();
+                        btn_code.setClickable(false);//不可点击
+                        MyTimer myTimer = new MyTimer(60000,1000);
+                        myTimer.start();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
                 return params;
             }
 

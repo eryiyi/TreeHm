@@ -28,10 +28,40 @@
                   android:textColor="@color/white"
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
+
     <TextView android:layout_width="match_parent"
               android:padding="6dp"
               android:textSize="14sp"
-              android:textColor="@color/red_color"
+              android:textColor="@color/mm_btn_bg"
+              android:text="我关注的区域"
+              android:layout_height="wrap_content"/>
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="200dp">
+        <GridView
+                android:id="@+id/lstvGz"
+                android:numColumns="2"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+        <TextView android:layout_width="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:padding="8dp"
+                  android:visibility="gone"
+                  android:id="@+id/no_data_text"
+                  android:textSize="18sp"
+                  android:textColor="@color/mm_btn_bg"
+                  android:text="暂无关注区域，点击添加申请"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <TextView android:layout_width="match_parent"
+              android:padding="6dp"
+              android:textSize="14sp"
+              android:textColor="@color/mm_btn_bg"
               android:text="*数字代表当前地区所包含的信息数量"
               android:layout_height="wrap_content"/>
 
@@ -42,6 +72,6 @@
             android:verticalSpacing="5dp"
             android:padding="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             />
 </LinearLayout>

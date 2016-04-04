@@ -1,11 +1,15 @@
 package com.Lbins.TreeHm.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.adapter.ItemQQAdapter;
 import com.Lbins.TreeHm.adapter.ItemWeixinAdapter;
+import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.KefuTelData;
@@ -28,10 +32,14 @@ import java.util.Map;
 /**
  * Created by zhanghailong on 2016/3/20.
  */
-public class WeixinKefuActivity extends BaseActivity implements View.OnClickListener {
+public class WeixinKefuActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
     private ListView lstv;
+    private ListView lstvQ;
     private ItemWeixinAdapter adapter;
+    private ItemQQAdapter adapterQ;
     List<WeixinObj> lists = new ArrayList<WeixinObj>();
+    List<WeixinObj> listsW = new ArrayList<WeixinObj>();
+    List<WeixinObj> listsQ = new ArrayList<WeixinObj>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +49,31 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
 
         this.findViewById(R.id.back).setOnClickListener(this);
         lstv = (ListView) this.findViewById(R.id.lstv);
-        adapter = new ItemWeixinAdapter(lists, WeixinKefuActivity.this);
+        lstvQ = (ListView) this.findViewById(R.id.lstvQ);
+        adapter = new ItemWeixinAdapter(listsW, WeixinKefuActivity.this);
+        adapterQ = new ItemQQAdapter(listsQ, WeixinKefuActivity.this);
+        adapterQ.setOnClickContentItemListener(this);
         lstv.setAdapter(adapter);
+        lstvQ.setAdapter(adapterQ);
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //
+            }
+        });
+        lstvQ.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //
+//                if(listsQ != null && listsQ.size() >i){
+//                    WeixinObj weixinObj = listsQ.get(i);
+//                    if(weixinObj != null){
+//                        String url="mqqwpa://im/chat?chat_type=wpa&uin=" + weixinObj.getMm_weixin();
+//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//                    }
+//
+//                }
+
             }
         });
         getTel();
@@ -76,7 +103,20 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
                                     WeixinObjData data = getGson().fromJson(s, WeixinObjData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
+                                    if(lists != null && lists.size()>0){
+                                        for(WeixinObj weixinObj:lists){
+                                            if("0".equals(weixinObj.getMm_weixin_type())){
+                                                //微信
+                                                listsW.add(weixinObj);
+                                            }
+                                            if("1".equals(weixinObj.getMm_weixin_type())){
+                                                //微信
+                                                listsQ.add(weixinObj);
+                                            }
+                                        }
+                                    }
                                     adapter.notifyDataSetChanged();
+                                    adapterQ.notifyDataSetChanged();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -104,5 +144,21 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
             }
         };
         getRequestQueue().add(request);
+    }
+
+    @Override
+    public void onClickContentItem(int position, int flag, Object object) {
+        switch (flag){
+            case 1:
+                if(listsQ != null && listsQ.size() >position){
+                    WeixinObj weixinObj = listsQ.get(position);
+                    if(weixinObj != null){
+                        String url="mqqwpa://im/chat?chat_type=wpa&uin=" + weixinObj.getMm_weixin();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    }
+
+                }
+                break;
+        }
     }
 }

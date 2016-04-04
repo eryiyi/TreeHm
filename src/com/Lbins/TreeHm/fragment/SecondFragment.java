@@ -101,9 +101,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         initView();
         initData();
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
-            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class));
+            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class)+"-"+"点击查看其它区域");
         }else if(!StringUtil.isNullOrEmpty(UniversityApplication.area)){
-            mLocation.setText(UniversityApplication.area);
+            mLocation.setText(UniversityApplication.area+"-"+"点击查看其它区域");
         }
         getAd();
         return view;
@@ -114,6 +114,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.ad_header, null);
         mLocation = (TextView) view.findViewById(R.id.mLocation);
         mLocation.setOnClickListener(this);
+        view.findViewById(R.id.add).setOnClickListener(this);
         no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         ListView listView = lstv.getRefreshableView();
@@ -517,8 +518,13 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         switch (view.getId()){
             case R.id.mLocation:
                 //
-                Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
-                startActivity(selectV);
+                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                    //未登录
+                    showLogin();
+                }else {
+                    Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
+                    startActivity(selectV);
+                }
                 break;
             case R.id.no_data:
                 IS_REFRESH = true;
@@ -531,8 +537,51 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                     showLogin();
                 }
                 break;
+            case R.id.add:
+            {
+                //发布信息
+                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                    //未登录
+                    showLogin();
+                }else {
+                    if("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
+                        showUpdateProfile();
+                    }else {
+                        Intent addV = new Intent(getActivity(), AddRecordActivity.class);
+                        startActivity(addV);
+                    }
+                }
+            }
+            break;
         }
     }
+
+    // 补充资料窗口
+    private void showUpdateProfile() {
+        final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
+        View picAddInflate = View.inflate(getActivity(), R.layout.update_profile_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        //确定
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent updateV = new Intent(getActivity(), UpdateProfiletActivity.class);
+                startActivity(updateV);
+                picAddDialog.dismiss();
+            }
+        });
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 
     //广播接收动作
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
@@ -550,7 +599,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 is_guanzhu = "0";
                 countryId = intent.getExtras().getString("countryId");
                 String countryName = intent.getExtras().getString("countryName");
-                mLocation.setText(countryName);
+                mLocation.setText(countryName+"-"+"点击查看其它区域");
                 IS_REFRESH = true;
                 pageIndex = 1;
                 if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){

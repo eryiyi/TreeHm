@@ -128,6 +128,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_weixinkefu).setOnClickListener(this);
         view.findViewById(R.id.relate_zhaoshang).setOnClickListener(this);
         view.findViewById(R.id.relate_notice).setOnClickListener(this);
+        view.findViewById(R.id.relate_erweima).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -424,6 +425,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 Intent noticeV = new Intent(getActivity(), NoticeActivity.class);
                 startActivity(noticeV);
             }
+                break;
+            case R.id.relate_erweima:
+                //
+                Intent intentErweima = new Intent(getActivity(), ErweimaActivity.class);
+                startActivity(intentErweima);
                 break;
         }
     }

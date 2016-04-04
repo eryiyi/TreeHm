@@ -43,7 +43,8 @@ import java.util.Map;
  */
 public class FourShopActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
     private ViewPager viewPager;
-    private ImageView imageView;
+    private ImageView cursor1;
+    private ImageView cursor2;
     private TextView textView1,textView2;
     private List<View> views;
     private int offset = 0;
@@ -279,15 +280,9 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
 
 
     private void InitImageView() {
-        imageView= (ImageView) findViewById(R.id.cursor);
-        bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.line_bg).getWidth();
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenW = dm.widthPixels;
-        offset = (screenW / 2 - bmpW) / 1;
-        Matrix matrix = new Matrix();
-        matrix.postTranslate(offset, 0);
-        imageView.setImageMatrix(matrix);
+        cursor1= (ImageView) findViewById(R.id.cursor1);
+        cursor2= (ImageView) findViewById(R.id.cursor2);
+
     }
 
     @Override
@@ -392,27 +387,21 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
     }
 
     public class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
-
-        int one = offset * 1 + bmpW;
-        int two = one * 1;
         public void onPageScrollStateChanged(int arg0) {
-
-
         }
 
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-
         }
-
         public void onPageSelected(int arg0) {
-            Animation animation = new TranslateAnimation(one*currIndex, one*arg0, 0, 0);
-            currIndex = arg0;
-            animation.setFillAfter(true);
-            animation.setDuration(300);
-            imageView.startAnimation(animation);
+            if(arg0 == 0){
+                cursor1.setImageDrawable(getResources().getDrawable(R.drawable.line_bg));
+                cursor2.setImageDrawable(getResources().getDrawable(R.drawable.line_bg_white));
+            }
+            if(arg0 == 1){
+                cursor1.setImageDrawable(getResources().getDrawable(R.drawable.line_bg_white));
+                cursor2.setImageDrawable(getResources().getDrawable(R.drawable.line_bg));
+            }
         }
-
     }
 
     void initDataLocation(){

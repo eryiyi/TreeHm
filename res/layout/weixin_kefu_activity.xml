@@ -49,29 +49,61 @@
                 android:layout_height="wrap_content"/>
   </LinearLayout>
     <RelativeLayout android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
         <ListView
                 android:id="@+id/lstv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
                 android:divider="@drawable/home_item_shadow"
-                android:dividerHeight="8dp"
+                android:dividerHeight="0.5dp"
                 android:fadingEdge="none"
-                android:layout_marginBottom="60dp"
                 android:fastScrollEnabled="false"
                 android:footerDividersEnabled="false"
                 android:headerDividersEnabled="false"
                 android:smoothScrollbar="true"/>
 
-        <TextView android:layout_width="wrap_content"
-                  android:text="*长按微信号可以复制"
-                  android:textColor="@color/red"
-                  android:textSize="16dp"
-                  android:layout_marginLeft="25dp"
-                  android:padding="8dp"
-                  android:layout_alignParentBottom="true"
-                  android:layout_height="60dp"/>
     </RelativeLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:text="QQ昵称"
+                  android:textColor="@color/text_color"
+                  android:padding="6dp"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:textColor="@color/text_color"
+                  android:padding="6dp"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:text="QQ号"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+        <ListView
+                android:id="@+id/lstvQ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="@drawable/home_item_shadow"
+                android:dividerHeight="0.5dp"
+                />
+            </RelativeLayout>
 
+    <TextView android:layout_width="wrap_content"
+              android:text="*长按微信号可以复制  *点击QQ号码就能聊天"
+              android:textColor="@color/red"
+              android:textSize="16dp"
+              android:layout_marginLeft="25dp"
+              android:padding="2dp"
+              android:layout_alignParentBottom="true"
+              android:layout_height="wrap_content"/>
 </LinearLayout>

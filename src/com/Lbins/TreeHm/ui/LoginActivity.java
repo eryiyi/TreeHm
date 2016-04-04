@@ -143,7 +143,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_kf:
                 //联系客服
-               Intent kefuV = new Intent(LoginActivity.this, SelectTelActivity.class);
+                Intent kefuV = new Intent(LoginActivity.this, SelectTelActivity.class);
                 startActivity(kefuV);
                 break;
         }

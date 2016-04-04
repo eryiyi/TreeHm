@@ -101,4 +101,5 @@
     <string name="login_error_three">该用户已被禁用</string>
     <string name="login_error_four">该用户尚未审核，请联系客服</string>
     <string name="login_error">登录失败</string>
+    <string name="reg_error_is_use">该手机号已经注册，请直接登录或者联系管理员修改密码！</string>
 </resources>

@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ItemProvinceAdapter extends BaseAdapter {
+public class ItemGuanzhuAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<ProvinceObj> lists;
+    private List<String> lists;
     private Context mContect;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -30,7 +30,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemProvinceAdapter(List<ProvinceObj> lists, Context mContect){
+    public ItemGuanzhuAdapter(List<String> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -54,24 +54,21 @@ public class ItemProvinceAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_area,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_gz_area,null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
-            holder.msgnum = (TextView) convertView.findViewById(R.id.msgnum);
 
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        final ProvinceObj cell = lists.get(position);
+        final String cell = lists.get(position);
         if(cell != null){
             holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_btn_bg));
-            holder.title.setText(cell.getProvince());
-            holder.msgnum.setText((cell.getMsgNum()==null?"0":cell.getMsgNum()));
+            holder.title.setText(cell);
         }
         return convertView;
     }
     class ViewHolder {
-        TextView msgnum;
         TextView title;
     }
 }

@@ -107,6 +107,7 @@
         <activity android:name=".ui.NoticeDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.RecordGzActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.FindPwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ErweimaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
 
 
         <!--友盟-->

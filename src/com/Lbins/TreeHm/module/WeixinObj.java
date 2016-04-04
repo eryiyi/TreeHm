@@ -7,6 +7,15 @@ public class WeixinObj {
     private String mm_weixin_id;
     private String mm_weixin;
     private String mm_weixin_name;
+    private String mm_weixin_type;
+
+    public String getMm_weixin_type() {
+        return mm_weixin_type;
+    }
+
+    public void setMm_weixin_type(String mm_weixin_type) {
+        this.mm_weixin_type = mm_weixin_type;
+    }
 
     public String getMm_weixin_name() {
         return mm_weixin_name;

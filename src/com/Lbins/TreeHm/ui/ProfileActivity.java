@@ -60,6 +60,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private int pageIndex = 1;
     private ItemRecordAdapter adapter;
     private List<RecordMsg> lists = new ArrayList<RecordMsg>();
+    private String type= "";
 
     //header
     LinearLayout headLiner;
@@ -69,6 +70,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private TextView address;//公司地址
 
     private TextView back;
+    private Button companyUrl;
+    private Button updateBtn;//更改个人信息
     private String id;
     private Emp emp;
 
@@ -113,8 +116,19 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         headLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.profile_header, null);
         head = (ImageView) headLiner.findViewById(R.id.head);
         content = (TextView) headLiner.findViewById(R.id.content);
+        companyUrl = (Button) headLiner.findViewById(R.id.companyUrl);
+        updateBtn = (Button) headLiner.findViewById(R.id.updateBtn);
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent kefuV = new Intent(ProfileActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
+            }
+        });
         nickname = (TextView) headLiner.findViewById(R.id.nickname);
         address = (TextView) headLiner.findViewById(R.id.address);
+        headLiner.findViewById(R.id.qiugou).setOnClickListener(this);
+        headLiner.findViewById(R.id.gongying).setOnClickListener(this);
         back = (TextView) this.findViewById(R.id.back);
         back.setOnClickListener(this);
         adapter = new ItemRecordAdapter(lists, ProfileActivity.this);
@@ -150,6 +164,16 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+            case R.id.qiugou:
+                type = "0";
+                pageIndex = 1;
+                loadData(ContentListView.REFRESH);
+                break;
+            case R.id.gongying:
+                type = "1";
+                pageIndex = 1;
+                loadData(ContentListView.REFRESH);
                 break;
         }
     }
@@ -280,6 +304,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 params.put("mm_emp_id", id);
+                params.put("mm_msg_type", type);
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
                 }else {
@@ -306,6 +331,14 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         content.setText(emp.getMm_emp_company_detail());
         nickname.setText(emp.getMm_emp_nickname());
         back.setText(emp.getMm_emp_nickname());
+        companyUrl.setText(emp.getMm_emp_company()==null?"":emp.getMm_emp_company());
+        if(emp.getMm_emp_id().equals(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+            //是当前登陆者自己 显示
+            updateBtn.setVisibility(View.VISIBLE);
+        }else{
+            //隐藏
+            updateBtn.setVisibility(View.GONE);
+        }
     }
 
     RecordMsg recordVO;

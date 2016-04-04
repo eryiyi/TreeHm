@@ -56,12 +56,25 @@
 
     </LinearLayout>
 
-    <ImageView
-            android:id="@+id/cursor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="matrix"
-            android:src="@drawable/line_bg" />
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/cursor1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_bg" />
+        <ImageView
+                android:id="@+id/cursor2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/line_bg_white"
+                />
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
             android:id="@+id/vPager"

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +83,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
     private int autoChangeTime = 5000;
     private List<AdObj> listsAd = new ArrayList<AdObj>();
 
+    private EditText keyword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,30 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         return view;
     }
 
+    private TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            IS_REFRESH = true;
+            pageIndex = 1;
+            if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                initData();
+            }else {
+                lstv.onRefreshComplete();
+                //未登录
+                showLogin();
+            }
+        }
+    };
+
     void initView() {
         //
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.ad_header, null);
@@ -105,6 +132,9 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         ListView listView = lstv.getRefreshableView();
+
+        keyword = (EditText) view.findViewById(R.id.keyword);
+        keyword.addTextChangedListener(watcher);
 
         listView.addHeaderView(headLiner);
         adapter = new ItemTopAdapter(lists, getActivity());
@@ -288,6 +318,9 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
                 }else {
                     params.put("accessToken", "");
+                }
+                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
+                    params.put("keyword", keyword.getText().toString());
                 }
                 return params;
             }

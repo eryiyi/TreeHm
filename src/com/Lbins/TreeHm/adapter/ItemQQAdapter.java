@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.module.ProvinceObj;
+import com.Lbins.TreeHm.module.WeixinObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/5/27.
  */
-public class ItemProvinceAdapter extends BaseAdapter {
+public class ItemQQAdapter extends BaseAdapter {
     private ViewHolder holder;
-    private List<ProvinceObj> lists;
+    private List<WeixinObj> lists;
     private Context mContect;
 
     ImageLoader imageLoader = ImageLoader.getInstance();//图片加载类
@@ -30,7 +30,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemProvinceAdapter(List<ProvinceObj> lists, Context mContect){
+    public ItemQQAdapter(List<WeixinObj> lists, Context mContect){
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -54,7 +54,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_area,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_weixin_kefu,null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.msgnum = (TextView) convertView.findViewById(R.id.msgnum);
 
@@ -62,16 +62,21 @@ public class ItemProvinceAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        final ProvinceObj cell = lists.get(position);
+        final WeixinObj cell = lists.get(position);
         if(cell != null){
-            holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_btn_bg));
-            holder.title.setText(cell.getProvince());
-            holder.msgnum.setText((cell.getMsgNum()==null?"0":cell.getMsgNum()));
+            holder.title.setText(cell.getMm_weixin_name());
+            holder.msgnum.setText(cell.getMm_weixin());
+            holder.msgnum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 1, "111");
+                }
+            });
         }
         return convertView;
     }
     class ViewHolder {
-        TextView msgnum;
         TextView title;
+        TextView msgnum;
     }
 }
