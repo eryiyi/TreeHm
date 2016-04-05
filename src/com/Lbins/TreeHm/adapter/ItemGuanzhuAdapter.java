@@ -63,7 +63,7 @@ public class ItemGuanzhuAdapter extends BaseAdapter {
         }
         final String cell = lists.get(position);
         if(cell != null){
-            holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_btn_bg));
+            holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_top_bg));
             holder.title.setText(cell);
         }
         return convertView;

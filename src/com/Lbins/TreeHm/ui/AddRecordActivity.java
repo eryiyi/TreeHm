@@ -269,7 +269,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     private void showSelectImageDialog() {
         if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
             //不允许发布图片
-            showMsg(AddRecordActivity.this, "您暂无权限发布图片，请联系客服！");
+            showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_five));
         }else {
             selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
             //显示窗口
@@ -472,14 +472,14 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                 String code =  jo.getString("code");
                                 if(Integer.parseInt(code) == 200) {
                                     RecordSingData data = getGson().fromJson(s, RecordSingData.class);
-                                    showMsg(AddRecordActivity.this, "发布成功");
-                                    if("苗木求购".equals(mm_msg_type)){
+                                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_record_success));
+                                    if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_QIUGOU);
                                         intent1.putExtra("addRecord", data.getData());
                                         sendBroadcast(intent1);
                                     }
-                                    if("苗木供应".equals(mm_msg_type)){
+                                    if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_GONGYING);
                                         intent1.putExtra("addRecord", data.getData());
@@ -489,7 +489,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     finish();
                                 }else if(Integer.parseInt(code) == 3){
                                     Toast.makeText(AddRecordActivity.this,
-                                            "发布信息数量超出限制，您每天最多发布"+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条" ,
+                                            R.string.add_msg_one+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ R.string.tiao ,
                                             Toast.LENGTH_SHORT).show();
                                 }else if(Integer.parseInt(code) == 9){
                                     Toast.makeText(AddRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
@@ -581,14 +581,14 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                 String code =  jo.getString("code");
                                 if(Integer.parseInt(code) == 200) {
                                     RecordSingData data = getGson().fromJson(s, RecordSingData.class);
-                                    showMsg(AddRecordActivity.this, "发布成功");
-                                    if("苗木求购".equals(mm_msg_type)){
+                                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_record_success));
+                                    if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_QIUGOU);
                                         intent1.putExtra("addRecord", data.getData());
                                         sendBroadcast(intent1);
                                     }
-                                    if("苗木供应".equals(mm_msg_type)){
+                                    if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_GONGYING);
                                         intent1.putExtra("addRecord", data.getData());
@@ -598,7 +598,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     finish();
                                 }else if(Integer.parseInt(code) == 3){
                                     Toast.makeText(AddRecordActivity.this,
-                                            "发布信息数量超出限制，您每天最多发布"+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+"条" ,
+                                            R.string.add_msg_one+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ R.string.tiao ,
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else {
@@ -632,10 +632,10 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
                 params.put("mm_msg_title" , "");
                 params.put("mm_msg_content" , mm_msg_content.getText().toString());
-                if("苗木求购".equals(mm_msg_type)){
+                if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
                     params.put("mm_msg_type" , "0");
                 }
-                if("苗木供应".equals(mm_msg_type)){
+                if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
                     params.put("mm_msg_type" , "1");
                 }
                 params.put("mm_msg_picurl" , String.valueOf(filePath));

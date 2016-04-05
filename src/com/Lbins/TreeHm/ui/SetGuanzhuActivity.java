@@ -180,7 +180,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                    provinceNames.add("请选择省份");
+                                    provinceNames.add(getResources().getString(R.string.select_province));
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     provinces = data.getData();
                                     if(provinces != null){
@@ -371,17 +371,17 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                         flagFF = false;
                     }
                     if(!flagFF){
-                        showMsg(SetGuanzhuActivity.this, "最多选择5个县区！");
+                        showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_only_five_area));
                     }else{
                         if(!flagF){
-                            showMsg(SetGuanzhuActivity.this, "不能重复选择同一个县区！");
+                            showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.no_select_one_area));
                         }else {
                             quyu.setText(quyu.getText().toString()+ countryName+",");
                             selectCode  = selectCode+ countryCode +",";
                         }
                     }
                 }else {
-                    showMsg(SetGuanzhuActivity.this, "请先选择县区！");
+                    showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_area_one));
                 }
             }
                 break;
@@ -389,7 +389,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
             {
                 //提交
                 if(StringUtil.isNullOrEmpty(selectCode)){
-                    showMsg(SetGuanzhuActivity.this, "请先选择要关注的县区！");
+                    showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_area_guanzhu));
                     return;
                 }
                 setGzArea();
@@ -410,10 +410,10 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                                 JSONObject jo = new JSONObject(s);
                                 String code =  jo.getString("code");
                                 if(Integer.parseInt(code) == 200){
-                                    showMsg(SetGuanzhuActivity.this, "提交申请成功，请等待管理员审核！您可以去客服中心查询进度！");
+                                    showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_success_wait_check));
                                     finish();
                                 }else if(Integer.parseInt(code) == 2){
-                                    showMsg(SetGuanzhuActivity.this, "提交申请失败！不能重复提交申请！");
+                                    showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_error_check));
                                 }
                                 else if(Integer.parseInt(code) == 9){
                                     Toast.makeText(SetGuanzhuActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
@@ -421,7 +421,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                                     Intent loginV = new Intent(SetGuanzhuActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                 }else {
-                                    showMsg(SetGuanzhuActivity.this, "提交申请失败！请稍后重试！");
+                                    showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_error_one));
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();

@@ -38,7 +38,7 @@ public class Fragment_pro_type extends BaseFragment {
 	private ImageView hint_img;
 	private GridView listView;
 	private Pro_type_adapter adapter;
-	private List<CountryObj> toolsList = new ArrayList<CountryObj>();//Õâ¸öÊÇĞ¡Àà±ğ
+	private List<CountryObj> toolsList = new ArrayList<CountryObj>();
 	private CityObj cityObj;
 	private ProvinceObj provinceObj;
 	@Override
@@ -59,45 +59,42 @@ public class Fragment_pro_type extends BaseFragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				CountryObj countryObj = toolsList.get(arg2);
-				//ÕâÀïĞèÒªÅĞ¶Ï
 				if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
-					//Î´µÇÂ¼
 					Intent loginV = new Intent(getActivity(), LoginActivity.class);
 					startActivity(loginV);
 				}else {
 					if("1".equals(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))){
-						//¿ÉÒÔ²é¿´ËùÓĞĞÅÏ¢
 						goTo(countryObj.getAreaID(),countryObj.getArea());
 					}else {
 						if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
 							switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
 								case 0:
-									//ÏØÇø
+									//å¿åŒº
 									if(countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
-										//Èç¹ûÊÇµ±Ç°ÓÃ»§µÇÂ½µÄÏØÇø ¿ÉÒÔ²é¿´¸ÃĞÅÏ¢
+										//å¦‚æœæ˜¯å½“å‰ç”¨æˆ·ç™»é™†çš„å¿åŒº å¯ä»¥æŸ¥çœ‹è¯¥ä¿¡æ¯
 										goTo(countryObj.getAreaID(),countryObj.getArea());
 									}else {
-										Toast.makeText(getActivity(), "ÄúÈ¨ÏŞ²»¹»£¬²»ÄÜ²é¿´£¡ÇëÇ°Íù·şÎñÖĞĞÄÉı¼¶VIP",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getActivity(), R.string.select_area_error,Toast.LENGTH_SHORT).show();
 										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
 									}
 									break;
 								case 1:
-									//ÊÇÊĞ¼¶vip
+									//æ˜¯å¸‚çº§vip
 									if(cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
-										//Èç¹ûÊÇµ±Ç°ÓÃ»§µÇÂ½µÄÏØÇø ¿ÉÒÔ²é¿´¸ÃĞÅÏ¢
+										//å¦‚æœæ˜¯å½“å‰ç”¨æˆ·ç™»é™†çš„å¿åŒº å¯ä»¥æŸ¥çœ‹è¯¥ä¿¡æ¯
 										goTo(countryObj.getAreaID(),countryObj.getArea());
 									}else {
-										Toast.makeText(getActivity(), "ÄúÈ¨ÏŞ²»¹»£¬²»ÄÜ²é¿´£¡ÇëÇ°Íù·şÎñÖĞĞÄÉı¼¶VIP",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getActivity(), R.string.select_area_error,Toast.LENGTH_SHORT).show();
 										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
 									}
 									break;
 								case 2:
-									//ÊÇÊ¡¼¶vip
+									//æ˜¯çœçº§vip
 									if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
-										//Èç¹ûÊÇµ±Ç°ÓÃ»§µÇÂ½µÄÏØÇø ¿ÉÒÔ²é¿´¸ÃĞÅÏ¢
+										//å¦‚æœæ˜¯å½“å‰ç”¨æˆ·ç™»é™†çš„å¿åŒº å¯ä»¥æŸ¥çœ‹è¯¥ä¿¡æ¯
 										goTo(countryObj.getAreaID(),countryObj.getArea());
 									}else {
-										Toast.makeText(getActivity(), "ÄúÈ¨ÏŞ²»¹»£¬²»ÄÜ²é¿´£¡ÇëÇ°Íù·şÎñÖĞĞÄÉı¼¶VIP",Toast.LENGTH_SHORT).show();
+										Toast.makeText(getActivity(), R.string.select_area_error,Toast.LENGTH_SHORT).show();
 										ActivityTack.getInstanse().popUntilActivity(MainActivity.class);
 									}
 									break;
@@ -118,7 +115,6 @@ public class Fragment_pro_type extends BaseFragment {
 	}
 
 	void goTo(String countryId,String countryName){
-		//µ÷ÓÃ¹ã²¥£¬Ë¢ĞÂÖ÷Ò³
 		Intent intent1 = new Intent("select_country");
 		intent1.putExtra("countryId", countryId);
 		intent1.putExtra("countryName", countryName);

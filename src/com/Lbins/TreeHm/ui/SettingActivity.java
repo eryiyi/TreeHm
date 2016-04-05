@@ -78,30 +78,30 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         textSize = (CustomerSpinner) this.findViewById(R.id.textSize);
         textColor = (CustomerSpinner) this.findViewById(R.id.textColor);
 
-        empTypeList.add(new SetFontSize("正常字体", "16"));
-        empTypeList.add(new SetFontSize("小号字体", "14"));
-        empTypeList.add(new SetFontSize("中号字体", "18"));
-        empTypeList.add(new SetFontSize("大号字体", "22"));
-        empTypeList.add(new SetFontSize("超大号字体", "26"));
-        empTypeListStr.add("正常字体");
-        empTypeListStr.add("小号字体");
-        empTypeListStr.add("中号字体");
-        empTypeListStr.add("大号字体");
-        empTypeListStr.add("超大号字体");
+        empTypeList.add(new SetFontSize(getResources().getString(R.string.font_zhengchang), "16"));
+        empTypeList.add(new SetFontSize(getResources().getString(R.string.font_small), "14"));
+        empTypeList.add(new SetFontSize(getResources().getString(R.string.font_zhong), "18"));
+        empTypeList.add(new SetFontSize(getResources().getString(R.string.font_big), "22"));
+        empTypeList.add(new SetFontSize(getResources().getString(R.string.font_big_big), "26"));
+        empTypeListStr.add(getResources().getString(R.string.font_zhengchang));
+        empTypeListStr.add(getResources().getString(R.string.font_small));
+        empTypeListStr.add(getResources().getString(R.string.font_zhong));
+        empTypeListStr.add(getResources().getString(R.string.font_big));
+        empTypeListStr.add(getResources().getString(R.string.font_big_big));
         adapterEmpType = new ArrayAdapter<String>(SettingActivity.this, android.R.layout.simple_spinner_item, empTypeListStr);
         textSize.setList(empTypeListStr);
         textSize.setAdapter(adapterEmpType);
 
-        companyTypeList.add(new SetFontColor("黑色", "black"));
-        companyTypeList.add(new SetFontColor("灰色", "gray"));
-        companyTypeList.add(new SetFontColor("蓝色", "blue"));
-        companyTypeList.add(new SetFontColor("橙色", "orange"));
-        companyTypeList.add(new SetFontColor("红色","red"));
-        companyTypeListStr.add("黑色");
-        companyTypeListStr.add("灰色");
-        companyTypeListStr.add("蓝色");
-        companyTypeListStr.add("橙色");
-        companyTypeListStr.add("红色");
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.black), "black"));
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.gray), "gray"));
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.blue), "blue"));
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.orange), "orange"));
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.red),"red"));
+        companyTypeListStr.add(getResources().getString(R.string.black));
+        companyTypeListStr.add(getResources().getString(R.string.gray));
+        companyTypeListStr.add(getResources().getString(R.string.blue));
+        companyTypeListStr.add(getResources().getString(R.string.orange));
+        companyTypeListStr.add(getResources().getString(R.string.red));
         adapterCompanyType = new ArrayAdapter<String>(SettingActivity.this, android.R.layout.simple_spinner_item, companyTypeListStr);
         textColor.setList(companyTypeListStr);
         textColor.setAdapter(adapterCompanyType);
@@ -187,10 +187,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 //                                Toast.makeText(mContext, "有新版本发现", Toast.LENGTH_SHORT).show();
                                 break;
                             case UpdateStatus.No:
-                                Toast.makeText(SettingActivity.this, "已是最新版本", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingActivity.this, R.string.new_version_also, Toast.LENGTH_SHORT).show();
                                 break;
                             case UpdateStatus.Timeout:
-                                Toast.makeText(SettingActivity.this, "连接超时", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingActivity.this, R.string.net_pass, Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -207,8 +207,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void surequite(View view){
         AlertDialog dialog = new AlertDialog.Builder(SettingActivity.this)
                 .setIcon(R.drawable.logo)
-                .setTitle("确定退出花木通吗？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.sure_quite))
+                .setPositiveButton(getResources().getString(R.string.sure), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         save("password" ,"");
                         save("isLogin" ,"0");
@@ -218,7 +218,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         finish();
                     }
                 })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })

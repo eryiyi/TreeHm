@@ -64,7 +64,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
         }
         final ProvinceObj cell = lists.get(position);
         if(cell != null){
-            holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_btn_bg));
+            holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_top_bg));
             holder.title.setText(cell.getProvince());
             holder.msgnum.setText((cell.getMsgNum()==null?"0":cell.getMsgNum()));
         }

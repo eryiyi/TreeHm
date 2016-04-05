@@ -162,7 +162,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
     public void goToPay(View view){
         //
         if(StringUtil.isNullOrEmpty(msg_jine.getText().toString())){
-            showMsg(VipActivity.this, "请先选择");
+            showMsg(VipActivity.this, getResources().getString(R.string.please_select));
         }else {
 
         }
@@ -171,6 +171,6 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
     void toC(){
         FeiyongObj feiyongObj = lists.get(0);
         msg_time.setText(feiyongObj.getMm_feiyong_name());
-        msg_jine.setText("￥"+feiyongObj.getMm_feiyong_jine());
+        msg_jine.setText(getResources().getString(R.string.money)+ feiyongObj.getMm_feiyong_jine());
     }
 }

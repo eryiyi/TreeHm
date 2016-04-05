@@ -108,7 +108,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
             if (!isMobileNet && !isWifiNet) {
-                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception e) {

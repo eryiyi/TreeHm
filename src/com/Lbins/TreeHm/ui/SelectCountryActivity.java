@@ -121,7 +121,7 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                                     //如果是当前用户登陆的县区 可以查看该信息
                                     goTo(countryObj.getAreaID(),countryObj.getArea());
                                 }else {
-                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
                                     finish();
                                 }
                                 break;
@@ -131,7 +131,7 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                                     //如果是当前用户登陆的县区 可以查看该信息
                                     goTo(countryObj.getAreaID(),countryObj.getArea());
                                 }else {
-                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
                                     finish();
                                 }
                                 break;
@@ -141,7 +141,7 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                                     //如果是当前用户登陆的县区 可以查看该信息
                                     goTo(countryObj.getAreaID(),countryObj.getArea());
                                 }else {
-                                    showMsg(SelectCountryActivity.this, "您权限不够，不能查看！请前往服务中心升级VIP");
+                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
                                     finish();
                                 }
                                 break;

@@ -36,6 +36,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -223,6 +225,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     public void saveAccount(Emp emp) {
+        //登录成功，绑定百度云推送
+        PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                com.Lbins.TreeHm.baidu.Utils.getMetaValue(LoginActivity.this, "api_key"));
+
         // 登陆成功，保存用户名密码
         save("mm_emp_id", emp.getMm_emp_id());
         save("mm_emp_mobile", emp.getMm_emp_mobile());

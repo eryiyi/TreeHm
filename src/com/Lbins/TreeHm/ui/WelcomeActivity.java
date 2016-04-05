@@ -1,6 +1,7 @@
 package com.Lbins.TreeHm.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,16 +44,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-
-        PushManager.startWork(getApplicationContext(),
-
-                PushConstants.LOGIN_TYPE_API_KEY,
-                com.Lbins.TreeHm.baidu.Utils.getMetaValue(WelcomeActivity.this, "api_key"));
 
         //定位
         locationClient = new AMapLocationClient(this.getApplicationContext());
@@ -65,7 +60,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
             if (!isMobileNet && !isWifiNet) {
-                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception e) {
@@ -83,11 +78,21 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         try {
             // 3秒后跳转到登录界面
             Thread.sleep(1000);
-            if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
-                loginData();
-            }else{
-                startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            SharedPreferences.Editor editor = getSp().edit();
+            boolean isFirstRun = getSp().getBoolean("isFirstRun", true);
+            if (isFirstRun) {
+                editor.putBoolean("isFirstRun", false);
+                editor.commit();
+                Intent loadIntent = new Intent(WelcomeActivity.this, AboutActivity.class);
+                startActivity(loadIntent);
                 finish();
+            } else {
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
+                    loginData();
+                }else{
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                    finish();
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -115,22 +120,18 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     mHandler.sendEmptyMessage(Utils.MSG_LOCATION_START);
                                     saveAccount(data.getData());
                                 }else if(Integer.parseInt(code) == 1){
-                                    showMsg(WelcomeActivity.this, "请检查手机号是否存在");
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 2){
-                                    showMsg(WelcomeActivity.this, "请检查密码是否正确");
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 3){
-                                    showMsg(WelcomeActivity.this, "该用户已被禁用");
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
                                 else if(Integer.parseInt(code) == 4){
-                                    showMsg(WelcomeActivity.this, "该用户尚未审核，请联系客服");
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
@@ -288,7 +289,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
 
                                 }
                                 else{
-                                    showMsg(WelcomeActivity.this, "定位失败！");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -305,7 +305,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        showMsg(WelcomeActivity.this, "定位失败！");
                     }
                 }
         ) {

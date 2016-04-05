@@ -172,7 +172,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
                     //
-                    Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
 
                 recordVO.setIs_read("1");
@@ -242,17 +242,17 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),platform +getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -351,7 +351,6 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {

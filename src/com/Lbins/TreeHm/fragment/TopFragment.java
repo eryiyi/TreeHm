@@ -210,7 +210,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                         showTel(recordVO.getMm_emp_mobile());
                     }else{
                         //
-                        Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
                     break;
             }

@@ -45,7 +45,6 @@ public class AlbumChanceActivity extends AbsActivity implements OnItemClickListe
         Bundle extras = getIntent().getExtras();
         selectedDataList = extras.getStringArrayList("selectedDataList");
         booleanExtra = extras.getBoolean("album");
-        Log.i("youzh", booleanExtra + "---Chance");
         mLVChancePhoto = (ListView) findViewById(R.id.chance_photo_lv);
         adapter = new ChanceAdapter(mActThis, mBuckets);
         mLVChancePhoto.setAdapter(adapter);
@@ -125,7 +124,7 @@ public class AlbumChanceActivity extends AbsActivity implements OnItemClickListe
             }
             String name = mediaStoreBucket.getName();
             if (name.contains("All Photos")) {
-                itemAlbum.itemTVAlbum.setText("最近照片");
+                itemAlbum.itemTVAlbum.setText(getResources().getString(R.string.recent_pic));
             } else {
                 itemAlbum.itemTVAlbum.setText(name);
             }
@@ -152,7 +151,7 @@ public class AlbumChanceActivity extends AbsActivity implements OnItemClickListe
             ArrayList<String> list = MediaStoreCursorHelper.queryAllPhoto(this);
             intent.putExtra("listPath", list);
             intent.putExtra("selectedDataList", selectedDataList);
-            intent.putExtra("name", "最近照片");
+            intent.putExtra("name", getResources().getString(R.string.recent_pic));
             intent.putExtra("album", booleanExtra);
 //			startActivity(intent);
         } else {

@@ -246,7 +246,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                    showMsg(DetailRecordActivity.this, "举报成功，请等待管理员审核！");
+                                    showMsg(DetailRecordActivity.this, getResources().getString(R.string.report_success));
                                 }else if(Integer.parseInt(code1) == 9){
                                     Toast.makeText(DetailRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
                                     save("password", "");

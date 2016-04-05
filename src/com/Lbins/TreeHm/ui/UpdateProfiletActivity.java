@@ -114,23 +114,23 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
             case R.id.btn:
                 //确定
                 if(StringUtil.isNullOrEmpty(mm_emp_card.getText().toString())){
-                    showMsg(UpdateProfiletActivity.this, "请输入身份证号");
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_card));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(mm_emp_company.getText().toString())){
-                    showMsg(UpdateProfiletActivity.this, "请输公司名称");
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
-                    showMsg(UpdateProfiletActivity.this, "请输公司地址");
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_address));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(txpic)){
-                    showMsg(UpdateProfiletActivity.this, "请选择法人头像");
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_faren));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(pics)){
-                    showMsg(UpdateProfiletActivity.this, "请选择营业执照");
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_zhizhao));
                     return;
                 }
                 progressDialog = new ProgressDialog(UpdateProfiletActivity.this);

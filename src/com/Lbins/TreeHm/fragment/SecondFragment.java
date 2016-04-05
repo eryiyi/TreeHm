@@ -101,9 +101,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         initView();
         initData();
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
-            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class)+"-"+"点击查看其它区域");
+            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class)+"-"+ getResources().getString(R.string.dianjiseeother));
         }else if(!StringUtil.isNullOrEmpty(UniversityApplication.area)){
-            mLocation.setText(UniversityApplication.area+"-"+"点击查看其它区域");
+            mLocation.setText(UniversityApplication.area+"-"+ getResources().getString(R.string.dianjiseeother));
         }
         getAd();
         return view;
@@ -254,8 +254,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                     if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
                         showTel(recordVO.getMm_emp_mobile());
                     } else {
-                        //
-                        Toast.makeText(getActivity(), "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
 
                     recordVO.setIs_read("1");
@@ -357,17 +356,17 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -599,7 +598,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 is_guanzhu = "0";
                 countryId = intent.getExtras().getString("countryId");
                 String countryName = intent.getExtras().getString("countryName");
-                mLocation.setText(countryName+"-"+"点击查看其它区域");
+                mLocation.setText(countryName+"-"+ getResources().getString(R.string.dianjiseeother));
                 IS_REFRESH = true;
                 pageIndex = 1;
                 if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){

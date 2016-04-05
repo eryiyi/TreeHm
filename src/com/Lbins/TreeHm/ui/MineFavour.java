@@ -226,7 +226,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
                     //
-                    Toast.makeText(MineFavour.this, "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MineFavour.this, R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case 5:
@@ -270,17 +270,17 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(MineFavour.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineFavour.this, platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(MineFavour.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineFavour.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(MineFavour.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineFavour.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 

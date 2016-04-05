@@ -23,7 +23,7 @@ public abstract class AbsActivity extends FragmentActivity {
         options = new DisplayImageOptions.Builder()
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .showImageOnLoading(R.drawable.ic_launcher)
+                .showImageOnLoading(R.drawable.logo)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .build();

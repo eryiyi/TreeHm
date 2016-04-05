@@ -122,7 +122,7 @@ public class AlbumActivity extends AbsActivity {
         if (!TextUtils.isEmpty(imgLocation)) {
             mImgLocation.setText(imgLocation);
         } else {
-            mImgLocation.setText("最近照片");
+            mImgLocation.setText(getResources().getString(R.string.recent_pic));
         }
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
@@ -156,7 +156,7 @@ public class AlbumActivity extends AbsActivity {
             });
 
         }
-        okButton.setText("完成(" + selectedDataList.size() + ")");
+        okButton.setText( getResources().getString(R.string.compleat) + selectedDataList.size() + getResources().getString(R.string.compleat_1));
     }
 
     private void initListener() {
@@ -168,7 +168,7 @@ public class AlbumActivity extends AbsActivity {
                 if (selectedDataList.size() >= 9) {
                     toggleButton.setChecked(false);
                     if (!removePath(path)) {
-                        Toast.makeText(AlbumActivity.this, "只能选择9张图片", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AlbumActivity.this, R.string.only_select_nine, Toast.LENGTH_SHORT).show();
                     }
                     return;
                 }
@@ -200,7 +200,7 @@ public class AlbumActivity extends AbsActivity {
                                 removePath(path);
                             }
                         });
-                        okButton.setText("完成(" + selectedDataList.size() + ")");
+                        okButton.setText(getResources().getString(R.string.compleat) + selectedDataList.size() + getResources().getString(R.string.compleat_1));
                     }
                 } else {
                     removePath(path);
@@ -226,7 +226,7 @@ public class AlbumActivity extends AbsActivity {
             selectedImageLayout.removeView(hashMap.get(path));
             hashMap.remove(path);
             removeOneData(selectedDataList, path);
-            okButton.setText("完成(" + selectedDataList.size() + ")");
+            okButton.setText( getResources().getString(R.string.compleat)+ selectedDataList.size() + getResources().getString(R.string.compleat_1));
             return true;
         } else {
             return false;

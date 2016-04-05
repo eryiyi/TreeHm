@@ -97,10 +97,10 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         imageLoader.displayImage(getGson().fromJson(getSp().getString("mm_emp_cover", ""), String.class), head, UniversityApplication.txOptions, animateFirstListener);
         nickname.setText(getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class));
         if("0".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
-            type.setText("苗木经营");
+            type.setText(getResources().getString(R.string.miaomujingying));
         }
         if("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
-            type.setText("苗木会员");
+            type.setText(getResources().getString(R.string.miaomuemp));
         }
     }
 
@@ -417,7 +417,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 startActivity(weixinV);
                 break;
             case R.id.relate_zhaoshang:
-                Toast.makeText(getActivity(), "暂未开通，请等待！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.no_open,Toast.LENGTH_SHORT).show();
                 break;
             case R.id.relate_notice:
             {

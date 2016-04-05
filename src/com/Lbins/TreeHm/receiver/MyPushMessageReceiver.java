@@ -2,11 +2,22 @@ package com.Lbins.TreeHm.receiver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
+import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.SuccessData;
+import com.Lbins.TreeHm.ui.Constants;
 import com.Lbins.TreeHm.ui.NoticeDetailActivity;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,9 +83,10 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
         if (errorCode == 0) {
             // 绑定成功
+            // 绑定自己的账号和手机号
+            updateContent(context, userId, channelId );
         }
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, responseString);
+
     }
 
     /**
@@ -109,8 +121,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             }
         }
 
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, messageString);
     }
 
     /**
@@ -193,9 +203,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 e.printStackTrace();
             }
         }
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        // 你可以參考 onNotificationClicked中的提示从自定义内容获取具体值
-        updateContent(context, notifyString);
     }
 
     /**
@@ -219,8 +226,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, responseString);
     }
 
     /**
@@ -244,8 +249,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + " requestId=" + requestId;
         Log.d(TAG, responseString);
 
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, responseString);
     }
 
     /**
@@ -267,8 +270,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 + tags;
         Log.d(TAG, responseString);
 
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, responseString);
     }
 
     /**
@@ -290,28 +291,39 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         if (errorCode == 0) {
             // 解绑定成功
         }
-        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
-        updateContent(context, responseString);
     }
 
-    private void updateContent(Context context, String content) {
-        Log.d(TAG, "updateContent");
-//        String logText = "" + Utils.logStringCache;
-//
-//        if (!logText.equals("")) {
-//            logText += "\n";
-//        }
-//
-//        SimpleDateFormat sDateFormat = new SimpleDateFormat("HH-mm-ss");
-//        logText += sDateFormat.format(new Date()) + ": ";
-//        logText += content;
-//
-//        Utils.logStringCache = logText;
-//
-//        Intent intent = new Intent();
-//        intent.setClass(context.getApplicationContext(), PushDemoActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.getApplicationContext().startActivity(intent);
+    private void updateContent(Context context, final String userId, String channelId) {
+        final SharedPreferences sp = context.getSharedPreferences("university_manage", Context.MODE_PRIVATE);
+        String empId = new Gson().fromJson(sp.getString("mm_emp_id", ""), String.class);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String uri = String.format(InternetURL.UPDATE_PUSH_ID + "?id=%s&userId=%s&channelId=%s&type=3", empId, userId, channelId);
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                uri,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        try {
+                            JSONObject jo = new JSONObject(s);
+                            String code =  jo.getString("code");
+                            if(Integer.parseInt(code) == 200){
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString(Constants.PUSH_USER_ID, userId).commit();
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                }
+        );
+        queue.add(request);
     }
 
 }

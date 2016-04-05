@@ -81,6 +81,8 @@ public class InternetURL {
     public static final String GET_NOTICE_DETAIL_URL = INTERNAL + "getNoticesDetail.do";
     //根据手机号查询用户是否存在
     public static final String GET_EMP_MOBILE = INTERNAL + "getMemberByMobile.do";
+    //百度推送
+    public static final String UPDATE_PUSH_ID = INTERNAL + "updatePushId.do";
 
     public static final String APP_MOB_KEY = "f8238165a882";
     public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
