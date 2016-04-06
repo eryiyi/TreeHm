@@ -197,6 +197,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 String myvalue = null;
                 if (!customJson.isNull("mm_notice_id")) {
                     myvalue = customJson.getString("mm_notice_id");
+                    getNotice(context, myvalue);
                 }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -204,6 +205,15 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             }
         }
     }
+
+    public void getNotice(Context context, String notice_id ){
+        Intent detailNotice = new Intent();
+        detailNotice.setClass(context.getApplicationContext(), NoticeDetailActivity.class);
+        detailNotice.putExtra("id", notice_id);
+        detailNotice.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.getApplicationContext().startActivity(detailNotice);
+    }
+
 
     /**
      * setTags() 的回调函数。

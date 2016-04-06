@@ -103,7 +103,7 @@
                     android:background="@drawable/et_bule_bg"
                     android:textSize="16sp"
                     android:gravity="top"
-                    android:hint="请输入您要发布的信息内容，包括您要求的品种、规格、质量及联系方式。您将对您发布信息的真实性负法律责任，请谨慎填写！"
+                    android:hint="@string/add_msg"
                     android:padding="10dp"
                     android:textColor="#ff000000"/>
             <com.Lbins.TreeHm.widget.NoScrollGridView
@@ -139,7 +139,7 @@
                       android:gravity="center"
                       android:textSize="16sp"
                       android:textColor="@color/white"
-                      android:text="客服中心"
+                      android:text="@string/center_kefu"
                       android:layout_marginLeft="30dp"
                       android:layout_marginRight="30dp"
                       android:background="@drawable/btn_green_shape"

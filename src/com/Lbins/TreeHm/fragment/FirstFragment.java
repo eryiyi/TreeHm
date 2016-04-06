@@ -103,9 +103,9 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
         initView();
         initData();
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
-            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class) +"-"+"点击查看其它区域");
+            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class) +"-"+ getResources().getString(R.string.dianjiseeother));
         }else if(!StringUtil.isNullOrEmpty(UniversityApplication.area)){
-            mLocation.setText(UniversityApplication.area +"-"+"点击查看其它区域");
+            mLocation.setText(UniversityApplication.area +"-"+ getResources().getString(R.string.dianjiseeother));
         }
         getAd();
         return view;
@@ -252,7 +252,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
 
                     recordVO = lists.get(position);
                     if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
-                        showTel(recordVO.getMm_emp_mobile());
+                        showTel(recordVO.getMm_emp_mobile(),recordVO.getMm_emp_nickname());
                     }else{
                         Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
@@ -344,19 +344,19 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     }
 
     // 拨打电话窗口
-    private void showTel(String tel) {
+    private void showTel(final String tel,String nickname) {
         final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
         View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel);
+        jubao_cont.setText(tel + " " + nickname);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel));
                 startActivity(intent);
                 picAddDialog.dismiss();
             }

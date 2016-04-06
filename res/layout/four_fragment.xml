@@ -313,7 +313,7 @@
                                    android:layout_height="45dp"
                                    android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
-                                  android:text="客服中心"
+                                  android:text="@string/center_kefu"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"
                                   android:textSize="12sp"

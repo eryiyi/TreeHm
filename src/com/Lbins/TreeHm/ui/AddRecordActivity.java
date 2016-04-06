@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -159,12 +160,12 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     startActivity(loginV);
                     return;
                 }
-                if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && "苗木供应".equals(mm_msg_type)){
+                if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
                     //没有发布苗木供应的权限
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_one));
                     return;
                 }
-                if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && "苗木求购".equals(mm_msg_type)){
+                if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
                     //没有发布苗木供应的权限
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_two));
                     return;
@@ -271,35 +272,11 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             //不允许发布图片
             showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_five));
         }else {
+            //隐藏键盘
             selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
             //显示窗口
             selectPhoPop.showAtLocation(AddRecordActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         }
-    }
-
-    private void openCamera() {
-        Intent cameraIntent = new Intent();
-        cameraIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        // 根据文件地址创建文件
-        File file = new File(CommonDefine.FILE_PATH);
-        if (file.exists()) {
-            file.delete();
-        }
-        uri = Uri.fromFile(file);
-        // 设置系统相机拍摄照片完成后图片文件的存放地址
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-
-        // 开启系统拍照的Activity
-        startActivityForResult(cameraIntent, CommonDefine.TAKE_PICTURE_FROM_CAMERA);
-    }
-    private void openPhoto() {
-        Intent intent = new Intent(AddRecordActivity.this, AlbumActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("dataList", getIntentArrayList(dataList));
-//                    bundle.putString("editContent", et_sendmessage.getText().toString());
-        intent.putExtras(bundle);
-        startActivityForResult(intent, CommonDefine.TAKE_PICTURE_FROM_GALLERY);
     }
 
     private ArrayList<String> getIntentArrayList(ArrayList<String> dataList) {

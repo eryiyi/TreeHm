@@ -138,6 +138,41 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 }
             });
         }
+
+
+        if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+            dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+            content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+        }
+        if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
+            if("black".equals(UniversityApplication.fontColor)){
+                nickname.setTextColor(Color.BLACK);
+                dateline.setTextColor(Color.BLACK);
+                content.setTextColor(Color.BLACK);
+            }
+            if("gray".equals(UniversityApplication.fontColor)){
+                nickname.setTextColor(Color.GRAY);
+                dateline.setTextColor(Color.GRAY);
+                content.setTextColor(Color.GRAY);
+            }
+            if("blue".equals(UniversityApplication.fontColor)){
+                nickname.setTextColor(Color.BLUE);
+                dateline.setTextColor(Color.BLUE);
+                content.setTextColor(Color.BLUE);
+            }
+            if("orange".equals(UniversityApplication.fontColor)){
+                nickname.setTextColor(Color.YELLOW);
+                dateline.setTextColor(Color.YELLOW);
+                content.setTextColor(Color.YELLOW);
+            }
+            if("red".equals(UniversityApplication.fontColor)){
+                nickname.setTextColor(Color.RED);
+                dateline.setTextColor(Color.RED);
+                content.setTextColor(Color.RED);
+            }
+        }
+
     }
     @Override
     public void onClick(View view) {
@@ -150,7 +185,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.telbtn:
                 //电话
-                showTel(recordVO.getMm_emp_mobile());
+                showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
                 break;
             case R.id.head:
                 //头像
@@ -168,20 +203,20 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
     }
 
     // 拨打电话窗口
-    private void showTel(String tel) {
+    private void showTel(final String tel, String nickname) {
         final Dialog picAddDialog = new Dialog(DetailRecordActivity.this, R.style.dialog);
         View picAddInflate = View.inflate(DetailRecordActivity.this, R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel);
+        jubao_cont.setText(tel + " " + nickname);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                if(!StringUtil.isNullOrEmpty(contreport)){
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                if (!StringUtil.isNullOrEmpty(contreport)) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel));
                     startActivity(intent);
                 }
                 picAddDialog.dismiss();

@@ -1,6 +1,7 @@
 package com.Lbins.TreeHm.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,34 @@ public class ItemTelAdapter extends BaseAdapter {
             }else {
                 holder.address.setText("全国客服");
             }
+
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+                holder.address.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.tel.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+            }
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
+                if("black".equals(UniversityApplication.fontColor)){
+                    holder.address.setTextColor(Color.BLACK);
+                    holder.tel.setTextColor(Color.BLACK);
+                }
+                if("gray".equals(UniversityApplication.fontColor)){
+                    holder.address.setTextColor(Color.GRAY);
+                    holder.tel.setTextColor(Color.GRAY);
+                }
+                if("blue".equals(UniversityApplication.fontColor)){
+                    holder.address.setTextColor(Color.BLUE);
+                    holder.tel.setTextColor(Color.BLUE);
+                }
+                if("orange".equals(UniversityApplication.fontColor)){
+                    holder.address.setTextColor(Color.YELLOW);
+                    holder.tel.setTextColor(Color.YELLOW);
+                }
+                if("red".equals(UniversityApplication.fontColor)){
+                    holder.address.setTextColor(Color.RED);
+                    holder.tel.setTextColor(Color.RED);
+                }
+            }
+
 
         }
 

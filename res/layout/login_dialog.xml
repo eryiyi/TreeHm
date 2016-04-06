@@ -77,7 +77,7 @@
                     android:textColor="@color/white"/>
         </LinearLayout>
         <TextView android:layout_width="match_parent"
-                  android:text="客服中心"
+                  android:text="@string/center_kefu"
                   android:layout_marginTop="8dp"
                   android:gravity="center"
                   android:id="@+id/kefuzhongxin"

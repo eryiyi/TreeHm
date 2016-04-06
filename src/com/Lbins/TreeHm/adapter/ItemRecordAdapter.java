@@ -72,7 +72,7 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.head = (ImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
-            holder.title = (TextView) convertView.findViewById(R.id.title);
+//            holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.content = (TextView) convertView.findViewById(R.id.content);
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
@@ -93,7 +93,7 @@ public class ItemRecordAdapter extends BaseAdapter {
 //            if(msg.length() > 80){
 //                msg = msg.substring(0,79)+"...";
 //            }
-            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
+//            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
             holder.content.setText(msg);
             if("1".equals(cell.getIs_chengxin())){
                 holder.img_xinyong.setVisibility(View.VISIBLE);
@@ -147,22 +147,34 @@ public class ItemRecordAdapter extends BaseAdapter {
 
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
                 if("black".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.BLACK);
+                    holder.nickname.setTextColor(Color.BLACK);
+                    holder.dateline.setTextColor(Color.BLACK);
                 }
                 if("gray".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.GRAY);
+                    holder.nickname.setTextColor(Color.GRAY);
+                    holder.dateline.setTextColor(Color.GRAY);
                 }
                 if("blue".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.BLUE);
+                    holder.nickname.setTextColor(Color.BLUE);
+                    holder.dateline.setTextColor(Color.BLUE);
                 }
                 if("orange".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.YELLOW);
+                    holder.nickname.setTextColor(Color.YELLOW);
+                    holder.dateline.setTextColor(Color.YELLOW);
                 }
                 if("red".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.RED);
+                    holder.nickname.setTextColor(Color.RED);
+                    holder.dateline.setTextColor(Color.RED);
                 }
             }
 
@@ -228,7 +240,7 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView head;
         TextView nickname;
         TextView dateline;
-        TextView title;
+//        TextView title;
         TextView content;
         ImageView img_xinyong;
         ImageView img_xiehui;

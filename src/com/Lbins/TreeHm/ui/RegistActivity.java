@@ -372,7 +372,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 if(Integer.parseInt(code) == 200) {
                                     showMsg(RegistActivity.this, res.getString(R.string.reg_msg_four));
                                     save("mm_emp_mobile", mm_emp_mobile.getText().toString());
-                                    save("mm_emp_password", password.getText().toString());
+                                    save("password", password.getText().toString());
                                     Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();

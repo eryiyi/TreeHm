@@ -436,17 +436,25 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_map:
             {
                 //地图
-                Intent mapV = new Intent(getActivity(), WebViewActivity.class);
-                mapV.putExtra("strurl", "http://map.baidu.com/mobile/webapp/index/index");
-                startActivity(mapV);
+//                Intent mapV = new Intent(getActivity(), WebViewActivity.class);
+//                mapV.putExtra("strurl", "http://map.baidu.com/mobile/webapp/index/index");
+//                startActivity(mapV);
+
+                final Uri uri = Uri.parse("http://map.baidu.com/mobile/webapp/index/index");
+                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
             }
                 break;
             case R.id.realte_xiecheng:
             {
                 //汽车火车飞机时刻表
-                Intent xiechengV = new Intent(getActivity(), WebViewActivity.class);
-                xiechengV.putExtra("strurl", "http://m.ctrip.com/html5");
-                startActivity(xiechengV);
+//                Intent xiechengV = new Intent(getActivity(), WebViewActivity.class);
+//                xiechengV.putExtra("strurl", "http://m.ctrip.com/html5");
+//                startActivity(xiechengV);
+
+                final Uri uri = Uri.parse("http://m.ctrip.com/html5");
+                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(it);
             }
                 break;
         }

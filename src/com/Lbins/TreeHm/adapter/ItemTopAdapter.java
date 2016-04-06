@@ -85,7 +85,16 @@ public class ItemTopAdapter extends BaseAdapter {
             holder.nickname.setText(title);
             holder.dateline.setText("");
             holder.title.setText(cell.getMm_emp_company());
-            holder.content.setText(cell.getMm_emp_company_detail());
+            String content = cell.getMm_emp_company_detail();
+            if(!StringUtil.isNullOrEmpty(content)){
+                if(content.length() > 200){
+                    holder.content.setText(content.substring(0,199));
+                }else {
+                    holder.content.setText(content);
+                }
+            }else {
+                holder.content.setText(mContect.getString(R.string.no_content));
+            }
             if("1".equals(cell.getIs_chengxin())){
                 holder.img_xinyong.setVisibility(View.VISIBLE);
             }else {
@@ -117,22 +126,34 @@ public class ItemTopAdapter extends BaseAdapter {
 
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
                 if("black".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.BLACK);
+                    holder.title.setTextColor(Color.BLACK);
+                    holder.nickname.setTextColor(Color.BLACK);
                 }
                 if("gray".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.GRAY);
+                    holder.title.setTextColor(Color.GRAY);
+                    holder.nickname.setTextColor(Color.GRAY);
                 }
                 if("blue".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.BLUE);
+                    holder.title.setTextColor(Color.BLUE);
+                    holder.nickname.setTextColor(Color.BLUE);
                 }
                 if("orange".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.YELLOW);
+                    holder.title.setTextColor(Color.YELLOW);
+                    holder.nickname.setTextColor(Color.YELLOW);
                 }
                 if("red".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.RED);
+                    holder.title.setTextColor(Color.RED);
+                    holder.nickname.setTextColor(Color.RED);
                 }
             }
 
