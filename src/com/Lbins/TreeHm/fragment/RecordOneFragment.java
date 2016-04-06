@@ -487,12 +487,12 @@ public class RecordOneFragment extends BaseFragment implements OnClickContentIte
 
         @Override
         public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
-            UMImage image = new UMImage(getActivity(), (recordVO.getMm_emp_cover()==null?"":recordVO.getMm_emp_cover()));
-            String msg = recordMsgTmp.getMm_msg_title()==""?recordMsgTmp.getMm_msg_content():recordMsgTmp.getMm_msg_title();
-            String msgC = recordMsgTmp.getMm_msg_content()==""?"花木通":recordMsgTmp.getMm_msg_content();
+            UMImage image = new UMImage(getActivity(), R.drawable.logo);
+            String title =  recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
             new ShareAction(getActivity()).setPlatform(share_media).setCallback(umShareListener)
-                    .withText(msgC)
-                    .withTitle(msg)
+                    .withText(content)
+                    .withTitle(title)
                     .withTargetUrl(InternetURL.VIEW_RECORD_BYID_URL + "?id=" + recordMsgTmp.getMm_msg_id())
                     .withMedia(image)
                     .share();

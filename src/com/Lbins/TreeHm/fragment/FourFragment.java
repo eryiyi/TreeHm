@@ -129,6 +129,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_zhaoshang).setOnClickListener(this);
         view.findViewById(R.id.relate_notice).setOnClickListener(this);
         view.findViewById(R.id.relate_erweima).setOnClickListener(this);
+        view.findViewById(R.id.relate_map).setOnClickListener(this);
+        view.findViewById(R.id.realte_xiecheng).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -430,6 +432,22 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 //
                 Intent intentErweima = new Intent(getActivity(), ErweimaActivity.class);
                 startActivity(intentErweima);
+                break;
+            case R.id.relate_map:
+            {
+                //地图
+                Intent mapV = new Intent(getActivity(), WebViewActivity.class);
+                mapV.putExtra("strurl", "http://map.baidu.com/mobile/webapp/index/index");
+                startActivity(mapV);
+            }
+                break;
+            case R.id.realte_xiecheng:
+            {
+                //汽车火车飞机时刻表
+                Intent xiechengV = new Intent(getActivity(), WebViewActivity.class);
+                xiechengV.putExtra("strurl", "http://m.ctrip.com/html5");
+                startActivity(xiechengV);
+            }
                 break;
         }
     }

@@ -151,4 +151,7 @@
     <string name="please_input_zhizhao">请选择营业执照</string>
     <string name="please_select">请先选择</string>
     <string name="money">￥</string>
+    <string name="no_www">暂无微网站</string>
+    <string name="title_share">花木通，您身边的苗木信息专家</string>
+    <string name="content_share">最全最新的苗木求购、供应信息，一手掌握！</string>
 </resources>

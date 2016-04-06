@@ -28,7 +28,13 @@
                   android:textColor="@color/white"
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
-
+    <TextView android:layout_width="match_parent"
+              android:gravity="center"
+              android:textColor="@color/red"
+              android:textSize="18sp"
+              android:padding="25dp"
+              android:text="*请拿出手机扫一扫，马上下载"
+              android:layout_height="wrap_content"/>
  <ImageView android:layout_width="match_parent"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="25dp"
@@ -39,8 +45,11 @@
     <TextView android:layout_width="match_parent"
               android:gravity="center"
               android:textColor="@color/red"
+              android:layout_gravity="center_horizontal"
               android:textSize="18sp"
-              android:padding="25dp"
-              android:text="*请拿出手机扫一扫，马上下载"
+              android:id="@+id/btn_share"
+              android:padding="12dp"
+              android:text="*点击此处，马上分享！"
               android:layout_height="wrap_content"/>
+
 </LinearLayout>

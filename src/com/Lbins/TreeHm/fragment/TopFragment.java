@@ -167,10 +167,12 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                recordVO = lists.get(position-1);
-                Intent mineV = new Intent(getActivity(), ProfileActivity.class);
-                mineV.putExtra("id", recordVO.getMm_emp_id());
-                startActivity(mineV);
+                if(lists.size() > position-2){
+                    recordVO = lists.get(position-2);
+                    Intent mineV = new Intent(getActivity(), ProfileActivity.class);
+                    mineV.putExtra("id", recordVO.getMm_emp_id());
+                    startActivity(mineV);
+                }
             }
         });
         adapter.setOnClickContentItemListener(this);

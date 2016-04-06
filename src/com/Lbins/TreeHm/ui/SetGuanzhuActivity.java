@@ -366,20 +366,14 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                             flagF = false;
                         }
                     }
-                    boolean flagFF = true;
-                    if(arrCode.length > 4){
-                        flagFF = false;
+
+                    if(!flagF){
+                        showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.no_select_one_area));
+                    }else {
+                        quyu.setText(quyu.getText().toString()+ countryName+",");
+                        selectCode  = selectCode+ countryCode +",";
                     }
-                    if(!flagFF){
-                        showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_only_five_area));
-                    }else{
-                        if(!flagF){
-                            showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.no_select_one_area));
-                        }else {
-                            quyu.setText(quyu.getText().toString()+ countryName+",");
-                            selectCode  = selectCode+ countryCode +",";
-                        }
-                    }
+
                 }else {
                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_area_one));
                 }

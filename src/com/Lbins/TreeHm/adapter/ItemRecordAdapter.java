@@ -164,7 +164,6 @@ public class ItemRecordAdapter extends BaseAdapter {
                 if("red".equals(UniversityApplication.fontColor)){
                     holder.content.setTextColor(Color.RED);
                 }
-
             }
 
 //            if(position % 2 == 0){

@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
             if (!isMobileNet && !isWifiNet) {
-                Toast.makeText(this, "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception e) {
@@ -293,7 +293,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                                             GuanzhuAreaObj guanzhuAreaObj = listgz.get(0);
                                             if(guanzhuAreaObj != null){
                                                 if("0".equals(guanzhuAreaObj.getIscheck())){
-                                                    showMsg(MainActivity.this, "您已经申请了关注区域！请等待管理员审核");
+                                                    showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait));
                                                 }else
                                                 if("1".equals(guanzhuAreaObj.getIscheck())){
                                                     Intent intent = new Intent(MainActivity.this, RecordGzActivity.class);
@@ -301,25 +301,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                                                     startActivity(intent);
                                                 }else
                                                 if("2".equals(guanzhuAreaObj.getIscheck())){
-                                                    showMsg(MainActivity.this, "您申请的关注区域未通过审核，请联系客服！");
+                                                    showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait1));
                                                 }else{
-                                                    showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                                    showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                                     Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                                     startActivity(guanzhuV);
                                                 }
                                             }
                                         }else{
-                                            showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                            showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                             Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                             startActivity(guanzhuV);
                                         }
                                     }else{
-                                        showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                        showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                         Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                         startActivity(guanzhuV);
                                     }
                                 }else {
-                                    showMsg(MainActivity.this, "您尚未申请关注区域，请设置关注区域！");
+                                    showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                     Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                     startActivity(guanzhuV);
                                 }

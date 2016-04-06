@@ -322,12 +322,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         getRequestQueue().add(request);
     }
 
-
-
-
     void initData(){
         imageLoader.displayImage(emp.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
-        address.setText(emp.getMm_emp_company());
+        if(!StringUtil.isNullOrEmpty(emp.getMm_emp_company())){
+            address.setText(emp.getMm_emp_company());
+        }else {
+            address.setText(getResources().getString(R.string.no_www));
+        }
         content.setText(emp.getMm_emp_company_detail());
         nickname.setText(emp.getMm_emp_nickname());
         back.setText(emp.getMm_emp_nickname());
@@ -376,7 +377,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     showTel(recordVO.getMm_emp_mobile());
                 }else{
                     //
-                    Toast.makeText(ProfileActivity.this, "商户暂无电话!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
                 recordVO.setIs_read("1");
                 DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
@@ -441,12 +442,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
-            UMImage image = new UMImage(ProfileActivity.this, (recordVO.getMm_emp_cover()==null?"":recordVO.getMm_emp_cover()));
-            String msg = recordMsgTmp.getMm_msg_title()==""?recordMsgTmp.getMm_msg_content():recordMsgTmp.getMm_msg_title();
-            String msgC = recordMsgTmp.getMm_msg_content()==""?"花木通":recordMsgTmp.getMm_msg_content();
+            UMImage image = new UMImage(ProfileActivity.this, R.drawable.logo);
+            String title =  recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
             new ShareAction(ProfileActivity.this).setPlatform(share_media).setCallback(umShareListener)
-                    .withText(msgC)
-                    .withTitle(msg)
+                    .withText(content)
+                    .withTitle(title)
                     .withTargetUrl(InternetURL.VIEW_RECORD_BYID_URL + "?id=" + recordMsgTmp.getMm_msg_id())
                     .withMedia(image)
                     .share();
@@ -456,17 +457,17 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(ProfileActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, platform + getResources().getString(R.string.share_success), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ProfileActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ProfileActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -660,7 +661,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     public void companyIndex(View view){
         //
         if(StringUtil.isNullOrEmpty(emp.getMm_emp_company_url())){
-            showMsg(ProfileActivity.this, "暂无微网站");
+            showMsg(ProfileActivity.this, getResources().getString(R.string.no_www));
         }else{
             Intent webV = new Intent(ProfileActivity.this, WebViewActivity.class);
             webV.putExtra("strurl", emp.getMm_emp_company_url());

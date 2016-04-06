@@ -1,13 +1,16 @@
 package com.Lbins.TreeHm.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.WeixinObj;
+import com.Lbins.TreeHm.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -72,6 +75,33 @@ public class ItemQQAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 1, "111");
                 }
             });
+
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+                holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+                holder.msgnum.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+            }
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
+                if("black".equals(UniversityApplication.fontColor)){
+                    holder.title.setTextColor(Color.BLACK);
+                    holder.msgnum.setTextColor(Color.BLACK);
+                }
+                if("gray".equals(UniversityApplication.fontColor)){
+                    holder.msgnum.setTextColor(Color.GRAY);
+                    holder.msgnum.setTextColor(Color.GRAY);
+                }
+                if("blue".equals(UniversityApplication.fontColor)){
+                    holder.title.setTextColor(Color.BLUE);
+                    holder.msgnum.setTextColor(Color.BLUE);
+                }
+                if("orange".equals(UniversityApplication.fontColor)){
+                    holder.title.setTextColor(Color.YELLOW);
+                    holder.msgnum.setTextColor(Color.YELLOW);
+                }
+                if("red".equals(UniversityApplication.fontColor)){
+                    holder.title.setTextColor(Color.RED);
+                    holder.msgnum.setTextColor(Color.RED);
+                }
+            }
         }
         return convertView;
     }
