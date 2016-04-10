@@ -12,6 +12,15 @@ public class KefuTel {
     private String provinceName;
     private String cityName;
     private String areaName;
+    private String mm_tel_type;
+
+    public String getMm_tel_type() {
+        return mm_tel_type;
+    }
+
+    public void setMm_tel_type(String mm_tel_type) {
+        this.mm_tel_type = mm_tel_type;
+    }
 
     public String getMm_emp_provinceId() {
         return mm_emp_provinceId;

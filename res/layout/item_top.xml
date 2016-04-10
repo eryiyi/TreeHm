@@ -84,7 +84,7 @@
               android:layout_below="@+id/title"
               android:layout_height="wrap_content"/>
     <View android:layout_width="match_parent"
-          android:background="@color/translucent_20"
+          android:background="@color/activity_graybg"
           android:layout_below="@+id/content"
           android:id="@+id/line_two"
           android:layout_marginTop="10dp"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content">
         <ImageView android:layout_width="wrap_content"
                    android:layout_toLeftOf="@+id/btn_tel"
-                   android:layout_marginRight="15dp"
+                   android:layout_marginRight="3dp"
                    android:id="@+id/btn_tel"
                    android:layout_alignParentRight="true"
                    android:src="@drawable/button_selector_tel_mine"

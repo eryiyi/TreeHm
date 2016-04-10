@@ -316,6 +316,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     showMsg(RegistActivity.this, res.getString(R.string.input_name));
                     return;
                 }
+                if(mm_emp_nickname.getText().toString().length() >3){
+                    showMsg(RegistActivity.this, res.getString(R.string.input_name_one));
+                    return;
+                }
                 if(StringUtil.isNullOrEmpty(provinceCode)){
                     showMsg(RegistActivity.this, res.getString(R.string.select_province));
                     return;

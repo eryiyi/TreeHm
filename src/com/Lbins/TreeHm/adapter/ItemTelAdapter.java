@@ -62,7 +62,7 @@ public class ItemTelAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContect).inflate(R.layout.item_tel,null);
             holder.tel = (TextView) convertView.findViewById(R.id.tel);
-            holder.address = (TextView) convertView.findViewById(R.id.address);
+//            holder.address = (TextView) convertView.findViewById(R.id.address);
 
             convertView.setTag(holder);
         }else{
@@ -71,39 +71,35 @@ public class ItemTelAdapter extends BaseAdapter {
         final KefuTel cell = lists.get(position);
         if(cell != null){
             holder.tel.setText(cell.getMm_tel());
-            if(!StringUtil.isNullOrEmpty((cell.getProvinceName()==null?"":cell.getProvinceName())
-                    +(cell.getCityName()==null?"":cell.getCityName())
-                    +(cell.getAreaName()==null?"":cell.getAreaName()))){
-                holder.address.setText((cell.getProvinceName()==null?"":cell.getProvinceName())
-                        +(cell.getCityName()==null?"":cell.getCityName())
-                        +(cell.getAreaName()==null?"":cell.getAreaName()));
-            }else {
-                holder.address.setText("全国客服");
-            }
+//            if("0".equals(cell.getMm_tel_type())){
+//                holder.address.setText("本地客服");
+//            }else {
+//                holder.address.setText("全国客服");
+//            }
 
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
-                holder.address.setTextSize(Float.valueOf(UniversityApplication.fontSize));
+//                holder.address.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.tel.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
                 if("black".equals(UniversityApplication.fontColor)){
-                    holder.address.setTextColor(Color.BLACK);
+//                    holder.address.setTextColor(Color.BLACK);
                     holder.tel.setTextColor(Color.BLACK);
                 }
                 if("gray".equals(UniversityApplication.fontColor)){
-                    holder.address.setTextColor(Color.GRAY);
+//                    holder.address.setTextColor(Color.GRAY);
                     holder.tel.setTextColor(Color.GRAY);
                 }
                 if("blue".equals(UniversityApplication.fontColor)){
-                    holder.address.setTextColor(Color.BLUE);
+//                    holder.address.setTextColor(Color.BLUE);
                     holder.tel.setTextColor(Color.BLUE);
                 }
                 if("orange".equals(UniversityApplication.fontColor)){
-                    holder.address.setTextColor(Color.YELLOW);
+//                    holder.address.setTextColor(Color.YELLOW);
                     holder.tel.setTextColor(Color.YELLOW);
                 }
                 if("red".equals(UniversityApplication.fontColor)){
-                    holder.address.setTextColor(Color.RED);
+//                    holder.address.setTextColor(Color.RED);
                     holder.tel.setTextColor(Color.RED);
                 }
             }
@@ -114,7 +110,7 @@ public class ItemTelAdapter extends BaseAdapter {
         return convertView;
     }
     class ViewHolder {
-        TextView address;
+//        TextView address;
         TextView tel;
 
     }

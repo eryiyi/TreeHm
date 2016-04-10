@@ -71,6 +71,7 @@
     <string name="reg_msg_four">注册成功，请登录</string>
     <string name="select_province">请选择省份</string>
     <string name="input_name">请输入姓名</string>
+    <string name="input_name_one">姓名字段超出限制！最多三个字</string>
     <string name="please_select_msg_type">请选择信息类型</string>
     <string name="type_qiugou">苗木求购</string>
     <string name="type_gongying">苗木供应</string>
@@ -146,6 +147,8 @@
     <string name="cancel">取消</string>
     <string name="please_input_card">请输入身份证号</string>
     <string name="please_input_company">请输公司名称</string>
+    <string name="please_input_company_one">公司名称超出字段限制，最多12个字</string>
+    <string name="please_input_company_address_one">公司地址超出字段限制，最多20个字</string>
     <string name="please_input_company_address">请输公司地址</string>
     <string name="please_input_company_faren">请选择法人头像</string>
     <string name="please_input_zhizhao">请选择营业执照</string>
@@ -157,4 +160,43 @@
     <string name="no_content">暂无公司描述</string>
     <string name="center_kefu">客服中心</string>
     <string name="add_msg">请输入您要发布的信息内容，包括您要求的品种、规格、质量及联系方式。您将对您发布信息的真实性负法律责任，请谨慎填写！</string>
+
+
+
+
+
+    <string name="app_id_xunfei">5707245c</string>
+    <string-array name="preference_values_tts_role">z
+        <item>xiaoyan</item>
+        <item>xiaoyu</item>
+        <item>vixy</item>
+        <item>vixq</item>
+        <item>vixf</item>
+        <item>vixm</item>
+        <item>vixl</item>
+        <item>vixr</item>
+        <item>vixyun</item>
+        <item>vixk</item>
+        <item>vixqa</item>
+        <item>vixying</item>
+        <item>vixx</item>
+        <item>vinn</item>
+        <item>vils</item>
+    </string-array>
+
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_title_tts_speed">语速</string>
+    <string name="preference_default_tts_speed">50</string>
+    <string name="preference_dialog_title_tts_speed">选择语速</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_title_tts_volume">音量</string>
+    <string name="preference_default_tts_volume">50</string>
+    <string name="preference_dialog_title_tts_volume">选择音量</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="preference_title_tts_pitch">语调</string>
+    <string name="preference_default_tts_pitch">50</string>
+    <string name="intell_bd_title">智能播报</string>
+    <string name="no_location_lat_lng">暂无定位信息</string>
+
 </resources>

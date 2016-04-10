@@ -30,19 +30,26 @@
     </RelativeLayout>
   <LinearLayout android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_height="wrap_content">
       <TextView android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="微信名"
-                android:textColor="@color/text_color"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
                 android:padding="6dp"
+                android:background="@drawable/btn_green_shape"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_height="wrap_content"/>
       <TextView android:layout_width="0dp"
                 android:layout_weight="1"
-                android:textColor="@color/text_color"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
                 android:padding="6dp"
+                android:background="@drawable/btn_green_shape"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="微信号"
@@ -50,6 +57,7 @@
   </LinearLayout>
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_weight="1"
+
                     android:layout_height="0dp">
         <ListView
                 android:id="@+id/lstv"
@@ -60,6 +68,7 @@
                 android:dividerHeight="0.5dp"
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
+                android:padding="8dp"
                 android:footerDividersEnabled="false"
                 android:headerDividersEnabled="false"
                 android:smoothScrollbar="true"/>
@@ -67,20 +76,27 @@
     </RelativeLayout>
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="horizontal"
+                  android:layout_marginLeft="15dp"
+                  android:layout_marginTop="3dp"
+                  android:layout_marginRight="15dp"
                   android:layout_height="wrap_content">
         <TextView android:layout_width="0dp"
                   android:layout_weight="1"
+                  android:background="@drawable/btn_green_shape"
                   android:text="QQ昵称"
-                  android:textColor="@color/text_color"
+                  android:layout_marginRight="8dp"
+                  android:textColor="@color/white"
                   android:padding="6dp"
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="0dp"
                   android:layout_weight="1"
-                  android:textColor="@color/text_color"
+                  android:layout_marginLeft="8dp"
+                  android:textColor="@color/white"
                   android:padding="6dp"
                   android:layout_gravity="center"
+                  android:background="@drawable/btn_green_shape"
                   android:gravity="center"
                   android:text="QQ号"
                   android:layout_height="wrap_content"/>
@@ -91,6 +107,7 @@
         <ListView
                 android:id="@+id/lstvQ"
                 android:layout_width="match_parent"
+                android:padding="8dp"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="#00000000"
                 android:divider="@drawable/home_item_shadow"

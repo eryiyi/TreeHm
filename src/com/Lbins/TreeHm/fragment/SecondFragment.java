@@ -161,11 +161,12 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lists.get(position-1).setIs_read("1");
-                adapter.notifyDataSetChanged();
-
-                recordVO = lists.get(position-1);
-                DBHelper.getInstance(getActivity()).updateRecord(recordVO);
+                if(lists.size() > position-2){
+                    lists.get(position-2).setIs_read("1");
+                    adapter.notifyDataSetChanged();
+                    recordVO = lists.get(position-2);
+                    DBHelper.getInstance(getActivity()).updateRecord(recordVO);
+                }
             }
         });
         adapter.setOnClickContentItemListener(this);
@@ -657,17 +658,13 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
+                                }else if(Integer.parseInt(code) == 2){
+                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
                                 }
-                                if(lists.size() == 0){
-                                    no_data.setVisibility(View.VISIBLE);
-                                    lstv.setVisibility(View.GONE);
-                                }else {
-                                    no_data.setVisibility(View.GONE);
-                                    lstv.setVisibility(View.VISIBLE);
-                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

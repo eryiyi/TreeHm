@@ -340,6 +340,36 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                     break;
                 }
                 break;
+            case 3:
+                switch (currIndex){
+                    case 0:
+                    {
+                        FuwuObj fuwuObj = lists.get(position);
+                        if(fuwuObj != null && !StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                            //开始导航
+                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
+                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                            startActivity(naviV);
+                        }else {
+                            showMsg(FourShopActivity.this, getResources().getString(R.string.no_location_lat_lng));
+                        }
+                    }
+                    break;
+                    case 1:
+                    {
+                        FuwuObj fuwuObj = listsAll.get(position);
+                        if(fuwuObj != null){
+                            //开始导航
+                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
+                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                            startActivity(naviV);
+                        }
+                    }
+                    break;
+                }
+                break;
         }
 
     }
@@ -416,10 +446,21 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                     String distance = StringUtil.getDistance(latLng ,latLng1 );
                     listsAll.get(i).setDistance(distance+"km");
                     fuwuObj.setDistance(distance+"km");
-                    if(Double.valueOf(distance) < 30){
-                        //30KM以内的
-                        lists.add(fuwuObj);
+                    //判断是否有设置附近的距离
+                    String mm_distance = getGson().fromJson(getSp().getString("mm_distance", ""), String.class);
+                    if(!StringUtil.isNullOrEmpty(mm_distance)){
+                        //说明设置了附近的距离
+                        if(Double.valueOf(distance) < Integer.parseInt(mm_distance)){
+                            //设置距离以内的
+                            lists.add(fuwuObj);
+                        }
+                    }else {
+                        if(Double.valueOf(distance) < 30){
+                            //30KM以内的
+                            lists.add(fuwuObj);
+                        }
                     }
+
                 }
             }
             adapter.notifyDataSetChanged();

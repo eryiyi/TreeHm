@@ -92,6 +92,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                                 if(Integer.parseInt(code1) == 200){
                                     KefuTelData data = getGson().fromJson(s, KefuTelData.class);
                                     lists.clear();
+                                    lists.addAll(data.getData());
                                     if(lists.size() > 0){
                                         no_data1.setVisibility(View.GONE);
                                         gridView.setVisibility(View.VISIBLE);

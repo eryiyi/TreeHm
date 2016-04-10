@@ -6,7 +6,6 @@
               android:layout_height="match_parent">
 
     <TextView android:layout_width="wrap_content"
-              android:text="省会"
               android:layout_weight="1"
               android:gravity="center|left"
               android:id="@+id/title"

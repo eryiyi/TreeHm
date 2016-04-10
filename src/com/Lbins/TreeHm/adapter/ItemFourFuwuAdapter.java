@@ -63,6 +63,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             holder.distance = (TextView) convertView.findViewById(R.id.distance);
             holder.tel = (TextView) convertView.findViewById(R.id.tel);
             holder.weiwangzhan = (TextView) convertView.findViewById(R.id.weiwangzhan);
+            holder.navi = (TextView) convertView.findViewById(R.id.navi);
 
             convertView.setTag(holder);
         }else{
@@ -112,6 +113,12 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 2, null);
                 }
             });
+            holder.navi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 3, null);
+                }
+            });
         }
         return convertView;
     }
@@ -121,6 +128,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         TextView distance;
         TextView tel;
         TextView weiwangzhan;
+        TextView navi;
 //        TextView content;
     }
 }

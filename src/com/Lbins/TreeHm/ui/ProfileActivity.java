@@ -2,6 +2,7 @@ package com.Lbins.TreeHm.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -383,7 +384,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
             case 5:
-            case 6:
                 //图片
                 Intent intent = new Intent(ProfileActivity.this, DetailRecordActivity.class);
                 recordVO = lists.get(position);
@@ -396,8 +396,138 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 recordVO.setIs_read("1");
                 DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
+            case 6:
+                //收藏图标
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
+                    recordVO = lists.get(position);
+                    progressDialog = new ProgressDialog(ProfileActivity.this);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.show();
+                    saveFavour(recordVO.getMm_msg_id());
+
+                    recordVO.setIs_read("1");
+                    DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
+                } else {
+                    //未登录
+                    showLogin();
+                }
+
+                break;
         }
     }
+
+    void saveFavour(final String mm_msg_id){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.ADD_FAVOUR_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code =  jo.getString("code");
+                                if(Integer.parseInt(code) == 200){
+                                    Toast.makeText(ProfileActivity.this, R.string.favour_success , Toast.LENGTH_SHORT).show();
+                                }else if(Integer.parseInt(code) == 9){
+                                    Toast.makeText(ProfileActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
+                                    save("password", "");
+                                    Intent loginV = new Intent(ProfileActivity.this, LoginActivity.class);
+                                    startActivity(loginV);
+                                }else if(Integer.parseInt(code) == 2){
+                                    Toast.makeText(ProfileActivity.this, R.string.favour_error_one , Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(ProfileActivity.this, R.string.no_favour , Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(ProfileActivity.this, R.string.no_favour, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_msg_id", mm_msg_id);
+                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                    params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
+                }else {
+                    params.put("accessToken", "");
+                }
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+
+    // 登陆注册选择窗口
+    private void showLogin() {
+        final Dialog picAddDialog = new Dialog(ProfileActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(ProfileActivity.this, R.layout.login_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(getResources().getString(R.string.please_reg_or_login));
+        //登陆
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(ProfileActivity.this, LoginActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        //注册
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginV = new Intent(ProfileActivity.this, RegistActivity.class);
+                startActivity(loginV);
+                picAddDialog.dismiss();
+            }
+        });
+        TextView kefuzhongxin = (TextView) picAddInflate.findViewById(R.id.kefuzhongxin);
+        kefuzhongxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kefuV = new Intent(ProfileActivity.this, SelectTelActivity.class);
+                startActivity(kefuV);
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
+
+
     // 拨打电话窗口
     private void showTel(final String tel, String name) {
         final Dialog picAddDialog = new Dialog(ProfileActivity.this, R.style.dialog);

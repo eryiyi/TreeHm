@@ -121,8 +121,16 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company));
                     return;
                 }
+                if(mm_emp_company.getText().toString().length() > 12){
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_one));
+                    return;
+                }
                 if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_address));
+                    return;
+                }
+                if(mm_emp_company_address.getText().toString().length() > 20){
+                    showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_address_one));
                     return;
                 }
                 if(StringUtil.isNullOrEmpty(txpic)){
@@ -424,7 +432,6 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
 
                                     save("mm_emp_cover", piconeStr);
                                     save("mm_emp_company_pic", pictwoStr);
-                                    save("is_upate_profile", "1");
 
                                     finish();
                                 }else if(Integer.parseInt(code) == 1){

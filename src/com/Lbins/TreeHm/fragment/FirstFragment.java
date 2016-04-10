@@ -698,13 +698,7 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
                                 else{
                                     Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
                                 }
-                                if(lists.size() == 0){
-                                    no_data.setVisibility(View.GONE);
-                                    lstv.setVisibility(View.VISIBLE);
-                                }else {
-                                    no_data.setVisibility(View.GONE);
-                                    lstv.setVisibility(View.VISIBLE);
-                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
