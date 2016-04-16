@@ -285,6 +285,7 @@ public class CityAreaActivity extends BaseActivity implements View.OnClickListen
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("father",provinceObj.getProvinceID());
+                params.put("is_use", "1");
                 return params;
             }
 

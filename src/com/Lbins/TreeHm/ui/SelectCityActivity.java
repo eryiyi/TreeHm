@@ -161,6 +161,7 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("father",provinceObj.getProvinceID());
+                params.put("is_use", "1");
                 return params;
             }
 

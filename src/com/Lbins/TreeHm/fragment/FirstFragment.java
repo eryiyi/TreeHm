@@ -511,8 +511,6 @@ public class FirstFragment extends BaseFragment implements OnClickContentItemLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.mLocation:
-                //
-
                 if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
                     //未登录
                     showLogin();

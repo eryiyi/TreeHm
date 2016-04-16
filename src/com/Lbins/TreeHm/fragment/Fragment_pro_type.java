@@ -167,6 +167,7 @@ public class Fragment_pro_type extends BaseFragment {
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("father", cityObj.getCityID());
+				params.put("is_use", "1");
 				return params;
 			}
 

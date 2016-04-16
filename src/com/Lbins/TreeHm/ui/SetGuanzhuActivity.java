@@ -214,6 +214,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("is_use", "1");
                 return params;
             }
 
@@ -275,6 +276,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                 Map<String, String> params = new HashMap<String, String>();
 //                params.put("access_token", getGson().fromJson(getSp().getString("access_token", ""), String.class));
                 params.put("father", provinceCode);
+                params.put("is_use", "1");
                 return params;
             }
 
@@ -335,6 +337,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("father", cityCode);
+                params.put("is_use", "1");
                 return params;
             }
 
