@@ -44,14 +44,14 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
     private static boolean IS_REFRESH = true;
 
     private CityObj cityObj;
-    private ProvinceObj provinceObj;
+//    private ProvinceObj provinceObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_province);
         cityObj = (CityObj) getIntent().getExtras().get("cityObj");
-        provinceObj = (ProvinceObj) getIntent().getExtras().get("provinceObj");
+//        provinceObj = (ProvinceObj) getIntent().getExtras().get("provinceObj");
         initView();
         initData();
     }
@@ -137,13 +137,13 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                                 break;
                             case 2:
                                 //是省级vip
-                                if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+//                                if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
                                     //如果是当前用户登陆的县区 可以查看该信息
                                     goTo(countryObj.getAreaID(),countryObj.getArea());
-                                }else {
-                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
-                                    finish();
-                                }
+//                                }else {
+//                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
+//                                    finish();
+//                                }
                                 break;
                             case 3:
                             case 4:

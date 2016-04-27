@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
+import com.Lbins.TreeHm.module.CityObj;
+import com.Lbins.TreeHm.module.CountryObj;
 import com.Lbins.TreeHm.module.ProvinceObj;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -69,7 +71,7 @@ public class ItemProvinceAdapter extends BaseAdapter {
         if(cell != null){
             holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_top_bg));
             holder.title.setText(cell.getProvince());
-            holder.msgnum.setText((cell.getMsgNum()==null?"0":cell.getMsgNum()));
+//            holder.msgnum.setText((cell.get()==null?"0":cell.getMsgNum()));
         }
         return convertView;
     }

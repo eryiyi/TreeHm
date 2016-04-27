@@ -184,6 +184,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 else if(Integer.parseInt(code) == 4){
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_four));
                                 }
+                                else if(Integer.parseInt(code) == 7){
+                                    showMsg(LoginActivity.this, getResources().getString(R.string.login_error_seven));
+                                }
                                 else{
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error));
                                 }
@@ -211,6 +214,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", mobile.getText().toString());
                 params.put("password", password.getText().toString());
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
+                    //说明存在userId
+                    params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
+                }
+
                 return params;
             }
 
@@ -226,9 +234,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     public void saveAccount(Emp emp) {
         //登录成功，绑定百度云推送
-        PushManager.startWork(getApplicationContext(),
-                PushConstants.LOGIN_TYPE_API_KEY,
-                com.Lbins.TreeHm.baidu.Utils.getMetaValue(LoginActivity.this, "api_key"));
+        if(StringUtil.isNullOrEmpty(emp.getUserId())){
+            //进行绑定
+            PushManager.startWork(getApplicationContext(),
+                    PushConstants.LOGIN_TYPE_API_KEY,
+                    com.Lbins.TreeHm.baidu.Utils.getMetaValue(LoginActivity.this, "api_key"));
+        }else {
+            //如果已经绑定，就保存
+            save("userId", emp.getUserId());
+        }
 
         // 登陆成功，保存用户名密码
         save("mm_emp_id", emp.getMm_emp_id());
@@ -271,6 +285,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("areaName", emp.getAreaName());
         save("access_token", emp.getAccess_token());
         save("mm_level_num", emp.getMm_level_num());
+        save("mm_msg_length", emp.getMm_msg_length());
 
         save("isLogin", "1");//1已经登录了  0未登录
         save("is_upate_profile", emp.getIs_upate_profile());//1是否补充资料 0否 1是

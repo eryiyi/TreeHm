@@ -80,7 +80,7 @@
     <string name="add_error_two">您暂无权限发布苗木求购信息，请联系客服！</string>
     <string name="add_error_three">请选择信息类型</string>
     <string name="please_input_text">请输入内容</string>
-    <string name="add_error_four">内容300字以内</string>
+    <string name="add_error_four">内容超出限制</string>
     <string name="add_error_five">您暂无权限发布图片，请联系客服！</string>
     <string name="add_error_six">您可以发布3张图片，请联系客服！</string>
     <string name="add_error_seven">您可以发布6张图片，请联系客服！</string>
@@ -101,6 +101,7 @@
     <string name="login_error_two">请检查密码是否正确</string>
     <string name="login_error_three">该用户已被禁用</string>
     <string name="login_error_four">该用户尚未审核，请联系客服</string>
+    <string name="login_error_seven">请使用注册手机登录，不能更换手机！</string>
     <string name="login_error">登录失败</string>
     <string name="reg_error_is_use">该手机号已经注册，请直接登录或者联系管理员修改密码！</string>
     <string name="select_area_error">您权限不够，不能查看！请前往服务中心升级VIP！</string>
@@ -159,6 +160,7 @@
     <string name="content_share">最全最新的苗木求购、供应信息，一手掌握！</string>
     <string name="no_content">暂无公司描述</string>
     <string name="center_kefu">客服中心</string>
+    <string name="wangzhan">网站</string>
     <string name="add_msg">请输入您要发布的信息内容，包括您要求的品种、规格、质量及联系方式。您将对您发布信息的真实性负法律责任，请谨慎填写！</string>
 
 

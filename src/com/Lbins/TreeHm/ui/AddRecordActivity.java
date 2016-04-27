@@ -187,9 +187,13 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 //                    showMsg(AddRecordActivity.this, "标题100字以内");
 //                    return;
 //                }
-                if(mm_msg_content.getText().toString().length() > 300){
-                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_four));
-                    return;
+
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))){
+                    //发布信息长度不为空
+                    if(mm_msg_content.getText().toString().length() > Integer.parseInt(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))){
+                        showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_four));
+                        return;
+                    }
                 }
 
                 if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>1){

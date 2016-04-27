@@ -64,8 +64,10 @@ public class UniversityApplication extends Application {
     public static String lng;
     public static String area;
 
+
     public static String fontSize;
     public static String fontColor;
+
     @Override
     public void onCreate() {
         super.onCreate();

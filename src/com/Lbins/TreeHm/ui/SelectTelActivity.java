@@ -131,7 +131,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
                     params.put("mm_emp_countryId", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
                 }
-                params.put("mm_tel_type", "0");
+                params.put("mm_tel_type", "0");//地区的
                 return params;
             }
 
@@ -195,7 +195,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_tel_type", "1");
+                params.put("mm_tel_type", "1");//1是全国的
                 return params;
             }
 

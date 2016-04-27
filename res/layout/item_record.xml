@@ -17,7 +17,7 @@
                 android:id="@+id/head"
                 android:layout_height="60dp"/>
         <TextView android:layout_width="wrap_content"
-                  android:layout_marginTop="10dp"
+                  android:layout_marginTop="6dp"
                   android:layout_marginLeft="8dp"
                   android:textSize="15sp"
                   android:layout_marginRight="68dp"
@@ -28,7 +28,7 @@
         <TextView android:layout_width="wrap_content"
                   android:id="@+id/dateline"
                   android:textSize="14sp"
-                  android:textColor="@color/text_color"
+                  android:textColor="@color/right_font_color"
                   android:layout_marginLeft="10dp"
                   android:layout_marginTop="5dp"
                   android:layout_below="@+id/nickname"

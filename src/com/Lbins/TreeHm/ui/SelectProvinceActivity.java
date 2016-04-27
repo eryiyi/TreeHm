@@ -8,14 +8,19 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.adapter.ItemCountryAdapter;
 import com.Lbins.TreeHm.adapter.ItemGuanzhuAdapter;
 import com.Lbins.TreeHm.adapter.ItemProvinceAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.data.CityData;
+import com.Lbins.TreeHm.data.CountrysData;
 import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
 import com.Lbins.TreeHm.data.ProvinceData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.module.CityObj;
+import com.Lbins.TreeHm.module.CountryObj;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
 import com.Lbins.TreeHm.module.ProvinceObj;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -36,8 +41,8 @@ import java.util.Map;
  */
 public class SelectProvinceActivity extends BaseActivity implements View.OnClickListener {
     private GridView lstv;
-    private ItemProvinceAdapter adapter;
-    private List<ProvinceObj> lists = new ArrayList<ProvinceObj>();
+    private ItemCountryAdapter adapter;
+    private List<CountryObj> lists = new ArrayList<CountryObj>();
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
 
@@ -82,7 +87,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
         });
 
         lstv = (GridView) this.findViewById(R.id.lstv);
-        adapter = new ItemProvinceAdapter(lists, SelectProvinceActivity.this);
+        adapter = new ItemCountryAdapter(lists, SelectProvinceActivity.this);
 //        lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
         lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -127,11 +132,20 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent cityV = new Intent(SelectProvinceActivity.this, CityAreaActivity.class);
-                ProvinceObj provinceObj = lists.get(position);
-                cityV.putExtra("provinceObj", provinceObj);
-                startActivity(cityV);
-                finish();
+//                Intent cityV = new Intent(SelectProvinceActivity.this, SelectCountryActivity.class);
+                CountryObj provinceObj = lists.get(position);
+//                cityV.putExtra("cityObj", provinceObj);
+//                startActivity(cityV);
+//                finish();
+
+//                String idPostion = 0;
+//                String name = areaNames[i];
+                Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
+//                intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
+                intent.putExtra("idPostion", provinceObj.getAreaID());
+                intent.putExtra("name", provinceObj.getArea());
+                startActivity(intent);
+
             }
         });
     }
@@ -147,7 +161,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
     public void initData(){
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_PROVINCE_URL,
+                InternetURL.GET_COUNTRY_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -156,7 +170,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                 JSONObject jo = new JSONObject(s);
                                 String code1 =  jo.getString("code");
                                 if(Integer.parseInt(code1) == 200){
-                                    ProvinceData data = getGson().fromJson(s, ProvinceData.class);
+                                    CountrysData data = getGson().fromJson(s, CountrysData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
                                     adapter.notifyDataSetChanged();

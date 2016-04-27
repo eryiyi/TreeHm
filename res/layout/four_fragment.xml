@@ -185,21 +185,21 @@
                     <RelativeLayout android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:padding="5dp"
-                                    android:id="@+id/relate_notice"
+                                    android:id="@+id/relate_nearby"
                                     android:layout_height="wrap_content">
                         <ImageView android:layout_width="wrap_content"
-                                   android:id="@+id/img_kefu1"
-                                   android:src="@drawable/button_selector_notice_mine"
+                                   android:id="@+id/img_nearby"
                                    android:layout_centerHorizontal="true"
+                                   android:src="@drawable/button_selector_nearby_mine"
                                    android:layout_height="45dp"
                                    android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
+                                  android:text="附近经纪人"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"
                                   android:textSize="12sp"
-                                  android:text="公告"
                                   android:gravity="center"
-                                  android:layout_below="@+id/img_kefu1"
+                                  android:layout_below="@+id/img_nearby"
                                   android:textColor="@color/text_color"
                                   android:layout_height="wrap_content"/>
                     </RelativeLayout>
@@ -240,24 +240,25 @@
                           android:background="@color/orange_color"
                           android:layout_height="95dp">
                     </View>
+
                     <RelativeLayout android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:padding="5dp"
-                                    android:id="@+id/relate_nearby"
+                                    android:id="@+id/relate_notice"
                                     android:layout_height="wrap_content">
                         <ImageView android:layout_width="wrap_content"
-                                   android:id="@+id/img_nearby"
+                                   android:id="@+id/img_kefu1"
+                                   android:src="@drawable/button_selector_notice_mine"
                                    android:layout_centerHorizontal="true"
-                                   android:src="@drawable/button_selector_nearby_mine"
                                    android:layout_height="45dp"
                                    android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
-                                  android:text="附近商家"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"
                                   android:textSize="12sp"
+                                  android:text="公告"
                                   android:gravity="center"
-                                  android:layout_below="@+id/img_nearby"
+                                  android:layout_below="@+id/img_kefu1"
                                   android:textColor="@color/text_color"
                                   android:layout_height="wrap_content"/>
                     </RelativeLayout>

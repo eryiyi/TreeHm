@@ -80,7 +80,7 @@ public class ItemFavourAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final Favour cell = lists.get(position);
-        if(cell != null){
+        if(cell != null && !StringUtil.isNullOrEmpty(cell.getMm_msg_id())){
             String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
             holder.nickname.setText(title);
             holder.dateline.setText(cell.getDatelineRecord() );

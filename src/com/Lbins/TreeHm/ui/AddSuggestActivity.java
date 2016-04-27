@@ -45,7 +45,7 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
     public void sureSub(View view){
         //
         if(StringUtil.isNullOrEmpty(face_content.getText().toString())){
-         showMsg(AddSuggestActivity.this, getResources().getString(R.string.please_input_text));
+            showMsg(AddSuggestActivity.this, getResources().getString(R.string.please_input_text));
             return;
         }
         add();

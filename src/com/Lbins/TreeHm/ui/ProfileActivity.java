@@ -88,7 +88,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private int autoChangeTime = 5000;
     private List<EmpAdObj> listsAd = new ArrayList<EmpAdObj>();
 
-
     /**
      * 加载数据监听实现
      */
@@ -333,7 +332,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         content.setText(emp.getMm_emp_company_detail());
         nickname.setText(emp.getMm_emp_nickname());
         back.setText(emp.getMm_emp_nickname());
-        companyUrl.setText(emp.getMm_emp_company()==null?"":emp.getMm_emp_company());
+        companyUrl.setText(emp.getMm_emp_company()==null?"":emp.getMm_emp_company() + getResources().getString(R.string.wangzhan));
         if(emp.getMm_emp_id().equals(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
             //是当前登陆者自己 显示
             updateBtn.setVisibility(View.VISIBLE);

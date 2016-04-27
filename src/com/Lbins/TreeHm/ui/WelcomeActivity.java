@@ -134,6 +134,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                 else if(Integer.parseInt(code) == 4){
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                                }else if(Integer.parseInt(code) == 7){
+                                    showMsg(WelcomeActivity.this, getResources().getString(R.string.login_error_seven));
                                 }
                                 else{
                                     save("isLogin", "0");//1已经登录了  0未登录
@@ -164,6 +166,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
                 params.put("password", getGson().fromJson(getSp().getString("password", ""), String.class));
+                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
+                    //说明存在userId
+                    params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
+                }
                 return params;
             }
 
@@ -178,6 +184,17 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void saveAccount(Emp emp) {
+        //登录成功，绑定百度云推送
+        if(StringUtil.isNullOrEmpty(emp.getUserId())){
+            //进行绑定
+            PushManager.startWork(getApplicationContext(),
+                    PushConstants.LOGIN_TYPE_API_KEY,
+                    com.Lbins.TreeHm.baidu.Utils.getMetaValue(WelcomeActivity.this, "api_key"));
+        }else {
+            //如果已经绑定，就保存
+            save("userId", emp.getUserId());
+        }
+
         // 登陆成功，保存用户名密码
         save("mm_emp_id", emp.getMm_emp_id());
         save("mm_emp_mobile", emp.getMm_emp_mobile());

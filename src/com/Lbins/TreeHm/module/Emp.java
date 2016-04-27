@@ -52,6 +52,15 @@ public class Emp {
     private String channelId;
     private String deviceType;
     private String userId;
+    private String mm_msg_length;
+
+    public String getMm_msg_length() {
+        return mm_msg_length;
+    }
+
+    public void setMm_msg_length(String mm_msg_length) {
+        this.mm_msg_length = mm_msg_length;
+    }
 
     public String getUserId() {
         return userId;
