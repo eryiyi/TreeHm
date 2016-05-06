@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.adapter.ItemCityAdapter;
 import com.Lbins.TreeHm.adapter.ItemCountryAdapter;
 import com.Lbins.TreeHm.adapter.ItemGuanzhuAdapter;
 import com.Lbins.TreeHm.adapter.ItemProvinceAdapter;
@@ -60,7 +61,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_province);
         initView();
-        initData();
+        getHotCity();
         getGuanzhuArea();
     }
 
@@ -75,10 +76,9 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(areaIds != null && areaIds.length >i){
-                    String idPostion = areaIds[i];
-                    String name = areaNames[i];
+                    String idPostion = areaIds[i];//县区的id
+                    String name = areaNames[i];//县区的名字
                     Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
-                    intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
                     intent.putExtra("idPostion", idPostion);
                     intent.putExtra("name", name);
                     startActivity(intent);
@@ -88,62 +88,16 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 
         lstv = (GridView) this.findViewById(R.id.lstv);
         adapter = new ItemCountryAdapter(lists, SelectProvinceActivity.this);
-//        lstv.setMode(PullToRefreshBase.Mode.BOTH);
         lstv.setAdapter(adapter);
         lstv.setSelector(new ColorDrawable(Color.TRANSPARENT));
-//        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
-//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-//
-//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//                IS_REFRESH = true;
-//                pageIndex = 1;
-//                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
-//                    initData();
-//                }else {
-//                    lstv.onRefreshComplete();
-//                    //未登录
-//                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
-//                    startActivity(loginV);
-//                }
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                String label = DateUtils.formatDateTime(SelectProvinceActivity.this, System.currentTimeMillis(),
-//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-//
-//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//                IS_REFRESH = false;
-//                pageIndex++;
-//                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
-//                    initData();
-//                }else {
-//                    lstv.onRefreshComplete();
-//                    //未登录
-//                    Intent loginV = new Intent(SelectProvinceActivity.this, LoginActivity.class);
-//                    startActivity(loginV);
-//                }
-//            }
-//        });
 
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent cityV = new Intent(SelectProvinceActivity.this, SelectCountryActivity.class);
-                CountryObj provinceObj = lists.get(position);
-//                cityV.putExtra("cityObj", provinceObj);
-//                startActivity(cityV);
-//                finish();
-
-//                String idPostion = 0;
-//                String name = areaNames[i];
+                CountryObj countryObj = lists.get(position);
                 Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
-//                intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
-                intent.putExtra("idPostion", provinceObj.getAreaID());
-                intent.putExtra("name", provinceObj.getArea());
+                intent.putExtra("idPostion", countryObj.getAreaID());
+                intent.putExtra("name", countryObj.getArea());
                 startActivity(intent);
 
             }
@@ -158,60 +112,60 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                 break;
         }
     }
-    public void initData(){
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                InternetURL.GET_COUNTRY_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        if (StringUtil.isJson(s)) {
-                            try {
-                                JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
-                                    CountrysData data = getGson().fromJson(s, CountrysData.class);
-                                    lists.clear();
-                                    lists.addAll(data.getData());
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }else {
-                            Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
-                        }
-                        if (progressDialog != null) {
-                            progressDialog.dismiss();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        if (progressDialog != null) {
-                            progressDialog.dismiss();
-                        }
-                        Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("is_use", "1");
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return params;
-            }
-        };
-        getRequestQueue().add(request);
-    }
+//    public void initData(){
+//        StringRequest request = new StringRequest(
+//                Request.Method.POST,
+//                InternetURL.GET_COUNTRY_URL,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String s) {
+//                        if (StringUtil.isJson(s)) {
+//                            try {
+//                                JSONObject jo = new JSONObject(s);
+//                                String code1 =  jo.getString("code");
+//                                if(Integer.parseInt(code1) == 200){
+//                                    CountrysData data = getGson().fromJson(s, CountrysData.class);
+//                                    lists.clear();
+//                                    lists.addAll(data.getData());
+//                                    adapter.notifyDataSetChanged();
+//                                }
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
+//                        }else {
+//                            Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+//                        }
+//                        if (progressDialog != null) {
+//                            progressDialog.dismiss();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        if (progressDialog != null) {
+//                            progressDialog.dismiss();
+//                        }
+//                        Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//        ) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("is_use", "1");
+//                return params;
+//            }
+//
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Content-Type", "application/x-www-form-urlencoded");
+//                return params;
+//            }
+//        };
+//        getRequestQueue().add(request);
+//    }
 
 
     //查询关注区域
@@ -337,4 +291,58 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
         getRequestQueue().add(request);
     }
 
+
+    public void getHotCity(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_HOT_CITY_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code1 =  jo.getString("code");
+                                if(Integer.parseInt(code1) == 200){
+                                    CountrysData data = getGson().fromJson(s, CountrysData.class);
+                                    lists.clear();
+                                    lists.addAll(data.getData());
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }else {
+                            Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                        Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 }

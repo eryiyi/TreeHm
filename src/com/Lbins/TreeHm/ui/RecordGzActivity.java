@@ -32,7 +32,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
     //设置底部图标
     Resources res;
     private int index;
-    public static GuanzhuAreaObj guanzhuAreaObj;//关注的区域
+//    public static GuanzhuAreaObj guanzhuAreaObj;//关注的区域
     public static String idPostion;//关注的区域
     public static String name;//关注的区域
     private TextView title;
@@ -40,7 +40,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        guanzhuAreaObj = (GuanzhuAreaObj) getIntent().getExtras().get("guanzhuAreaObj");
+//        guanzhuAreaObj = (GuanzhuAreaObj) getIntent().getExtras().get("guanzhuAreaObj");
         idPostion = getIntent().getExtras().getString("idPostion");
         name = getIntent().getExtras().getString("name");
         setContentView(R.layout.record_main);

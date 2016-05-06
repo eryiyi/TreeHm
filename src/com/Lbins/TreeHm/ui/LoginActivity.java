@@ -217,6 +217,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
                     //说明存在userId
                     params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
+                }else {
+                    params.put("userId", "");
                 }
 
                 return params;

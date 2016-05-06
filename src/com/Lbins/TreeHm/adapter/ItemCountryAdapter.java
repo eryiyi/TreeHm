@@ -67,7 +67,7 @@ public class ItemCountryAdapter extends BaseAdapter {
         }
         final CountryObj cell = lists.get(position);
         if(cell != null){
-            holder.title.setText(cell.getArea());
+            holder.title.setText((cell.getCityName()==null?"":cell.getCityName())+(cell.getArea()==null?"":cell.getArea()));
             if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
                 holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }

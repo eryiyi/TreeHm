@@ -9,6 +9,15 @@ public class CountryObj {
     private String area;
     private String father;
     private String cityName;
+    private String topnum;
+
+    public String getTopnum() {
+        return topnum;
+    }
+
+    public void setTopnum(String topnum) {
+        this.topnum = topnum;
+    }
 
     public String getCityName() {
         return cityName;

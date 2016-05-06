@@ -169,6 +169,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
                     //说明存在userId
                     params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
+                }else {
+                    params.put("userId", "");
                 }
                 return params;
             }

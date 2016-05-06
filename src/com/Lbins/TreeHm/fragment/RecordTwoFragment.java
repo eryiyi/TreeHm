@@ -9,9 +9,10 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
@@ -23,12 +24,8 @@ import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
-import com.Lbins.TreeHm.module.GuanzhuAreaObj;
-import com.Lbins.TreeHm.module.NewsClassify;
 import com.Lbins.TreeHm.ui.*;
-import com.Lbins.TreeHm.util.BaseTools;
 import com.Lbins.TreeHm.util.StringUtil;
-import com.Lbins.TreeHm.widget.ColumnHorizontalScrollView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -586,8 +583,8 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                                     Toast.makeText(getActivity(), R.string.get_data_error , Toast.LENGTH_SHORT).show();
                                 }
                                 if(lists.size() == 0){
-                                    no_data.setVisibility(View.GONE);
-                                    lstv.setVisibility(View.VISIBLE);
+                                    no_data.setVisibility(View.VISIBLE);
+                                    lstv.setVisibility(View.GONE);
                                 }else {
                                     no_data.setVisibility(View.GONE);
                                     lstv.setVisibility(View.VISIBLE);

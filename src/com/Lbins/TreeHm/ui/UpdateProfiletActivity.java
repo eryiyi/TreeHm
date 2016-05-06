@@ -121,7 +121,7 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company));
                     return;
                 }
-                if(mm_emp_company.getText().toString().length() > 12){
+                if(mm_emp_company.getText().toString().length() > 14){
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_one));
                     return;
                 }

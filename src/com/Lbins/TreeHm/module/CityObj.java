@@ -11,6 +11,15 @@ public class CityObj implements Serializable{
     private String city;
     private String father;
     private String provinceName;
+    private String topnum;
+
+    public String getTopnum() {
+        return topnum;
+    }
+
+    public void setTopnum(String topnum) {
+        this.topnum = topnum;
+    }
 
     public String getProvinceName() {
         return provinceName;

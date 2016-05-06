@@ -115,6 +115,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         lstv = (ContentListView) this.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.profile_header, null);
         head = (ImageView) headLiner.findViewById(R.id.head);
+        head.setOnClickListener(this);
         content = (TextView) headLiner.findViewById(R.id.content);
         companyUrl = (Button) headLiner.findViewById(R.id.companyUrl);
         updateBtn = (Button) headLiner.findViewById(R.id.updateBtn);
@@ -174,6 +175,14 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 type = "1";
                 pageIndex = 1;
                 loadData(ContentListView.REFRESH);
+                break;
+            case R.id.head:
+                //点击了头像，放大
+                Intent intent = new Intent(ProfileActivity.this, GalleryUrlActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                intent.putExtra(Constants.IMAGE_URLS, emp.getMm_emp_cover());
+                intent.putExtra(Constants.IMAGE_POSITION, 0);
+                startActivity(intent);
                 break;
         }
     }

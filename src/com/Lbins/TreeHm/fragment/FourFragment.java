@@ -65,7 +65,9 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     private ImageView head;
     private TextView nickname;
-    private TextView type;
+    private TextView vipType;
+    private TextView regTime;
+    private TextView regAddress;
 
     private LinearLayout login_one;
 
@@ -95,19 +97,35 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     private void initData() {
         imageLoader.displayImage(getGson().fromJson(getSp().getString("mm_emp_cover", ""), String.class), head, UniversityApplication.txOptions, animateFirstListener);
-        nickname.setText(getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class));
+
+        String strName = getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class) ;
         if("0".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
-            type.setText(getResources().getString(R.string.miaomujingying));
+            strName += " " + getResources().getString(R.string.miaomujingying);
         }
         if("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
-            type.setText(getResources().getString(R.string.miaomuemp));
+            strName += " " + getResources().getString(R.string.miaomuemp);
         }
+        nickname.setText(strName);
+
+        String vipTypeStr = "会员等级:";
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))){
+            vipTypeStr +=getGson().fromJson(getSp().getString("levelName", ""), String.class);
+        }
+        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class))){
+            vipTypeStr += "到期日期:"+getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class);
+        }
+        vipType.setText(vipTypeStr);
+        regTime.setText("注册日期:"+getGson().fromJson(getSp().getString("mm_emp_regtime", ""), String.class));
+        regAddress.setText(getGson().fromJson(getSp().getString("provinceName", ""), String.class) + getGson().fromJson(getSp().getString("cityName", ""), String.class) + getGson().fromJson(getSp().getString("areaName", ""), String.class));
     }
 
     void initView( ){
         head = (ImageView) view.findViewById(R.id.head);
         nickname = (TextView) view.findViewById(R.id.nickname);
-        type = (TextView) view.findViewById(R.id.type);
+        vipType = (TextView) view.findViewById(R.id.vipType);
+        regTime = (TextView) view.findViewById(R.id.regTime);
+        regAddress = (TextView) view.findViewById(R.id.regAddress);
+
         view.findViewById(R.id.relate_set).setOnClickListener(this);
         view.findViewById(R.id.relate_shop).setOnClickListener(this);
         view.findViewById(R.id.relate_bank).setOnClickListener(this);

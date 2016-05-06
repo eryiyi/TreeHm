@@ -148,7 +148,7 @@
     <string name="cancel">取消</string>
     <string name="please_input_card">请输入身份证号</string>
     <string name="please_input_company">请输公司名称</string>
-    <string name="please_input_company_one">公司名称超出字段限制，最多12个字</string>
+    <string name="please_input_company_one">公司名称超出字段限制，最多14个字</string>
     <string name="please_input_company_address_one">公司地址超出字段限制，最多20个字</string>
     <string name="please_input_company_address">请输公司地址</string>
     <string name="please_input_company_faren">请选择法人头像</string>
