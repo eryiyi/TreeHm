@@ -222,19 +222,6 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         adapter.setOnClickContentItemListener(this);
         adapterVideo.setOnClickContentItemListener(this);
 
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
-//        gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//            }
-//        });
-
     }
     // 拨打电话窗口
     private void showTel(String tel) {
@@ -347,10 +334,10 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                         FuwuObj fuwuObj = lists.get(position);
                         if(fuwuObj != null && !StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
                             //开始导航
-//                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
-//                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
-//                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
-//                            startActivity(naviV);
+                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
+                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                            startActivity(naviV);
                         }else {
                             showMsg(FourShopActivity.this, getResources().getString(R.string.no_location_lat_lng));
                         }
@@ -361,10 +348,10 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                         FuwuObj fuwuObj = listsAll.get(position);
                         if(fuwuObj != null){
                             //开始导航
-//                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
-//                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
-//                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
-//                            startActivity(naviV);
+                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
+                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                            startActivity(naviV);
                         }
                     }
                     break;

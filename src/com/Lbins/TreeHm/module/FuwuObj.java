@@ -18,6 +18,34 @@ public class FuwuObj {
     private String lng;
     private String mm_fuwu_url;
 
+    private String provinceid;
+    private String cityid;
+    private String countryid;
+
+    public String getProvinceid() {
+        return provinceid;
+    }
+
+    public void setProvinceid(String provinceid) {
+        this.provinceid = provinceid;
+    }
+
+    public String getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(String cityid) {
+        this.cityid = cityid;
+    }
+
+    public String getCountryid() {
+        return countryid;
+    }
+
+    public void setCountryid(String countryid) {
+        this.countryid = countryid;
+    }
+
     public String getMm_fuwu_url() {
         return mm_fuwu_url;
     }

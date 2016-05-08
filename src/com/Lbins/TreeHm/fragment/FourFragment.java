@@ -112,7 +112,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             vipTypeStr +=getGson().fromJson(getSp().getString("levelName", ""), String.class);
         }
         if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class))){
-            vipTypeStr += "到期日期:"+getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class);
+            vipTypeStr += "到期日期:"+ getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class);
         }
         vipType.setText(vipTypeStr);
         regTime.setText("注册日期:"+getGson().fromJson(getSp().getString("mm_emp_regtime", ""), String.class));
