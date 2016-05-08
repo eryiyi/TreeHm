@@ -74,6 +74,7 @@ public class ItemTopAdapter extends BaseAdapter {
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             holder.star = (ImageView) convertView.findViewById(R.id.star);
+            holder.btn_nav = (ImageView) convertView.findViewById(R.id.btn_nav);
 
             convertView.setTag(holder);
         }else{
@@ -183,6 +184,12 @@ public class ItemTopAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 4, "111");
             }
         });
+        holder.btn_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 5, "111");
+            }
+        });
         return convertView;
     }
     class ViewHolder {
@@ -195,5 +202,6 @@ public class ItemTopAdapter extends BaseAdapter {
         ImageView img_xinyong;
         ImageView img_xiehui;
         ImageView star;
+        ImageView btn_nav;
     }
 }

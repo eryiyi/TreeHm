@@ -70,6 +70,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             holder.star = (ImageView) convertView.findViewById(R.id.star);
+            holder.nav = (ImageView) convertView.findViewById(R.id.nav);
 
 
             convertView.setTag(holder);
@@ -114,6 +115,12 @@ public class ItemNearbyAdapter extends BaseAdapter {
             }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
 
+            holder.nav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 1, "111");
+                }
+            });
         }
 
         return convertView;
@@ -125,6 +132,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
         ImageView img_xinyong;
         ImageView img_xiehui;
         ImageView star;
+        ImageView nav;
 
     }
 }

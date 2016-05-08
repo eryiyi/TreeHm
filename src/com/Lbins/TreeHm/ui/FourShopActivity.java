@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.FuwuObjData;
 import com.Lbins.TreeHm.data.ProvinceData;
+import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
+import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
+import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.FuwuObj;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.amap.api.maps.model.LatLng;
@@ -54,8 +58,8 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
 
     private List<FuwuObj> lists = new ArrayList<FuwuObj>();
     private List<FuwuObj> listsAll = new ArrayList<FuwuObj>();
-    private ListView gridView ;
-    private ListView gridView2 ;
+    private PullToRefreshListView gridView ;
+    private PullToRefreshListView gridView2 ;
     private ItemFourFuwuAdapter adapter ;
     private ItemFourFuwuAdapter adapterVideo ;
     private String mm_fuwu_type;
@@ -63,6 +67,12 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
     private TextView back;
     private ImageView no_data1;
     private ImageView no_data2;
+
+    private int pageIndex = 1;
+    private static boolean IS_REFRESH = true;
+
+    private int pageIndex1= 1;
+    private static boolean IS_REFRESH1 = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +177,10 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                 }else {
                     params.put("accessToken", "");
                 }
+
+                params.put("index", String.valueOf(pageIndex));
+                params.put("size", "10");
+
                 return params;
             }
 
@@ -208,19 +222,74 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
         viewPager.setCurrentItem(0);
         viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
 
-        gridView = (ListView) view1.findViewById(R.id.lstv);
-        gridView2 = (ListView) view2.findViewById(R.id.lstv);
+        gridView = (PullToRefreshListView) view1.findViewById(R.id.lstv);
+        gridView2 = (PullToRefreshListView) view2.findViewById(R.id.lstv);
         no_data1 = (ImageView) view1.findViewById(R.id.no_data);
         no_data2 = (ImageView) view2.findViewById(R.id.no_data);
 
         adapter = new ItemFourFuwuAdapter(lists, FourShopActivity.this,mm_fuwu_type);
         adapterVideo = new ItemFourFuwuAdapter(listsAll, FourShopActivity.this,mm_fuwu_type);
 
+
+        gridView.setMode(PullToRefreshBase.Mode.BOTH);
         gridView.setAdapter(adapter);
-        gridView2.setAdapter(adapterVideo);
+        gridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = true;
+                pageIndex = 1;
+                initData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = false;
+                pageIndex++;
+                initData();
+            }
+        });
+
+
+//        gridView2.setMode(PullToRefreshBase.Mode.BOTH);
+//        gridView2.setAdapter(adapterVideo);
+//        gridView2.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//                IS_REFRESH1 = true;
+//                pageIndex1 = 1;
+//                initData();
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//                IS_REFRESH1 = false;
+//                pageIndex1++;
+//                initData();
+//            }
+//        });
+
+
+//        gridView.setAdapter(adapter);
+//        gridView2.setAdapter(adapterVideo);
 
         adapter.setOnClickContentItemListener(this);
-        adapterVideo.setOnClickContentItemListener(this);
+//        adapterVideo.setOnClickContentItemListener(this);
 
     }
     // 拨打电话窗口
@@ -423,7 +492,7 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
 
     void initDataLocation(){
         if(listsAll != null && !StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
-            lists.clear();
+//            lists.clear();
             //计算距离
             for(int i=0;i<listsAll.size();i++){
                 FuwuObj fuwuObj = listsAll.get(i);

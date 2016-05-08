@@ -76,7 +76,6 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private TextView mLocation;
     private String is_guanzhu= "0";//0不是查询关注区域 1是查询关注的区域
 
-
     //导航
     private ViewPager viewpager;
     private AdViewPagerAdapter adapterAd;
@@ -291,8 +290,27 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                         //未登录
                         showLogin();
                     }
-
                     break;
+                case 7:
+                    //导航
+                {
+                    lists.get(position).setIs_read("1");
+                    adapter.notifyDataSetChanged();
+                    recordVO = lists.get(position);
+                    if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                        String[] arrs = recordVO.getMm_msg_title().split(",");
+                        if(arrs != null && arrs.length > 0){
+                            //开始导航
+                            Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" , arrs[0]);
+                            naviV.putExtra("lng_end" , arrs[1]);
+                            startActivity(naviV);
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
             }
         }
     }

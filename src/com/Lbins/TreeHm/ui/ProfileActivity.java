@@ -114,6 +114,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         lstv = (ContentListView) this.findViewById(R.id.lstv);
         headLiner = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.profile_header, null);
+        this.findViewById(R.id.nav).setOnClickListener(this);
         head = (ImageView) headLiner.findViewById(R.id.head);
         head.setOnClickListener(this);
         content = (TextView) headLiner.findViewById(R.id.content);
@@ -183,6 +184,20 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 intent.putExtra(Constants.IMAGE_URLS, emp.getMm_emp_cover());
                 intent.putExtra(Constants.IMAGE_POSITION, 0);
                 startActivity(intent);
+                break;
+            case R.id.nav:
+                //导航
+            {
+                if(!StringUtil.isNullOrEmpty(emp.getLat()) && !StringUtil.isNullOrEmpty(emp.getLng())){
+                    //开始导航
+                    Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
+                    naviV.putExtra("lat_end" , emp.getLat());
+                    naviV.putExtra("lng_end" , emp.getLng());
+                    startActivity(naviV);
+                }else {
+                    Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                }
+            }
                 break;
         }
     }
@@ -423,6 +438,26 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 }
 
                 break;
+            case 7:
+                //导航
+            {
+                lists.get(position).setIs_read("1");
+                adapter.notifyDataSetChanged();
+                recordVO = lists.get(position);
+                if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                    String[] arrs = recordVO.getMm_msg_title().split(",");
+                    if(arrs != null && arrs.length > 0){
+                        //开始导航
+                        Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
+                        naviV.putExtra("lat_end" , arrs[0]);
+                        naviV.putExtra("lng_end" , arrs[1]);
+                        startActivity(naviV);
+                    }
+                }else {
+                    Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;
         }
     }
 

@@ -215,6 +215,21 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                         Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
                     break;
+                case 5:
+                    //导航
+                {
+                    recordVO = lists.get(position);
+                    if(!StringUtil.isNullOrEmpty(recordVO.getLat()) && !StringUtil.isNullOrEmpty(recordVO.getLng())){
+                        //开始导航
+                        Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
+                        naviV.putExtra("lat_end" , recordVO.getLat());
+                        naviV.putExtra("lng_end" , recordVO.getLng());
+                        startActivity(naviV);
+                    }else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                    break;
             }
         }
 

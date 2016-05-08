@@ -79,6 +79,7 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.star = (ImageView) convertView.findViewById(R.id.star);
             holder.is_read = (ImageView) convertView.findViewById(R.id.is_read);
             holder.btn_favour = (ImageView) convertView.findViewById(R.id.btn_favour);
+            holder.btn_nav = (ImageView) convertView.findViewById(R.id.btn_nav);
 
             convertView.setTag(holder);
         }else{
@@ -223,6 +224,12 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 6, "111");
             }
         });
+        holder.btn_nav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 7, "111");//导航
+            }
+        });
 //        holder.content.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -247,5 +254,6 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView star;
         ImageView is_read;
         ImageView btn_favour;
+        ImageView btn_nav;
     }
 }

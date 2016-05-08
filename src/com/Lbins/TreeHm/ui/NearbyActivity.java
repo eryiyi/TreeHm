@@ -2,17 +2,23 @@ package com.Lbins.TreeHm.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemNearbyAdapter;
+import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
+import com.Lbins.TreeHm.dao.DBHelper;
 import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.EmpsData;
+import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
+import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.FuwuObj;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -33,11 +39,13 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/23.
  */
-public class NearbyActivity extends BaseActivity implements View.OnClickListener {
-    private ListView lstv;
+public class NearbyActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
+    private PullToRefreshListView lstv;
     ItemNearbyAdapter adapter;
     List<Emp> lists;
     private ImageView no_data;
+    private int pageIndex = 1;
+    private static boolean IS_REFRESH = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +119,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
+                        lstv.onRefreshComplete();
                     }
                 },
                 new Response.ErrorListener() {
@@ -135,6 +144,8 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
                 params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
+                params.put("index", String.valueOf(pageIndex));
+                params.put("size", "10");
                 return params;
             }
 
@@ -149,16 +160,43 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     }
     void initView(){
         this.findViewById(R.id.back).setOnClickListener(this);
-        lstv = (ListView) this.findViewById(R.id.lstv);
+        lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         lists = new ArrayList<Emp>();
         adapter = new ItemNearbyAdapter(lists, NearbyActivity.this);
-        lstv.setAdapter(adapter);
         no_data = (ImageView) this.findViewById(R.id.no_data);
+        adapter.setOnClickContentItemListener(this);
+
+        lstv.setMode(PullToRefreshBase.Mode.BOTH);
+        lstv.setAdapter(adapter);
+        lstv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = true;
+                pageIndex = 1;
+                getData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                IS_REFRESH = false;
+                pageIndex++;
+                getData();
+            }
+        });
+
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent profileV = new Intent(NearbyActivity.this, ProfileActivity.class);
-                Emp emp = lists.get(i);
+                Emp emp = lists.get(position);
                 profileV.putExtra("id", emp.getMm_emp_id());
                 startActivity(profileV);
             }
@@ -169,6 +207,24 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         switch (view.getId()){
             case R.id.back:
                 finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onClickContentItem(int position, int flag, Object object) {
+        switch (flag){
+            case 1:
+                Emp emp = lists.get(position);
+                if(!StringUtil.isNullOrEmpty(emp.getLat()) && !StringUtil.isNullOrEmpty(emp.getLng())){
+                    //开始导航
+                    Intent naviV = new Intent(NearbyActivity.this, GPSNaviActivity.class);
+                    naviV.putExtra("lat_end" , emp.getLat());
+                    naviV.putExtra("lng_end" , emp.getLng());
+                    startActivity(naviV);
+                }else {
+                    Toast.makeText(NearbyActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
