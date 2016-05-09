@@ -78,7 +78,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
                     holder.weiwangzhan.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    strname = "工人名称:";
+                    strname = "工人姓名:";
                     holder.weiwangzhan.setVisibility(View.GONE);
                     break;
                 case 2:

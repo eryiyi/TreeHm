@@ -179,9 +179,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.head:
                 //点击了头像，放大
-                Intent intent = new Intent(ProfileActivity.this, GalleryUrlActivity.class);
+                final String[] picUrls = {emp.getMm_emp_cover()};
+                Intent intent = new Intent(this, GalleryUrlActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                intent.putExtra(Constants.IMAGE_URLS, emp.getMm_emp_cover());
+                intent.putExtra(Constants.IMAGE_URLS, picUrls);
                 intent.putExtra(Constants.IMAGE_POSITION, 0);
                 startActivity(intent);
                 break;
