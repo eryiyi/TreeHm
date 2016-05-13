@@ -196,7 +196,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent profileV = new Intent(NearbyActivity.this, ProfileActivity.class);
-                Emp emp = lists.get(position);
+                Emp emp = lists.get(position-1);
                 profileV.putExtra("id", emp.getMm_emp_id());
                 startActivity(profileV);
             }

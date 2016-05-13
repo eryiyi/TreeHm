@@ -66,6 +66,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     //header
     LinearLayout headLiner;
     private ImageView head;//头像
+    private ImageView adPic;
     private TextView content;//公司简介
     private TextView nickname;//姓名
     private TextView address;//公司地址
@@ -118,6 +119,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         head = (ImageView) headLiner.findViewById(R.id.head);
         head.setOnClickListener(this);
         content = (TextView) headLiner.findViewById(R.id.content);
+        adPic = (ImageView) headLiner.findViewById(R.id.adPic);
         companyUrl = (Button) headLiner.findViewById(R.id.companyUrl);
         updateBtn = (Button) headLiner.findViewById(R.id.updateBtn);
         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -349,6 +351,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     void initData(){
         imageLoader.displayImage(emp.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
+        imageLoader.displayImage(emp.getAd_pic(), adPic, UniversityApplication.adOptions, animateFirstListener);
+
         if(!StringUtil.isNullOrEmpty(emp.getMm_emp_company())){
             address.setText(emp.getMm_emp_company());
         }else {

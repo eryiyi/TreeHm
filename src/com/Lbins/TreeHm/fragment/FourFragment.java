@@ -149,6 +149,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         view.findViewById(R.id.relate_erweima).setOnClickListener(this);
         view.findViewById(R.id.relate_map).setOnClickListener(this);
         view.findViewById(R.id.realte_xiecheng).setOnClickListener(this);
+        view.findViewById(R.id.addLocation).setOnClickListener(this);
         head.setOnClickListener(this);
         login_one = (LinearLayout) view.findViewById(R.id.login_one);
         login_one.setVisibility(View.VISIBLE);
@@ -473,6 +474,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 final Uri uri = Uri.parse("http://m.ctrip.com/html5");
                 final Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
+            }
+                break;
+            case R.id.addLocation:
+            {
+                Intent addLocationV = new Intent(getActivity(),AddCompanyLocationActivity.class );
+                startActivity(addLocationV);
             }
                 break;
         }

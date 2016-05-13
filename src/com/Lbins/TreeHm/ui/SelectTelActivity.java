@@ -23,6 +23,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.FuwuObjData;
 import com.Lbins.TreeHm.data.KefuTelData;
+import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.FuwuObj;
 import com.Lbins.TreeHm.module.KefuTel;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -57,8 +58,8 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
 
     private List<KefuTel> lists = new ArrayList<KefuTel>();
     private List<KefuTel> listsAll = new ArrayList<KefuTel>();
-    private ListView gridView ;
-    private ListView gridView2 ;
+    private PullToRefreshListView gridView ;
+    private PullToRefreshListView gridView2 ;
     private ItemTelAdapter adapter ;
     private ItemTelAdapter adapterVideo ;
 
@@ -229,8 +230,8 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         viewPager.setCurrentItem(0);
         viewPager.setOnPageChangeListener(new MyOnPageChangeListener());
 
-        gridView = (ListView) view1.findViewById(R.id.lstv);
-        gridView2 = (ListView) view2.findViewById(R.id.lstv);
+        gridView = (PullToRefreshListView) view1.findViewById(R.id.lstv);
+        gridView2 = (PullToRefreshListView) view2.findViewById(R.id.lstv);
         no_data1 = (ImageView) view1.findViewById(R.id.no_data);
         no_data2 = (ImageView) view2.findViewById(R.id.no_data);
 

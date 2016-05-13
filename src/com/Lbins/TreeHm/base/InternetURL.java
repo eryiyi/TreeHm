@@ -93,4 +93,6 @@ public class InternetURL {
     public static final String GET_NEARBY_DISTANCE_URL = INTERNAL + "getNearbyDistance.do";
     //获得热门城市
     public static final String GET_HOT_CITY_URL = INTERNAL + "getHotCitys.do";
+    //上传公司地址
+    public static final String ADD_COMPANY_ADDRESS = INTERNAL + "addCompanyLocation.do";
 }

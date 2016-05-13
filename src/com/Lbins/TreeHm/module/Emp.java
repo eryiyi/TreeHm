@@ -53,6 +53,15 @@ public class Emp {
     private String deviceType;
     private String userId;
     private String mm_msg_length;
+    private String ad_pic;
+
+    public String getAd_pic() {
+        return ad_pic;
+    }
+
+    public void setAd_pic(String ad_pic) {
+        this.ad_pic = ad_pic;
+    }
 
     public String getMm_msg_length() {
         return mm_msg_length;

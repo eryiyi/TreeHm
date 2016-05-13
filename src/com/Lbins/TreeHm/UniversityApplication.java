@@ -63,6 +63,7 @@ public class UniversityApplication extends Application {
     public static String lat;
     public static String lng;
     public static String area;
+    public static String address;
 
 
     public static String fontSize;
@@ -143,6 +144,7 @@ public class UniversityApplication extends Application {
     }
 
     public static DisplayImageOptions options;
+    public static DisplayImageOptions adOptions;
     public static DisplayImageOptions txOptions;//头像图片
 
     public UniversityApplication() {
@@ -166,6 +168,17 @@ public class UniversityApplication extends Application {
                 .cacheOnDisc(true)                             // 设置下载的图片是否缓存在内存卡中
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)          //图片的解码类型头像
+                .build();
+
+        adOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ad_mp)
+                .showImageForEmptyUri(R.drawable.ad_mp)    // 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.ad_mp)        // 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true)                           // 设置下载的图片是否缓存在内存中
+                .cacheOnDisc(true)                             // 设置下载的图片是否缓存在内存卡中
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .bitmapConfig(Bitmap.Config.RGB_565)          //图片的解码类型
+//                .displayer(new RoundedBitmapDisplayer(5))
                 .build();
     }
 
