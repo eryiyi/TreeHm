@@ -2,24 +2,11 @@ package com.Lbins.TreeHm.gaode;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import com.Lbins.TreeHm.R;
 import com.amap.api.navi.AMapNaviListener;
-import com.amap.api.navi.model.AMapLaneInfo;
-import com.amap.api.navi.model.AMapNaviCross;
-import com.amap.api.navi.model.AMapNaviInfo;
-import com.amap.api.navi.model.AMapNaviLocation;
-import com.amap.api.navi.model.AMapNaviTrafficFacilityInfo;
-import com.amap.api.navi.model.AimLessModeCongestionInfo;
-import com.amap.api.navi.model.AimLessModeStat;
-import com.amap.api.navi.model.NaviInfo;
+import com.amap.api.navi.model.*;
 import com.autonavi.tbt.TrafficFacilityInfo;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechListener;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SpeechUser;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.speech.*;
 
 /**
  * 语音播报组件

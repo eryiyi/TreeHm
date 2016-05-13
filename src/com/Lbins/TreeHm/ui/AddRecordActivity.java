@@ -1,12 +1,10 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,7 +19,6 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.Publish_mood_GridView_Adapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.RecordSingData;
 import com.Lbins.TreeHm.util.*;
 import com.Lbins.TreeHm.widget.CustomerSpinner;

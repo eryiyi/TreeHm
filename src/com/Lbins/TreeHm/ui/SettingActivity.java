@@ -13,7 +13,6 @@ import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.base.BaseActivity;
-
 import com.Lbins.TreeHm.module.SetFontColor;
 import com.Lbins.TreeHm.module.SetFontSize;
 import com.Lbins.TreeHm.util.StringUtil;

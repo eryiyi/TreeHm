@@ -10,7 +10,6 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.CityData;
 import com.Lbins.TreeHm.data.CountrysData;
-import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
 import com.Lbins.TreeHm.data.ProvinceData;
 import com.Lbins.TreeHm.module.CityObj;
 import com.Lbins.TreeHm.module.CountryObj;

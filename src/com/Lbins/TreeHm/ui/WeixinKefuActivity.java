@@ -12,7 +12,6 @@ import com.Lbins.TreeHm.adapter.ItemWeixinAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.KefuTelData;
 import com.Lbins.TreeHm.data.WeixinObjData;
 import com.Lbins.TreeHm.module.WeixinObj;
 import com.Lbins.TreeHm.util.StringUtil;

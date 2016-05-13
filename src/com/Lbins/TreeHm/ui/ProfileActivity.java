@@ -27,7 +27,6 @@ import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.EmpAdObj;
-
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.ContentListView;
 import com.android.volley.AuthFailureError;

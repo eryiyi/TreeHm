@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.dao.RecordMsg;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;

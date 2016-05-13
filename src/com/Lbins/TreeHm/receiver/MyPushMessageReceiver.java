@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.SuccessData;
 import com.Lbins.TreeHm.ui.Constants;
 import com.Lbins.TreeHm.ui.NoticeDetailActivity;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -21,8 +20,6 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /*

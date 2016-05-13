@@ -1,10 +1,8 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.ProgressDialog;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -13,13 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.receiver.SMSBroadcastReceiver;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;

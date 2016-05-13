@@ -32,7 +32,6 @@ import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.data.AdObjData;
 import com.Lbins.TreeHm.data.RecordData;
 import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
-
 import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.AdObj;
 import com.Lbins.TreeHm.ui.*;

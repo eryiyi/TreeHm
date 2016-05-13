@@ -17,7 +17,6 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.utils.SMSLog;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.receiver.SMSBroadcastReceiver;

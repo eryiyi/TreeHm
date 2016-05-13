@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.adapter.ListviewAdapter;
-import com.Lbins.TreeHm.adapter.SpinnerListViewAdapter;
 
 import java.util.ArrayList;
 

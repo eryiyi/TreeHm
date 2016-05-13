@@ -1,8 +1,5 @@
 package com.Lbins.TreeHm.receiver;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

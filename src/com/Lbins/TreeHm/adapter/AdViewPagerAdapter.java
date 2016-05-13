@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.AdObj;
-import com.Lbins.TreeHm.module.EmpAdObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 

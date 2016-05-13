@@ -14,7 +14,6 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.fragment.RecordOneFragment;
 import com.Lbins.TreeHm.fragment.RecordTwoFragment;
-import com.Lbins.TreeHm.module.GuanzhuAreaObj;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 

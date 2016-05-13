@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.CityObj;
-import com.Lbins.TreeHm.module.ProvinceObj;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;

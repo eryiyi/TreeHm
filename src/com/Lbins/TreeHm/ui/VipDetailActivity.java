@@ -2,18 +2,12 @@ package com.Lbins.TreeHm.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.adapter.ItemVipAdapter;
-import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.FeiyongData;
 import com.Lbins.TreeHm.data.LevelData;
-import com.Lbins.TreeHm.module.FeiyongObj;
 import com.Lbins.TreeHm.module.Level;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
@@ -23,9 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

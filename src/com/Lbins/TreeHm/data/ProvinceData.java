@@ -1,7 +1,6 @@
 package com.Lbins.TreeHm.data;
 
 
-import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.module.ProvinceObj;
 
 import java.util.List;

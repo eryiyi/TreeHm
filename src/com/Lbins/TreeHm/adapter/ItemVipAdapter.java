@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.module.CityObj;
 import com.Lbins.TreeHm.module.FeiyongObj;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;

@@ -3,8 +3,6 @@ package com.Lbins.TreeHm.data;
 
 import com.Lbins.TreeHm.dao.RecordMsg;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2016/2/18.
  */

@@ -2,7 +2,6 @@ package com.Lbins.TreeHm.data;
 
 
 import com.Lbins.TreeHm.module.CountryObj;
-import com.Lbins.TreeHm.module.ProvinceObj;
 
 import java.util.List;
 

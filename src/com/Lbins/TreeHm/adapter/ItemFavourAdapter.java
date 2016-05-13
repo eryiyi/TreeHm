@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
-import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.module.Favour;
 import com.Lbins.TreeHm.util.StringUtil;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 

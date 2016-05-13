@@ -2,17 +2,13 @@ package com.Lbins.TreeHm.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.*;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.R;
-import com.Lbins.TreeHm.adapter.ItemNoticeAdapter;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
-import com.Lbins.TreeHm.data.NoticeData;
 import com.Lbins.TreeHm.data.NoticeSingleData;
-import com.Lbins.TreeHm.library.internal.PullToRefreshBase;
-import com.Lbins.TreeHm.library.internal.PullToRefreshListView;
 import com.Lbins.TreeHm.module.Notice;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
@@ -23,9 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

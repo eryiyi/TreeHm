@@ -1,25 +1,23 @@
 package com.Lbins.TreeHm.ui;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.CityData;
 import com.Lbins.TreeHm.fragment.Fragment_pro_type;
 import com.Lbins.TreeHm.module.CityObj;
-import com.Lbins.TreeHm.module.CountryObj;
 import com.Lbins.TreeHm.module.ProvinceObj;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.AuthFailureError;
@@ -27,8 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

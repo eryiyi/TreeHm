@@ -1,7 +1,5 @@
 package com.Lbins.TreeHm.data;
 
-import com.Lbins.TreeHm.module.FavourCount;
-
 /**
  * Created by zhanghailong on 2016/3/13.
  */

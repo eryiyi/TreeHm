@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import com.Lbins.TreeHm.MainActivity;
 import com.Lbins.TreeHm.ui.AboutActivity;
-import com.Lbins.TreeHm.ui.LoginActivity;
 import com.Lbins.TreeHm.widget.ViewPageItemView;
 import org.json.JSONArray;
 import org.json.JSONException;

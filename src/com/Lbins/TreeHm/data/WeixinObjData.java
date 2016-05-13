@@ -1,6 +1,5 @@
 package com.Lbins.TreeHm.data;
 
-import com.Lbins.TreeHm.module.KefuTel;
 import com.Lbins.TreeHm.module.WeixinObj;
 
 import java.util.List;
