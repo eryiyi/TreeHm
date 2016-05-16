@@ -238,8 +238,8 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(lists.size() > i){
-                    KefuTel kefuTel = lists.get(i);
+                if(lists.size() > (i-1)){
+                    KefuTel kefuTel = lists.get(i-1);
                     if(kefuTel != null){
                         showTel(kefuTel.getMm_tel());
                     }
@@ -249,8 +249,8 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(listsAll.size() > i){
-                    KefuTel kefuTel = listsAll.get(i);
+                if(listsAll.size() > (i-1)){
+                    KefuTel kefuTel = listsAll.get(i-1);
                     if(kefuTel != null){
                         showTel(kefuTel.getMm_tel());
                     }
