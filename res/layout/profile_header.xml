@@ -61,7 +61,6 @@
     </RelativeLayout>
 
     <ImageView android:layout_width="match_parent"
-               android:src="@drawable/ad_mp"
                android:layout_marginLeft="6dp"
                android:layout_marginRight="6dp"
                android:id="@+id/adPic"

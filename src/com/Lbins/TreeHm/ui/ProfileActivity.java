@@ -119,6 +119,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         head.setOnClickListener(this);
         content = (TextView) headLiner.findViewById(R.id.content);
         adPic = (ImageView) headLiner.findViewById(R.id.adPic);
+        adPic.setOnClickListener(this);
         companyUrl = (Button) headLiner.findViewById(R.id.companyUrl);
         updateBtn = (Button) headLiner.findViewById(R.id.updateBtn);
         updateBtn.setOnClickListener(new View.OnClickListener() {
@@ -192,14 +193,32 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             {
                 if(!StringUtil.isNullOrEmpty(emp.getLat()) && !StringUtil.isNullOrEmpty(emp.getLng())){
                     //开始导航
-                    Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
-                    naviV.putExtra("lat_end" , emp.getLat());
-                    naviV.putExtra("lng_end" , emp.getLng());
-                    startActivity(naviV);
+                    if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                        Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
+                        naviV.putExtra("lat_end" , emp.getLat_company());
+                        naviV.putExtra("lng_end" , emp.getLng_company());
+                        startActivity(naviV);
+                    }else {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                    }
+
                 }else {
                     Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }
             }
+                break;
+            case R.id.adPic:
+                if(emp !=null && !StringUtil.isNullOrEmpty(emp.getAd_pic()) && !emp.getAd_pic().endsWith("ad_mp.jpg")){
+                    //说明存在广告图，点击进入分享页面
+                    Intent mpV = new Intent(ProfileActivity.this, ShareMingpianActivity.class);
+                    mpV.putExtra("mm_emp_id", emp.getMm_emp_id());
+                    mpV.putExtra("mm_emp_ad_pic", emp.getAd_pic());
+                    startActivity(mpV);
+                }else {
+                    showMsg(ProfileActivity.this, "暂无名片，请联系客服");
+                    Intent kefuV = new Intent(ProfileActivity.this, SelectTelActivity.class);
+                    startActivity(kefuV);
+                }
                 break;
         }
     }
@@ -452,10 +471,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     String[] arrs = recordVO.getMm_msg_title().split(",");
                     if(arrs != null && arrs.length > 0){
                         //开始导航
-                        Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
-                        naviV.putExtra("lat_end" , arrs[0]);
-                        naviV.putExtra("lng_end" , arrs[1]);
-                        startActivity(naviV);
+                        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                            Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" , arrs[0]);
+                            naviV.putExtra("lng_end" , arrs[1]);
+                            startActivity(naviV);
+                        }else {
+                            Toast.makeText(ProfileActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }else {
                     Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:id="@id/main"
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -78,18 +79,31 @@
                     <com.Lbins.TreeHm.widget.CircleImageView
                             android:layout_width="60dp"
                             android:id="@+id/head"
+                            android:layout_marginTop="15dp"
                             android:layout_marginLeft="25dp"
-                            android:layout_centerVertical="true"
                             android:src="@drawable/default_avatar"
                             android:layout_height="60dp"/>
+                    <ImageView android:layout_width="25dp"
+                               android:id="@+id/img_chengxin"
+                               android:layout_marginLeft="25dp"
+                               android:layout_alignParentBottom="true"
+                               android:src="@drawable/tree_icons_trust"
+                               android:layout_height="wrap_content"/>
+                    <ImageView android:layout_width="25dp"
+                               android:layout_alignParentBottom="true"
+                               android:layout_marginLeft="50dp"
+                               android:id="@+id/img_xiehui"
+                               android:src="@drawable/tree_icons_group"
+                               android:layout_height="wrap_content"/>
+
                     <TextView android:layout_width="wrap_content"
-                              android:text="王婧"
                               android:layout_marginTop="15dp"
                               android:layout_marginLeft="15dp"
                               android:id="@+id/nickname"
                               android:textColor="@color/text_color"
                               android:layout_toRightOf="@+id/head"
                               android:layout_height="wrap_content"/>
+
 
                     <TextView android:layout_width="wrap_content"
                               android:text="vip4 到期日期：2014-01-01"
@@ -119,7 +133,16 @@
                               android:layout_toRightOf="@+id/head"
                               android:layout_height="wrap_content"/>
                 </RelativeLayout>
-
+                <TextView android:layout_width="match_parent"
+                          android:text="申请诚信单位|实名认证"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:id="@+id/btn_chengxin_xiehui"
+                          android:padding="12dp"
+                          android:background="#ff0000"
+                          android:gravity="center"
+                          android:layout_gravity="center"
+                          android:layout_height="wrap_content"/>
                 <TextView android:layout_width="match_parent"
                           android:background="#f2f2f2"
                           android:text="我的"

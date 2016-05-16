@@ -413,10 +413,15 @@ public class FourShopActivity extends BaseActivity implements View.OnClickListen
                         FuwuObj fuwuObj = listsAll.get(position);
                         if(fuwuObj != null){
                             //开始导航
-                            Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
-                            naviV.putExtra("lat_end" ,fuwuObj.getLat());
-                            naviV.putExtra("lng_end" ,fuwuObj.getLng());
-                            startActivity(naviV);
+                            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                                Intent naviV = new Intent(FourShopActivity.this, GPSNaviActivity.class);
+                                naviV.putExtra("lat_end" ,fuwuObj.getLat());
+                                naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                                startActivity(naviV);
+                            }else {
+                                Toast.makeText(FourShopActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
                     break;

@@ -55,6 +55,34 @@ public class Emp {
     private String mm_msg_length;
     private String ad_pic;
 
+    private String is_cover;
+    private String lat_company;
+    private String lng_company;
+
+    public String getLat_company() {
+        return lat_company;
+    }
+
+    public void setLat_company(String lat_company) {
+        this.lat_company = lat_company;
+    }
+
+    public String getLng_company() {
+        return lng_company;
+    }
+
+    public void setLng_company(String lng_company) {
+        this.lng_company = lng_company;
+    }
+
+    public String getIs_cover() {
+        return is_cover;
+    }
+
+    public void setIs_cover(String is_cover) {
+        this.is_cover = is_cover;
+    }
+
     public String getAd_pic() {
         return ad_pic;
     }

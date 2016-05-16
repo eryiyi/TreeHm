@@ -300,10 +300,15 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                         String[] arrs = recordVO.getMm_msg_title().split(",");
                         if(arrs != null && arrs.length > 0){
                             //开始导航
-                            Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
-                            naviV.putExtra("lat_end" , arrs[0]);
-                            naviV.putExtra("lng_end" , arrs[1]);
-                            startActivity(naviV);
+                            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                                Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
+                                naviV.putExtra("lat_end" , arrs[0]);
+                                naviV.putExtra("lng_end" , arrs[1]);
+                                startActivity(naviV);
+                            }else {
+                                Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }else {
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();

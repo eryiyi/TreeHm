@@ -6,11 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,17 +35,27 @@ import com.Lbins.TreeHm.data.EmpAdObjData;
 import com.Lbins.TreeHm.data.FavourCountData;
 import com.Lbins.TreeHm.module.EmpAdObj;
 import com.Lbins.TreeHm.ui.*;
+import com.Lbins.TreeHm.util.CompressPhotoUtil;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.widget.SelectPhoPopWindow;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +88,16 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     private LinearLayout login_one;
 
     private TextView count_favour;
+    private TextView btn_chengxin_xiehui;
+    private ImageView img_xiehui;
+    private ImageView img_chengxin;
+
+
+    private String txpic = "";
+    private SelectPhoPopWindow deleteWindow;
+    AsyncHttpClient client = new AsyncHttpClient();
+    private String pics = "";
+    private static final File PHOTO_CACHE_DIR = new File(Environment.getExternalStorageDirectory() + "/liangxun/PhotoCache");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +143,22 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         vipType.setText(vipTypeStr);
         regTime.setText("注册日期:"+getGson().fromJson(getSp().getString("mm_emp_regtime", ""), String.class));
         regAddress.setText(getGson().fromJson(getSp().getString("provinceName", ""), String.class) + getGson().fromJson(getSp().getString("cityName", ""), String.class) + getGson().fromJson(getSp().getString("areaName", ""), String.class));
+        //判断是否苗木协会和苗木会员
+        if("1".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))){//is_miaomu
+            img_chengxin.setVisibility(View.VISIBLE);
+        }else {
+            img_chengxin.setVisibility(View.GONE);
+        }
+        if("1".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class))){
+            img_xiehui.setVisibility(View.VISIBLE);
+        }else {
+            img_xiehui.setVisibility(View.GONE);
+        }
+        if("0".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))){
+            btn_chengxin_xiehui.setVisibility(View.VISIBLE);
+        }else {
+            btn_chengxin_xiehui.setVisibility(View.GONE);
+        }
     }
 
     void initView( ){
@@ -125,6 +167,10 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         vipType = (TextView) view.findViewById(R.id.vipType);
         regTime = (TextView) view.findViewById(R.id.regTime);
         regAddress = (TextView) view.findViewById(R.id.regAddress);
+        btn_chengxin_xiehui = (TextView) view.findViewById(R.id.btn_chengxin_xiehui);//申请苗木会员加入苗木协会
+        img_chengxin = (ImageView) view.findViewById(R.id.img_chengxin);
+        img_xiehui = (ImageView) view.findViewById(R.id.img_xiehui);
+
 
         view.findViewById(R.id.relate_set).setOnClickListener(this);
         view.findViewById(R.id.relate_shop).setOnClickListener(this);
@@ -305,7 +351,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_shop:
                 //商店
             {
-                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
                 shopV.putExtra("mm_fuwu_type", "0" );
                 startActivity(shopV);
             }
@@ -321,7 +367,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_work:
                 //装车工人
             {
-                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
                 shopV.putExtra("mm_fuwu_type", "1" );
                 startActivity(shopV);
             }
@@ -329,7 +375,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_wuliu:
                 //物流中心
             {
-                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
                 shopV.putExtra("mm_fuwu_type", "2" );
                 startActivity(shopV);
             }
@@ -337,7 +383,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.relate_jiajie:
                 //嫁接
             {
-                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
                 shopV.putExtra("mm_fuwu_type", "3" );
                 startActivity(shopV);
             }
@@ -356,7 +402,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             case R.id.realte_diaoche:
                 //调车
             {
-                Intent shopV = new Intent(getActivity(), FourShopActivity.class);
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
                 shopV.putExtra("mm_fuwu_type", "4" );
                 startActivity(shopV);
             }
@@ -405,11 +451,14 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             }
                 break;
             case R.id.head:
-                //
+                //修改头像
             {
-                Intent profileV = new Intent(getActivity(), ProfileActivity.class);
-                profileV.putExtra("id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                startActivity(profileV);
+                if("0".equals(getGson().fromJson(getSp().getString("is_cover", ""), String.class))){
+                    //如果是0 默认允许
+                    ShowPickDialog();
+                }else{
+                    Toast.makeText(getActivity(), "修改头像，请联系客服开通权限！",Toast.LENGTH_SHORT).show();
+                }
             }
                 break;
             case R.id.relate_favour:
@@ -503,7 +552,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                                         lists.addAll(data.getData());
                                     }
                                     if(lists.size() == 0){
-                                        lists.add(new EmpAdObj("http://xhmt.sdhmmm.cn:7777/upload/20160313/1457875390482.jpg","http://xhmt.sdhmmm.cn:7777/html/download.html"));
+                                        lists.add(new EmpAdObj(InternetURL.INTERNAL + "/upload/20160313/1457875390482.jpg", InternetURL.INTERNAL +"/html/download.html"));
                                     }
                                     initViewPager();
                                 } else {
@@ -616,6 +665,187 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+    // 选择相册，相机
+    private void ShowPickDialog() {
+        deleteWindow = new SelectPhoPopWindow(getActivity(), itemsOnClick);
+        //显示窗口
+        deleteWindow.showAtLocation(getActivity().findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+    }
+
+    //为弹出窗口实现监听类
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
+
+        public void onClick(View v) {
+            deleteWindow.dismiss();
+            switch (v.getId()) {
+                case R.id.camera: {
+                    Intent camera = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                            .fromFile(new File(Environment
+                                    .getExternalStorageDirectory(),
+                                    "ppCover.jpg")));
+                    startActivityForResult(camera, 2);
+                }
+                break;
+                case R.id.mapstorage: {
+                    Intent mapstorage = new Intent(Intent.ACTION_PICK, null);
+                    mapstorage.setDataAndType(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            "image/*");
+                    startActivityForResult(mapstorage, 1);
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    };
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // 如果是直接从相册获取
+            case 1:
+                if (data != null) {
+                    startPhotoZoom(data.getData());
+                }
+                break;
+            // 如果是调用相机拍照时
+            case 2:
+                File temp = new File(Environment.getExternalStorageDirectory()
+                        + "/ppCover.jpg");
+                startPhotoZoom(Uri.fromFile(temp));
+                break;
+            // 取得裁剪后的图片
+            case 3:
+                if (data != null) {
+                    setPicToView(data);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+    }
+
+    /**
+     * 保存裁剪之后的图片数据
+     *
+     * @param picdata
+     */
+    private void setPicToView(Intent picdata) {
+        Bundle extras = picdata.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
+            if (photo != null) {
+                pics = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
+                head.setImageBitmap(photo);
+                //保存头像
+                uploadCover();
+            }
+        }
+    }
+
+    //上传到七牛云存贮
+    void uploadCover(){
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("space", InternetURL.QINIU_SPACE);
+        RequestParams params = new RequestParams(map);
+        client.get(InternetURL.UPLOAD_TOKEN, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    String token = response.getString("data");
+                    UploadManager uploadManager = new UploadManager();
+                    uploadManager.put(StringUtil.getBytes(pics), StringUtil.getUUID(), token,
+                            new UpCompletionHandler() {
+                                @Override
+                                public void complete(String key, ResponseInfo info, JSONObject response) {
+                                    publishAll(key);
+                                }
+                            }, null);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+    }
+    //更新数据库用户头像
+
+    //更新
+    private void publishAll(final String uploadpic) {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.UPDATE_COVER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if(Integer.parseInt(code) == 200) {
+                                    save("mm_emp_cover", InternetURL.QINIU_URL + uploadpic);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_cover", uploadpic);
+                return params;
+            }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();

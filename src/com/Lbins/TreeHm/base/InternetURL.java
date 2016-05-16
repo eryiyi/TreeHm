@@ -5,8 +5,8 @@ public class InternetURL {
     public static final String APP_MOB_KEY = "f8238165a882";
     public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
 
-//    public static final String INTERNAL = "http://192.168.0.224:8080/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
+    public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn:7777/";
     public static final String QINIU_URL =  "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String QINIU_SPACE = "hmmm-pic";
@@ -39,6 +39,8 @@ public class InternetURL {
     public static final String SEND_LOCATION_BYID_URL = INTERNAL + "sendLocation.do";
     //获得服务信息
     public static final String GET_FUWU_MSG_BY_LOCATION_URL = INTERNAL + "getFuwuByLocationAndType.do";
+    //
+    public static final String GET_FUWU_BY_LOCATION_URL = INTERNAL + "getFuwuType.do";
     //获得关于我们
     public static final String GET_ABOUT_US_URL = INTERNAL + "getAboutUs.do";
     //添加意见
@@ -95,4 +97,8 @@ public class InternetURL {
     public static final String GET_HOT_CITY_URL = INTERNAL + "getHotCitys.do";
     //上传公司地址
     public static final String ADD_COMPANY_ADDRESS = INTERNAL + "addCompanyLocation.do";
+    //分享明信片
+    public static final String SHARE_MINGXINPIAN_URL = INTERNAL + "toShareMp.do";
+    //上传头像
+    public static final String UPDATE_COVER = INTERNAL + "uploadCover.do";
 }

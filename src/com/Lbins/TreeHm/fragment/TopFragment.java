@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.AdViewPagerAdapter;
 import com.Lbins.TreeHm.adapter.AnimateFirstDisplayListener;
 import com.Lbins.TreeHm.adapter.ItemTopAdapter;
@@ -44,6 +45,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,7 +123,9 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
     void initView() {
         //
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.ad_header, null);
-
+        TextView btn_top = (TextView) headLiner.findViewById(R.id.btn_top);
+        btn_top.setVisibility(View.VISIBLE);
+        btn_top.setOnClickListener(this);
         no_data = (ImageView) view.findViewById(R.id.no_data);
         lstv = (PullToRefreshListView) view.findViewById(R.id.lstv);
         ListView listView = lstv.getRefreshableView();
@@ -214,10 +218,14 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                     recordVO = lists.get(position);
                     if(!StringUtil.isNullOrEmpty(recordVO.getLat()) && !StringUtil.isNullOrEmpty(recordVO.getLng())){
                         //开始导航
-                        Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
-                        naviV.putExtra("lat_end" , recordVO.getLat());
-                        naviV.putExtra("lng_end" , recordVO.getLng());
-                        startActivity(naviV);
+                        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                            Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
+                            naviV.putExtra("lat_end" , recordVO.getLat());
+                            naviV.putExtra("lng_end" , recordVO.getLng());
+                            startActivity(naviV);
+                        }else {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                        }
                     }else {
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                     }
@@ -358,6 +366,10 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                     //未登录
                     showLogin();
                 }
+                break;
+            case R.id.btn_top:
+                Intent intent = new Intent(getActivity(), SelectTelActivity.class);
+                startActivity(intent);
                 break;
         }
     }

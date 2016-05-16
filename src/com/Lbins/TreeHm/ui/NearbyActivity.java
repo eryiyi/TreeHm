@@ -213,12 +213,17 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         switch (flag){
             case 1:
                 Emp emp = lists.get(position);
-                if(!StringUtil.isNullOrEmpty(emp.getLat()) && !StringUtil.isNullOrEmpty(emp.getLng())){
+                if(!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())){
                     //开始导航
-                    Intent naviV = new Intent(NearbyActivity.this, GPSNaviActivity.class);
-                    naviV.putExtra("lat_end" , emp.getLat());
-                    naviV.putExtra("lng_end" , emp.getLng());
-                    startActivity(naviV);
+                    if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                        Intent naviV = new Intent(NearbyActivity.this, GPSNaviActivity.class);
+                        naviV.putExtra("lat_end" , emp.getLat_company());
+                        naviV.putExtra("lng_end" , emp.getLng_company());
+                        startActivity(naviV);
+                    }else {
+                        Toast.makeText(NearbyActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                    }
+
                 }else {
                     Toast.makeText(NearbyActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }

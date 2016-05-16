@@ -37,4 +37,15 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    <TextView android:layout_width="match_parent"
+              android:text="我要在这里出现"
+              android:textColor="@color/white"
+              android:textSize="18sp"
+              android:visibility="gone"
+              android:id="@+id/btn_top"
+              android:padding="12dp"
+              android:background="#ff0000"
+              android:gravity="center"
+              android:layout_gravity="center"
+              android:layout_height="wrap_content"/>
 </LinearLayout>
