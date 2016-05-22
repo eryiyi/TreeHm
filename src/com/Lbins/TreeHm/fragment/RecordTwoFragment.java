@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemRecordAdapter;
 import com.Lbins.TreeHm.adapter.OnClickContentItemListener;
 import com.Lbins.TreeHm.base.BaseFragment;
@@ -456,6 +457,31 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                         showLogin();
                     }
                     break;
+                case 7:
+                    //导航
+                {
+                    lists.get(position).setIs_read("1");
+                    adapter.notifyDataSetChanged();
+                    recordVO = lists.get(position);
+                    if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                        String[] arrs = recordVO.getMm_msg_title().split(",");
+                        if(arrs != null && arrs.length > 0){
+                            //开始导航
+                            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                                Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
+                                naviV.putExtra("lat_end" , arrs[0]);
+                                naviV.putExtra("lng_end" , arrs[1]);
+                                startActivity(naviV);
+                            }else {
+                                Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
             }
         }
 

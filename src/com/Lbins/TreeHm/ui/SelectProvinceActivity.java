@@ -186,6 +186,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 //                                                    showMsg(SelectProvinceActivity.this, "您已经申请了关注区域！请等待管理员审核");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait));
                                                     no_data_text.setClickable(false);
+                                                    no_data_text.setVisibility(View.VISIBLE);
                                                 }else
                                                 if("1".equals(guanzhuAreaObj.getIscheck())){
 //                                                    Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
@@ -203,9 +204,11 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 //                                                    showMsg(SelectProvinceActivity.this, "您申请的关注区域未通过审核，请联系客服！");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait1));
                                                     no_data_text.setClickable(false);
+                                                    no_data_text.setVisibility(View.VISIBLE);
                                                 }else{
 //                                                    showMsg(SelectProvinceActivity.this, "您尚未申请关注区域，请设置关注区域！");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
+                                                    no_data_text.setVisibility(View.VISIBLE);
                                                     no_data_text.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
@@ -217,6 +220,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                             }
                                         }else{
                                             no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
+                                            no_data_text.setVisibility(View.VISIBLE);
                                             no_data_text.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
@@ -227,6 +231,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                         }
                                     }else{
                                         no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
+                                        no_data_text.setVisibility(View.VISIBLE);
                                         no_data_text.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -237,6 +242,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                     }
                                 }else {
                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
+                                    no_data_text.setVisibility(View.VISIBLE);
                                     no_data_text.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {

@@ -191,7 +191,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             case R.id.nav:
                 //导航
             {
-                if(!StringUtil.isNullOrEmpty(emp.getLat()) && !StringUtil.isNullOrEmpty(emp.getLng())){
+                if(!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())){
                     //开始导航
                     if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
                         Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);

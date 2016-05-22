@@ -10,8 +10,11 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
+import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.upload.MultiPartStringRequest;
+import com.Lbins.TreeHm.util.HttpUtils;
+import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,6 +38,8 @@ public class BaseActivity extends FragmentActivity{
     protected int mScreenHeight;
     public ProgressDialog progressDialog;
 
+    boolean isMobileNet, isWifiNet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,17 @@ public class BaseActivity extends FragmentActivity{
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         mScreenWidth = metric.widthPixels;
         mScreenHeight = metric.heightPixels;
+
+        try {
+            isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
+            isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
+            if (!isMobileNet && !isWifiNet) {
+                Toast.makeText(this, R.string.net_work_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ActivityTack.getInstanse().addActivity(this);
     }

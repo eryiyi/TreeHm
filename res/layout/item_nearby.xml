@@ -64,6 +64,7 @@
 
     <ImageView android:layout_width="wrap_content"
                android:layout_alignParentRight="true"
+               android:layout_marginRight="8dp"
                android:layout_alignBottom="@+id/head"
                android:id="@+id/nav"
                android:src="@drawable/button_selector_nav_mine"

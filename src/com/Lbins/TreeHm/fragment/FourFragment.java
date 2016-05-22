@@ -168,6 +168,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         regTime = (TextView) view.findViewById(R.id.regTime);
         regAddress = (TextView) view.findViewById(R.id.regAddress);
         btn_chengxin_xiehui = (TextView) view.findViewById(R.id.btn_chengxin_xiehui);//申请苗木会员加入苗木协会
+        btn_chengxin_xiehui.setOnClickListener(this);
         img_chengxin = (ImageView) view.findViewById(R.id.img_chengxin);
         img_xiehui = (ImageView) view.findViewById(R.id.img_xiehui);
 
@@ -469,6 +470,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             }
                 break;
             case R.id.relate_kefu:
+            case R.id.btn_chengxin_xiehui:
             {
                 //客服中心
                 Intent kefuV = new Intent(getActivity(), SelectTelActivity.class);
