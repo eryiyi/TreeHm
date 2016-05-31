@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.umeng.update.UmengUpdateAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +38,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/18.
  */
-public class WelcomeActivity extends BaseActivity implements View.OnClickListener,Runnable,AMapLocationListener {
+public class WelcomeActivity extends BaseActivity implements View.OnClickListener, Runnable, AMapLocationListener {
     boolean isMobileNet, isWifiNet;
     //定位
     private AMapLocationClient locationClient = null;
@@ -47,6 +48,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+        UmengUpdateAgent.update(this);
 
         //定位
         locationClient = new AMapLocationClient(this.getApplicationContext());
@@ -68,10 +70,12 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         // 启动一个线程
         new Thread(WelcomeActivity.this).start();
     }
+
     @Override
     public void onClick(View view) {
 
     }
+
     @Override
     public void run() {
         try {
@@ -86,9 +90,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 startActivity(loadIntent);
                 finish();
             } else {
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class)) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))) {
                     loginData();
-                }else{
+                } else {
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                     finish();
                 }
@@ -98,7 +102,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    void loginData(){
+    void loginData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.LOGIN__URL,
@@ -108,8 +112,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     EmpData data = getGson().fromJson(s, EmpData.class);
                                     initOption();
                                     // 设置定位参数
@@ -118,25 +122,21 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                     locationClient.startLocation();
                                     mHandler.sendEmptyMessage(Utils.MSG_LOCATION_START);
                                     saveAccount(data.getData());
-                                }else if(Integer.parseInt(code) == 1){
+                                } else if (Integer.parseInt(code) == 1) {
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                                }
-                                else if(Integer.parseInt(code) == 2){
+                                } else if (Integer.parseInt(code) == 2) {
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                                }
-                                else if(Integer.parseInt(code) == 3){
+                                } else if (Integer.parseInt(code) == 3) {
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                                }
-                                else if(Integer.parseInt(code) == 4){
+                                } else if (Integer.parseInt(code) == 4) {
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                                }else if(Integer.parseInt(code) == 7){
+                                } else if (Integer.parseInt(code) == 7) {
                                     showMsg(WelcomeActivity.this, getResources().getString(R.string.login_error_seven));
-                                }
-                                else{
+                                } else {
                                     save("isLogin", "0");//1已经登录了  0未登录
                                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                                 }
@@ -165,10 +165,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
                 params.put("password", getGson().fromJson(getSp().getString("password", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))) {
                     //说明存在userId
                     params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
-                }else {
+                } else {
                     params.put("userId", "");
                 }
                 return params;
@@ -186,12 +186,12 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
 
     public void saveAccount(Emp emp) {
         //登录成功，绑定百度云推送
-        if(StringUtil.isNullOrEmpty(emp.getUserId())){
+        if (StringUtil.isNullOrEmpty(emp.getUserId())) {
             //进行绑定
             PushManager.startWork(getApplicationContext(),
                     PushConstants.LOGIN_TYPE_API_KEY,
                     com.Lbins.TreeHm.baidu.Utils.getMetaValue(WelcomeActivity.this, "api_key"));
-        }else {
+        } else {
             //如果已经绑定，就保存
             save("userId", emp.getUserId());
         }
@@ -239,7 +239,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         save("isLogin", "1");//1已经登录了  0未登录
         save("is_upate_profile", emp.getIs_upate_profile());//1是否补充资料 0否 1是
 
-        Intent intent  =  new Intent(WelcomeActivity.this, MainActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -267,19 +267,21 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 case Utils.MSG_LOCATION_FINISH:
                     AMapLocation loc = (AMapLocation) msg.obj;
                     String result = Utils.getLocationStr(loc);
-                    if("true".equals(result)){
+                    if ("true".equals(result)) {
                         //定位成功
-                        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+                        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))) {
                             sendLocation();
                         }
-                    }else if("false".equals(result)){
+                    } else if ("false".equals(result)) {
 
                     }
                     break;
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     // 定位监听
@@ -292,7 +294,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             mHandler.sendMessage(msg);
         }
     }
-    void sendLocation(){
+
+    void sendLocation() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.SEND_LOCATION_BYID_URL,
@@ -302,11 +305,10 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
 
-                                }
-                                else{
+                                } else {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -329,9 +331,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
-                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
-                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
+                params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
 

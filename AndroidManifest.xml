@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.Lbins.TreeHm"
+          xmlns:tools="http://schemas.android.com/tools" package="com.Lbins.TreeHm"
           android:versionCode="25"
           android:versionName="1.1.5">
     <uses-sdk android:minSdkVersion="14"/>
@@ -34,28 +34,29 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" tools:ignore="ProtectedPermissions"></uses-permission>
 
     <!--mob-->
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <!--高德地图sdk-->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!--读取短信-->
     <uses-permission android:name="android.permission.READ_SMS"/>
 
     <!--百度推送-->
     <!-- Push service 运行需要的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 
     <application android:label="@string/app_name"
@@ -71,58 +72,99 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DetailRecordActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RegistActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RegistMsgActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddRecordActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AlbumActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AlbumChanceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ImageDelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.GalleryUrlActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FourShopActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddSuggestActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.UpdatePwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.VipActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.WebViewActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.VipDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.CityAreaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectTelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.MineFavour" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DemoOneActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DemoTwoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.WeixinKefuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.UpdateProfiletActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SetGuanzhuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NoticeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NoticeDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RecordGzActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FindPwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ErweimaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AboutActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.GPSNaviActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddCompanyLocationActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FourFuwuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ShareMingpianActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DetailRecordActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RegistActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RegistMsgActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddRecordActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AlbumActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AlbumChanceActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ImageDelActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.GalleryUrlActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectProvinceActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectCityActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FourShopActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddSuggestActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.UpdatePwrActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VipActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.WebViewActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VipDetailActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.CityAreaActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectTelActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.MineFavour" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DemoOneActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DemoTwoActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.WeixinKefuActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.UpdateProfiletActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SetGuanzhuActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NoticeActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NoticeDetailActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RecordGzActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FindPwrActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ErweimaActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AboutActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.GPSNaviActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddCompanyLocationActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FourFuwuActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ShareMingpianActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
 
         <!--友盟-->
         <meta-data android:value="56a1c62fe0f55af361001e45" android:name="UMENG_APPKEY"></meta-data>
         <meta-data android:value="wandoujia" android:name="UMENG_CHANNEL"/>
         <service
                 android:name="com.umeng.update.net.DownloadingService"
-                android:process=":DownloadingService" >
+                android:process=":DownloadingService">
         </service>
         <activity
                 android:name="com.umeng.update.UpdateDialogActivity"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity
                 android:name="com.umeng.socialize.editorpage.ShareActivity"
@@ -134,37 +176,37 @@
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:exported="true"
                 android:screenOrientation="portrait"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <activity
                 android:name="com.tencent.tauth.AuthActivity"
                 android:launchMode="singleTask"
-                android:noHistory="true" >
+                android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="tencent1105177727" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="tencent1105177727"/>
             </intent-filter>
         </activity>
         <activity
                 android:name="com.tencent.connect.common.AssistActivity"
                 android:screenOrientation="portrait"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <!--mob-->
         <activity
                 android:name="com.mob.tools.MobUIShell"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                android:windowSoftInputMode="stateHidden|adjustResize" />
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <!--高德地图-->
         <meta-data
                 android:name="com.amap.api.v2.apikey"
                 android:value="20b2fc08a0de46115e8863a26f83390a"/>
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService" >
+        <service android:name="com.amap.api.location.APSService">
         </service>
 
         <!--百度推送-->
@@ -172,13 +214,13 @@
         <activity
                 android:name="com.baidu.android.pushservice.richmedia.MediaViewActivity"
                 android:configChanges="orientation|keyboardHidden"
-                android:label="MediaViewActivity" >
+                android:label="MediaViewActivity">
         </activity>
         <activity
                 android:name="com.baidu.android.pushservice.richmedia.MediaListActivity"
                 android:configChanges="orientation|keyboardHidden"
                 android:label="MediaListActivity"
-                android:launchMode="singleTask" >
+                android:launchMode="singleTask">
         </activity>
         <!-- push富媒体结束 -->
 
@@ -186,10 +228,10 @@
         <receiver android:name="com.Lbins.TreeHm.receiver.MyPushMessageReceiver">
             <intent-filter>
                 <!-- 接收push消息 -->
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
                 <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
             </intent-filter>
         </receiver>
 
@@ -197,48 +239,48 @@
         <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
                   android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
                 <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
                   android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package" />
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
         <service
                 android:name="com.baidu.android.pushservice.PushService"
                 android:exported="true"
-                android:process=":bdservice_v1"  >
+                android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
             </intent-filter>
         </service>
         <service android:name="com.baidu.android.pushservice.CommandService"
-                 android:exported="true" />
+                 android:exported="true"/>
         <!-- 4.6.2版本增加一个可选的Activity声明 -->
         <activity
                 android:launchMode="singleInstance"
                 android:name="com.baidu.android.pushservice.PushKeepAlive"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <!-- push结束 -->
 
         <!-- 在百度开发者中心查询应用的API Key -->
-        <meta-data android:name="api_key" android:value="py440oPABt8q01nVMRfbMZkq" />
+        <meta-data android:name="api_key" android:value="py440oPABt8q01nVMRfbMZkq"/>
 
     </application>
 </manifest>

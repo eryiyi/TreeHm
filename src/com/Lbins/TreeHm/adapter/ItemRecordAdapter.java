@@ -35,10 +35,11 @@ public class ItemRecordAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemRecordAdapter(List<RecordMsg> lists, Context mContect){
+    public ItemRecordAdapter(List<RecordMsg> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
+
     public void refresh(List<RecordMsg> d) {
         lists = d;
         notifyDataSetChanged();
@@ -61,9 +62,9 @@ public class ItemRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_record, null);
             holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
             holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
@@ -80,31 +81,31 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.btn_nav = (ImageView) convertView.findViewById(R.id.btn_nav);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final RecordMsg cell = lists.get(position);
-        if(cell != null){
-            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+        if (cell != null) {
+            String title = (cell.getMm_emp_company() == null ? "" : cell.getMm_emp_company()) + " " + (cell.getMm_emp_nickname() == null ? "" : cell.getMm_emp_nickname());
             holder.nickname.setText(title);
-            holder.dateline.setText((cell.getDateline()==null?"":cell.getDateline()) + " " +(cell.getArea()==null?"":cell.getArea()));
-            String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
+            holder.dateline.setText((cell.getDateline() == null ? "" : cell.getDateline()) + " " + (cell.getArea() == null ? "" : cell.getArea()));
+            String msg = cell.getMm_msg_content() == null ? "" : cell.getMm_msg_content();
 //            if(msg.length() > 80){
 //                msg = msg.substring(0,79)+"...";
 //            }
 //            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
             holder.content.setText(msg);
-            if("1".equals(cell.getIs_chengxin())){
+            if ("1".equals(cell.getIs_chengxin())) {
                 holder.img_xinyong.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xinyong.setVisibility(View.GONE);
             }
-            if("1".equals(cell.getIs_miaomu())){
+            if ("1".equals(cell.getIs_miaomu())) {
                 holder.img_xiehui.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xiehui.setVisibility(View.GONE);
             }
-            switch (Integer.parseInt((cell.getMm_level_num()==null?"0":cell.getMm_level_num()))){
+            switch (Integer.parseInt((cell.getMm_level_num() == null ? "0" : cell.getMm_level_num()))) {
                 case 0:
                     holder.star.setImageResource(R.drawable.tree_icons_star_1);
                     break;
@@ -122,55 +123,55 @@ public class ItemRecordAdapter extends BaseAdapter {
                     break;
             }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
-            if(StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())){
+            if (StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())) {
                 holder.btn_pic.setVisibility(View.GONE);
-            }else {
+            } else {
                 holder.btn_pic.setVisibility(View.VISIBLE);
             }
             RecordMsg recordMsg = DBHelper.getInstance(mContect).getRecord(cell.getMm_msg_id());
-            if(recordMsg != null){
-                if("1".equals(recordMsg.getIs_read())){
+            if (recordMsg != null) {
+                if ("1".equals(recordMsg.getIs_read())) {
                     //已读
                     holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-                }else {
+                } else {
                     holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
                 }
-            }else{
-                if("1".equals(cell.getIs_read())){
+            } else {
+                if ("1".equals(cell.getIs_read())) {
                     //已读
                     holder.is_read.setImageResource(R.drawable.tree_icons_read_1);
-                }else {
+                } else {
                     holder.is_read.setImageResource(R.drawable.tree_icons_read_0);
                 }
             }
 
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLACK);
                     holder.nickname.setTextColor(Color.BLACK);
                     holder.dateline.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.GRAY);
                     holder.nickname.setTextColor(Color.GRAY);
                     holder.dateline.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLUE);
                     holder.nickname.setTextColor(Color.BLUE);
                     holder.dateline.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.YELLOW);
                     holder.nickname.setTextColor(Color.YELLOW);
                     holder.dateline.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.RED);
                     holder.nickname.setTextColor(Color.RED);
                     holder.dateline.setTextColor(Color.RED);
@@ -238,14 +239,15 @@ public class ItemRecordAdapter extends BaseAdapter {
 
         return convertView;
     }
-    public static  class ViewHolder {
+
+    public static class ViewHolder {
         ImageView btn_share;
         ImageView btn_pic;
         ImageView btn_tel;
         ImageView head;
         TextView nickname;
         TextView dateline;
-//        TextView title;
+        //        TextView title;
         TextView content;
         ImageView img_xinyong;
         ImageView img_xiehui;

@@ -40,13 +40,13 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
+
     private class HelloWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -61,10 +61,9 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onPause ()
-    {
-        detail_webview.reload ();
-        super.onPause ();
+    public void onPause() {
+        detail_webview.reload();
+        super.onPause();
     }
 
 

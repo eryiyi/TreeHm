@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * Created by zhanghailong on 2016/3/3.
  */
-public class MineFavour extends BaseActivity implements View.OnClickListener,OnClickContentItemListener{
+public class MineFavour extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
     private TextView back;
     private ImageView no_data;
     private ListView lstv;
@@ -63,14 +63,14 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
 
-    void initView(){
+    void initView() {
         back = (TextView) this.findViewById(R.id.back);
         back.setOnClickListener(this);
         no_data = (ImageView) this.findViewById(R.id.no_data);
@@ -93,7 +93,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     // 选择相册，相机
     private void showSelectImageDialog() {
         selectPhoPop = new SelectDelPop(MineFavour.this, itemsOnClick);
-          //显示窗口
+        //显示窗口
         selectPhoPop.showAtLocation(MineFavour.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -114,7 +114,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
 
     };
 
-    void getData(){
+    void getData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.LIST_FAVOUR_URL,
@@ -124,21 +124,21 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     FavourData data = getGson().fromJson(s, FavourData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
                                     adapter.notifyDataSetChanged();
 
-                                }else if(Integer.parseInt(code) == 9){
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(MineFavour.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(MineFavour.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else {
-                                    showMsg(MineFavour.this,getResources().getString(R.string.get_data_error));
+                                } else {
+                                    showMsg(MineFavour.this, getResources().getString(R.string.get_data_error));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -169,10 +169,10 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -189,17 +189,17 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     }
 
     Favour recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
                 //分享
                 recordVO = lists.get(position);
                 share(recordVO);
                 break;
             case 2:
-            case 4:
-            {
+            case 4: {
                 //头像
 
                 recordVO = lists.get(position);
@@ -211,9 +211,9 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
             case 3:
                 //电话
                 recordVO = lists.get(position);
-                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
                     showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
-                }else{
+                } else {
                     //
                     Toast.makeText(MineFavour.this, R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
@@ -231,7 +231,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
 
     private Favour recordMsgTmp;
 
-    void share(Favour recordVO){
+    void share(Favour recordVO) {
         //
         recordMsgTmp = recordVO;
 
@@ -243,10 +243,10 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(MineFavour.this, R.drawable.logo);
-            String title =  recordMsgTmp.getMm_msg_content();
-            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
+            String title = recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname() + recordMsgTmp.getMm_emp_company();
             new ShareAction(MineFavour.this).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
                     .withTitle(title)
@@ -264,12 +264,12 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(MineFavour.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineFavour.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(MineFavour.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MineFavour.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -287,7 +287,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
         View picAddInflate = View.inflate(MineFavour.this, R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel + " " +name);
+        jubao_cont.setText(tel + " " + name);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
@@ -313,7 +313,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     }
 
 
-    void getRecord(final String mm_msg_id){
+    void getRecord(final String mm_msg_id) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_RECORD_BY_ID_URL,
@@ -323,26 +323,25 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordDataSingle data = getGson().fromJson(s, RecordDataSingle.class);
                                     Intent intent = new Intent(MineFavour.this, DetailRecordActivity.class);
                                     intent.putExtra("info", data.getData());
                                     startActivity(intent);
 
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(MineFavour.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(MineFavour.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(MineFavour.this, LoginActivity.class);
                                     startActivity(loginV);
+                                } else {
+                                    Toast.makeText(MineFavour.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                                else{
-                                    Toast.makeText(MineFavour.this, R.string.get_data_error , Toast.LENGTH_SHORT).show();
-                                }
-                                if(lists.size() == 0){
+                                if (lists.size() == 0) {
                                     no_data.setVisibility(View.VISIBLE);
                                     lstv.setVisibility(View.GONE);
-                                }else {
+                                } else {
                                     no_data.setVisibility(View.GONE);
                                     lstv.setVisibility(View.VISIBLE);
                                 }
@@ -365,9 +364,9 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", mm_msg_id);
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -384,7 +383,7 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
     }
 
 
-    void DeleteFavour(){
+    void DeleteFavour() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.DELETE_FAVOUR_URL,
@@ -394,18 +393,18 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     lists.remove(positionTmp);
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code) == 9){
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(MineFavour.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(MineFavour.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else {
-                                    showMsg(MineFavour.this,getResources().getString(R.string.get_data_error));
+                                } else {
+                                    showMsg(MineFavour.this, getResources().getString(R.string.get_data_error));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -436,10 +435,10 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_record_favour_id" , (favourTmp.getMm_record_favour_id()==null?"":favourTmp.getMm_record_favour_id()));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_record_favour_id", (favourTmp.getMm_record_favour_id() == null ? "" : favourTmp.getMm_record_favour_id()));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -454,8 +453,6 @@ public class MineFavour extends BaseActivity implements View.OnClickListener,OnC
         };
         getRequestQueue().add(request);
     }
-
-
 
 
 }

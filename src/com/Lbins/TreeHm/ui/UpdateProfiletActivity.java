@@ -77,7 +77,8 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
         res = getResources();
         initView();
     }
-    void initView(){
+
+    void initView() {
         this.findViewById(R.id.btn_one).setOnClickListener(this);
         this.findViewById(R.id.btn_two).setOnClickListener(this);
         this.findViewById(R.id.btn).setOnClickListener(this);
@@ -90,62 +91,63 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
         mm_emp_company_address = (EditText) this.findViewById(R.id.mm_emp_company_address);
         this.findViewById(R.id.back).setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.btn:
                 //确定
-                if(StringUtil.isNullOrEmpty(mm_emp_card.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_card.getText().toString())) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_card));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_company.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_company.getText().toString())) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company));
                     return;
                 }
-                if(mm_emp_company.getText().toString().length() > 14){
+                if (mm_emp_company.getText().toString().length() > 14) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_one));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_company_address.getText().toString())) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_address));
                     return;
                 }
-                if(mm_emp_company_address.getText().toString().length() > 20){
+                if (mm_emp_company_address.getText().toString().length() > 20) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_address_one));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(txpic)){
+                if (StringUtil.isNullOrEmpty(txpic)) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_company_faren));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(pics)){
+                if (StringUtil.isNullOrEmpty(pics)) {
                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.please_input_zhizhao));
                     return;
                 }
                 progressDialog = new ProgressDialog(UpdateProfiletActivity.this);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();
-                uploadPicMine(txpic,"1");
-                uploadPicMine(pics,"2");
+                uploadPicMine(txpic, "1");
+                uploadPicMine(pics, "2");
                 break;
             case R.id.btn_one:
                 //点击实例
             {
-                Intent ViewOne = new Intent(UpdateProfiletActivity.this, DemoOneActivity.class);
-                startActivity(ViewOne);
+//                Intent ViewOne = new Intent(UpdateProfiletActivity.this, DemoOneActivity.class);
+//                startActivity(ViewOne);
             }
-                break;
+            break;
             case R.id.btn_two:
                 //点击实例
             {
-                Intent ViewOne = new Intent(UpdateProfiletActivity.this, DemoTwoActivity.class);
-                startActivity(ViewOne);
+//                Intent ViewOne = new Intent(UpdateProfiletActivity.this, DemoTwoActivity.class);
+//                startActivity(ViewOne);
             }
-                break;
+            break;
             case R.id.pic_one:
                 //
                 tmpSelect = "1";
@@ -237,13 +239,13 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
 //                null);
 //    }
 
-    void uploadPicMine(String txpic, final String tmpPic){
+    void uploadPicMine(String txpic, final String tmpPic) {
         Bitmap bm = FileUtils.getSmallBitmap(txpic);
         final String cameraImagePath = FileUtils.saveBitToSD(bm, System.currentTimeMillis() + ".jpg");
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("space", InternetURL.QINIU_SPACE);
         RequestParams params = new RequestParams(map);
-        client.get(InternetURL.UPLOAD_TOKEN ,params, new JsonHttpResponseHandler(){
+        client.get(InternetURL.UPLOAD_TOKEN, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -255,13 +257,13 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                                 @Override
                                 public void complete(String key, ResponseInfo info, JSONObject response) {
                                     //key
-                                    if("1".equals(tmpPic)){
+                                    if ("1".equals(tmpPic)) {
                                         piconeStr = key;
                                     }
-                                    if("2".equals(tmpPic)){
+                                    if ("2".equals(tmpPic)) {
                                         pictwoStr = key;
                                     }
-                                    if(!StringUtil.isNullOrEmpty(piconeStr) && !StringUtil.isNullOrEmpty(pictwoStr)){
+                                    if (!StringUtil.isNullOrEmpty(piconeStr) && !StringUtil.isNullOrEmpty(pictwoStr)) {
                                         //已经上传完成
                                         update();
                                     }
@@ -271,6 +273,7 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
@@ -281,11 +284,12 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
     private Uri uri;
     private SelectPhoPop selectPhoPop;
     String tmpSelect = "";
+
     // 选择相册，相机
     private void showSelectImageDialog() {
-            selectPhoPop = new SelectPhoPop(UpdateProfiletActivity.this, itemsOnClick);
-            //显示窗口
-            selectPhoPop.showAtLocation(UpdateProfiletActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        selectPhoPop = new SelectPhoPop(UpdateProfiletActivity.this, itemsOnClick);
+        //显示窗口
+        selectPhoPop.showAtLocation(UpdateProfiletActivity.this.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     //为弹出窗口实现监听类
@@ -375,10 +379,10 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(photo);
             if (photo != null) {
-                if("1".equals(tmpSelect)){
+                if ("1".equals(tmpSelect)) {
                     txpic = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
                     pic_one.setImageBitmap(photo);
-                }else{
+                } else {
                     pics = CompressPhotoUtil.saveBitmap2file(photo, System.currentTimeMillis() + ".jpg", PHOTO_CACHE_DIR);
                     pic_two.setImageBitmap(photo);
                 }
@@ -386,18 +390,18 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    void update(){
+    void update() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.UPDATE_PROFILE_URL ,
+                InternetURL.UPDATE_PROFILE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(UpdateProfiletActivity.this, getResources().getString(R.string.caozuo_success));
                                     save("is_upate_profile", "1");//1是否补充资料 0否 1是
                                     save("mm_emp_company", mm_emp_company.getText().toString());
@@ -406,12 +410,12 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
 
                                     if (piconeStr.startsWith("upload")) {
                                         piconeStr = (InternetURL.INTERNAL + piconeStr);
-                                    }else {
+                                    } else {
                                         piconeStr = (InternetURL.QINIU_URL + piconeStr);
                                     }
                                     if (pictwoStr.startsWith("upload")) {
                                         pictwoStr = (InternetURL.INTERNAL + pictwoStr);
-                                    }else {
+                                    } else {
                                         pictwoStr = (InternetURL.QINIU_URL + pictwoStr);
                                     }
 
@@ -419,11 +423,10 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
                                     save("mm_emp_company_pic", pictwoStr);
 
                                     finish();
-                                }else if(Integer.parseInt(code) == 1){
-                                    Toast.makeText(UpdateProfiletActivity.this, R.string.caozuo_error_one , Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Toast.makeText(UpdateProfiletActivity.this, R.string.caozuo_error_one , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 1) {
+                                    Toast.makeText(UpdateProfiletActivity.this, R.string.caozuo_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(UpdateProfiletActivity.this, R.string.caozuo_error_one, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -449,15 +452,15 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                params.put("mm_emp_company" , mm_emp_company.getText().toString());
-                params.put("mm_emp_company_address" , mm_emp_company_address.getText().toString());
-                params.put("mm_emp_card" , mm_emp_card.getText().toString());
-                if(!StringUtil.isNullOrEmpty(piconeStr)){
-                    params.put("mm_emp_cover" , piconeStr);
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_company", mm_emp_company.getText().toString());
+                params.put("mm_emp_company_address", mm_emp_company_address.getText().toString());
+                params.put("mm_emp_card", mm_emp_card.getText().toString());
+                if (!StringUtil.isNullOrEmpty(piconeStr)) {
+                    params.put("mm_emp_cover", piconeStr);
                 }
-                if(!StringUtil.isNullOrEmpty(pictwoStr)){
-                    params.put("mm_emp_company_pic" , pictwoStr);
+                if (!StringUtil.isNullOrEmpty(pictwoStr)) {
+                    params.put("mm_emp_company_pic", pictwoStr);
                 }
                 return params;
             }
@@ -474,5 +477,7 @@ public class UpdateProfiletActivity extends BaseActivity implements View.OnClick
 
     public void onDestroy() {
         super.onPause();
-    };
+    }
+
+    ;
 }

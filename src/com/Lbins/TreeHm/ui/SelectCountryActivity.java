@@ -67,9 +67,9 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     Intent loginV = new Intent(SelectCountryActivity.this, LoginActivity.class);
@@ -85,9 +85,9 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = false;
                 pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     Intent loginV = new Intent(SelectCountryActivity.this, LoginActivity.class);
@@ -99,34 +99,34 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CountryObj countryObj = lists.get(position-1);
+                CountryObj countryObj = lists.get(position - 1);
                 //这里需要判断
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))) {
                     //未登录
                     Intent loginV = new Intent(SelectCountryActivity.this, LoginActivity.class);
                     startActivity(loginV);
-                }else {
-                    if("1".equals(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))){
+                } else {
+                    if ("1".equals(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))) {
                         //可以查看所有信息
-                        goTo(countryObj.getAreaID(),countryObj.getArea());
-                    }else {
-                        switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+                        goTo(countryObj.getAreaID(), countryObj.getArea());
+                    } else {
+                        switch (Integer.parseInt(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))) {
                             case 0:
                                 //县区
-                                if(countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                                if (countryObj.getAreaID().equals(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                                     //如果是当前用户登陆的县区 可以查看该信息
-                                    goTo(countryObj.getAreaID(),countryObj.getArea());
-                                }else {
+                                    goTo(countryObj.getAreaID(), countryObj.getArea());
+                                } else {
                                     showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
                                     finish();
                                 }
                                 break;
                             case 1:
                                 //是市级vip
-                                if(cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                                if (cityObj.getCityID().equals(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))) {
                                     //如果是当前用户登陆的县区 可以查看该信息
-                                    goTo(countryObj.getAreaID(),countryObj.getArea());
-                                }else {
+                                    goTo(countryObj.getAreaID(), countryObj.getArea());
+                                } else {
                                     showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
                                     finish();
                                 }
@@ -134,8 +134,8 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                             case 2:
                                 //是省级vip
 //                                if(provinceObj.getProvinceID().equals(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
-                                    //如果是当前用户登陆的县区 可以查看该信息
-                                    goTo(countryObj.getAreaID(),countryObj.getArea());
+                                //如果是当前用户登陆的县区 可以查看该信息
+                                goTo(countryObj.getAreaID(), countryObj.getArea());
 //                                }else {
 //                                    showMsg(SelectCountryActivity.this, getResources().getString(R.string.select_area_error));
 //                                    finish();
@@ -143,7 +143,7 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                                 break;
                             case 3:
                             case 4:
-                                goTo(countryObj.getAreaID(),countryObj.getArea());
+                                goTo(countryObj.getAreaID(), countryObj.getArea());
                                 break;
                         }
                     }
@@ -153,7 +153,7 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    void goTo(String countryId,String countryName){
+    void goTo(String countryId, String countryName) {
         //调用广播，刷新主页
         Intent intent1 = new Intent("select_country");
         intent1.putExtra("countryId", countryId);
@@ -164,13 +164,14 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
-    public void initData(){
+
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_COUNTRY_URL,
@@ -180,18 +181,18 @@ public class SelectCountryActivity extends BaseActivity implements View.OnClickL
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CountrysData data = getGson().fromJson(s, CountrysData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectCountryActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {

@@ -48,7 +48,6 @@
                 </View>
 
 
-
                 <EditText android:layout_width="match_parent"
                           android:layout_marginLeft="25dp"
                           android:layout_marginRight="25dp"
@@ -65,16 +64,16 @@
                           android:layout_height="wrap_content">
                 </EditText>
                 <!--<com.Lbins.TreeHm.widget.CustomerSpinner-->
-                        <!--android:background="@drawable/login_edit_bg"-->
-                        <!--android:layout_marginLeft="25dp"-->
-                        <!--android:layout_marginRight="25dp"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!---->
-                        <!--android:layout_marginTop="8dp"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:id="@+id/mm_emp_type"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
+                <!--android:background="@drawable/login_edit_bg"-->
+                <!--android:layout_marginLeft="25dp"-->
+                <!--android:layout_marginRight="25dp"-->
+                <!--android:paddingLeft="15dp"-->
+                <!---->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:id="@+id/mm_emp_type"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
                 <!--</com.Lbins.TreeHm.widget.CustomerSpinner>-->
 
@@ -128,7 +127,7 @@
                               android:orientation="horizontal"
                               android:layout_height="wrap_content">
                     <TextView android:layout_width="0dp"
-                              android:text="请上传法人照片，点击查看实例"
+                              android:text="请上传法人照片"
                               android:padding="8dp"
                               android:textSize="14sp"
                               android:id="@+id/btn_one"

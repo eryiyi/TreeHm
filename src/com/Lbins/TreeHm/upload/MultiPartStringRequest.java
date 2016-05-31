@@ -31,8 +31,8 @@ import java.util.Map;
 /**
  * MultipartRequest - To handle the large file uploads.
  * Extended from JSONRequest. You might want to change to StringRequest based on your response type.
- * @author Mani Selvaraj
  *
+ * @author Mani Selvaraj
  */
 public class MultiPartStringRequest extends Request<String> implements MultiPartRequest {
 
@@ -46,9 +46,9 @@ public class MultiPartStringRequest extends Request<String> implements MultiPart
     /**
      * Creates a new request with the given method.
      *
-     * @param method the request {@link com.android.volley.Request.Method} to use
-     * @param url URL to fetch the string at
-     * @param listener Listener to receive the String response
+     * @param method        the request {@link com.android.volley.Request.Method} to use
+     * @param url           URL to fetch the string at
+     * @param listener      Listener to receive the String response
      * @param errorListener Error listener, or null to ignore errors
      */
     public MultiPartStringRequest(int method, String url, Listener<String> listener,

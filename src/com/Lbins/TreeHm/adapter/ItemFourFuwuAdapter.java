@@ -31,7 +31,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemFourFuwuAdapter(List<FuwuObj> lists, Context mContect,String mm_fuwu_type){
+    public ItemFourFuwuAdapter(List<FuwuObj> lists, Context mContect, String mm_fuwu_type) {
         this.lists = lists;
         this.mContect = mContect;
         this.mm_fuwu_type = mm_fuwu_type;
@@ -54,9 +54,9 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_four_fuwu,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_four_fuwu, null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.address = (TextView) convertView.findViewById(R.id.address);
             holder.distance = (TextView) convertView.findViewById(R.id.distance);
@@ -65,13 +65,13 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             holder.navi = (TextView) convertView.findViewById(R.id.navi);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final FuwuObj cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             String strname = "";
-            switch (Integer.parseInt(mm_fuwu_type)){
+            switch (Integer.parseInt(mm_fuwu_type)) {
                 case 0:
                     strname = "商店名称:";
                     holder.weiwangzhan.setVisibility(View.VISIBLE);
@@ -93,12 +93,13 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
                     holder.weiwangzhan.setVisibility(View.GONE);
                     break;
 
-                };
+            }
+            ;
             holder.title.setText(strname + cell.getMm_fuwu_nickname());
-            holder.address.setText("服务内容:"+cell.getMm_fuwu_content());
+            holder.address.setText("服务内容:" + cell.getMm_fuwu_content());
             holder.tel.setText(cell.getMm_fuwu_tel());
-            if(cell.getDistance() != null){
-                holder.distance.setText(cell.getDistance()==null?"未知距离":cell.getDistance());
+            if (cell.getDistance() != null) {
+                holder.distance.setText(cell.getDistance() == null ? "未知距离" : cell.getDistance());
             }
             holder.weiwangzhan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,6 +122,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
     class ViewHolder {
         TextView title;
         TextView address;

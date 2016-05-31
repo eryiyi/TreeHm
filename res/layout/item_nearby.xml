@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:padding="8dp"
-              android:layout_marginLeft="8dp"
-              android:layout_marginRight="8dp"
-              android:background="@drawable/zhuye_item_select"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/zhuye_item_select"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
     <ImageView
             android:src="@drawable/default_avatar"
             android:layout_width="60dp"
@@ -49,7 +49,7 @@
                android:id="@+id/img_xiehui"
                android:scaleType="fitCenter"
                android:visibility="gone"
-              android:layout_toLeftOf="@+id/img_xinyong"
+               android:layout_toLeftOf="@+id/img_xinyong"
                android:src="@drawable/tree_icons_group"
                android:layout_height="wrap_content"/>
     <ImageView android:layout_width="80dp"

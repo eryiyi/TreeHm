@@ -95,7 +95,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         companyTypeList.add(new SetFontColor(getResources().getString(R.string.gray), "gray"));
         companyTypeList.add(new SetFontColor(getResources().getString(R.string.blue), "blue"));
         companyTypeList.add(new SetFontColor(getResources().getString(R.string.orange), "orange"));
-        companyTypeList.add(new SetFontColor(getResources().getString(R.string.red),"red"));
+        companyTypeList.add(new SetFontColor(getResources().getString(R.string.red), "red"));
         companyTypeListStr.add(getResources().getString(R.string.black));
         companyTypeListStr.add(getResources().getString(R.string.gray));
         companyTypeListStr.add(getResources().getString(R.string.blue));
@@ -141,26 +141,26 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.switch_zhendong_liner:
-                if("1".equals(getGson().fromJson(getSp().getString("switch_zhendong", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("switch_zhendong", ""), String.class))) {
                     //打开的
                     switch_zhendong.setImageResource(R.drawable.switch_close);
                     save("switch_zhendong", "0");//0关闭  1打开
-                }else {
+                } else {
                     switch_zhendong.setImageResource(R.drawable.switch_open);
                     save("switch_zhendong", "1");
                 }
                 break;
             case R.id.switch_shengyin_liner:
-                if("1".equals(getGson().fromJson(getSp().getString("switch_shengyin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("switch_shengyin", ""), String.class))) {
                     //打开的
                     switch_shengyin.setImageResource(R.drawable.switch_close);
                     save("switch_shengyin", "0");//0关闭  1打开
-                }else {
+                } else {
                     switch_shengyin.setImageResource(R.drawable.switch_open);
                     save("switch_shengyin", "1");
                 }
@@ -195,22 +195,22 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     }
                 });
             }
-                break;
+            break;
             case R.id.btn_kf:
-                Intent kefuV = new Intent(SettingActivity.this , SelectTelActivity.class);
+                Intent kefuV = new Intent(SettingActivity.this, SelectTelActivity.class);
                 startActivity(kefuV);
                 break;
         }
     }
 
-    public void surequite(View view){
+    public void surequite(View view) {
         AlertDialog dialog = new AlertDialog.Builder(SettingActivity.this)
                 .setIcon(R.drawable.logo)
                 .setTitle(getResources().getString(R.string.sure_quite))
                 .setPositiveButton(getResources().getString(R.string.sure), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        save("password" ,"");
-                        save("isLogin" ,"0");
+                        save("password", "");
+                        save("isLogin", "0");
                         //调用广播，刷新主页
                         Intent intent1 = new Intent("sure_quite");
                         sendBroadcast(intent1);
@@ -225,52 +225,52 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         dialog.show();
     }
 
-    void changeColorOrSize(){
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+    void changeColorOrSize() {
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
             fontsize_text.setTextSize(Float.valueOf(getGson().fromJson(getSp().getString("font_size", ""), String.class)));
             fontcolor_text.setTextSize(Float.valueOf(getGson().fromJson(getSp().getString("font_size", ""), String.class)));
-            if("16".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            if ("16".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                 textSize.setSelection(0, true);
             }
-            if("14".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            if ("14".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                 textSize.setSelection(1, true);
             }
-            if("18".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            if ("18".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                 textSize.setSelection(2, true);
             }
-            if("22".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            if ("22".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                 textSize.setSelection(3, true);
             }
-            if("26".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+            if ("26".equals(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                 textSize.setSelection(4, true);
             }
 
         }
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
-            if("black".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
+            if ("black".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                 fontsize_text.setTextColor(Color.BLACK);
                 fontcolor_text.setTextColor(Color.BLACK);
-                textColor.setSelection(0,true);
+                textColor.setSelection(0, true);
             }
-            if("gray".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+            if ("gray".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                 fontsize_text.setTextColor(Color.GRAY);
                 fontcolor_text.setTextColor(Color.GRAY);
-                textColor.setSelection(1,true);
+                textColor.setSelection(1, true);
             }
-            if("blue".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+            if ("blue".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                 fontsize_text.setTextColor(Color.BLUE);
                 fontcolor_text.setTextColor(Color.BLUE);
-                textColor.setSelection(2,true);
+                textColor.setSelection(2, true);
             }
-            if("orange".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+            if ("orange".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                 fontsize_text.setTextColor(Color.YELLOW);
                 fontcolor_text.setTextColor(Color.YELLOW);
-                textColor.setSelection(3,true);
+                textColor.setSelection(3, true);
             }
-            if("red".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+            if ("red".equals(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                 fontsize_text.setTextColor(Color.RED);
                 fontcolor_text.setTextColor(Color.RED);
-                textColor.setSelection(4,true);
+                textColor.setSelection(4, true);
             }
 
         }
@@ -282,13 +282,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals("change_color_size")){
+            if (action.equals("change_color_size")) {
                 changeColorOrSize();
                 //控制字体 颜色和大小
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
                     UniversityApplication.fontSize = getGson().fromJson(getSp().getString("font_size", ""), String.class);
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
                     UniversityApplication.fontColor = getGson().fromJson(getSp().getString("font_color", ""), String.class);
                 }
             }

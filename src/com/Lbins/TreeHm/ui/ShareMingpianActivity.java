@@ -46,24 +46,25 @@ public class ShareMingpianActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
 
-    public void sureShare(View view){
+    public void sureShare(View view) {
         new ShareAction(ShareMingpianActivity.this).setDisplayList(SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setShareboardclickCallback(shareBoardlistener)
                 .open();
     }
+
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(ShareMingpianActivity.this, R.drawable.logo);
-            String title =  "花木通，最全最新的全国苗木信息供求平台";
+            String title = "花木通，最全最新的全国苗木信息供求平台";
             String content = "我正在使用花木通，扫一扫赶紧下载使用";
             new ShareAction(ShareMingpianActivity.this).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
@@ -82,12 +83,12 @@ public class ShareMingpianActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ShareMingpianActivity.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShareMingpianActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ShareMingpianActivity.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShareMingpianActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 

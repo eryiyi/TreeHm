@@ -54,15 +54,15 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     private Button btn;
     private CheckBox reg;
 
-//    private CustomerSpinner empTypeSpinner;
+    //    private CustomerSpinner empTypeSpinner;
 //    ArrayAdapter<String> adapterEmpType;
 //    private ArrayList<String> empTypeList = new ArrayList<String>();
-    private String mm_emp_type ="1";//注册类型   用户 1苗木会员
+    private String mm_emp_type = "1";//注册类型   用户 1苗木会员
 
-//     private CustomerSpinner companyTypeSpinner;
+    //     private CustomerSpinner companyTypeSpinner;
 //    ArrayAdapter<String> adapterCompanyType;
 //    private ArrayList<String> companyTypeList = new ArrayList<String>();
-    private String mm_emp_company_type ="0";//注册类型 公司 0苗木
+    private String mm_emp_company_type = "0";//注册类型 公司 0苗木
 
     //省市县
     private CustomerSpinner province;
@@ -104,7 +104,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         res = getResources();
         //mob短信无GUI
         SMSSDK.initSDK(this, APPKEY, APPSECRET, true);
-        EventHandler eh=new EventHandler(){
+        EventHandler eh = new EventHandler() {
 
             @Override
             public void afterEvent(int event, int result, Object data) {
@@ -132,9 +132,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onReceived(String message) {
                 //花木通的验证码：8469【掌淘科技】
-                if(!StringUtil.isNullOrEmpty(message)){
+                if (!StringUtil.isNullOrEmpty(message)) {
                     String codestr = StringUtil.valuteNumber(message);
-                    if(!StringUtil.isNullOrEmpty(codestr)){
+                    if (!StringUtil.isNullOrEmpty(codestr)) {
                         code.setText(codestr);
                     }
                 }
@@ -145,7 +145,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    void initView(){
+    void initView() {
         reg = (CheckBox) this.findViewById(R.id.reg);
         this.findViewById(R.id.btn_kf).setOnClickListener(this);
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
@@ -174,11 +174,11 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 cityNames.add(getResources().getString(R.string.select_city));
                 cityAdapter.notifyDataSetChanged();
                 ProvinceObj province = null;
-                if(provinces != null  && position > 0){
+                if (provinces != null && position > 0) {
                     province = provinces.get(position - 1);
                     provinceName = province.getProvince();
                     provinceCode = province.getProvinceID();
-                }else if(provinces != null ) {
+                } else if (provinces != null) {
                     province = provinces.get(position);
                     provinceName = province.getProvince();
                     provinceCode = province.getProvinceID();
@@ -189,6 +189,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -206,7 +207,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     countrys.clear();
                     countrysNames.clear();
                     countrysNames.add(getResources().getString(R.string.select_area));
-                    CityObj city = citys.get(position-1);
+                    CityObj city = citys.get(position - 1);
                     cityName = city.getCity();
                     cityCode = city.getCityID();
                     try {
@@ -222,6 +223,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     countryAdapter.notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -242,15 +244,17 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     countryName = country.getArea();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_kf:
                 Intent kefuV = new Intent(RegistActivity.this, SelectTelActivity.class);
                 startActivity(kefuV);
@@ -265,63 +269,63 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_code:
                 //验证码
-                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11){
+                if (!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11) {
                     //先判断手机号是否注册了
                     checkMObile();
-                }else {
+                } else {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_seven));
                     return;
                 }
                 break;
             case R.id.btn:
                 //确定
-                if(StringUtil.isNullOrEmpty(mm_emp_mobile.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_mobile.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_seven));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(code.getText().toString())){
+                if (StringUtil.isNullOrEmpty(code.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_eight));
                     return;
                 }
 
-                if(StringUtil.isNullOrEmpty(password.getText().toString())){
+                if (StringUtil.isNullOrEmpty(password.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_three));
                     return;
                 }
-                if(password.getText().toString().length()>18 || password.getText().toString().length()<6){
+                if (password.getText().toString().length() > 18 || password.getText().toString().length() < 6) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_four));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(surepass.getText().toString())){
+                if (StringUtil.isNullOrEmpty(surepass.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_five));
                     return;
                 }
-                if(!password.getText().toString().equals(surepass.getText().toString())){
+                if (!password.getText().toString().equals(surepass.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.pwr_error_six));
                     return;
                 }
 
-                if(StringUtil.isNullOrEmpty(mm_emp_nickname.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_nickname.getText().toString())) {
                     showMsg(RegistActivity.this, res.getString(R.string.input_name));
                     return;
                 }
-                if(mm_emp_nickname.getText().toString().length() >3){
+                if (mm_emp_nickname.getText().toString().length() > 3) {
                     showMsg(RegistActivity.this, res.getString(R.string.input_name_one));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(provinceCode)){
+                if (StringUtil.isNullOrEmpty(provinceCode)) {
                     showMsg(RegistActivity.this, res.getString(R.string.select_province));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(cityCode)){
+                if (StringUtil.isNullOrEmpty(cityCode)) {
                     showMsg(RegistActivity.this, res.getString(R.string.select_city));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(countryCode)){
+                if (StringUtil.isNullOrEmpty(countryCode)) {
                     showMsg(RegistActivity.this, res.getString(R.string.select_area));
                     return;
                 }
-                if(reg.isChecked() == false){
+                if (reg.isChecked() == false) {
                     showMsg(RegistActivity.this, res.getString(R.string.reg_msg_one));
                     return;
                 }
@@ -351,34 +355,33 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    void reg(){
+    void reg() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.REG_URL ,
+                InternetURL.REG_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(RegistActivity.this, res.getString(R.string.reg_msg_four));
                                     save("mm_emp_mobile", mm_emp_mobile.getText().toString());
                                     save("password", password.getText().toString());
                                     Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else if(Integer.parseInt(code) == 1){
+                                } else if (Integer.parseInt(code) == 1) {
                                     showMsg(RegistActivity.this, res.getString(R.string.reg_msg_three));
-                                }else if(Integer.parseInt(code) == 2){
+                                } else if (Integer.parseInt(code) == 2) {
                                     showMsg(RegistActivity.this, res.getString(R.string.reg_msg_two));
                                     Intent loginV = new Intent(RegistActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }
-                                else {
-                                    Toast.makeText(RegistActivity.this, R.string.reg_msg_three , Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RegistActivity.this, R.string.reg_msg_three, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -404,14 +407,14 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
-                params.put("mm_emp_nickname" , mm_emp_nickname.getText().toString());
-                params.put("mm_emp_password" , password.getText().toString());
-                params.put("mm_emp_type" , mm_emp_type);
-                params.put("mm_emp_company_type" , mm_emp_company_type);
-                params.put("mm_emp_provinceId" , provinceCode);
-                params.put("mm_emp_cityId" , cityCode);
-                params.put("mm_emp_countryId" , countryCode);
+                params.put("mm_emp_mobile", mm_emp_mobile.getText().toString());
+                params.put("mm_emp_nickname", mm_emp_nickname.getText().toString());
+                params.put("mm_emp_password", password.getText().toString());
+                params.put("mm_emp_type", mm_emp_type);
+                params.put("mm_emp_company_type", mm_emp_company_type);
+                params.put("mm_emp_provinceId", provinceCode);
+                params.put("mm_emp_cityId", cityCode);
+                params.put("mm_emp_countryId", countryCode);
                 return params;
             }
 
@@ -426,8 +429,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    Handler mHandler = new Handler()
-    {
+    Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int event = msg.arg1;
@@ -435,20 +437,20 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             Object data = msg.obj;
             Log.e("event", "event=" + event);
             if (result == SMSSDK.RESULT_COMPLETE) {
-                System.out.println("--------result"+event);
+                System.out.println("--------result" + event);
                 //短信注册成功后，返回MainActivity,然后提示新好友
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
 //                    Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
                     reg();
 
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //已经验证
                     Toast.makeText(getApplicationContext(), R.string.code_msg_one, Toast.LENGTH_SHORT).show();
                 }
 
             } else {
 //				((Throwable) data).printStackTrace();
-				Toast.makeText(RegistActivity.this, R.string.code_msg_two, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistActivity.this, R.string.code_msg_two, Toast.LENGTH_SHORT).show();
 //					Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
                 int status = 0;
                 try {
@@ -466,7 +468,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     SMSLog.getInstance().w(e);
                 }
             }
-        };
+        }
+
+        ;
     };
 
     public void onDestroy() {
@@ -474,10 +478,12 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         SMSSDK.unregisterAllEventHandler();
         //注销短信监听广播
         this.unregisterReceiver(mSMSBroadcastReceiver);
-    };
+    }
+
+    ;
 
     //获得省份
-    public void getProvince(){
+    public void getProvince() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_PROVINCE_URL,
@@ -487,22 +493,22 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     provinceNames.add(res.getString(R.string.select_province));
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     provinces = data.getData();
-                                    if(provinces != null){
-                                        for(int i=0;i<provinces.size();i++){
+                                    if (provinces != null) {
+                                        for (int i = 0; i < provinces.size(); i++) {
                                             provinceNames.add(provinces.get(i).getProvince());
                                         }
                                     }
                                     ProvinceAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(RegistActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -538,7 +544,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     //获得城市
-    public void getCitys(){
+    public void getCitys() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_CITY_URL,
@@ -548,21 +554,21 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CityData data = getGson().fromJson(s, CityData.class);
                                     citys = data.getData();
-                                    if(citys != null){
-                                        for(int i=0;i<citys.size();i++){
+                                    if (citys != null) {
+                                        for (int i = 0; i < citys.size(); i++) {
                                             cityNames.add(citys.get(i).getCity());
                                         }
                                     }
                                     cityAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(RegistActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -600,7 +606,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     }
 
     //获得地区
-    public void getArea(){
+    public void getArea() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_COUNTRY_URL,
@@ -610,21 +616,21 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CountrysData data = getGson().fromJson(s, CountrysData.class);
                                     countrys = data.getData();
-                                    if(countrys != null){
-                                        for(int i=0;i<countrys.size();i++){
+                                    if (countrys != null) {
+                                        for (int i = 0; i < countrys.size(); i++) {
                                             countrysNames.add(countrys.get(i).getArea());
                                         }
                                     }
                                     countryAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(RegistActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -660,24 +666,24 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         getRequestQueue().add(request);
     }
 
-    void checkMObile(){
+    void checkMObile() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.GET_EMP_MOBILE ,
+                InternetURL.GET_EMP_MOBILE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(RegistActivity.this, getResources().getString(R.string.reg_error_is_use));
-                                }else {
+                                } else {
                                     SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
-                                    phString=mm_emp_mobile.getText().toString();
+                                    phString = mm_emp_mobile.getText().toString();
                                     btn_code.setClickable(false);//不可点击
-                                    MyTimer myTimer = new MyTimer(60000,1000);
+                                    MyTimer myTimer = new MyTimer(60000, 1000);
                                     myTimer.start();
                                 }
                             } catch (JSONException e) {
@@ -685,9 +691,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             }
                         } else {
                             SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
-                            phString=mm_emp_mobile.getText().toString();
+                            phString = mm_emp_mobile.getText().toString();
                             btn_code.setClickable(false);//不可点击
-                            MyTimer myTimer = new MyTimer(60000,1000);
+                            MyTimer myTimer = new MyTimer(60000, 1000);
                             myTimer.start();
                         }
                         if (progressDialog != null) {
@@ -702,9 +708,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             progressDialog.dismiss();
                         }
                         SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
-                        phString=mm_emp_mobile.getText().toString();
+                        phString = mm_emp_mobile.getText().toString();
                         btn_code.setClickable(false);//不可点击
-                        MyTimer myTimer = new MyTimer(60000,1000);
+                        MyTimer myTimer = new MyTimer(60000, 1000);
                         myTimer.start();
                     }
                 }
@@ -712,7 +718,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
+                params.put("mm_emp_mobile", mm_emp_mobile.getText().toString());
                 return params;
             }
 

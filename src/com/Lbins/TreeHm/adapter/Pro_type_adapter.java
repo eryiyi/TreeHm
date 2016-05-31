@@ -15,61 +15,61 @@ import java.util.List;
 
 
 public class Pro_type_adapter extends BaseAdapter {
-	ImageLoader imageLoader = ImageLoader.getInstance();//Í¼Æ¬¼ÓÔØÀà
-	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+    ImageLoader imageLoader = ImageLoader.getInstance();//Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
-	// ¶¨ÒåContext
-		private LayoutInflater mInflater;
-	    private List<CountryObj> list;
-	    private Context context;
-	    private CountryObj type;
-		public Pro_type_adapter(Context context, List<CountryObj> list){
-			mInflater= LayoutInflater.from(context);
-			this.list=list;
-			this.context=context;
-		}
-		
-		@Override
-		public int getCount() {
-			if(list!=null&&list.size()>0)
-				return list.size();
-			else
-			    return 0;
-		}
+    // ï¿½ï¿½ï¿½ï¿½Context
+    private LayoutInflater mInflater;
+    private List<CountryObj> list;
+    private Context context;
+    private CountryObj type;
 
-		@Override
-		public Object getItem(int position) {
-			return list.get(position);
-		}
+    public Pro_type_adapter(Context context, List<CountryObj> list) {
+        mInflater = LayoutInflater.from(context);
+        this.list = list;
+        this.context = context;
+    }
 
-		@Override
-		public long getItemId(int position) {
-			return 0;
-		}
+    @Override
+    public int getCount() {
+        if (list != null && list.size() > 0)
+            return list.size();
+        else
+            return 0;
+    }
 
-		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
-			final MyView view;
-			if(convertView==null){
-				view=new MyView();
-				convertView=mInflater.inflate(R.layout.list_pro_type_item, null);
-				view.name=(TextView)convertView.findViewById(R.id.typename);
-				convertView.setTag(view);
-			}else{
-				view=(MyView) convertView.getTag();
-			}
-			if(list!=null&&list.size()>0)
-			{
-				type=list.get(position);
-				if(type != null){
-					view.name.setText(type.getArea());
-				}
-			}
-	        return convertView;
-		}
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
 
-		private class MyView{
-			private TextView name;
-		}
-		
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final MyView view;
+        if (convertView == null) {
+            view = new MyView();
+            convertView = mInflater.inflate(R.layout.list_pro_type_item, null);
+            view.name = (TextView) convertView.findViewById(R.id.typename);
+            convertView.setTag(view);
+        } else {
+            view = (MyView) convertView.getTag();
+        }
+        if (list != null && list.size() > 0) {
+            type = list.get(position);
+            if (type != null) {
+                view.name.setText(type.getArea());
+            }
+        }
+        return convertView;
+    }
+
+    private class MyView {
+        private TextView name;
+    }
+
 }

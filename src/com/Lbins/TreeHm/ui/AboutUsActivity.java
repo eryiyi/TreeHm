@@ -30,6 +30,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     private TextView tel;
     private TextView address;
     private TextView content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    public void initData(){
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_ABOUT_US_URL,
@@ -54,10 +55,10 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     AboutUsData data = getGson().fromJson(s, AboutUsData.class);
-                                    if(data.getData() != null && data.getData().size()>0){
+                                    if (data.getData() != null && data.getData().size() > 0) {
                                         AboutUs aboutUs = data.getData().get(0);
                                         tel.setText(aboutUs.getMm_about_tel());
                                         address.setText(aboutUs.getMm_abou_address());
@@ -65,10 +66,10 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                                     }
 
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(AboutUsActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -105,7 +106,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -114,6 +115,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 break;
         }
     }
+
     // 拨打电话窗口
     private void showTel(String tel) {
         final Dialog picAddDialog = new Dialog(AboutUsActivity.this, R.style.dialog);
@@ -127,7 +129,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                if(!StringUtil.isNullOrEmpty(contreport)){
+                if (!StringUtil.isNullOrEmpty(contreport)) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
                     startActivity(intent);
                 }

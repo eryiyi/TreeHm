@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/2/16.
  */
-public class ProvinceObj implements Serializable{
+public class ProvinceObj implements Serializable {
     private String id;
     private String provinceID;
     private String province;

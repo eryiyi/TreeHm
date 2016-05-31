@@ -33,7 +33,7 @@ public class ItemWeixinAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemWeixinAdapter(List<WeixinObj> lists, Context mContect){
+    public ItemWeixinAdapter(List<WeixinObj> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -55,43 +55,43 @@ public class ItemWeixinAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_weixin_kefu,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_weixin_kefu, null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.msgnum = (TextView) convertView.findViewById(R.id.msgnum);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final WeixinObj cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             holder.title.setText(cell.getMm_weixin_name());
             holder.msgnum.setText(cell.getMm_weixin());
 
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.msgnum.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLACK);
                     holder.msgnum.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.msgnum.setTextColor(Color.GRAY);
                     holder.msgnum.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLUE);
                     holder.msgnum.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.YELLOW);
                     holder.msgnum.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.RED);
                     holder.msgnum.setTextColor(Color.RED);
                 }
@@ -99,6 +99,7 @@ public class ItemWeixinAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
     class ViewHolder {
         TextView title;
         TextView msgnum;

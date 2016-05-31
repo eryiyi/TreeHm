@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/2/18.
  */
-public class CityObj implements Serializable{
+public class CityObj implements Serializable {
     private String id;
     private String cityID;
     private String city;

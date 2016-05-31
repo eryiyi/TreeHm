@@ -30,21 +30,20 @@ public class ErweimaActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.btn_share:
-            {
+            case R.id.btn_share: {
                 //分享
                 share();
             }
-                break;
+            break;
         }
     }
 
-    void share(){
-        new ShareAction(ErweimaActivity.this).setDisplayList( SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
+    void share() {
+        new ShareAction(ErweimaActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
                 .setShareboardclickCallback(shareBoardlistener)
                 .open();
     }
@@ -52,7 +51,7 @@ public class ErweimaActivity extends BaseActivity implements View.OnClickListene
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(ErweimaActivity.this, R.drawable.logo);
             String msg = getResources().getString(R.string.title_share);
             String msgC = getResources().getString(R.string.content_share);
@@ -73,12 +72,12 @@ public class ErweimaActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ErweimaActivity.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ErweimaActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ErweimaActivity.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ErweimaActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 

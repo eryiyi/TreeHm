@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Created by zhanghailong on 2016/3/20.
  */
-public class WeixinKefuActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
+public class WeixinKefuActivity extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
     private ListView lstv;
     private ListView lstvQ;
     private ItemWeixinAdapter adapter;
@@ -80,14 +80,14 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
 
-    void getTel(){
+    void getTel() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_WEIXINS_URL,
@@ -97,18 +97,18 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     WeixinObjData data = getGson().fromJson(s, WeixinObjData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    if(lists != null && lists.size()>0){
-                                        for(WeixinObj weixinObj:lists){
-                                            if("0".equals(weixinObj.getMm_weixin_type())){
+                                    if (lists != null && lists.size() > 0) {
+                                        for (WeixinObj weixinObj : lists) {
+                                            if ("0".equals(weixinObj.getMm_weixin_type())) {
                                                 //微信
                                                 listsW.add(weixinObj);
                                             }
-                                            if("1".equals(weixinObj.getMm_weixin_type())){
+                                            if ("1".equals(weixinObj.getMm_weixin_type())) {
                                                 //微信
                                                 listsQ.add(weixinObj);
                                             }
@@ -147,12 +147,12 @@ public class WeixinKefuActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
-                if(listsQ != null && listsQ.size() >position){
+                if (listsQ != null && listsQ.size() > position) {
                     WeixinObj weixinObj = listsQ.get(position);
-                    if(weixinObj != null){
-                        String url="mqqwpa://im/chat?chat_type=wpa&uin=" + weixinObj.getMm_weixin();
+                    if (weixinObj != null) {
+                        String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + weixinObj.getMm_weixin();
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                     }
 

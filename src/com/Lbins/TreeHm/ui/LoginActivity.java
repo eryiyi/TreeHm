@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/18.
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener ,AMapLocationListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, AMapLocationListener {
     private EditText mobile;
     private EditText password;
     //定位
@@ -59,10 +59,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         this.findViewById(R.id.reg).setOnClickListener(this);
         this.findViewById(R.id.forgetpwr).setOnClickListener(this);
 
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class))){
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class))) {
             mobile.setText(getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
         }
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))){
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("password", ""), String.class))) {
             password.setText(getGson().fromJson(getSp().getString("password", ""), String.class));
         }
 
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     boolean isMobileNet, isWifiNet;
 
-    public void sureLogin(View view){
+    public void sureLogin(View view) {
         try {
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
@@ -108,12 +108,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             e.printStackTrace();
         }
         //登陆
-        if(StringUtil.isNullOrEmpty(mobile.getText().toString())){
+        if (StringUtil.isNullOrEmpty(mobile.getText().toString())) {
             showMsg(LoginActivity.this, getResources().getString(R.string.pwr_error_seven));
             return;
         }
-        if(StringUtil.isNullOrEmpty(password.getText().toString())){
-            showMsg(LoginActivity.this,  getResources().getString(R.string.pwr_error_three));
+        if (StringUtil.isNullOrEmpty(password.getText().toString())) {
+            showMsg(LoginActivity.this, getResources().getString(R.string.pwr_error_three));
             return;
         }
         progressDialog = new ProgressDialog(LoginActivity.this);
@@ -126,7 +126,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.forgetpwr:
                 Intent forgetV = new Intent(LoginActivity.this, UpdatePwrActivity.class);
                 startActivity(forgetV);
@@ -143,7 +143,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    void loginData(){
+    void loginData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.LOGIN__URL,
@@ -153,8 +153,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     EmpData data = getGson().fromJson(s, EmpData.class);
                                     initOption();
                                     // 设置定位参数
@@ -164,22 +164,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     mHandler.sendEmptyMessage(Utils.MSG_LOCATION_START);
                                     saveAccount(data.getData());
 
-                                }else if(Integer.parseInt(code) == 1){
+                                } else if (Integer.parseInt(code) == 1) {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_one));
-                                }
-                                else if(Integer.parseInt(code) == 2){
+                                } else if (Integer.parseInt(code) == 2) {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_two));
-                                }
-                                else if(Integer.parseInt(code) == 3){
+                                } else if (Integer.parseInt(code) == 3) {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_three));
-                                }
-                                else if(Integer.parseInt(code) == 4){
+                                } else if (Integer.parseInt(code) == 4) {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_four));
-                                }
-                                else if(Integer.parseInt(code) == 7){
+                                } else if (Integer.parseInt(code) == 7) {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error_seven));
-                                }
-                                else{
+                                } else {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.login_error));
                                 }
                             } catch (JSONException e) {
@@ -197,7 +192,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        Toast.makeText(LoginActivity.this,  R.string.login_error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, R.string.login_error, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -206,10 +201,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", mobile.getText().toString());
                 params.put("password", password.getText().toString());
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("userId", ""), String.class))) {
                     //说明存在userId
                     params.put("userId", getGson().fromJson(getSp().getString("userId", ""), String.class));
-                }else {
+                } else {
                     params.put("userId", "");
                 }
 
@@ -228,12 +223,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     public void saveAccount(Emp emp) {
         //登录成功，绑定百度云推送
-        if(StringUtil.isNullOrEmpty(emp.getUserId())){
+        if (StringUtil.isNullOrEmpty(emp.getUserId())) {
             //进行绑定
             PushManager.startWork(getApplicationContext(),
                     PushConstants.LOGIN_TYPE_API_KEY,
                     com.Lbins.TreeHm.baidu.Utils.getMetaValue(LoginActivity.this, "api_key"));
-        }else {
+        } else {
             //如果已经绑定，就保存
             save("userId", emp.getUserId());
         }
@@ -284,7 +279,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         save("isLogin", "1");//1已经登录了  0未登录
         save("is_upate_profile", emp.getIs_upate_profile());//1是否补充资料 0否 1是
 
-        Intent intent  =  new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -302,7 +297,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        String strInterval = etInterval.getText().toString();
 //        if (!TextUtils.isEmpty(strInterval)) {
 //            // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-            locationOption.setInterval(Long.valueOf("1000"));
+        locationOption.setInterval(Long.valueOf("1000"));
 //        }
 
     }
@@ -313,19 +308,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 case Utils.MSG_LOCATION_FINISH:
                     AMapLocation loc = (AMapLocation) msg.obj;
                     String result = Utils.getLocationStr(loc);
-                    if("true".equals(result)){
+                    if ("true".equals(result)) {
                         //定位成功
-                        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+                        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))) {
                             sendLocation();
                         }
-                    }else if("false".equals(result)){
+                    } else if ("false".equals(result)) {
 
                     }
                     break;
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     // 定位监听
@@ -339,7 +336,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    void sendLocation(){
+    void sendLocation() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.SEND_LOCATION_BYID_URL,
@@ -349,11 +346,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
 
-                                }
-                                else{
+                                } else {
                                     showMsg(LoginActivity.this, getResources().getString(R.string.location_error_one));
                                 }
                             } catch (JSONException e) {
@@ -378,9 +374,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
-                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
-                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
+                params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
 
@@ -393,8 +389,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         getRequestQueue().add(request);
     }
-
-
 
 
 }

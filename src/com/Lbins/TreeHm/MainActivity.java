@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener,MainPopMenu.OnItemClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener, MainPopMenu.OnItemClickListener {
     /**
      * Called when the activity is first created.
      */
@@ -79,10 +79,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
         switchFragment(R.id.foot_one);
 
         //控制字体 颜色和大小
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))){
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_size", ""), String.class))) {
             UniversityApplication.fontSize = getGson().fromJson(getSp().getString("font_size", ""), String.class);
         }
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))){
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("font_color", ""), String.class))) {
             UniversityApplication.fontColor = getGson().fromJson(getSp().getString("font_color", ""), String.class);
         }
 
@@ -108,10 +108,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) &&  (v.getId() == R.id.foot_four)){
+        if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) && (v.getId() == R.id.foot_four)) {
             //未登录
             showLogin();
-        }else {
+        } else {
             switchFragment(v.getId());
         }
 
@@ -244,7 +244,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
     }
 
 
-
     //弹出顶部主菜单
     public void onTopMenuPopupButtonClick(View view) {
         mainPopMenu.showAsDropDown(view);
@@ -252,16 +251,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
 
     @Override
     public void onItemClick(int index) {
-        switch (index){
+        switch (index) {
             case 0:
                 //发布信息
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))) {
                     //未登录
                     showLogin();
-                }else {
-                    if("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
+                } else {
+                    if ("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))) {
                         showUpdateProfile();
-                    }else {
+                    } else {
                         Intent addV = new Intent(MainActivity.this, AddRecordActivity.class);
                         startActivity(addV);
                     }
@@ -269,10 +268,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                 break;
             case 1:
                 //一键关注区域
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))) {
                     //未登录
                     showLogin();
-                }else {
+                } else {
                     getGuanzhuArea();
                 }
 
@@ -281,7 +280,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
     }
 
     //查询关注区域
-    public void getGuanzhuArea(){
+    public void getGuanzhuArea() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_GUANZHU_URL,
@@ -291,50 +290,48 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     GuanzhuAreaObjData data = getGson().fromJson(s, GuanzhuAreaObjData.class);
-                                    if(data.getData() != null && data.getData().size() > 0){
+                                    if (data.getData() != null && data.getData().size() > 0) {
                                         //说明已经申请了
                                         List<GuanzhuAreaObj> listgz = data.getData();
-                                        if(listgz != null && listgz.size()>0){
+                                        if (listgz != null && listgz.size() > 0) {
                                             GuanzhuAreaObj guanzhuAreaObj = listgz.get(0);
-                                            if(guanzhuAreaObj != null){
-                                                if("0".equals(guanzhuAreaObj.getIscheck())){
+                                            if (guanzhuAreaObj != null) {
+                                                if ("0".equals(guanzhuAreaObj.getIscheck())) {
                                                     showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait));
-                                                }else
-                                                if("1".equals(guanzhuAreaObj.getIscheck())){
+                                                } else if ("1".equals(guanzhuAreaObj.getIscheck())) {
                                                     Intent intent = new Intent(MainActivity.this, RecordGzActivity.class);
                                                     intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
                                                     startActivity(intent);
-                                                }else
-                                                if("2".equals(guanzhuAreaObj.getIscheck())){
+                                                } else if ("2".equals(guanzhuAreaObj.getIscheck())) {
                                                     showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait1));
-                                                }else{
+                                                } else {
                                                     showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                                     Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                                     startActivity(guanzhuV);
                                                 }
                                             }
-                                        }else{
+                                        } else {
                                             showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                             Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                             startActivity(guanzhuV);
                                         }
-                                    }else{
+                                    } else {
                                         showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                         Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                         startActivity(guanzhuV);
                                     }
-                                }else {
+                                } else {
                                     showMsg(MainActivity.this, getResources().getString(R.string.also_area_please_wait2));
                                     Intent guanzhuV = new Intent(MainActivity.this, SetGuanzhuActivity.class);
                                     startActivity(guanzhuV);
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(MainActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -399,7 +396,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
 
     //--------附近商家用，附近服务用--------
     List<NearbyDistanceObj> nearbyDistanceObjs = new ArrayList<NearbyDistanceObj>();
-    void getDistance(){
+
+    void getDistance() {
         //获得附近距离--设置好的
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -410,24 +408,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,M
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     NearbyDistanceObjData data = getGson().fromJson(s, NearbyDistanceObjData.class);
                                     nearbyDistanceObjs = data.getData();
-                                    if(nearbyDistanceObjs != null && nearbyDistanceObjs.size() > 0){
+                                    if (nearbyDistanceObjs != null && nearbyDistanceObjs.size() > 0) {
                                         NearbyDistanceObj nearbyDistanceObj = nearbyDistanceObjs.get(0);
                                         //保存设置好的距离
                                         save("mm_distance", nearbyDistanceObj.getMm_distance());
                                         save("mm_nearby_distance_id", nearbyDistanceObj.getMm_nearby_distance_id());
                                     }
 
-                                }else {
+                                } else {
 
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                         }
                     }
                 },

@@ -50,7 +50,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class RecordTwoFragment extends BaseFragment implements OnClickContentItemListener,View.OnClickListener{
+public class RecordTwoFragment extends BaseFragment implements OnClickContentItemListener, View.OnClickListener {
     private View view;
     private Resources res;
     private PullToRefreshListView lstv;
@@ -109,7 +109,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
         return view;
     }
 
-    void initView(){
+    void initView() {
 //        mColumnHorizontalScrollView = (ColumnHorizontalScrollView) view.findViewById(R.id.mColumnHorizontalScrollView);
 //        mRadioGroup_content = (LinearLayout) view.findViewById(R.id.mRadioGroup_content);
         no_data = (ImageView) view.findViewById(R.id.no_data);
@@ -127,9 +127,9 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -144,9 +144,9 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = false;
                 pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -157,10 +157,10 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (lists.size() > position-1) {
-                    lists.get(position-1).setIs_read("1");
+                if (lists.size() > position - 1) {
+                    lists.get(position - 1).setIs_read("1");
                     adapter.notifyDataSetChanged();
-                    recordVO = lists.get(position-1);
+                    recordVO = lists.get(position - 1);
                     DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 }
             }
@@ -209,7 +209,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
         picAddDialog.show();
     }
 
-    void saveFavour(final String mm_msg_id){
+    void saveFavour(final String mm_msg_id) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.ADD_FAVOUR_URL,
@@ -219,20 +219,19 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
-                                    Toast.makeText(getActivity(), R.string.favour_success , Toast.LENGTH_SHORT).show();
-                                }else if(Integer.parseInt(code) == 9){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    Toast.makeText(getActivity(), R.string.favour_success, Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }else if(Integer.parseInt(code) == 2){
-                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 2) {
+                                    Toast.makeText(getActivity(), R.string.favour_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.no_favour, Toast.LENGTH_SHORT).show();
                                 }
 
                             } catch (JSONException e) {
@@ -259,10 +258,10 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_msg_id", mm_msg_id);
-                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -380,11 +379,12 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
 
 
     RecordMsg recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         String str = (String) object;
-        if("111".equals(str)){
-            switch (flag){
+        if ("111".equals(str)) {
+            switch (flag) {
                 case 1:
                     //分享
                     recordVO = lists.get(position);
@@ -397,8 +397,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                     share(recordVO);
                     break;
                 case 2:
-                case 4:
-                {
+                case 4: {
                     //头像
                     recordVO = lists.get(position);
                     lists.get(position).setIs_read("1");
@@ -417,9 +416,9 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                     adapter.notifyDataSetChanged();
 
                     recordVO = lists.get(position);
-                    if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
-                        showTel(recordVO.getMm_emp_mobile(),recordVO.getMm_emp_nickname());
-                    }else{
+                    if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
+                        showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
+                    } else {
                         Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
 
@@ -443,7 +442,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                     //收藏图标
                     lists.get(position).setIs_read("1");
                     adapter.notifyDataSetChanged();
-                    if("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                    if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                         recordVO = lists.get(position);
                         progressDialog = new ProgressDialog(getActivity());
                         progressDialog.setIndeterminate(true);
@@ -452,7 +451,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
 
                         recordVO.setIs_read("1");
                         DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-                    }else {
+                    } else {
                         //未登录
                         showLogin();
                     }
@@ -463,21 +462,21 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                     lists.get(position).setIs_read("1");
                     adapter.notifyDataSetChanged();
                     recordVO = lists.get(position);
-                    if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                    if (!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())) {
                         String[] arrs = recordVO.getMm_msg_title().split(",");
-                        if(arrs != null && arrs.length > 0){
+                        if (arrs != null && arrs.length > 0) {
                             //开始导航
-                            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                            if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                                 Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
-                                naviV.putExtra("lat_end" , arrs[0]);
-                                naviV.putExtra("lng_end" , arrs[1]);
+                                naviV.putExtra("lat_end", arrs[0]);
+                                naviV.putExtra("lng_end", arrs[1]);
                                 startActivity(naviV);
-                            }else {
+                            } else {
                                 Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
                             }
 
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -487,7 +486,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
 
     }
 
-    void share(RecordMsg recordVO){
+    void share(RecordMsg recordVO) {
         //
         recordMsgTmp = recordVO;
 
@@ -499,10 +498,10 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(getActivity(), R.drawable.logo);
-            String title =  recordMsgTmp.getMm_msg_content();
-            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
+            String title = recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname() + recordMsgTmp.getMm_emp_company();
             new ShareAction(getActivity()).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
                     .withTitle(title)
@@ -520,12 +519,12 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -568,7 +567,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
     }
 
 
-    void initData(){
+    void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_RECORD_LIST_URL,
@@ -578,19 +577,19 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordData data = getGson().fromJson(s, RecordData.class);
                                     if (IS_REFRESH) {
                                         lists.clear();
                                     }
                                     lists.addAll(data.getData());
-                                    if(data != null && data.getData() != null){
-                                        for(RecordMsg recordMsg:data.getData()){
+                                    if (data != null && data.getData() != null) {
+                                        for (RecordMsg recordMsg : data.getData()) {
                                             RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-                                            if(recordMsgLocal != null){
+                                            if (recordMsgLocal != null) {
                                                 //已经存在了 不需要插入了
-                                            }else{
+                                            } else {
                                                 DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
                                             }
 
@@ -598,20 +597,19 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                                     }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                                else{
-                                    Toast.makeText(getActivity(), R.string.get_data_error , Toast.LENGTH_SHORT).show();
-                                }
-                                if(lists.size() == 0){
+                                if (lists.size() == 0) {
                                     no_data.setVisibility(View.VISIBLE);
                                     lstv.setVisibility(View.GONE);
-                                }else {
+                                } else {
                                     no_data.setVisibility(View.GONE);
                                     lstv.setVisibility(View.VISIBLE);
                                 }
@@ -637,9 +635,9 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
                 params.put("size", "10");
                 params.put("mm_msg_type", "1");
 
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
 //                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
@@ -665,13 +663,13 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.no_data:
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -686,7 +684,7 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
 
-            if(action.equals("change_color_size")){
+            if (action.equals("change_color_size")) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -706,7 +704,6 @@ public class RecordTwoFragment extends BaseFragment implements OnClickContentIte
         super.onDestroy();
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
-
 
 
 }

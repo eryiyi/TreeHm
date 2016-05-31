@@ -71,7 +71,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
         getProvince();
     }
 
-    void initView(){
+    void initView() {
         addBtn = (Button) this.findViewById(R.id.addBtn);
         btn = (Button) this.findViewById(R.id.btn);
         quyu = (TextView) this.findViewById(R.id.quyu);
@@ -91,11 +91,11 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                 cityNames.add(getResources().getString(R.string.select_city));
                 cityAdapter.notifyDataSetChanged();
                 ProvinceObj province = null;
-                if(provinces != null  && position > 0){
+                if (provinces != null && position > 0) {
                     province = provinces.get(position - 1);
                     provinceName = province.getProvince();
                     provinceCode = province.getProvinceID();
-                }else if(provinces != null ) {
+                } else if (provinces != null) {
                     province = provinces.get(position);
                     provinceName = province.getProvince();
                     provinceCode = province.getProvinceID();
@@ -106,6 +106,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -123,7 +124,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                     countrys.clear();
                     countrysNames.clear();
                     countrysNames.add(getResources().getString(R.string.select_area));
-                    CityObj city = citys.get(position-1);
+                    CityObj city = citys.get(position - 1);
                     cityName = city.getCity();
                     cityCode = city.getCityID();
                     try {
@@ -139,6 +140,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                     countryAdapter.notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -159,6 +161,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                     countryName = country.getArea();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -167,7 +170,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
     }
 
     //获得省份
-    public void getProvince(){
+    public void getProvince() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_PROVINCE_URL,
@@ -177,22 +180,22 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     provinceNames.add(getResources().getString(R.string.select_province));
                                     ProvinceData data = getGson().fromJson(s, ProvinceData.class);
                                     provinces = data.getData();
-                                    if(provinces != null){
-                                        for(int i=0;i<provinces.size();i++){
+                                    if (provinces != null) {
+                                        for (int i = 0; i < provinces.size(); i++) {
                                             provinceNames.add(provinces.get(i).getProvince());
                                         }
                                     }
                                     ProvinceAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SetGuanzhuActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -228,7 +231,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
     }
 
     //获得城市
-    public void getCitys(){
+    public void getCitys() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_CITY_URL,
@@ -238,21 +241,21 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CityData data = getGson().fromJson(s, CityData.class);
                                     citys = data.getData();
-                                    if(citys != null){
-                                        for(int i=0;i<citys.size();i++){
+                                    if (citys != null) {
+                                        for (int i = 0; i < citys.size(); i++) {
                                             cityNames.add(citys.get(i).getCity());
                                         }
                                     }
                                     cityAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SetGuanzhuActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -290,7 +293,7 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
     }
 
     //获得地区
-    public void getArea(){
+    public void getArea() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_COUNTRY_URL,
@@ -300,21 +303,21 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CountrysData data = getGson().fromJson(s, CountrysData.class);
                                     countrys = data.getData();
-                                    if(countrys != null){
-                                        for(int i=0;i<countrys.size();i++){
+                                    if (countrys != null) {
+                                        for (int i = 0; i < countrys.size(); i++) {
                                             countrysNames.add(countrys.get(i).getArea());
                                         }
                                     }
                                     countryAdapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SetGuanzhuActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -352,49 +355,48 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.addBtn:
                 //点击添加
             {
-                if(!StringUtil.isNullOrEmpty(countryName) && !StringUtil.isNullOrEmpty(countryCode)){
+                if (!StringUtil.isNullOrEmpty(countryName) && !StringUtil.isNullOrEmpty(countryCode)) {
                     //说明选择了县区
                     String[] arrCode = selectCode.split(",");//选择的区域的code数组
                     boolean flagF = true;
-                    for(String str:arrCode){
-                        if(str.equals(countryCode)){
+                    for (String str : arrCode) {
+                        if (str.equals(countryCode)) {
                             flagF = false;
                         }
                     }
 
-                    if(!flagF){
+                    if (!flagF) {
                         showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.no_select_one_area));
-                    }else {
-                        quyu.setText(quyu.getText().toString()+ countryName+",");
-                        selectCode  = selectCode+ countryCode +",";
+                    } else {
+                        quyu.setText(quyu.getText().toString() + countryName + ",");
+                        selectCode = selectCode + countryCode + ",";
                     }
 
-                }else {
+                } else {
                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_area_one));
                 }
             }
-                break;
-            case R.id.btn:
-            {
+            break;
+            case R.id.btn: {
                 //提交
-                if(StringUtil.isNullOrEmpty(selectCode)){
+                if (StringUtil.isNullOrEmpty(selectCode)) {
                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.select_area_guanzhu));
                     return;
                 }
                 setGzArea();
             }
-                break;
+            break;
         }
     }
 
-    void setGzArea(){
+    void setGzArea() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.SAVE_GUANZHU_URL,
@@ -404,25 +406,24 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_success_wait_check));
                                     finish();
-                                }else if(Integer.parseInt(code) == 2){
+                                } else if (Integer.parseInt(code) == 2) {
                                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_error_check));
-                                }
-                                else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(SetGuanzhuActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(SetGuanzhuActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(SetGuanzhuActivity.this, LoginActivity.class);
                                     startActivity(loginV);
-                                }else {
+                                } else {
                                     showMsg(SetGuanzhuActivity.this, getResources().getString(R.string.sub_error_one));
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SetGuanzhuActivity.this, R.string.caozuo_error_one, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -446,9 +447,9 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 params.put("areaid", selectCode);
                 params.put("area_name", quyu.getText().toString());
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -463,7 +464,6 @@ public class SetGuanzhuActivity extends BaseActivity implements View.OnClickList
         };
         getRequestQueue().add(request);
     }
-
 
 
 }

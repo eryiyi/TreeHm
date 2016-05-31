@@ -23,11 +23,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/23.
  */
-public class VipDetailActivity extends BaseActivity implements View.OnClickListener{
+public class VipDetailActivity extends BaseActivity implements View.OnClickListener {
     private String level_id;
     private Level level;
     private TextView content;
     private TextView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class VipDetailActivity extends BaseActivity implements View.OnClickListe
         getData();
     }
 
-    public void getData(){
+    public void getData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_VIP_DETAIL_URL,
@@ -50,16 +51,16 @@ public class VipDetailActivity extends BaseActivity implements View.OnClickListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     LevelData data = getGson().fromJson(s, LevelData.class);
                                     level = data.getData();
                                     initData();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(VipDetailActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -94,16 +95,17 @@ public class VipDetailActivity extends BaseActivity implements View.OnClickListe
         };
         getRequestQueue().add(request);
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
 
-    void initData(){
+    void initData() {
         //
         content.setText(level.getMm_level_cont());
         back.setText(level.getMm_level_name());

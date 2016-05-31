@@ -34,10 +34,11 @@ public class ItemFavourAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemFavourAdapter(List<Favour> lists, Context mContect){
+    public ItemFavourAdapter(List<Favour> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
+
     public void refresh(List<Favour> d) {
         lists = d;
         notifyDataSetChanged();
@@ -60,9 +61,9 @@ public class ItemFavourAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_favour,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_favour, null);
             holder.btn_share = (ImageView) convertView.findViewById(R.id.btn_share);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
             holder.btn_pic = (ImageView) convertView.findViewById(R.id.btn_pic);
@@ -74,67 +75,67 @@ public class ItemFavourAdapter extends BaseAdapter {
             holder.img_xinyong = (ImageView) convertView.findViewById(R.id.img_xinyong);
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final Favour cell = lists.get(position);
-        if(cell != null && !StringUtil.isNullOrEmpty(cell.getMm_msg_id())){
-            String title = (cell.getMm_emp_company()==null?"":cell.getMm_emp_company()) +" "+ (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+        if (cell != null && !StringUtil.isNullOrEmpty(cell.getMm_msg_id())) {
+            String title = (cell.getMm_emp_company() == null ? "" : cell.getMm_emp_company()) + " " + (cell.getMm_emp_nickname() == null ? "" : cell.getMm_emp_nickname());
             holder.nickname.setText(title);
-            holder.dateline.setText(cell.getDatelineRecord() );
-            String msg = cell.getMm_msg_content()==null?"":cell.getMm_msg_content();
+            holder.dateline.setText(cell.getDatelineRecord());
+            String msg = cell.getMm_msg_content() == null ? "" : cell.getMm_msg_content();
 //            if(msg.length() > 80){
 //                msg = msg.substring(0,79)+"...";
 //            }
 //            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
             holder.content.setText(msg);
 
-            if("1".equals(cell.getIs_chengxin())){
+            if ("1".equals(cell.getIs_chengxin())) {
                 holder.img_xinyong.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xinyong.setVisibility(View.GONE);
             }
-            if("1".equals(cell.getIs_miaomu())){
+            if ("1".equals(cell.getIs_miaomu())) {
                 holder.img_xiehui.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xiehui.setVisibility(View.GONE);
             }
 
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
-            if(StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())){
+            if (StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())) {
                 holder.btn_pic.setVisibility(View.GONE);
-            }else {
+            } else {
                 holder.btn_pic.setVisibility(View.VISIBLE);
             }
 
 
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLACK);
                     holder.nickname.setTextColor(Color.BLACK);
                     holder.dateline.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.GRAY);
                     holder.nickname.setTextColor(Color.GRAY);
                     holder.dateline.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLUE);
                     holder.nickname.setTextColor(Color.BLUE);
                     holder.dateline.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.YELLOW);
                     holder.nickname.setTextColor(Color.YELLOW);
                     holder.dateline.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.RED);
                     holder.dateline.setTextColor(Color.RED);
                     holder.nickname.setTextColor(Color.RED);
@@ -176,9 +177,9 @@ public class ItemFavourAdapter extends BaseAdapter {
         });
 
 
-
         return convertView;
     }
+
     class ViewHolder {
         ImageView btn_share;
         ImageView btn_pic;
@@ -186,7 +187,7 @@ public class ItemFavourAdapter extends BaseAdapter {
         ImageView head;
         TextView nickname;
         TextView dateline;
-//        TextView title;
+        //        TextView title;
         TextView content;
         ImageView img_xinyong;
         ImageView img_xiehui;

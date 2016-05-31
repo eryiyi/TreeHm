@@ -54,11 +54,13 @@ public class AboutActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
             }
+
             @Override
             public void onPageSelected(int position) {
                 for (int j = 0; j < circles.length; j++) {
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int i) {
 

@@ -22,6 +22,7 @@ import java.util.Map;
  */
 public class AddSuggestActivity extends BaseActivity implements View.OnClickListener {
     private EditText face_content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +33,16 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
 
-    public void sureSub(View view){
+    public void sureSub(View view) {
         //
-        if(StringUtil.isNullOrEmpty(face_content.getText().toString())){
+        if (StringUtil.isNullOrEmpty(face_content.getText().toString())) {
             showMsg(AddSuggestActivity.this, getResources().getString(R.string.please_input_text));
             return;
         }
@@ -49,7 +50,7 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
 
     }
 
-    void add(){
+    void add() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.ADD_SUGGEST_URL,
@@ -59,17 +60,17 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
-                                        showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_one));
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
+                                    showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_one));
                                     finish();
-                                }else {
+                                } else {
                                     showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_two));
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             showMsg(AddSuggestActivity.this, getResources().getString(R.string.suggest_add_two));
                         }
                         if (progressDialog != null) {
@@ -91,7 +92,7 @@ public class AddSuggestActivity extends BaseActivity implements View.OnClickList
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_suggest_cont", face_content.getText().toString());
-                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
 

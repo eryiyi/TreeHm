@@ -50,7 +50,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
     private List<String> lists = new ArrayList<String>();
-    ItemDetailPhotoAdapter adapterPhot ;
+    ItemDetailPhotoAdapter adapterPhot;
 
     private RecordMsg recordVO;
 
@@ -63,7 +63,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         initData();
     }
 
-    void initView(){
+    void initView() {
         this.findViewById(R.id.mback).setOnClickListener(this);
         head = (ImageView) this.findViewById(R.id.head);
         nickname = (TextView) this.findViewById(R.id.nickname);
@@ -87,23 +87,23 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         this.findViewById(R.id.reportbtn).setOnClickListener(this);
     }
 
-    void initData(){
+    void initData() {
         //
         imageLoader.displayImage(recordVO.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
         nickname.setText(recordVO.getMm_emp_company() + recordVO.getMm_emp_nickname());
-        dateline.setText((recordVO.getDateline()==null?"":recordVO.getDateline()) + " " +(recordVO.getArea()==null?"":recordVO.getArea()));
+        dateline.setText((recordVO.getDateline() == null ? "" : recordVO.getDateline()) + " " + (recordVO.getArea() == null ? "" : recordVO.getArea()));
         content.setText(recordVO.getMm_msg_content());
-        if("1".equals(recordVO.getIs_chengxin())){
+        if ("1".equals(recordVO.getIs_chengxin())) {
             type_one.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             type_one.setVisibility(View.GONE);
         }
-        if("1".equals(recordVO.getIs_miaomu())){
+        if ("1".equals(recordVO.getIs_miaomu())) {
             type_two.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             type_two.setVisibility(View.GONE);
         }
-        switch (Integer.parseInt((recordVO.getMm_level_num()==null?"0":recordVO.getMm_level_num()))){
+        switch (Integer.parseInt((recordVO.getMm_level_num() == null ? "0" : recordVO.getMm_level_num()))) {
             case 0:
                 type_three.setImageResource(R.drawable.tree_icons_star_1);
                 break;
@@ -121,9 +121,9 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
         telbtn.setText(recordVO.getMm_emp_nickname() + recordVO.getMm_emp_mobile());
-        if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_picurl())){
+        if (!StringUtil.isNullOrEmpty(recordVO.getMm_msg_picurl())) {
             final String[] picUrls = recordVO.getMm_msg_picurl().split(",");//图片链接切割
-            for(String str:picUrls){
+            for (String str : picUrls) {
                 lists.add(str);
             }
             adapterPhot.notifyDataSetChanged();
@@ -140,33 +140,33 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         }
 
 
-        if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+        if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
             nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
         }
-        if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-            if("black".equals(UniversityApplication.fontColor)){
+        if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+            if ("black".equals(UniversityApplication.fontColor)) {
                 nickname.setTextColor(Color.BLACK);
                 dateline.setTextColor(Color.BLACK);
                 content.setTextColor(Color.BLACK);
             }
-            if("gray".equals(UniversityApplication.fontColor)){
+            if ("gray".equals(UniversityApplication.fontColor)) {
                 nickname.setTextColor(Color.GRAY);
                 dateline.setTextColor(Color.GRAY);
                 content.setTextColor(Color.GRAY);
             }
-            if("blue".equals(UniversityApplication.fontColor)){
+            if ("blue".equals(UniversityApplication.fontColor)) {
                 nickname.setTextColor(Color.BLUE);
                 dateline.setTextColor(Color.BLUE);
                 content.setTextColor(Color.BLUE);
             }
-            if("orange".equals(UniversityApplication.fontColor)){
+            if ("orange".equals(UniversityApplication.fontColor)) {
                 nickname.setTextColor(Color.YELLOW);
                 dateline.setTextColor(Color.YELLOW);
                 content.setTextColor(Color.YELLOW);
             }
-            if("red".equals(UniversityApplication.fontColor)){
+            if ("red".equals(UniversityApplication.fontColor)) {
                 nickname.setTextColor(Color.RED);
                 dateline.setTextColor(Color.RED);
                 content.setTextColor(Color.RED);
@@ -174,9 +174,10 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         }
 
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mback:
                 finish();
                 break;
@@ -194,7 +195,7 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 profileV.putExtra("id", recordVO.getMm_emp_id());
                 startActivity(profileV);
             }
-                break;
+            break;
             case R.id.reportbtn:
                 //举报
                 showJubao();
@@ -279,19 +280,19 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     showMsg(DetailRecordActivity.this, getResources().getString(R.string.report_success));
-                                }else if(Integer.parseInt(code1) == 9){
-                                    Toast.makeText(DetailRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code1) == 9) {
+                                    Toast.makeText(DetailRecordActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(DetailRecordActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else{
+                                } else {
                                     Toast.makeText(DetailRecordActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         } else {
@@ -313,9 +314,9 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 params.put("mm_emp_id_t", recordVO.getMm_emp_id());
                 params.put("mm_report_content", contReport);
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;

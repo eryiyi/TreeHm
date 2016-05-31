@@ -8,7 +8,7 @@ import android.telephony.SmsMessage;
 /**
  * Created by zhanghailong on 2016/3/20.
  */
-public class SMSBroadcastReceiver  extends BroadcastReceiver {
+public class SMSBroadcastReceiver extends BroadcastReceiver {
 
     private static MessageListener mMessageListener;
     public static final String SMS_RECEIVED_ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -21,8 +21,8 @@ public class SMSBroadcastReceiver  extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(SMS_RECEIVED_ACTION)) {
             Object[] pdus = (Object[]) intent.getExtras().get("pdus");
-            for(Object pdu:pdus) {
-                SmsMessage smsMessage = SmsMessage.createFromPdu((byte [])pdu);
+            for (Object pdu : pdus) {
+                SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
                 String sender = smsMessage.getDisplayOriginatingAddress();
                 //短信内容
                 String content = smsMessage.getDisplayMessageBody();
@@ -33,8 +33,8 @@ public class SMSBroadcastReceiver  extends BroadcastReceiver {
 
                 //过滤不需要读取的短信的发送号码
 //                if ("+8613450214963".equals(sender)) {
-                    mMessageListener.onReceived(content);
-                    abortBroadcast();
+                mMessageListener.onReceived(content);
+                abortBroadcast();
 //                }
             }
         }

@@ -33,7 +33,7 @@ public class ItemCityAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemCityAdapter(List<CityObj> lists, Context mContect){
+    public ItemCityAdapter(List<CityObj> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -55,41 +55,42 @@ public class ItemCityAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_area,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_area, null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final CityObj cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             holder.title.setText(cell.getCity());
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.RED);
                 }
             }
         }
         return convertView;
     }
+
     class ViewHolder {
         TextView title;
     }

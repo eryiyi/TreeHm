@@ -33,7 +33,7 @@ public class ItemNoticeAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemNoticeAdapter(List<Notice> lists, Context mContect){
+    public ItemNoticeAdapter(List<Notice> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -55,50 +55,50 @@ public class ItemNoticeAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_notice,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_notice, null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.content = (TextView) convertView.findViewById(R.id.content);
             holder.dateline = (TextView) convertView.findViewById(R.id.dateline);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final Notice cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             holder.title.setText(cell.getMm_notice_title());
             holder.content.setText(cell.getMm_notice_content());
             holder.dateline.setText(cell.getDateline());
 
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.dateline.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLACK);
                     holder.content.setTextColor(Color.BLACK);
                     holder.dateline.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.GRAY);
                     holder.content.setTextColor(Color.GRAY);
                     holder.dateline.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.BLUE);
                     holder.content.setTextColor(Color.BLUE);
                     holder.dateline.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.YELLOW);
                     holder.content.setTextColor(Color.YELLOW);
                     holder.dateline.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.title.setTextColor(Color.RED);
                     holder.content.setTextColor(Color.RED);
                     holder.dateline.setTextColor(Color.RED);
@@ -107,6 +107,7 @@ public class ItemNoticeAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
     class ViewHolder {
         TextView title;
         TextView content;

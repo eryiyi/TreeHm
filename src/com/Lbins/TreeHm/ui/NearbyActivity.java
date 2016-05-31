@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/23.
  */
-public class NearbyActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
+public class NearbyActivity extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
     private PullToRefreshListView lstv;
     ItemNearbyAdapter adapter;
     List<Emp> lists;
@@ -50,13 +50,13 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.nearby_activity);
 
         initView();
-        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+        if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
             getData();
-        }else{
-            if(lists.size() > 0){
+        } else {
+            if (lists.size() > 0) {
                 no_data.setVisibility(View.GONE);
                 lstv.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 no_data.setVisibility(View.VISIBLE);
                 lstv.setVisibility(View.GONE);
             }
@@ -64,7 +64,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-    void getData(){
+    void getData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_NEARBY_URL,
@@ -74,22 +74,22 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     EmpsData data = getGson().fromJson(s, EmpsData.class);
-                                    if(data != null && data.getData().size() > 0){
+                                    if (data != null && data.getData().size() > 0) {
                                         //计算距离
                                         List<Emp> listsAll = new ArrayList<Emp>();
                                         listsAll.addAll(data.getData());
-                                        for(int i=0;i<listsAll.size();i++){
+                                        for (int i = 0; i < listsAll.size(); i++) {
                                             Emp fuwuObj = listsAll.get(i);
-                                            if(fuwuObj != null && !StringUtil.isNullOrEmpty(fuwuObj.getLat()) && !StringUtil.isNullOrEmpty(fuwuObj.getLng())){
+                                            if (fuwuObj != null && !StringUtil.isNullOrEmpty(fuwuObj.getLat()) && !StringUtil.isNullOrEmpty(fuwuObj.getLng())) {
                                                 LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
                                                 LatLng latLng1 = new LatLng(Double.valueOf(fuwuObj.getLat()), Double.valueOf(fuwuObj.getLng()));
-                                                String distance = StringUtil.getDistance(latLng ,latLng1 );
+                                                String distance = StringUtil.getDistance(latLng, latLng1);
                                                 listsAll.get(i).setDistance(distance + "km");
-                                                fuwuObj.setDistance(distance+"km");
-                                                if(Double.valueOf(distance) < 100){
+                                                fuwuObj.setDistance(distance + "km");
+                                                if (Double.valueOf(distance) < 100) {
                                                     //100KM以内的
                                                     lists.add(fuwuObj);
                                                 }
@@ -97,16 +97,15 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                                         }
 
                                         adapter.notifyDataSetChanged();
-                                        if(lists.size() > 0){
+                                        if (lists.size() > 0) {
                                             no_data.setVisibility(View.GONE);
                                             lstv.setVisibility(View.VISIBLE);
-                                        }else{
+                                        } else {
                                             no_data.setVisibility(View.VISIBLE);
                                             lstv.setVisibility(View.GONE);
                                         }
                                     }
-                                }
-                                else{
+                                } else {
                                     showMsg(NearbyActivity.this, getResources().getString(R.string.get_data_error));
                                 }
                             } catch (JSONException e) {
@@ -125,10 +124,10 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        if(lists.size() > 0){
+                        if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
                             lstv.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             no_data.setVisibility(View.VISIBLE);
                             lstv.setVisibility(View.GONE);
                         }
@@ -139,8 +138,8 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
-                params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
+                params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 return params;
@@ -155,7 +154,8 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
         };
         getRequestQueue().add(request);
     }
-    void initView(){
+
+    void initView() {
         this.findViewById(R.id.back).setOnClickListener(this);
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         lists = new ArrayList<Emp>();
@@ -193,15 +193,16 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent profileV = new Intent(NearbyActivity.this, ProfileActivity.class);
-                Emp emp = lists.get(position-1);
+                Emp emp = lists.get(position - 1);
                 profileV.putExtra("id", emp.getMm_emp_id());
                 startActivity(profileV);
             }
         });
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -210,21 +211,21 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
                 Emp emp = lists.get(position);
-                if(!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())){
+                if (!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())) {
                     //开始导航
-                    if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                    if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                         Intent naviV = new Intent(NearbyActivity.this, GPSNaviActivity.class);
-                        naviV.putExtra("lat_end" , emp.getLat_company());
-                        naviV.putExtra("lng_end" , emp.getLng_company());
+                        naviV.putExtra("lat_end", emp.getLat_company());
+                        naviV.putExtra("lng_end", emp.getLng_company());
                         startActivity(naviV);
-                    }else {
+                    } else {
                         Toast.makeText(NearbyActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
+                } else {
                     Toast.makeText(NearbyActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }
                 break;

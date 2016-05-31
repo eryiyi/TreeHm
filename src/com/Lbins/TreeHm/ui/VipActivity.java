@@ -27,11 +27,11 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/23.
  */
-public class VipActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
+public class VipActivity extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
     private ImageView no_data;
     private ListView lstv;
     private ItemVipAdapter adapter;
-    List<FeiyongObj> lists ;
+    List<FeiyongObj> lists;
 
     private TextView msg_time;
     private TextView msg_jine;
@@ -63,7 +63,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
         msg_jine = (TextView) this.findViewById(R.id.msg_jine);
     }
 
-    public void initData(){
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_VIP_URL,
@@ -73,30 +73,30 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     FeiyongData data = getGson().fromJson(s, FeiyongData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    if(lists != null && lists.size()>0){
+                                    if (lists != null && lists.size() > 0) {
                                         lists.get(0).setIs_select("1");
                                     }
                                     toC();
                                     adapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(VipActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
                             progressDialog.dismiss();
                         }
-                        if(lists.size()>0){
+                        if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
                             lstv.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             no_data.setVisibility(View.VISIBLE);
                             lstv.setVisibility(View.GONE);
                         }
@@ -127,28 +127,31 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
         };
         getRequestQueue().add(request);
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
+
     FeiyongObj feiyongObj;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
                 feiyongObj = lists.get(position);
-                for(int i=0;i<lists.size();i++){
+                for (int i = 0; i < lists.size(); i++) {
                     FeiyongObj cell = lists.get(i);
-                    if(cell.getMm_feiyong_id().equals(feiyongObj.getMm_feiyong_id())){
+                    if (cell.getMm_feiyong_id().equals(feiyongObj.getMm_feiyong_id())) {
                         //如果是当前的
                         lists.get(i).setIs_select("1");
                         msg_time.setText(feiyongObj.getMm_feiyong_name());
-                        msg_jine.setText("￥"+feiyongObj.getMm_feiyong_jine());
-                    }else{
+                        msg_jine.setText("￥" + feiyongObj.getMm_feiyong_jine());
+                    } else {
                         lists.get(i).setIs_select("0");
                     }
                 }
@@ -157,18 +160,18 @@ public class VipActivity extends BaseActivity implements View.OnClickListener ,O
         }
     }
 
-    public void goToPay(View view){
+    public void goToPay(View view) {
         //
-        if(StringUtil.isNullOrEmpty(msg_jine.getText().toString())){
+        if (StringUtil.isNullOrEmpty(msg_jine.getText().toString())) {
             showMsg(VipActivity.this, getResources().getString(R.string.please_select));
-        }else {
+        } else {
 
         }
     }
 
-    void toC(){
+    void toC() {
         FeiyongObj feiyongObj = lists.get(0);
         msg_time.setText(feiyongObj.getMm_feiyong_name());
-        msg_jine.setText(getResources().getString(R.string.money)+ feiyongObj.getMm_feiyong_jine());
+        msg_jine.setText(getResources().getString(R.string.money) + feiyongObj.getMm_feiyong_jine());
     }
 }

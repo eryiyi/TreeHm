@@ -9,7 +9,7 @@ public class FuwuObj {
     private String mm_fuwu_tel;
     private String mm_fuwu_content;
     private String mm_fuwu_type;//0苗木商店
-//    1装车工人
+    //    1装车工人
 //    2物流中心
 //    3嫁接团队
 //    4调车服务

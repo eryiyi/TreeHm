@@ -69,7 +69,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
         lstvGz.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(areaIds != null && areaIds.length >i){
+                if (areaIds != null && areaIds.length > i) {
                     String idPostion = areaIds[i];//县区的id
                     String name = areaNames[i];//县区的名字
                     Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
@@ -100,7 +100,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -163,7 +163,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
 
 
     //查询关注区域
-    public void getGuanzhuArea(){
+    public void getGuanzhuArea() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_GUANZHU_URL,
@@ -173,39 +173,37 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     GuanzhuAreaObjData data = getGson().fromJson(s, GuanzhuAreaObjData.class);
-                                    if(data.getData() != null && data.getData().size() > 0){
+                                    if (data.getData() != null && data.getData().size() > 0) {
                                         //说明已经申请了
                                         List<GuanzhuAreaObj> listgz = data.getData();
-                                        if(listgz != null && listgz.size()>0){
+                                        if (listgz != null && listgz.size() > 0) {
                                             guanzhuAreaObj = listgz.get(0);
-                                            if(guanzhuAreaObj != null){
-                                                if("0".equals(guanzhuAreaObj.getIscheck())){
+                                            if (guanzhuAreaObj != null) {
+                                                if ("0".equals(guanzhuAreaObj.getIscheck())) {
 //                                                    showMsg(SelectProvinceActivity.this, "您已经申请了关注区域！请等待管理员审核");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait));
                                                     no_data_text.setClickable(false);
                                                     no_data_text.setVisibility(View.VISIBLE);
-                                                }else
-                                                if("1".equals(guanzhuAreaObj.getIscheck())){
+                                                } else if ("1".equals(guanzhuAreaObj.getIscheck())) {
 //                                                    Intent intent = new Intent(SelectProvinceActivity.this, RecordGzActivity.class);
 //                                                    intent.putExtra("guanzhuAreaObj", guanzhuAreaObj);
 //                                                    startActivity(intent);
                                                     areaNames = guanzhuAreaObj.getArea_name().split(",");
                                                     areaIds = guanzhuAreaObj.getAreaid().split(",");
-                                                    for(String str:areaNames){
+                                                    for (String str : areaNames) {
                                                         areaNamesList.add(str);
                                                     }
                                                     adapterGz.notifyDataSetChanged();
 
-                                                }else
-                                                if("2".equals(guanzhuAreaObj.getIscheck())){
+                                                } else if ("2".equals(guanzhuAreaObj.getIscheck())) {
 //                                                    showMsg(SelectProvinceActivity.this, "您申请的关注区域未通过审核，请联系客服！");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait1));
                                                     no_data_text.setClickable(false);
                                                     no_data_text.setVisibility(View.VISIBLE);
-                                                }else{
+                                                } else {
 //                                                    showMsg(SelectProvinceActivity.this, "您尚未申请关注区域，请设置关注区域！");
                                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
                                                     no_data_text.setVisibility(View.VISIBLE);
@@ -218,7 +216,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                                     });
                                                 }
                                             }
-                                        }else{
+                                        } else {
                                             no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
                                             no_data_text.setVisibility(View.VISIBLE);
                                             no_data_text.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +227,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                                 }
                                             });
                                         }
-                                    }else{
+                                    } else {
                                         no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
                                         no_data_text.setVisibility(View.VISIBLE);
                                         no_data_text.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +238,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                             }
                                         });
                                     }
-                                }else {
+                                } else {
                                     no_data_text.setText(getResources().getString(R.string.also_area_please_wait2));
                                     no_data_text.setVisibility(View.VISIBLE);
                                     no_data_text.setOnClickListener(new View.OnClickListener() {
@@ -251,10 +249,10 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                                         }
                                     });
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -292,7 +290,7 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
     }
 
 
-    public void getHotCity(){
+    public void getHotCity() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_HOT_CITY_URL,
@@ -302,17 +300,17 @@ public class SelectProvinceActivity extends BaseActivity implements View.OnClick
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CountrysData data = getGson().fromJson(s, CountrysData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
                                     adapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectProvinceActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {

@@ -4,31 +4,31 @@
               android:background="@color/main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-        <RelativeLayout android:layout_width="match_parent"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@color/mm_top_bg"
-                        android:layout_height="@dimen/top_title_height">
-            <TextView android:layout_width="wrap_content"
-                      android:text="@string/back"
-                      android:drawablePadding="8dp"
-                      android:textSize="16sp"
-                      android:padding="6dp"
-                      android:id="@+id/mback"
-                      android:drawableLeft="@drawable/button_selector_back"
-                      android:textColor="@color/white"
-                      android:layout_centerVertical="true"
-                      android:layout_height="wrap_content"/>
-        </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:background="@color/mm_top_bg"
+                    android:layout_height="@dimen/top_title_height">
+        <TextView android:layout_width="wrap_content"
+                  android:text="@string/back"
+                  android:drawablePadding="8dp"
+                  android:textSize="16sp"
+                  android:padding="6dp"
+                  android:id="@+id/mback"
+                  android:drawableLeft="@drawable/button_selector_back"
+                  android:textColor="@color/white"
+                  android:layout_centerVertical="true"
+                  android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <com.Lbins.TreeHm.widget.ReboundScrollView android:layout_width="match_parent"
                                                android:layout_height="match_parent">
         <RelativeLayout android:layout_width="match_parent"
-                      android:orientation="vertical"
-                      android:layout_marginTop="1dp"
-                      android:background="@color/white"
-                      android:padding="8dp"
-                      android:layout_height="match_parent">
+                        android:orientation="vertical"
+                        android:layout_marginTop="1dp"
+                        android:background="@color/white"
+                        android:padding="8dp"
+                        android:layout_height="match_parent">
 
             <RelativeLayout android:layout_width="match_parent"
                             android:id="@+id/head_top"

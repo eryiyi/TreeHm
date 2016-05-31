@@ -20,11 +20,14 @@ public class DBHelper {
     private RecordMsgDao recordDao;
     private static SQLiteDatabase db;
     private static DaoMaster daoMaster;
-    private DBHelper(){}
-    public static DBHelper getInstance(Context context){
-        if (instance == null){
+
+    private DBHelper() {
+    }
+
+    public static DBHelper getInstance(Context context) {
+        if (instance == null) {
             instance = new DBHelper();
-            if (mContext == null){
+            if (mContext == null) {
                 mContext = context;
             }
             helper = new DaoMaster.DevOpenHelper(context, "tree_hm_db", null);
@@ -38,47 +41,51 @@ public class DBHelper {
 
     /**
      * 插入数据
+     *
      * @param test
      */
-    public void addShoppingToTable(ShoppingCart test){
+    public void addShoppingToTable(ShoppingCart test) {
         testDao.insert(test);
     }
 
     //查询是否存在该商品
-    public boolean isSaved(String ID)
-    {
+    public boolean isSaved(String ID) {
         QueryBuilder<ShoppingCart> qb = testDao.queryBuilder();
         qb.where(ShoppingCartDao.Properties.Goods_id.eq(ID));
         qb.buildCount().count();
         return qb.buildCount().count() > 0 ? true : false;
     }
+
     //批量插入数据
-    public void saveTestList(List<ShoppingCart> tests){
+    public void saveTestList(List<ShoppingCart> tests) {
         testDao.insertOrReplaceInTx(tests);
     }
 
     /**
      * 查询所有的购物车
+     *
      * @return
      */
-    public List<ShoppingCart> getShoppingList(){
+    public List<ShoppingCart> getShoppingList() {
         return testDao.loadAll();
     }
 
     /**
      * 插入或是更新数据
+     *
      * @param test
      * @return
      */
-    public long saveShopping(ShoppingCart test){
+    public long saveShopping(ShoppingCart test) {
         return testDao.insertOrReplace(test);
     }
 
     /**
      * 更新数据
+     *
      * @param test
      */
-    public void updateTest(ShoppingCart test){
+    public void updateTest(ShoppingCart test) {
         testDao.update(test);
     }
 
@@ -94,17 +101,17 @@ public class DBHelper {
 
     /**
      * 删除所有数据--购物车
-     * */
+     */
 
-    public void deleteShopping(){
+    public void deleteShopping() {
         testDao.deleteAll();
     }
 
     /**
      * 删除数据根据goods_id
-     * */
+     */
 
-    public void deleteShoppingByGoodsId(String cartid){
+    public void deleteShoppingByGoodsId(String cartid) {
         QueryBuilder qb = testDao.queryBuilder();
         qb.where(ShoppingCartDao.Properties.Cartid.eq(cartid));
         testDao.deleteByKey(cartid);//删除
@@ -113,38 +120,39 @@ public class DBHelper {
 
     //动态
     //批量插入数据
-    public void saveRecordList(List<RecordMsg> tests){
+    public void saveRecordList(List<RecordMsg> tests) {
         recordDao.insertOrReplaceInTx(tests);
     }
+
     /**
      * 查询动态列表
+     *
      * @return
      */
-    public List<RecordMsg> getRecordList(){
+    public List<RecordMsg> getRecordList() {
         return recordDao.loadAll();
     }
 
     /**
      * 插入或是更新数据
+     *
      * @param test
      * @return
      */
-    public long saveRecord(RecordMsg test){
+    public long saveRecord(RecordMsg test) {
         return recordDao.insertOrReplace(test);
     }
 
     //查询是否存在该动态
-    public boolean isRecord(String id)
-    {
+    public boolean isRecord(String id) {
         QueryBuilder<RecordMsg> qb = recordDao.queryBuilder();
         qb.where(RecordMsgDao.Properties.Mm_msg_id.eq(id));
         qb.buildCount().count();
         return qb.buildCount().count() > 0 ? true : false;
     }
 
-     //查询动态
-    public RecordMsg getRecord(String id)
-    {
+    //查询动态
+    public RecordMsg getRecord(String id) {
         RecordMsg recordMsg = recordDao.load(id);
 
         return recordMsg;
@@ -152,9 +160,10 @@ public class DBHelper {
 
     /**
      * 更新数据
+     *
      * @param test
      */
-    public void updateRecord(RecordMsg test){
+    public void updateRecord(RecordMsg test) {
         recordDao.update(test);
     }
 }

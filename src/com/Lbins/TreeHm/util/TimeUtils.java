@@ -15,6 +15,7 @@ public class TimeUtils {
         String currentTime = sdf.format(date);
         return currentTime;
     }
+
     public static String getCurrentTime() {
         return getCurrentTime("yyyy-MM-dd  HH:mm:ss");
     }

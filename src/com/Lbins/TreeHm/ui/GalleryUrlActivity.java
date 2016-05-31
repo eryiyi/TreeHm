@@ -55,8 +55,8 @@ public class GalleryUrlActivity extends BaseActivity {
 
     public void download(View view) {
         int i = mViewPager.getCurrentItem();
-        getLxThread().execute(new PicUtil( imageUrls[i]));
-        String fileName = PicUtil.getImagePath( imageUrls[i]);
+        getLxThread().execute(new PicUtil(imageUrls[i]));
+        String fileName = PicUtil.getImagePath(imageUrls[i]);
         Toast.makeText(this, R.string.yisaveutil + fileName, Toast.LENGTH_SHORT).show();
     }
 }

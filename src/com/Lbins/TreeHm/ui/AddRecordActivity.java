@@ -83,12 +83,13 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         this.findViewById(R.id.back).setOnClickListener(this);
 //        mm_msg_title = (EditText) this.findViewById(R.id.mm_msg_title);
         mm_msg_content = (EditText) this.findViewById(R.id.mm_msg_content);
-        msgTypeSpinner  = (CustomerSpinner) this.findViewById(R.id.mm_msg_type);
+        msgTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_msg_type);
         msgTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mm_msg_type = empTypeList.get(position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -125,6 +126,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     }
 
     boolean isMobileNet, isWifiNet;
+
     @Override
     public void onClick(View view) {
         try {
@@ -137,7 +139,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -148,27 +150,27 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.btn:
                 //先判断权限
-                if("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
-                   //已登录
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
+                    //已登录
 
-                }else {
+                } else {
                     //未登录
                     Intent loginV = new Intent(AddRecordActivity.this, LoginActivity.class);
                     startActivity(loginV);
                     return;
                 }
-                if("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
+                if ("0".equals(getGson().fromJson(getSp().getString("is_fabugongying", ""), String.class)) && getResources().getString(R.string.type_gongying).equals(mm_msg_type)) {
                     //没有发布苗木供应的权限
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_one));
                     return;
                 }
-                if("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
+                if ("0".equals(getGson().fromJson(getSp().getString("is_fabuqiugou", ""), String.class)) && getResources().getString(R.string.type_qiugou).equals(mm_msg_type)) {
                     //没有发布苗木供应的权限
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_two));
                     return;
                 }
 
-                if(StringUtil.isNullOrEmpty(mm_msg_type) || getResources().getString(R.string.add_error_three).equals(mm_msg_type)){
+                if (StringUtil.isNullOrEmpty(mm_msg_type) || getResources().getString(R.string.add_error_three).equals(mm_msg_type)) {
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.please_select_msg_type));
                     return;
                 }
@@ -176,7 +178,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 //                    showMsg(AddRecordActivity.this, "请输入标题");
 //                    return;
 //                }
-                if(StringUtil.isNullOrEmpty(mm_msg_content.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_msg_content.getText().toString())) {
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.please_input_text));
                     return;
                 }
@@ -185,36 +187,36 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 //                    return;
 //                }
 
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))) {
                     //发布信息长度不为空
-                    if(mm_msg_content.getText().toString().length() > Integer.parseInt(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))){
+                    if (mm_msg_content.getText().toString().length() > Integer.parseInt(getGson().fromJson(getSp().getString("mm_msg_length", ""), String.class))) {
                         showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_four));
                         return;
                     }
                 }
 
-                if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>1){
+                if ("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size() > 1) {
                     //不允许发布图片
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_five));
                     return;
                 }
-                if("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>4){
+                if ("1".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size() > 4) {
                     //允许发布图片 3
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_six));
                     return;
                 }
-                if("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>7){
+                if ("2".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size() > 7) {
                     //允许发布图片 6
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_seven));
                     return;
                 }
-                if("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size()>10){
+                if ("3".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class)) && dataList.size() > 10) {
                     //允许发布图片 9
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_eight));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))){
-                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_nine)+(getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ getResources().getString(R.string.add_error_ten));
+                if (StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))) {
+                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_nine) + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + getResources().getString(R.string.add_error_ten));
                     return;
                 }
                 progressDialog = new ProgressDialog(AddRecordActivity.this);
@@ -222,7 +224,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 progressDialog.show();
 
                 //检查有没有选择图片
-                if (dataList.size() <=1 ) {
+                if (dataList.size() <= 1) {
                     addRecord();
                     return;
                 } else {
@@ -230,10 +232,10 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                         //七牛
                         Bitmap bm = FileUtils.getSmallBitmap(dataList.get(i));
                         final String cameraImagePath = FileUtils.saveBitToSD(bm, System.currentTimeMillis() + ".jpg");
-                        Map<String,String> map = new HashMap<String,String>();
+                        Map<String, String> map = new HashMap<String, String>();
                         map.put("space", InternetURL.QINIU_SPACE);
                         RequestParams params = new RequestParams(map);
-                        client.get(InternetURL.UPLOAD_TOKEN ,params, new JsonHttpResponseHandler(){
+                        client.get(InternetURL.UPLOAD_TOKEN, params, new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                                 super.onSuccess(statusCode, headers, response);
@@ -246,7 +248,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                                 public void complete(String key, ResponseInfo info, JSONObject response) {
                                                     //key
                                                     uploadPaths.add(key);
-                                                    if (uploadPaths.size() == (dataList.size()-1)) {
+                                                    if (uploadPaths.size() == (dataList.size() - 1)) {
                                                         publishAll();
                                                     }
                                                 }
@@ -255,6 +257,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     e.printStackTrace();
                                 }
                             }
+
                             @Override
                             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                                 super.onFailure(statusCode, headers, throwable, errorResponse);
@@ -269,10 +272,10 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 
     // 选择相册，相机
     private void showSelectImageDialog() {
-        if("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))){
+        if ("0".equals(getGson().fromJson(getSp().getString("is_pic", ""), String.class))) {
             //不允许发布图片
             showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_five));
-        }else {
+        } else {
             //隐藏键盘
             selectPhoPop = new SelectPhoPop(AddRecordActivity.this, itemsOnClick);
             //显示窗口
@@ -436,28 +439,28 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public void addRecord(){
+    public void addRecord() {
         //添加信息
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.SEND_RECORD_URL ,
+                InternetURL.SEND_RECORD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordSingData data = getGson().fromJson(s, RecordSingData.class);
                                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_record_success));
-                                    if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
+                                    if (getResources().getString(R.string.type_qiugou).equals(mm_msg_type)) {
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_QIUGOU);
                                         intent1.putExtra("addRecord", data.getData());
                                         sendBroadcast(intent1);
                                     }
-                                    if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
+                                    if (getResources().getString(R.string.type_gongying).equals(mm_msg_type)) {
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_GONGYING);
                                         intent1.putExtra("addRecord", data.getData());
@@ -465,19 +468,18 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     }
 
                                     finish();
-                                }else if(Integer.parseInt(code) == 3){
+                                } else if (Integer.parseInt(code) == 3) {
                                     Toast.makeText(AddRecordActivity.this,
-                                            R.string.add_msg_one+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ R.string.tiao ,
+                                            R.string.add_msg_one + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + R.string.tiao,
                                             Toast.LENGTH_SHORT).show();
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(AddRecordActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(AddRecordActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(AddRecordActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }
-                                else {
-                                    Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one , Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -503,24 +505,24 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
-                params.put("mm_msg_title" , "");
-                params.put("mm_msg_content" , mm_msg_content.getText().toString());
-                if("苗木求购".equals(mm_msg_type)){
-                    params.put("mm_msg_type" , "0");
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_msg_num", getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
+                params.put("mm_msg_title", "");
+                params.put("mm_msg_content", mm_msg_content.getText().toString());
+                if ("苗木求购".equals(mm_msg_type)) {
+                    params.put("mm_msg_type", "0");
                 }
-                if("苗木供应".equals(mm_msg_type)){
-                    params.put("mm_msg_type" , "1");
+                if ("苗木供应".equals(mm_msg_type)) {
+                    params.put("mm_msg_type", "1");
                 }
-                params.put("mm_msg_picurl" , "");
-                params.put("provinceid" , getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
-                params.put("cityid" , getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
-                params.put("countryid" , getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                params.put("mm_msg_picurl", "");
+                params.put("provinceid", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
+                params.put("cityid", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
+                params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
 
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -556,17 +558,17 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordSingData data = getGson().fromJson(s, RecordSingData.class);
                                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_record_success));
-                                    if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
+                                    if (getResources().getString(R.string.type_qiugou).equals(mm_msg_type)) {
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_QIUGOU);
                                         intent1.putExtra("addRecord", data.getData());
                                         sendBroadcast(intent1);
                                     }
-                                    if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
+                                    if (getResources().getString(R.string.type_gongying).equals(mm_msg_type)) {
                                         //调用广播，刷新主页
                                         Intent intent1 = new Intent(Constants.SEND_INDEX_SUCCESS_GONGYING);
                                         intent1.putExtra("addRecord", data.getData());
@@ -574,13 +576,12 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                                     }
 
                                     finish();
-                                }else if(Integer.parseInt(code) == 3){
+                                } else if (Integer.parseInt(code) == 3) {
                                     Toast.makeText(AddRecordActivity.this,
-                                            R.string.add_msg_one+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class))+ R.string.tiao ,
+                                            R.string.add_msg_one + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + R.string.tiao,
                                             Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one , Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -606,23 +607,23 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_id" , getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                params.put("mm_emp_msg_num" , getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
-                params.put("mm_msg_title" , "");
-                params.put("mm_msg_content" , mm_msg_content.getText().toString());
-                if(getResources().getString(R.string.type_qiugou).equals(mm_msg_type)){
-                    params.put("mm_msg_type" , "0");
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                params.put("mm_emp_msg_num", getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class));
+                params.put("mm_msg_title", "");
+                params.put("mm_msg_content", mm_msg_content.getText().toString());
+                if (getResources().getString(R.string.type_qiugou).equals(mm_msg_type)) {
+                    params.put("mm_msg_type", "0");
                 }
-                if(getResources().getString(R.string.type_gongying).equals(mm_msg_type)){
-                    params.put("mm_msg_type" , "1");
+                if (getResources().getString(R.string.type_gongying).equals(mm_msg_type)) {
+                    params.put("mm_msg_type", "1");
                 }
-                params.put("mm_msg_picurl" , String.valueOf(filePath));
-                params.put("provinceid" , getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
-                params.put("cityid" , getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
-                params.put("countryid" , getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_msg_picurl", String.valueOf(filePath));
+                params.put("provinceid", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
+                params.put("cityid", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
+                params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -637,8 +638,6 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         };
         getRequestQueue().add(request);
     }
-
-
 
 
 }

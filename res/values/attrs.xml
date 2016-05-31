@@ -8,29 +8,28 @@
 
     <declare-styleable name="LoadingTextView">
         <attr name="textStyle">
-            <enum name="noText" value="-1" />
-            <enum name="horizontal" value="0" />
-            <enum name="vertical" value="1" />
+            <enum name="noText" value="-1"/>
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
         </attr>
-        <attr name="gravity" format="integer" />
-        <attr name="textSize" format="dimension" />
-        <attr name="textColor" format="color" />
-        <attr name="textPadding" format="dimension" />
-        <attr name="android:text" />
+        <attr name="gravity" format="integer"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textPadding" format="dimension"/>
+        <attr name="android:text"/>
     </declare-styleable>
     <declare-styleable name="TitleBar">
-        <attr name="textColor" />
-        <attr name="background" format="reference" />
-        <attr name="backButton" format="reference" />
+        <attr name="textColor"/>
+        <attr name="background" format="reference"/>
+        <attr name="backButton" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="GroupLayout">
-        <attr name="dividerPadding" format="dimension" />
-        <attr name="dividerHeight" format="dimension" />
-        <attr name="dividerColor" format="color" />
-        <attr name="itemSelector" format="reference" />
+        <attr name="dividerPadding" format="dimension"/>
+        <attr name="dividerHeight" format="dimension"/>
+        <attr name="dividerColor" format="color"/>
+        <attr name="itemSelector" format="reference"/>
     </declare-styleable>
-
 
 
     <declare-styleable name="PullToRefresh">
@@ -111,10 +110,10 @@
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension"/>
         <attr name="border_color" format="color"/>
-        <attr name="borderRadius" format="dimension" />
+        <attr name="borderRadius" format="dimension"/>
         <attr name="type">
-            <enum name="circle" value="0" />
-            <enum name="round" value="1" />
+            <enum name="circle" value="0"/>
+            <enum name="round" value="1"/>
         </attr>
     </declare-styleable>
 

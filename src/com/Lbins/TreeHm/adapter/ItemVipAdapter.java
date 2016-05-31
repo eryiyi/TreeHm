@@ -31,7 +31,7 @@ public class ItemVipAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemVipAdapter(List<FeiyongObj> lists, Context mContect){
+    public ItemVipAdapter(List<FeiyongObj> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -53,24 +53,24 @@ public class ItemVipAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_feiyong,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_feiyong, null);
             holder.item_cart_select = (ImageView) convertView.findViewById(R.id.item_cart_select);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.price = (TextView) convertView.findViewById(R.id.price);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final FeiyongObj cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             holder.title.setText(cell.getMm_feiyong_name());
-            holder.price.setText("￥"+cell.getMm_feiyong_jine());
-            if("1".equals(cell.getIs_select())){
+            holder.price.setText("￥" + cell.getMm_feiyong_jine());
+            if ("1".equals(cell.getIs_select())) {
                 holder.item_cart_select.setImageResource(R.drawable.selector_fill);
-            }else{
+            } else {
                 holder.item_cart_select.setImageResource(R.drawable.selector_hollow);
             }
             holder.item_cart_select.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,7 @@ public class ItemVipAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
     class ViewHolder {
         ImageView item_cart_select;
         TextView title;

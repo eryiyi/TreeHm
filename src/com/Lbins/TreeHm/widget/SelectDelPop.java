@@ -20,6 +20,7 @@ import com.Lbins.TreeHm.R;
 public class SelectDelPop extends PopupWindow {
     private TextView camera, cancel;
     private View mMenuView;
+
     public SelectDelPop(Activity context, View.OnClickListener itemsOnClick) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context

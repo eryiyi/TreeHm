@@ -53,14 +53,15 @@ public class SpinnerListViewAdapter extends BaseAdapter {
         } else
             viewHolder = (ViewHolder) arg1.getTag();
         viewHolder.textView.setText(list.get(arg0));
-        if(arg0 % 2 == 0){
+        if (arg0 % 2 == 0) {
             //偶数
             viewHolder.textView.setBackgroundColor(Color.argb(250, 255, 255, 255)); //颜色设置
-        }else {
+        } else {
             viewHolder.textView.setBackgroundColor(Color.argb(255, 224, 243, 250));//颜色设置
         }
         return arg1;
     }
+
     class ViewHolder {
         TextView textView;
 

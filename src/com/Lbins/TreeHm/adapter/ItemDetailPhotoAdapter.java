@@ -33,10 +33,11 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
     }
 
 
-    public ItemDetailPhotoAdapter(List<String> lists, Context mContect){
+    public ItemDetailPhotoAdapter(List<String> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
+
     @Override
     public int getCount() {
         return lists.size();
@@ -55,18 +56,18 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         res = mContect.getResources();
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_detail_photo,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_detail_photo, null);
             holder.item_pic = (ImageView) convertView.findViewById(R.id.item_pic);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         String cell = lists.get(position);
-        if(cell != null){
-            if(cell.indexOf("7xqzj9.com1.z0.glb.clouddn.com") > 0){
+        if (cell != null) {
+            if (cell.indexOf("7xqzj9.com1.z0.glb.clouddn.com") > 0) {
                 //图片保存到七牛上了，有缩率图
                 cell = cell + "-yasuoone";
             }
@@ -75,6 +76,7 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
 
         return convertView;
     }
+
     class ViewHolder {
         ImageView item_pic;
     }

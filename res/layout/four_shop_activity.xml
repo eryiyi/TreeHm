@@ -33,7 +33,7 @@
             android:layout_width="fill_parent"
             android:visibility="gone"
             android:layout_height="40.0dip"
-            android:background="#FFFFFF" >
+            android:background="#FFFFFF">
 
         <TextView
                 android:id="@+id/text1"
@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:text="本地"
                 android:textColor="#000000"
-                android:textSize="16.0dip" />
+                android:textSize="16.0dip"/>
 
         <TextView
                 android:id="@+id/text2"
@@ -54,7 +54,7 @@
                 android:text="全部"
                 android:visibility="gone"
                 android:textColor="#000000"
-                android:textSize="16.0dip" />
+                android:textSize="16.0dip"/>
 
     </LinearLayout>
 
@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                android:src="@drawable/line_bg" />
+                android:src="@drawable/line_bg"/>
         <ImageView
                 android:id="@+id/cursor2"
                 android:layout_width="0dp"
@@ -87,6 +87,6 @@
             android:layout_weight="1.0"
             android:background="#000000"
             android:flipInterval="30"
-            android:persistentDrawingCache="animation" />
+            android:persistentDrawingCache="animation"/>
 
 </LinearLayout>

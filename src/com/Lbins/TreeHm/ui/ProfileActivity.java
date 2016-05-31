@@ -55,12 +55,12 @@ import java.util.Map;
  * Created by Administrator on 2016/2/19.
  */
 public class ProfileActivity extends BaseActivity implements View.OnClickListener, ContentListView.OnRefreshListener,
-        ContentListView.OnLoadListener ,OnClickContentItemListener{
+        ContentListView.OnLoadListener, OnClickContentItemListener {
     private ContentListView lstv;
     private int pageIndex = 1;
     private ItemRecordAdapter adapter;
     private List<RecordMsg> lists = new ArrayList<RecordMsg>();
-    private String type= "";
+    private String type = "";
 
     //header
     LinearLayout headLiner;
@@ -144,11 +144,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i >1 && lists.size() > i-2){
-                    lists.get(i-2).setIs_read("1");
+                if (i > 1 && lists.size() > i - 2) {
+                    lists.get(i - 2).setIs_read("1");
                     adapter.notifyDataSetChanged();
 
-                    recordVO = lists.get(i-2);
+                    recordVO = lists.get(i - 2);
                     recordVO.setIs_read("1");
                     DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 }
@@ -165,7 +165,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -191,30 +191,30 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             case R.id.nav:
                 //导航
             {
-                if(!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())){
+                if (!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())) {
                     //开始导航
-                    if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                    if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                         Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
-                        naviV.putExtra("lat_end" , emp.getLat_company());
-                        naviV.putExtra("lng_end" , emp.getLng_company());
+                        naviV.putExtra("lat_end", emp.getLat_company());
+                        naviV.putExtra("lng_end", emp.getLng_company());
                         startActivity(naviV);
-                    }else {
+                    } else {
                         Toast.makeText(ProfileActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
+                } else {
                     Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }
             }
-                break;
+            break;
             case R.id.adPic:
-                if(emp !=null && !StringUtil.isNullOrEmpty(emp.getAd_pic()) && !emp.getAd_pic().endsWith("ad_mp.jpg")){
+                if (emp != null && !StringUtil.isNullOrEmpty(emp.getAd_pic()) && !emp.getAd_pic().endsWith("ad_mp.jpg")) {
                     //说明存在广告图，点击进入分享页面
                     Intent mpV = new Intent(ProfileActivity.this, ShareMingpianActivity.class);
                     mpV.putExtra("mm_emp_id", emp.getMm_emp_id());
                     mpV.putExtra("mm_emp_ad_pic", emp.getAd_pic());
                     startActivity(mpV);
-                }else {
+                } else {
                     showMsg(ProfileActivity.this, "暂无名片，请联系客服");
                     Intent kefuV = new Intent(ProfileActivity.this, SelectTelActivity.class);
                     startActivity(kefuV);
@@ -223,7 +223,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    void getProfile(){
+    void getProfile() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_MEMBER_URL,
@@ -233,13 +233,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     EmpData data = getGson().fromJson(s, EmpData.class);
                                     emp = data.getData();
                                     initData();
-                                }
-                                else{
+                                } else {
                                     showMsg(ProfileActivity.this, getResources().getString(R.string.get_data_error));
                                 }
                             } catch (JSONException e) {
@@ -290,7 +289,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     RecordData data = getGson().fromJson(s, RecordData.class);
                                     if (ContentListView.REFRESH == currentid) {
@@ -305,24 +304,24 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                                         adapter.notifyDataSetChanged();
                                     }
 
-                                    if(data != null && data.getData() != null){
-                                        for(RecordMsg recordMsg:data.getData()){
+                                    if (data != null && data.getData() != null) {
+                                        for (RecordMsg recordMsg : data.getData()) {
                                             RecordMsg recordMsgLocal = DBHelper.getInstance(ProfileActivity.this).getRecord(recordMsg.getMm_msg_id());
-                                            if(recordMsgLocal != null){
+                                            if (recordMsgLocal != null) {
                                                 //已经存在了 不需要插入了
-                                            }else{
+                                            } else {
                                                 DBHelper.getInstance(ProfileActivity.this).saveRecord(recordMsg);
                                             }
                                         }
                                     }
 
-                                } else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(ProfileActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(ProfileActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(ProfileActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else {
+                                } else {
                                     Toast.makeText(ProfileActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -350,13 +349,14 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 params.put("size", "10");
                 params.put("mm_emp_id", id);
                 params.put("mm_msg_type", type);
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -367,32 +367,33 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         getRequestQueue().add(request);
     }
 
-    void initData(){
+    void initData() {
         imageLoader.displayImage(emp.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
         imageLoader.displayImage(emp.getAd_pic(), adPic, UniversityApplication.adOptions, animateFirstListener);
 
-        if(!StringUtil.isNullOrEmpty(emp.getMm_emp_company())){
+        if (!StringUtil.isNullOrEmpty(emp.getMm_emp_company())) {
             address.setText(emp.getMm_emp_company());
-        }else {
+        } else {
             address.setText(getResources().getString(R.string.no_www));
         }
         content.setText(emp.getMm_emp_company_detail());
         nickname.setText(emp.getMm_emp_nickname());
         back.setText(emp.getMm_emp_nickname());
-        companyUrl.setText(emp.getMm_emp_company()==null?"":emp.getMm_emp_company() + getResources().getString(R.string.wangzhan));
-        if(emp.getMm_emp_id().equals(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+        companyUrl.setText(emp.getMm_emp_company() == null ? "" : emp.getMm_emp_company() + getResources().getString(R.string.wangzhan));
+        if (emp.getMm_emp_id().equals(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))) {
             //是当前登陆者自己 显示
             updateBtn.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             //隐藏
             updateBtn.setVisibility(View.GONE);
         }
     }
 
     RecordMsg recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
                 //分享
                 lists.get(position).setIs_read("1");
@@ -403,8 +404,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 share(recordVO);
                 break;
             case 2:
-            case 4:
-            {
+            case 4: {
 //                头像
                 recordVO = lists.get(position);
                 lists.get(position).setIs_read("1");
@@ -420,9 +420,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 adapter.notifyDataSetChanged();
 
                 recordVO = lists.get(position);
-                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
                     showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
-                }else{
+                } else {
                     //
                     Toast.makeText(ProfileActivity.this, R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
@@ -467,21 +467,21 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
                 recordVO = lists.get(position);
-                if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                if (!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())) {
                     String[] arrs = recordVO.getMm_msg_title().split(",");
-                    if(arrs != null && arrs.length > 0){
+                    if (arrs != null && arrs.length > 0) {
                         //开始导航
-                        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                        if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                             Intent naviV = new Intent(ProfileActivity.this, GPSNaviActivity.class);
-                            naviV.putExtra("lat_end" , arrs[0]);
-                            naviV.putExtra("lng_end" , arrs[1]);
+                            naviV.putExtra("lat_end", arrs[0]);
+                            naviV.putExtra("lng_end", arrs[1]);
                             startActivity(naviV);
-                        }else {
+                        } else {
                             Toast.makeText(ProfileActivity.this, getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
                         }
 
                     }
-                }else {
+                } else {
                     Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -489,7 +489,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    void saveFavour(final String mm_msg_id){
+    void saveFavour(final String mm_msg_id) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.ADD_FAVOUR_URL,
@@ -499,19 +499,18 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
-                                    Toast.makeText(ProfileActivity.this, R.string.favour_success , Toast.LENGTH_SHORT).show();
-                                }else if(Integer.parseInt(code) == 9){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    Toast.makeText(ProfileActivity.this, R.string.favour_success, Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(ProfileActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(ProfileActivity.this, LoginActivity.class);
                                     startActivity(loginV);
-                                }else if(Integer.parseInt(code) == 2){
-                                    Toast.makeText(ProfileActivity.this, R.string.favour_error_one , Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(ProfileActivity.this, R.string.no_favour , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 2) {
+                                    Toast.makeText(ProfileActivity.this, R.string.favour_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(ProfileActivity.this, R.string.no_favour, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -537,10 +536,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_msg_id", mm_msg_id);
-                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -555,7 +554,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         };
         getRequestQueue().add(request);
     }
-
 
 
     // 登陆注册选择窗口
@@ -598,14 +596,13 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-
     // 拨打电话窗口
     private void showTel(final String tel, String name) {
         final Dialog picAddDialog = new Dialog(ProfileActivity.this, R.style.dialog);
         View picAddInflate = View.inflate(ProfileActivity.this, R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel +" " +name);
+        jubao_cont.setText(tel + " " + name);
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -630,7 +627,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     private RecordMsg recordMsgTmp;
 
-    void share(RecordMsg recordVO){
+    void share(RecordMsg recordVO) {
         //
         recordMsgTmp = recordVO;
 
@@ -642,10 +639,10 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(ProfileActivity.this, R.drawable.logo);
-            String title =  recordMsgTmp.getMm_msg_content();
-            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
+            String title = recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname() + recordMsgTmp.getMm_emp_company();
             new ShareAction(ProfileActivity.this).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
                     .withTitle(title)
@@ -663,12 +660,12 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(ProfileActivity.this,platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(ProfileActivity.this,platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -678,6 +675,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         /** attention to this below ,must add this**/
         UMShareAPI.get(ProfileActivity.this).onActivityResult(requestCode, resultCode, data);
     }
+
     private void initViewPager() {
         adapterAd = new ViewPagerAdapter(ProfileActivity.this);
         adapterAd.change(listsAd);
@@ -802,7 +800,6 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
     };
 
 
-
     private void getAd() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -813,15 +810,15 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     EmpAdObjData data = getGson().fromJson(s, EmpAdObjData.class);
                                     listsAd.clear();
-                                    if(data != null && data.getData().size() > 0){
+                                    if (data != null && data.getData().size() > 0) {
                                         listsAd.addAll(data.getData());
                                     }
-                                    if(lists.size() == 0){
-                                        listsAd.add(new EmpAdObj("http://xhmt.sdhmmm.cn:7777/upload/20160313/1457875390482.jpg","http://xhmt.sdhmmm.cn:7777/html/download.html"));
+                                    if (lists.size() == 0) {
+                                        listsAd.add(new EmpAdObj("http://xhmt.sdhmmm.cn:7777/upload/20160313/1457875390482.jpg", "http://xhmt.sdhmmm.cn:7777/html/download.html"));
                                     }
                                     initViewPager();
                                 } else {
@@ -849,6 +846,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 params.put("mm_emp_id", id);
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -859,11 +857,11 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         getRequestQueue().add(request);
     }
 
-    public void companyIndex(View view){
+    public void companyIndex(View view) {
         //
-        if(StringUtil.isNullOrEmpty(emp.getMm_emp_company_url())){
+        if (StringUtil.isNullOrEmpty(emp.getMm_emp_company_url())) {
             showMsg(ProfileActivity.this, getResources().getString(R.string.no_www));
-        }else{
+        } else {
             Intent webV = new Intent(ProfileActivity.this, WebViewActivity.class);
             webV.putExtra("strurl", emp.getMm_emp_company_url());
             startActivity(webV);

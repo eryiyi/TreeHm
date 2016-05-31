@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by liuzwei on 2014/11/11.
  */
-public class BaseActivity extends FragmentActivity{
+public class BaseActivity extends FragmentActivity {
     private static final int notifiId = 11;
     protected NotificationManager notificationManager;
     /**
@@ -66,15 +66,17 @@ public class BaseActivity extends FragmentActivity{
 
         ActivityTack.getInstanse().addActivity(this);
     }
+
     /**
      * Toast的封装
+     *
      * @param mContext 上下文，来区别哪一个activity调用的
-     * @param msg 你希望显示的值。
+     * @param msg      你希望显示的值。
      */
-    public static void showMsg(Context mContext,String msg) {
-        Toast toast=new Toast(mContext);
-        toast= Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0);//设置居中
+    public static void showMsg(Context mContext, String msg) {
+        Toast toast = new Toast(mContext);
+        toast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, 0);//设置居中
         toast.show();//显示,(缺了这句不显示)
     }
 
@@ -155,7 +157,6 @@ public class BaseActivity extends FragmentActivity{
     }
 
 
-
     public void addPutUploadFileRequest(final String url,
                                         final Map<String, File> files, final Map<String, String> params,
                                         final Response.Listener<String> responseListener, final Response.ErrorListener errorListener,
@@ -181,7 +182,6 @@ public class BaseActivity extends FragmentActivity{
 
         getRequestQueue().add(multiPartRequest);
     }
-
 
 
     protected void onDestroy() {

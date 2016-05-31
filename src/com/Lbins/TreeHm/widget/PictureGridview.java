@@ -12,7 +12,7 @@ import android.widget.GridView;
  * 类的功能、说明写在此处.
  */
 public class PictureGridview extends GridView {
-//    注意：构造方法要将GridView中的三种构造全部写上，否则很可能出现解析xml文件异常的错误。
+    //    注意：构造方法要将GridView中的三种构造全部写上，否则很可能出现解析xml文件异常的错误。
     public PictureGridview(Context context) {
 
         super(context);

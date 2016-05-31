@@ -20,7 +20,7 @@ import com.Lbins.TreeHm.util.StringUtil;
 /**
  * Created by Administrator on 2016/3/27 0027.
  */
-public class RecordGzActivity extends BaseActivity implements View.OnClickListener{
+public class RecordGzActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fm;
 
@@ -31,7 +31,7 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
     //设置底部图标
     Resources res;
     private int index;
-//    public static GuanzhuAreaObj guanzhuAreaObj;//关注的区域
+    //    public static GuanzhuAreaObj guanzhuAreaObj;//关注的区域
     public static String idPostion;//关注的区域
     public static String name;//关注的区域
     private TextView title;
@@ -113,13 +113,13 @@ public class RecordGzActivity extends BaseActivity implements View.OnClickListen
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(v.getId() == R.id.back){
+        if (v.getId() == R.id.back) {
             finish();
-        }else {
-            if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) &&  (v.getId() == R.id.foot_four)){
+        } else {
+            if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) && (v.getId() == R.id.foot_four)) {
                 //未登录
                 showLogin();
-            }else {
+            } else {
                 switchFragment(v.getId());
             }
         }

@@ -22,93 +22,92 @@ import java.util.Map;
 /**
  * Created by zhl on 2016/5/11.
  */
-public class AddCompanyLocationActivity extends BaseActivity implements View.OnClickListener
- {
-     private TextView location;
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         setContentView(R.layout.add_location_activity);
+public class AddCompanyLocationActivity extends BaseActivity implements View.OnClickListener {
+    private TextView location;
 
-         location = (TextView) this.findViewById(R.id.location);
-         this.findViewById(R.id.back).setOnClickListener(this);
-         location.setText( "经度："+UniversityApplication.lat +
-                    "\n纬度："+UniversityApplication.lng +"\n地址："+ UniversityApplication.address);
-     }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.add_location_activity);
 
-     @Override
-     public void onClick(View view) {
-         switch (view.getId()){
-             case R.id.back:
-                 finish();
-                 break;
-         }
-     }
+        location = (TextView) this.findViewById(R.id.location);
+        this.findViewById(R.id.back).setOnClickListener(this);
+        location.setText("经度：" + UniversityApplication.lat +
+                "\n纬度：" + UniversityApplication.lng + "\n地址：" + UniversityApplication.address);
+    }
 
-     public void sureLocation(View view){
-         //
-         if(StringUtil.isNullOrEmpty(UniversityApplication.lat) || StringUtil.isNullOrEmpty(UniversityApplication.lng)){
-             showMsg(AddCompanyLocationActivity.this, "请打开GPS，重新定位！");
-             return;
-         }
-         sendLocation();
-     }
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+        }
+    }
 
-     void sendLocation(){
-         StringRequest request = new StringRequest(
-                 Request.Method.POST,
-                 InternetURL.ADD_COMPANY_ADDRESS,
-                 new Response.Listener<String>() {
-                     @Override
-                     public void onResponse(String s) {
-                         if (StringUtil.isJson(s)) {
-                             try {
-                                 JSONObject jo = new JSONObject(s);
-                                 String code =  jo.getString("code");
-                                 if(Integer.parseInt(code) == 200){
-                                     showMsg(AddCompanyLocationActivity.this, "上传成功！");
-                                     finish();
-                                 }
-                                 else{
-                                     showMsg(AddCompanyLocationActivity.this, "上传失败！");
-                                 }
-                             } catch (JSONException e) {
-                                 e.printStackTrace();
-                             }
-                         }else {
-                             showMsg(AddCompanyLocationActivity.this, "上传失败！");
-                         }
-                         if (progressDialog != null) {
-                             progressDialog.dismiss();
-                         }
-                     }
-                 },
-                 new Response.ErrorListener() {
-                     @Override
-                     public void onErrorResponse(VolleyError volleyError) {
-                         showMsg(AddCompanyLocationActivity.this, "上传失败！");
-                         if (progressDialog != null) {
-                             progressDialog.dismiss();
-                         }
-                     }
-                 }
-         ) {
-             @Override
-             protected Map<String, String> getParams() throws AuthFailureError {
-                 Map<String, String> params = new HashMap<String, String>();
-                 params.put("lat", (UniversityApplication.lat==null?"":UniversityApplication.lat));
-                 params.put("lng", (UniversityApplication.lng==null?"":UniversityApplication.lng));
-                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class) );
-                 return params;
-             }
+    public void sureLocation(View view) {
+        //
+        if (StringUtil.isNullOrEmpty(UniversityApplication.lat) || StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
+            showMsg(AddCompanyLocationActivity.this, "请打开GPS，重新定位！");
+            return;
+        }
+        sendLocation();
+    }
 
-             @Override
-             public Map<String, String> getHeaders() throws AuthFailureError {
-                 Map<String, String> params = new HashMap<String, String>();
-                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                 return params;
-             }
-         };
-         getRequestQueue().add(request);
-     }
- }
+    void sendLocation() {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.ADD_COMPANY_ADDRESS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    showMsg(AddCompanyLocationActivity.this, "上传成功！");
+                                    finish();
+                                } else {
+                                    showMsg(AddCompanyLocationActivity.this, "上传失败！");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            showMsg(AddCompanyLocationActivity.this, "上传失败！");
+                        }
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        showMsg(AddCompanyLocationActivity.this, "上传失败！");
+                        if (progressDialog != null) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
+                params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+}

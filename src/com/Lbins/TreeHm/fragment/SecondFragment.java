@@ -59,7 +59,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class SecondFragment extends BaseFragment implements OnClickContentItemListener ,View.OnClickListener{
+public class SecondFragment extends BaseFragment implements OnClickContentItemListener, View.OnClickListener {
     private View view;
     private Resources res;
     private PullToRefreshListView lstv;
@@ -73,7 +73,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     String countryId; //选择的县区
     private TextView mLocation;
-    private String is_guanzhu= "0";//0不是查询关注区域 1是查询关注的区域
+    private String is_guanzhu = "0";//0不是查询关注区域 1是查询关注的区域
 
     //导航
     private ViewPager viewpager;
@@ -98,10 +98,10 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         res = getActivity().getResources();
         initView();
         initData();
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))){
-            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class)+"-"+ getResources().getString(R.string.dianjiseeother));
-        }else if(!StringUtil.isNullOrEmpty(UniversityApplication.area)){
-            mLocation.setText(UniversityApplication.area+"-"+ getResources().getString(R.string.dianjiseeother));
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("areaName", ""), String.class))) {
+            mLocation.setText(getGson().fromJson(getSp().getString("areaName", ""), String.class) + "-" + getResources().getString(R.string.dianjiseeother));
+        } else if (!StringUtil.isNullOrEmpty(UniversityApplication.area)) {
+            mLocation.setText(UniversityApplication.area + "-" + getResources().getString(R.string.dianjiseeother));
         }
         getAd();
         return view;
@@ -129,9 +129,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -146,9 +146,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = false;
                 pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -159,10 +159,10 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(lists.size() > position-2){
-                    lists.get(position-2).setIs_read("1");
+                if (lists.size() > position - 2) {
+                    lists.get(position - 2).setIs_read("1");
                     adapter.notifyDataSetChanged();
-                    recordVO = lists.get(position-2);
+                    recordVO = lists.get(position - 2);
                     DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                 }
             }
@@ -173,6 +173,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         keyword.addTextChangedListener(watcher);
         no_data.setOnClickListener(this);
     }
+
     private TextWatcher watcher = new TextWatcher() {
 
         @Override
@@ -193,9 +194,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             // TODO Auto-generated method stub
             IS_REFRESH = true;
             pageIndex = 1;
-            if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+            if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                 initData();
-            }else {
+            } else {
                 lstv.onRefreshComplete();
                 //未登录
                 showLogin();
@@ -204,20 +205,21 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     };
 
     RecordMsg recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         String str = (String) object;
-        if("000".equals(str)){
-            switch (flag){
+        if ("000".equals(str)) {
+            switch (flag) {
                 case 0:
                     AdObj adObj = listsAd.get(position);
                     Intent webV = new Intent(getActivity(), WebViewActivity.class);
-                    webV.putExtra("strurl", adObj.getMm_ad_url()==null?"":adObj.getMm_ad_url());
+                    webV.putExtra("strurl", adObj.getMm_ad_url() == null ? "" : adObj.getMm_ad_url());
                     startActivity(webV);
                     break;
             }
         }
-        if("111".equals(str)) {
+        if ("111".equals(str)) {
             switch (flag) {
                 case 1:
                     //分享
@@ -296,21 +298,21 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                     lists.get(position).setIs_read("1");
                     adapter.notifyDataSetChanged();
                     recordVO = lists.get(position);
-                    if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())){
+                    if (!StringUtil.isNullOrEmpty(recordVO.getMm_msg_title())) {
                         String[] arrs = recordVO.getMm_msg_title().split(",");
-                        if(arrs != null && arrs.length > 0){
+                        if (arrs != null && arrs.length > 0) {
                             //开始导航
-                            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                            if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                                 Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
-                                naviV.putExtra("lat_end" , arrs[0]);
-                                naviV.putExtra("lng_end" , arrs[1]);
+                                naviV.putExtra("lat_end", arrs[0]);
+                                naviV.putExtra("lng_end", arrs[1]);
                                 startActivity(naviV);
-                            }else {
+                            } else {
                                 Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
                             }
 
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -318,13 +320,14 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             }
         }
     }
+
     // 拨打电话窗口
     private void showTel(final String tel, String name) {
         final Dialog picAddDialog = new Dialog(getActivity(), R.style.dialog);
         View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel +" " +name);
+        jubao_cont.setText(tel + " " + name);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
@@ -351,7 +354,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     private RecordMsg recordMsgTmp;
 
-    void share(RecordMsg recordVO){
+    void share(RecordMsg recordVO) {
         //
         recordMsgTmp = recordVO;
 
@@ -363,10 +366,10 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(getActivity(), R.drawable.logo);
-            String title =  recordMsgTmp.getMm_msg_content();
-            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
+            String title = recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname() + recordMsgTmp.getMm_emp_company();
             new ShareAction(getActivity()).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
                     .withTitle(title)
@@ -384,12 +387,12 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -400,7 +403,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
     }
 
-    void initData(){
+    void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_RECORD_LIST_URL,
@@ -410,35 +413,34 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordData data = getGson().fromJson(s, RecordData.class);
                                     if (IS_REFRESH) {
                                         lists.clear();
                                     }
-                                    lists .addAll(data.getData());
-                                    if(data != null && data.getData() != null){
-                                        for(RecordMsg recordMsg:data.getData()){
+                                    lists.addAll(data.getData());
+                                    if (data != null && data.getData() != null) {
+                                        for (RecordMsg recordMsg : data.getData()) {
                                             RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-                                            if(recordMsgLocal != null){
+                                            if (recordMsgLocal != null) {
                                                 //已经存在了 不需要插入了
-                                            }else{
+                                            } else {
                                                 DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
                                             }
                                         }
                                     }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }else if(Integer.parseInt(code) == 2){
-                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
-                                }
-                                else{
+                                } else if (Integer.parseInt(code) == 2) {
+                                    Toast.makeText(getActivity(), R.string.favour_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -446,10 +448,10 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                             }
                         }
 
-                        if(lists.size() > 0){
+                        if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
                             lstv.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             no_data.setVisibility(View.VISIBLE);
                             lstv.setVisibility(View.GONE);
                         }
@@ -469,54 +471,54 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 params.put("mm_msg_type", "1");
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))) {
                     params.put("provinceid", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
-                }else {
+                } else {
                     params.put("provinceid", "");
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))) {
                     params.put("cityid", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
-                }else {
+                } else {
                     params.put("cityid", "");
                 }
 
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
-                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
+                if (!StringUtil.isNullOrEmpty(keyword.getText().toString())) {
                     params.put("keyword", keyword.getText().toString());
                 }
                 //当前登陆者的等级vip 0  -- 4
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_level_num", ""), String.class))) {
                     params.put("mm_level_num", getGson().fromJson(getSp().getString("mm_level_num", ""), String.class));
-                }else {
+                } else {
                     params.put("mm_level_num", "");
                 }
                 //权限-- 查看全部信息
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("is_see_all", ""), String.class))) {
                     params.put("is_see_all", getGson().fromJson(getSp().getString("is_see_all", ""), String.class));
-                }else {
+                } else {
                     params.put("is_see_all", "");
                 }
 
                 //是否是选择的县区
-                if(!StringUtil.isNullOrEmpty(countryId)){
+                if (!StringUtil.isNullOrEmpty(countryId)) {
                     params.put("is_select_countryId", countryId);
-                }else {
+                } else {
                     params.put("is_select_countryId", "");
                 }
 
-                if("1".equals(is_guanzhu)){
+                if ("1".equals(is_guanzhu)) {
                     params.put("is_guanzhu", "1");
                     params.put("countryid", getGson().fromJson(getSp().getString("gz_areaId", ""), String.class));
-                }else {
+                } else {
                     params.put("is_guanzhu", "0");
                     //默认情况下
-                    if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                    if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                         params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
-                    }else {
+                    } else {
                         params.put("countryid", "");
                     }
                 }
@@ -537,13 +539,13 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.mLocation:
                 //
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))) {
                     //未登录
                     showLogin();
-                }else {
+                } else {
                     Intent selectV = new Intent(getActivity(), SelectProvinceActivity.class);
                     startActivity(selectV);
                 }
@@ -551,24 +553,23 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             case R.id.no_data:
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
                 }
                 break;
-            case R.id.add:
-            {
+            case R.id.add: {
                 //发布信息
-                if((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))){
+                if ((StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("isLogin", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class)))) {
                     //未登录
                     showLogin();
-                }else {
-                    if("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))){
+                } else {
+                    if ("0".equals(getGson().fromJson(getSp().getString("is_upate_profile", ""), String.class))) {
                         showUpdateProfile();
-                    }else {
+                    } else {
                         Intent addV = new Intent(getActivity(), AddRecordActivity.class);
                         startActivity(addV);
                     }
@@ -610,32 +611,32 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals(Constants.SEND_INDEX_SUCCESS_GONGYING)){
+            if (action.equals(Constants.SEND_INDEX_SUCCESS_GONGYING)) {
                 RecordMsg record1 = (RecordMsg) intent.getExtras().get("addRecord");
                 lists.add(0, record1);
                 adapter.notifyDataSetChanged();
                 lstv.setVisibility(View.VISIBLE);
                 no_data.setVisibility(View.GONE);
             }
-            if(action.equals("select_country")){
+            if (action.equals("select_country")) {
                 is_guanzhu = "0";
                 countryId = intent.getExtras().getString("countryId");
                 String countryName = intent.getExtras().getString("countryName");
-                mLocation.setText(countryName+"-"+ getResources().getString(R.string.dianjiseeother));
+                mLocation.setText(countryName + "-" + getResources().getString(R.string.dianjiseeother));
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
                 }
             }
-            if(action.equals("change_color_size")){
+            if (action.equals("change_color_size")) {
                 adapter.notifyDataSetChanged();
             }
-            if(action.equals("change_guanzhu_area")){
+            if (action.equals("change_guanzhu_area")) {
                 //查询关注的区域
                 is_guanzhu = "1";
                 initData();
@@ -661,7 +662,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
-    void saveFavour(final String mm_msg_id){
+    void saveFavour(final String mm_msg_id) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.ADD_FAVOUR_URL,
@@ -671,20 +672,19 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
-                                    Toast.makeText(getActivity(), R.string.favour_success , Toast.LENGTH_SHORT).show();
-                                }else if(Integer.parseInt(code) == 9){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    Toast.makeText(getActivity(), R.string.favour_success, Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }else if(Integer.parseInt(code) == 2){
-                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 2) {
+                                    Toast.makeText(getActivity(), R.string.favour_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.no_favour, Toast.LENGTH_SHORT).show();
                                 }
 
                             } catch (JSONException e) {
@@ -711,10 +711,10 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_msg_id", mm_msg_id);
-                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -903,11 +903,11 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     AdObjData data = getGson().fromJson(s, AdObjData.class);
                                     listsAd.clear();
-                                    if(data != null && data.getData().size() > 0){
+                                    if (data != null && data.getData().size() > 0) {
                                         listsAd.addAll(data.getData());
                                     }
                                     initViewPager();
@@ -934,17 +934,18 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_ad_type", "2");
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))) {
                     params.put("mm_emp_provinceId", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))) {
                     params.put("mm_emp_cityId", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                     params.put("mm_emp_countryId", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
                 }
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();

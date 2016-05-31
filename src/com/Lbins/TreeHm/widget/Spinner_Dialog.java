@@ -13,12 +13,14 @@ public class Spinner_Dialog extends Dialog {
 
     public Spinner_Dialog(Context context) {
         super(context);
-        this.context =context;
+        this.context = context;
     }
-    public Spinner_Dialog(Context context, int theme){
+
+    public Spinner_Dialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
     }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.spinner_bg);

@@ -62,7 +62,7 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         res = getResources();
         //mob短信无GUI
         SMSSDK.initSDK(this, APPKEY, APPSECRET, true);
-        EventHandler eh=new EventHandler(){
+        EventHandler eh = new EventHandler() {
 
             @Override
             public void afterEvent(int event, int result, Object data) {
@@ -88,9 +88,9 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onReceived(String message) {
                 //花木通的验证码：8469【掌淘科技】
-                if(!StringUtil.isNullOrEmpty(message)){
+                if (!StringUtil.isNullOrEmpty(message)) {
                     String codestr = StringUtil.valuteNumber(message);
-                    if(!StringUtil.isNullOrEmpty(codestr)){
+                    if (!StringUtil.isNullOrEmpty(codestr)) {
                         code.setText(codestr);
                     }
                 }
@@ -98,7 +98,7 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-    void initView(){
+    void initView() {
         mm_emp_mobile = (EditText) this.findViewById(R.id.mm_emp_mobile);
         code = (EditText) this.findViewById(R.id.code);
         password = (EditText) this.findViewById(R.id.password);
@@ -110,46 +110,47 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         btn.setOnClickListener(this);
         this.findViewById(R.id.back).setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_code:
                 //验证码
-                if(!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11){
+                if (!TextUtils.isEmpty(mm_emp_mobile.getText().toString()) && mm_emp_mobile.getText().toString().length() == 11) {
                     SMSSDK.getVerificationCode("86", mm_emp_mobile.getText().toString());//发送请求验证码，手机10s之内会获得短信验证码
-                    phString=mm_emp_mobile.getText().toString();
+                    phString = mm_emp_mobile.getText().toString();
                     btn_code.setClickable(false);//不可点击
-                    MyTimer myTimer = new MyTimer(60000,1000);
+                    MyTimer myTimer = new MyTimer(60000, 1000);
                     myTimer.start();
-                }else {
+                } else {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_seven));
                     return;
                 }
                 break;
             case R.id.btn:
                 //确定
-                if(StringUtil.isNullOrEmpty(mm_emp_mobile.getText().toString())){
+                if (StringUtil.isNullOrEmpty(mm_emp_mobile.getText().toString())) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_seven));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(code.getText().toString())){
+                if (StringUtil.isNullOrEmpty(code.getText().toString())) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_eight));
                     return;
                 }
 
-                if(StringUtil.isNullOrEmpty(password.getText().toString())){
+                if (StringUtil.isNullOrEmpty(password.getText().toString())) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_three));
                     return;
                 }
-                if(password.getText().toString().length()>18 || password.getText().toString().length()<6){
+                if (password.getText().toString().length() > 18 || password.getText().toString().length() < 6) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_four));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(surepass.getText().toString())){
+                if (StringUtil.isNullOrEmpty(surepass.getText().toString())) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_five));
                     return;
                 }
-                if(!password.getText().toString().equals(surepass.getText().toString())){
+                if (!password.getText().toString().equals(surepass.getText().toString())) {
                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_six));
                     return;
                 }
@@ -182,23 +183,22 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    void reg(){
+    void reg() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.UPDATE_PWR_URL ,
+                InternetURL.UPDATE_PWR_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_success_one));
                                     save("password", password.getText().toString());
                                     finish();
-                                }
-                                else {
+                                } else {
                                     showMsg(UpdatePwrActivity.this, getResources().getString(R.string.pwr_error_nine));
                                 }
                             } catch (JSONException e) {
@@ -225,8 +225,8 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_mobile" , mm_emp_mobile.getText().toString());
-                params.put("newpass" , password.getText().toString());
+                params.put("mm_emp_mobile", mm_emp_mobile.getText().toString());
+                params.put("newpass", password.getText().toString());
                 return params;
             }
 
@@ -241,8 +241,7 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    Handler mHandler = new Handler()
-    {
+    Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int event = msg.arg1;
@@ -250,13 +249,13 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             Object data = msg.obj;
             Log.e("event", "event=" + event);
             if (result == SMSSDK.RESULT_COMPLETE) {
-                System.out.println("--------result"+event);
+                System.out.println("--------result" + event);
                 //短信注册成功后，返回MainActivity,然后提示新好友
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
 //                    Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
                     reg();
 
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //已经验证
 //                    Toast.makeText(UpdatePwrActivity.this, R.string.code_msg_one, Toast.LENGTH_SHORT).show();
                 }
@@ -283,7 +282,9 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
             }
 
 
-        };
+        }
+
+        ;
     };
 
 
@@ -292,6 +293,8 @@ public class UpdatePwrActivity extends BaseActivity implements View.OnClickListe
         SMSSDK.unregisterAllEventHandler();
         //注销短信监听广播
         this.unregisterReceiver(mSMSBroadcastReceiver);
-    };
+    }
+
+    ;
 
 }

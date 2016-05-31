@@ -156,7 +156,7 @@ public class AlbumActivity extends AbsActivity {
             });
 
         }
-        okButton.setText( getResources().getString(R.string.compleat) + selectedDataList.size() + getResources().getString(R.string.compleat_1));
+        okButton.setText(getResources().getString(R.string.compleat) + selectedDataList.size() + getResources().getString(R.string.compleat_1));
     }
 
     private void initListener() {
@@ -226,7 +226,7 @@ public class AlbumActivity extends AbsActivity {
             selectedImageLayout.removeView(hashMap.get(path));
             hashMap.remove(path);
             removeOneData(selectedDataList, path);
-            okButton.setText( getResources().getString(R.string.compleat)+ selectedDataList.size() + getResources().getString(R.string.compleat_1));
+            okButton.setText(getResources().getString(R.string.compleat) + selectedDataList.size() + getResources().getString(R.string.compleat_1));
             return true;
         } else {
             return false;

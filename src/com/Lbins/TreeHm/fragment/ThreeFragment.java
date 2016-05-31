@@ -49,7 +49,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class ThreeFragment  extends BaseFragment implements OnClickContentItemListener,View.OnClickListener {
+public class ThreeFragment extends BaseFragment implements OnClickContentItemListener, View.OnClickListener {
     private View view;
     private Resources res;
     private PullToRefreshListView lstv;
@@ -91,9 +91,9 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -108,9 +108,9 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = false;
                 pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -121,10 +121,10 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                lists.get(position-1).setIs_read("1");
+                lists.get(position - 1).setIs_read("1");
                 adapter.notifyDataSetChanged();
 
-                recordVO = lists.get(position-1);
+                recordVO = lists.get(position - 1);
                 DBHelper.getInstance(getActivity()).updateRecord(recordVO);
             }
         });
@@ -133,9 +133,10 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
     }
 
     RecordMsg recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
+        switch (flag) {
             case 1:
                 //分享
                 recordVO = lists.get(position);
@@ -147,8 +148,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 share(recordVO);
                 break;
             case 2:
-            case 4:
-            {
+            case 4: {
                 //头像
 
                 recordVO = lists.get(position);
@@ -168,9 +168,9 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 adapter.notifyDataSetChanged();
 
                 recordVO = lists.get(position);
-                if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
                     showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
-                }else{
+                } else {
                     //
                     Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                 }
@@ -195,7 +195,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 //收藏图标
                 lists.get(position).setIs_read("1");
                 adapter.notifyDataSetChanged();
-                if("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     recordVO = lists.get(position);
                     progressDialog = new ProgressDialog(getActivity());
                     progressDialog.setIndeterminate(true);
@@ -204,7 +204,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
 
                     recordVO.setIs_read("1");
                     DBHelper.getInstance(getActivity()).updateRecord(recordVO);
-                }else {
+                } else {
                     //未登录
                     showLogin();
                 }
@@ -214,7 +214,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
 
     private RecordMsg recordMsgTmp;
 
-    void share(RecordMsg recordVO){
+    void share(RecordMsg recordVO) {
         //
         recordMsgTmp = recordVO;
 
@@ -226,10 +226,10 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
     private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {
 
         @Override
-        public void onclick(SnsPlatform snsPlatform,SHARE_MEDIA share_media) {
+        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
             UMImage image = new UMImage(getActivity(), R.drawable.logo);
-            String title =  recordMsgTmp.getMm_msg_content();
-            String content = recordMsgTmp.getMm_emp_nickname()+recordMsgTmp.getMm_emp_company();
+            String title = recordMsgTmp.getMm_msg_content();
+            String content = recordMsgTmp.getMm_emp_nickname() + recordMsgTmp.getMm_emp_company();
             new ShareAction(getActivity()).setPlatform(share_media).setCallback(umShareListener)
                     .withText(content)
                     .withTitle(title)
@@ -247,12 +247,12 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform +getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), platform + getResources().getString(R.string.share_cancel), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -269,7 +269,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel +" " +name);
+        jubao_cont.setText(tel + " " + name);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
@@ -294,7 +294,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         picAddDialog.show();
     }
 
-    void initData(){
+    void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_TOP_URL,
@@ -304,33 +304,32 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     RecordData data = getGson().fromJson(s, RecordData.class);
                                     if (IS_REFRESH) {
                                         lists.clear();
                                     }
-                                    lists .addAll(data.getData());
-                                    if(data != null && data.getData() != null){
-                                        for(RecordMsg recordMsg:data.getData()){
+                                    lists.addAll(data.getData());
+                                    if (data != null && data.getData() != null) {
+                                        for (RecordMsg recordMsg : data.getData()) {
                                             RecordMsg recordMsgLocal = DBHelper.getInstance(getActivity()).getRecord(recordMsg.getMm_msg_id());
-                                            if(recordMsgLocal != null){
+                                            if (recordMsgLocal != null) {
                                                 //已经存在了 不需要插入了
-                                            }else{
+                                            } else {
                                                 DBHelper.getInstance(getActivity()).saveRecord(recordMsg);
                                             }
                                         }
                                     }
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -338,10 +337,10 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                             }
                         }
 
-                        if(lists.size() > 0){
+                        if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
                             lstv.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             no_data.setVisibility(View.VISIBLE);
                             lstv.setVisibility(View.GONE);
                         }
@@ -359,9 +358,9 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;
@@ -379,13 +378,13 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.no_data:
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -400,7 +399,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals("change_color_size")){
+            if (action.equals("change_color_size")) {
                 adapter.notifyDataSetChanged();
             }
         }
@@ -420,7 +419,7 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
-    void saveFavour(final String mm_msg_id){
+    void saveFavour(final String mm_msg_id) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.ADD_FAVOUR_URL,
@@ -430,25 +429,24 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
-                                    Toast.makeText(getActivity(), R.string.favour_success , Toast.LENGTH_SHORT).show();
-                                }else if(Integer.parseInt(code) == 9){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+                                    Toast.makeText(getActivity(), R.string.favour_success, Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }else if(Integer.parseInt(code) == 2){
-                                    Toast.makeText(getActivity(), R.string.favour_error_one , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 2) {
+                                    Toast.makeText(getActivity(), R.string.favour_error_one, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.no_favour, Toast.LENGTH_SHORT).show();
                                 }
-                                else{
-                                    Toast.makeText(getActivity(), R.string.no_favour , Toast.LENGTH_SHORT).show();
-                                }
-                                if(lists.size() == 0){
+                                if (lists.size() == 0) {
                                     no_data.setVisibility(View.VISIBLE);
                                     lstv.setVisibility(View.GONE);
-                                }else {
+                                } else {
                                     no_data.setVisibility(View.GONE);
                                     lstv.setVisibility(View.VISIBLE);
                                 }
@@ -476,10 +474,10 @@ public class ThreeFragment  extends BaseFragment implements OnClickContentItemLi
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_msg_id", mm_msg_id);
-                params.put("mm_emp_id",  getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
                 return params;

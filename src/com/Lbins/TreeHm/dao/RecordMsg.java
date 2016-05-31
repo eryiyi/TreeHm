@@ -11,12 +11,15 @@ import java.io.Serializable;
 
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
+
 /**
  * Entity mapped to table RECORD_MSG.
  */
 public class RecordMsg implements Serializable {
 
-    /** Not-null value. */
+    /**
+     * Not-null value.
+     */
     private String mm_msg_id;
     private String mm_emp_id;
     private String mm_msg_type;
@@ -44,10 +47,14 @@ public class RecordMsg implements Serializable {
     private String mm_level_num;
     private String is_read;
 
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     private transient DaoSession daoSession;
 
-    /** Used for active entity operations. */
+    /**
+     * Used for active entity operations.
+     */
     private transient RecordMsgDao myDao;
 
 
@@ -90,18 +97,24 @@ public class RecordMsg implements Serializable {
         this.is_read = is_read;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getRecordMsgDao() : null;
     }
 
-    /** Not-null value. */
+    /**
+     * Not-null value.
+     */
     public String getMm_msg_id() {
         return mm_msg_id;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * Not-null value; ensure this value is available before it is saved to the database.
+     */
     public void setMm_msg_id(String mm_msg_id) {
         this.mm_msg_id = mm_msg_id;
     }
@@ -309,21 +322,21 @@ public class RecordMsg implements Serializable {
     public void delete() {
         if (myDao == null) {
             throw new DaoException("Entity is detached from DAO context");
-        }    
+        }
         myDao.delete(this);
     }
 
     public void update() {
         if (myDao == null) {
             throw new DaoException("Entity is detached from DAO context");
-        }    
+        }
         myDao.update(this);
     }
 
     public void refresh() {
         if (myDao == null) {
             throw new DaoException("Entity is detached from DAO context");
-        }    
+        }
         myDao.refresh(this);
     }
 

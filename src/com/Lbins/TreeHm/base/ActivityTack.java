@@ -54,6 +54,7 @@ public class ActivityTack {
         removeActivity(activity);
         activity.finish();
     }
+
     /**
      * 弹出activity到
      *

@@ -20,6 +20,7 @@ import com.Lbins.TreeHm.R;
 public class SelectPhoPop extends PopupWindow {
     private TextView camera, cancel, mapstorage;
     private View mMenuView;
+
     public SelectPhoPop(Activity context, View.OnClickListener itemsOnClick) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context

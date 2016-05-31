@@ -164,9 +164,6 @@
     <string name="add_msg">请输入您要发布的信息内容，包括您要求的品种、规格、质量及联系方式。您将对您发布信息的真实性负法律责任，请谨慎填写！</string>
 
 
-
-
-
     <string name="app_id_xunfei">5707245c</string>
     <string-array name="preference_values_tts_role">z
         <item>xiaoyan</item>
@@ -200,6 +197,6 @@
     <string name="preference_default_tts_pitch">50</string>
     <string name="intell_bd_title">智能播报</string>
     <string name="no_location_lat_lng">暂无定位信息</string>
-    <string name="please_open_gps">请打开手机GPS，并退出软件重新登录，方便我们进行定位导航</string>
+    <string name="please_open_gps">请打开手机GPS，方便我们进行定位导航</string>
 
 </resources>

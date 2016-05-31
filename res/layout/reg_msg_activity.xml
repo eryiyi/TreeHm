@@ -31,7 +31,7 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
         <com.Lbins.TreeHm.widget.MyTextView2
                 android:id="@+id/view"
                 android:padding="6dp"

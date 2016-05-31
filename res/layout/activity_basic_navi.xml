@@ -5,10 +5,10 @@
                 android:orientation="vertical">
 
     <com.amap.api.navi.AMapNaviView
-        android:id="@+id/navi_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+            android:id="@+id/navi_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
 
 </RelativeLayout>

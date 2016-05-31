@@ -29,7 +29,7 @@ public class ItemGuanzhuAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemGuanzhuAdapter(List<String> lists, Context mContect){
+    public ItemGuanzhuAdapter(List<String> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
@@ -51,22 +51,23 @@ public class ItemGuanzhuAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_gz_area,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_gz_area, null);
             holder.title = (TextView) convertView.findViewById(R.id.title);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final String cell = lists.get(position);
-        if(cell != null){
+        if (cell != null) {
             holder.title.setTextColor(mContect.getResources().getColor(R.color.mm_top_bg));
             holder.title.setText(cell);
         }
         return convertView;
     }
+
     class ViewHolder {
         TextView title;
     }

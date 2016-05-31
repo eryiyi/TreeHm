@@ -45,8 +45,8 @@ public class StringUtil {
 
 
     /**
-     *
      * 方法描述：取得当前日期的上月或下月日期 ,amount=-1为上月日期，amount=1为下月日期；创建人：jya
+     *
      * @return
      * @throws Exception
      */
@@ -114,15 +114,16 @@ public class StringUtil {
 
     /**
      * 生成32位编码
+     *
      * @return string
      */
-    public static String getUUID(){
+    public static String getUUID() {
         String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
         return uuid;
     }
 
 
-    public static byte[] getBytes(String filePath){
+    public static byte[] getBytes(String filePath) {
         byte[] buffer = null;
         try {
             File file = new File(filePath);
@@ -186,28 +187,29 @@ public class StringUtil {
     }
 
 
-    public static  final String distanceCon(String latStr1, String lngStr1, String latStr2,String lngStr2){
+    public static final String distanceCon(String latStr1, String lngStr1, String latStr2, String lngStr2) {
 
-        LatLng lat1=new LatLng(Double.valueOf(latStr1),Double.valueOf(lngStr1));
-        LatLng lat2=new LatLng(Double.valueOf(latStr2),Double.valueOf(lngStr2));
+        LatLng lat1 = new LatLng(Double.valueOf(latStr1), Double.valueOf(lngStr1));
+        LatLng lat2 = new LatLng(Double.valueOf(latStr2), Double.valueOf(lngStr2));
         float dis = AMapUtils.calculateLineDistance(lat1, lat2);
-        dis = dis/1000;
+        dis = dis / 1000;
         return String.valueOf(dis);
     }
 
 
     /**
      * 计算两点之间距离
+     *
      * @param start
      * @param end
      * @return 米
      */
-    public static  String getDistance(LatLng start,LatLng end){
-        double lat1 = (Math.PI/180)*start.latitude;
-        double lat2 = (Math.PI/180)*end.latitude;
+    public static String getDistance(LatLng start, LatLng end) {
+        double lat1 = (Math.PI / 180) * start.latitude;
+        double lat2 = (Math.PI / 180) * end.latitude;
 
-        double lon1 = (Math.PI/180)*start.longitude;
-        double lon2 = (Math.PI/180)*end.longitude;
+        double lon1 = (Math.PI / 180) * start.longitude;
+        double lon2 = (Math.PI / 180) * end.longitude;
 
 //      double Lat1r = (Math.PI/180)*(gp1.getLatitudeE6()/1E6);
 //      double Lat2r = (Math.PI/180)*(gp2.getLatitudeE6()/1E6);
@@ -218,16 +220,16 @@ public class StringUtil {
         double R = 6371;
 
         //两点间距离 km，如果想要米的话，结果*1000就可以了
-        double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
+        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)) * R;
         DecimalFormat df = new DecimalFormat("0.00");
         return df.format(d);
     }
 
-    public static  String valuteNumber(String str){
+    public static String valuteNumber(String str) {
         Pattern p = Pattern.compile("[0-9\\.]+");
         Matcher m = p.matcher(str);
-        String string  = "";
-        while(m.find()){
+        String string = "";
+        while (m.find()) {
             string += m.group();
         }
         return string;

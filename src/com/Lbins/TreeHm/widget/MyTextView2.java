@@ -55,6 +55,6 @@ public class MyTextView2 extends TextView {
                     (lineCount + 1) * textSize, paint1);
             drawedWidth += charWidth;
         }
-        setHeight((int) ((lineCount + 1) * (int) textSize ));
+        setHeight((int) ((lineCount + 1) * (int) textSize));
     }
 }

@@ -43,12 +43,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/2/22.
  */
-public class FourFuwuActivity extends BaseActivity implements View.OnClickListener ,OnClickContentItemListener{
+public class FourFuwuActivity extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
 
 
     private List<FuwuObj> lists = new ArrayList<FuwuObj>();
-    private PullToRefreshListView gridView ;
-    private ItemFourFuwuAdapter adapter ;
+    private PullToRefreshListView gridView;
+    private ItemFourFuwuAdapter adapter;
     private String mm_fuwu_type;
 
     private TextView back;
@@ -63,7 +63,7 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.four_fuwu_activity);
         mm_fuwu_type = getIntent().getExtras().getString("mm_fuwu_type");
         initView();
-        switch (Integer.parseInt(mm_fuwu_type)){
+        switch (Integer.parseInt(mm_fuwu_type)) {
             case 0:
                 back.setText(getResources().getString(R.string.miaomushop));
                 break;
@@ -79,12 +79,13 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
             case 4:
                 back.setText(getResources().getString(R.string.diaocheservie));
                 break;
-        };
+        }
+        ;
         InitViewPager();
         initData();
     }
 
-    public void initData(){
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_FUWU_BY_LOCATION_URL,
@@ -94,8 +95,8 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     FuwuObjData data = getGson().fromJson(s, FuwuObjData.class);
                                     if (IS_REFRESH) {
                                         lists.clear();
@@ -103,19 +104,19 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
                                     lists.addAll(data.getData());
                                     gridView.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code1) == 9){
-                                    Toast.makeText(FourFuwuActivity.this, R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code1) == 9) {
+                                    Toast.makeText(FourFuwuActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(FourFuwuActivity.this, LoginActivity.class);
                                     startActivity(loginV);
                                     finish();
-                                }else{
+                                } else {
                                     Toast.makeText(FourFuwuActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(FourFuwuActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -136,12 +137,12 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                if(!StringUtil.isNullOrEmpty(mm_fuwu_type)){
-                    params.put("mm_fuwu_type" , mm_fuwu_type);
+                if (!StringUtil.isNullOrEmpty(mm_fuwu_type)) {
+                    params.put("mm_fuwu_type", mm_fuwu_type);
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                     params.put("countryid", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
-                }else {
+                } else {
                     params.put("countryid", "");
                 }
                 params.put("index", String.valueOf(pageIndex));
@@ -166,7 +167,7 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -176,7 +177,7 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
     private void InitViewPager() {
         gridView = (PullToRefreshListView) this.findViewById(R.id.lstv);
         no_data1 = (ImageView) this.findViewById(R.id.no_data);
-        adapter = new ItemFourFuwuAdapter(lists, FourFuwuActivity.this,mm_fuwu_type);
+        adapter = new ItemFourFuwuAdapter(lists, FourFuwuActivity.this, mm_fuwu_type);
         gridView.setMode(PullToRefreshBase.Mode.BOTH);
         gridView.setAdapter(adapter);
         gridView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -205,6 +206,7 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
         adapter.setOnClickContentItemListener(this);
 
     }
+
     // 拨打电话窗口
     private void showTel(String tel) {
         final Dialog picAddDialog = new Dialog(FourFuwuActivity.this, R.style.dialog);
@@ -218,7 +220,7 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                if(!StringUtil.isNullOrEmpty(contreport)){
+                if (!StringUtil.isNullOrEmpty(contreport)) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
                     startActivity(intent);
                 }
@@ -240,43 +242,40 @@ public class FourFuwuActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
-        switch (flag){
-            case 1:
-            {
+        switch (flag) {
+            case 1: {
                 FuwuObj fuwuObj = lists.get(position);
                 String mm_fuwu_url = fuwuObj.getMm_fuwu_url();
-                if(!StringUtil.isNullOrEmpty(mm_fuwu_url)){
+                if (!StringUtil.isNullOrEmpty(mm_fuwu_url)) {
                     Intent webV = new Intent(FourFuwuActivity.this, WebViewActivity.class);
                     webV.putExtra("strurl", mm_fuwu_url);
                     startActivity(webV);
-                }else {
+                } else {
                     showMsg(FourFuwuActivity.this, getResources().getString(R.string.zanwu_www));
                 }
 
             }
             break;
-            case 2:
-            {
+            case 2: {
                 FuwuObj fuwuObj = lists.get(position);
-                if(fuwuObj != null){
+                if (fuwuObj != null) {
                     showTel(fuwuObj.getMm_fuwu_tel());
                 }
             }
             break;
-            case 3:
-            {
+            case 3: {
                 FuwuObj fuwuObj = lists.get(position);
-                if(fuwuObj != null && !StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                if (fuwuObj != null && !StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                     //开始导航
                     Intent naviV = new Intent(FourFuwuActivity.this, GPSNaviActivity.class);
-                    naviV.putExtra("lat_end" ,fuwuObj.getLat());
-                    naviV.putExtra("lng_end" ,fuwuObj.getLng());
+                    naviV.putExtra("lat_end", fuwuObj.getLat());
+                    naviV.putExtra("lng_end", fuwuObj.getLng());
                     startActivity(naviV);
-                }else {
+                } else {
                     showMsg(FourFuwuActivity.this, getResources().getString(R.string.no_location_lat_lng));
                 }
             }
-                break;
+            break;
         }
     }
 

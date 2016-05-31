@@ -57,7 +57,7 @@ public class GalleryViewPager extends ViewPager {
                     return new float[]{curr.x - last.x, curr.y - last.y};
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -67,43 +67,43 @@ public class GalleryViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent event) {
         try {
 
-        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-            //super.onInterceptTouchEvent(event);
+            if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                //super.onInterceptTouchEvent(event);
 
-            float endX = event.getX();
-            float endY = event.getY();
-            if (isAClick(startX, endX, startY, endY)) {
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClicked(mCurrentView, getCurrentItem());
+                float endX = event.getX();
+                float endY = event.getY();
+                if (isAClick(startX, endX, startY, endY)) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClicked(mCurrentView, getCurrentItem());
+                    }
+                } else {
+                    super.onTouchEvent(event);
                 }
+            }
+
+            if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
+                startX = event.getX();
+                startY = event.getY();
+            }
+
+            float[] difference = handleMotionEvent(event);
+
+            if (mCurrentView.pagerCanScroll()) {
+                return super.onTouchEvent(event);
             } else {
-                super.onTouchEvent(event);
+                if (difference != null && mCurrentView.onRightSide && difference[0] < 0) //move right
+                {
+                    return super.onTouchEvent(event);
+                }
+                if (difference != null && mCurrentView.onLeftSide && difference[0] > 0) //move left
+                {
+                    return super.onTouchEvent(event);
+                }
+                if (difference == null && (mCurrentView.onLeftSide || mCurrentView.onRightSide)) {
+                    return super.onTouchEvent(event);
+                }
             }
-        }
-
-        if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
-            startX = event.getX();
-            startY = event.getY();
-        }
-
-        float[] difference = handleMotionEvent(event);
-
-        if (mCurrentView.pagerCanScroll()) {
-            return super.onTouchEvent(event);
-        } else {
-            if (difference != null && mCurrentView.onRightSide && difference[0] < 0) //move right
-            {
-                return super.onTouchEvent(event);
-            }
-            if (difference != null && mCurrentView.onLeftSide && difference[0] > 0) //move left
-            {
-                return super.onTouchEvent(event);
-            }
-            if (difference == null && (mCurrentView.onLeftSide || mCurrentView.onRightSide)) {
-                return super.onTouchEvent(event);
-            }
-        }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -152,7 +152,7 @@ public class GalleryViewPager extends ViewPager {
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

@@ -64,7 +64,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class FourFragment extends BaseFragment implements View.OnClickListener ,OnClickContentItemListener {
+public class FourFragment extends BaseFragment implements View.OnClickListener, OnClickContentItemListener {
     private View view;
     private final static int SCANNIN_GREQUEST_CODE = 1;
     private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -124,44 +124,44 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     private void initData() {
         imageLoader.displayImage(getGson().fromJson(getSp().getString("mm_emp_cover", ""), String.class), head, UniversityApplication.txOptions, animateFirstListener);
 
-        String strName = getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class) ;
-        if("0".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
+        String strName = getGson().fromJson(getSp().getString("mm_emp_nickname", ""), String.class);
+        if ("0".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))) {
             strName += " " + getResources().getString(R.string.miaomujingying);
         }
-        if("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))){
+        if ("1".equals(getGson().fromJson(getSp().getString("mm_emp_type", ""), String.class))) {
             strName += " " + getResources().getString(R.string.miaomuemp);
         }
         nickname.setText(strName);
 
         String vipTypeStr = "会员等级:";
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))){
-            vipTypeStr +=getGson().fromJson(getSp().getString("levelName", ""), String.class);
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("levelName", ""), String.class))) {
+            vipTypeStr += getGson().fromJson(getSp().getString("levelName", ""), String.class);
         }
-        if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class))){
-            vipTypeStr += "到期日期:"+ getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class);
+        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class))) {
+            vipTypeStr += "到期日期:" + getGson().fromJson(getSp().getString("mm_emp_endtime", ""), String.class);
         }
         vipType.setText(vipTypeStr);
-        regTime.setText("注册日期:"+getGson().fromJson(getSp().getString("mm_emp_regtime", ""), String.class));
+        regTime.setText("注册日期:" + getGson().fromJson(getSp().getString("mm_emp_regtime", ""), String.class));
         regAddress.setText(getGson().fromJson(getSp().getString("provinceName", ""), String.class) + getGson().fromJson(getSp().getString("cityName", ""), String.class) + getGson().fromJson(getSp().getString("areaName", ""), String.class));
         //判断是否苗木协会和苗木会员
-        if("1".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))){//is_miaomu
+        if ("1".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))) {//is_miaomu
             img_chengxin.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             img_chengxin.setVisibility(View.GONE);
         }
-        if("1".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class))){
+        if ("1".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class))) {
             img_xiehui.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             img_xiehui.setVisibility(View.GONE);
         }
-        if("0".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))){
+        if ("0".equals(getGson().fromJson(getSp().getString("is_miaomu", ""), String.class)) || "0".equals(getGson().fromJson(getSp().getString("is_chengxin", ""), String.class))) {
             btn_chengxin_xiehui.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btn_chengxin_xiehui.setVisibility(View.GONE);
         }
     }
 
-    void initView( ){
+    void initView() {
         head = (ImageView) view.findViewById(R.id.head);
         nickname = (TextView) view.findViewById(R.id.nickname);
         vipType = (TextView) view.findViewById(R.id.vipType);
@@ -329,10 +329,11 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     };
 
     EmpAdObj slidePic;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         slidePic = lists.get(position);
-        switch (flag){
+        switch (flag) {
             case 0:
 //                Intent webView = new Intent(getActivity(), WebViewActivity.class);
 //                webView.putExtra("strurl", slidePic.getMm_emp_ad_url());
@@ -344,7 +345,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.relate_set:
                 Intent setV = new Intent(getActivity(), SettingActivity.class);
                 startActivity(setV);
@@ -353,10 +354,10 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 //商店
             {
                 Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
-                shopV.putExtra("mm_fuwu_type", "0" );
+                shopV.putExtra("mm_fuwu_type", "0");
                 startActivity(shopV);
             }
-                break;
+            break;
             case R.id.relate_bank:
                 //银行
             {
@@ -364,31 +365,31 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 final Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
             }
-                break;
+            break;
             case R.id.relate_work:
                 //装车工人
             {
                 Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
-                shopV.putExtra("mm_fuwu_type", "1" );
+                shopV.putExtra("mm_fuwu_type", "1");
                 startActivity(shopV);
             }
-                break;
+            break;
             case R.id.relate_wuliu:
                 //物流中心
             {
                 Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
-                shopV.putExtra("mm_fuwu_type", "2" );
+                shopV.putExtra("mm_fuwu_type", "2");
                 startActivity(shopV);
             }
-                break;
+            break;
             case R.id.relate_jiajie:
                 //嫁接
             {
                 Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
-                shopV.putExtra("mm_fuwu_type", "3" );
+                shopV.putExtra("mm_fuwu_type", "3");
                 startActivity(shopV);
             }
-                break;
+            break;
             case R.id.relate_msg:
                 //短信
             {
@@ -399,22 +400,22 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 final Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
             }
-                break;
+            break;
             case R.id.realte_diaoche:
                 //调车
             {
                 Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
-                shopV.putExtra("mm_fuwu_type", "4" );
+                shopV.putExtra("mm_fuwu_type", "4");
                 startActivity(shopV);
             }
-                break;
+            break;
             case R.id.relate_about:
                 //关于我们
             {
                 Intent aboutV = new Intent(getActivity(), AboutUsActivity.class);
                 startActivity(aboutV);
             }
-                break;
+            break;
             case R.id.realte_ziliao:
                 //用户资料
             {
@@ -422,89 +423,82 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 profileV.putExtra("id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 startActivity(profileV);
             }
-                break;
+            break;
             case R.id.relate_updatepwr:
                 //修改密码
             {
                 Intent updateP = new Intent(getActivity(), FindPwrActivity.class);
                 startActivity(updateP);
             }
-                break;
+            break;
             case R.id.relate_suggest:
                 //意见反馈
             {
                 Intent suggestV = new Intent(getActivity(), AddSuggestActivity.class);
                 startActivity(suggestV);
             }
-                break;
-            case R.id.relate_vip:
-            {
+            break;
+            case R.id.relate_vip: {
                 //购买VIP
                 Intent vipV = new Intent(getActivity(), VipActivity.class);
                 startActivity(vipV);
             }
-                break;
-            case R.id.relate_nearby:
-            {
+            break;
+            case R.id.relate_nearby: {
                 //附近商家
-                Intent nearbyV= new Intent(getActivity(), NearbyActivity.class);
+                Intent nearbyV = new Intent(getActivity(), NearbyActivity.class);
                 startActivity(nearbyV);
             }
-                break;
+            break;
             case R.id.head:
                 //修改头像
             {
-                if("0".equals(getGson().fromJson(getSp().getString("is_cover", ""), String.class))){
+                if ("0".equals(getGson().fromJson(getSp().getString("is_cover", ""), String.class))) {
                     //如果是0 默认允许
                     ShowPickDialog();
-                }else{
-                    Toast.makeText(getActivity(), "修改头像，请联系客服开通权限！",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "修改头像，请联系客服开通权限！", Toast.LENGTH_SHORT).show();
                 }
             }
-                break;
-            case R.id.relate_favour:
-            {
+            break;
+            case R.id.relate_favour: {
                 //我的收藏
                 Intent mineFavourV = new Intent(getActivity(), MineFavour.class);
                 startActivity(mineFavourV);
             }
-                break;
+            break;
             case R.id.relate_kefu:
-            case R.id.btn_chengxin_xiehui:
-            {
+            case R.id.btn_chengxin_xiehui: {
                 //客服中心
                 Intent kefuV = new Intent(getActivity(), SelectTelActivity.class);
                 startActivity(kefuV);
             }
-                break;
-            case R.id.relate_more_area:
-            {
+            break;
+            case R.id.relate_more_area: {
                 //设置关注区域
                 Intent guanzhuV = new Intent(getActivity(), SetGuanzhuActivity.class);
                 startActivity(guanzhuV);
             }
-                break;
+            break;
             case R.id.relate_weixinkefu:
                 Intent weixinV = new Intent(getActivity(), WeixinKefuActivity.class);
                 startActivity(weixinV);
                 break;
             case R.id.relate_zhaoshang:
-                Toast.makeText(getActivity(), R.string.no_open,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.no_open, Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.relate_notice:
-            {
+            case R.id.relate_notice: {
                 //公告
                 Intent noticeV = new Intent(getActivity(), NoticeActivity.class);
                 startActivity(noticeV);
             }
-                break;
+            break;
             case R.id.relate_erweima:
                 //
                 Intent intentErweima = new Intent(getActivity(), ErweimaActivity.class);
                 startActivity(intentErweima);
                 break;
-            case R.id.relate_map:
-            {
+            case R.id.relate_map: {
                 //地图
 //                Intent mapV = new Intent(getActivity(), WebViewActivity.class);
 //                mapV.putExtra("strurl", "http://map.baidu.com/mobile/webapp/index/index");
@@ -514,9 +508,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 final Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
             }
-                break;
-            case R.id.realte_xiecheng:
-            {
+            break;
+            case R.id.realte_xiecheng: {
                 //汽车火车飞机时刻表
 //                Intent xiechengV = new Intent(getActivity(), WebViewActivity.class);
 //                xiechengV.putExtra("strurl", "http://m.ctrip.com/html5");
@@ -526,13 +519,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 final Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
             }
-                break;
-            case R.id.addLocation:
-            {
-                Intent addLocationV = new Intent(getActivity(),AddCompanyLocationActivity.class );
+            break;
+            case R.id.addLocation: {
+                Intent addLocationV = new Intent(getActivity(), AddCompanyLocationActivity.class);
                 startActivity(addLocationV);
             }
-                break;
+            break;
         }
     }
 
@@ -546,15 +538,15 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     EmpAdObjData data = getGson().fromJson(s, EmpAdObjData.class);
                                     lists.clear();
-                                    if(data != null && data.getData().size() > 0){
+                                    if (data != null && data.getData().size() > 0) {
                                         lists.addAll(data.getData());
                                     }
-                                    if(lists.size() == 0){
-                                        lists.add(new EmpAdObj(InternetURL.INTERNAL + "/upload/20160313/1457875390482.jpg", InternetURL.INTERNAL +"/html/download.html"));
+                                    if (lists.size() == 0) {
+                                        lists.add(new EmpAdObj(InternetURL.INTERNAL + "/upload/20160313/1457875390482.jpg", InternetURL.INTERNAL + "/html/download.html"));
                                     }
                                     initViewPager();
                                 } else {
@@ -582,6 +574,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -598,7 +591,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals("sure_quite")){
+            if (action.equals("sure_quite")) {
                 login_one.setVisibility(View.GONE);
             }
         }
@@ -618,7 +611,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
-    void getFavourCount(){
+    void getFavourCount() {
         //
         StringRequest request = new StringRequest(
                 Request.Method.POST,
@@ -629,16 +622,16 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     FavourCountData data = getGson().fromJson(s, FavourCountData.class);
-                                    if(data != null && data.getData() != null){
+                                    if (data != null && data.getData() != null) {
                                         count_favour.setVisibility(View.VISIBLE);
-                                        String count = data.getData()==""?"0":data.getData();
+                                        String count = data.getData() == "" ? "0" : data.getData();
                                         int countInt = Integer.parseInt(count);
-                                        if(countInt >99){
+                                        if (countInt > 99) {
                                             count_favour.setText("99+");
-                                        }else {
+                                        } else {
                                             count_favour.setText(count);
                                         }
                                     }
@@ -667,6 +660,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -715,6 +709,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
             }
         }
     };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -779,8 +774,8 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
     }
 
     //上传到七牛云存贮
-    void uploadCover(){
-        Map<String,String> map = new HashMap<String,String>();
+    void uploadCover() {
+        Map<String, String> map = new HashMap<String, String>();
         map.put("space", InternetURL.QINIU_SPACE);
         RequestParams params = new RequestParams(map);
         client.get(InternetURL.UPLOAD_TOKEN, params, new JsonHttpResponseHandler() {
@@ -822,7 +817,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener ,
                             try {
                                 JSONObject jo = new JSONObject(s);
                                 String code = jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                if (Integer.parseInt(code) == 200) {
                                     save("mm_emp_cover", InternetURL.QINIU_URL + uploadpic);
                                 }
                             } catch (JSONException e) {

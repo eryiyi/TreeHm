@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
  */
 public class RegistMsgActivity extends BaseActivity implements View.OnClickListener {
     MyTextView2 view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,27 +27,28 @@ public class RegistMsgActivity extends BaseActivity implements View.OnClickListe
 
         this.findViewById(R.id.back).setOnClickListener(this);
         view = (MyTextView2) findViewById(R.id.view);
-        view.setText(getAssetsString(this,"msg"));
+        view.setText(getAssetsString(this, "msg"));
         this.findViewById(R.id.back).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
-    public String getAssetsString(Context context,String fileName){
+
+    public String getAssetsString(Context context, String fileName) {
         StringBuffer sb = new StringBuffer();
         try {
             AssetManager am = context.getAssets();
             InputStream in = am.open(fileName);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String line;
-            while((line = reader.readLine())!=null){
+            while ((line = reader.readLine()) != null) {
                 line += ("\n");
                 sb.append(line);
             }

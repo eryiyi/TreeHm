@@ -42,19 +42,19 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
     private ViewPager viewPager;
     private ImageView cursor1;
     private ImageView cursor2;
-    private TextView textView1,textView2;
+    private TextView textView1, textView2;
     private List<View> views;
     private int offset = 0;
     private int currIndex = 0;
     private int bmpW;
-    private View view1,view2;
+    private View view1, view2;
 
     private List<KefuTel> lists = new ArrayList<KefuTel>();
     private List<KefuTel> listsAll = new ArrayList<KefuTel>();
-    private PullToRefreshListView gridView ;
-    private PullToRefreshListView gridView2 ;
-    private ItemTelAdapter adapter ;
-    private ItemTelAdapter adapterVideo ;
+    private PullToRefreshListView gridView;
+    private PullToRefreshListView gridView2;
+    private ItemTelAdapter adapter;
+    private ItemTelAdapter adapterVideo;
 
     private TextView back;
     private ImageView no_data1;
@@ -72,7 +72,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         initDataAll();
     }
 
-    public void initData(){
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_TEL_URL,
@@ -82,26 +82,26 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     KefuTelData data = getGson().fromJson(s, KefuTelData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    if(lists.size() > 0){
+                                    if (lists.size() > 0) {
                                         no_data1.setVisibility(View.GONE);
                                         gridView.setVisibility(View.VISIBLE);
-                                    }else {
+                                    } else {
                                         no_data1.setVisibility(View.VISIBLE);
                                         gridView.setVisibility(View.GONE);
                                     }
                                     adapter.notifyDataSetChanged();
-                                }else{
+                                } else {
                                     Toast.makeText(SelectTelActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectTelActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -122,7 +122,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                     params.put("mm_emp_countryId", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
                 }
                 params.put("mm_tel_type", "0");//地区的
@@ -139,7 +139,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         getRequestQueue().add(request);
     }
 
-    public void initDataAll(){
+    public void initDataAll() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_TEL_URL,
@@ -149,26 +149,26 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     KefuTelData data = getGson().fromJson(s, KefuTelData.class);
                                     listsAll.clear();
                                     listsAll.addAll(data.getData());
-                                    if(listsAll.size() > 0){
+                                    if (listsAll.size() > 0) {
                                         no_data2.setVisibility(View.GONE);
                                         gridView2.setVisibility(View.VISIBLE);
-                                    }else {
+                                    } else {
                                         no_data2.setVisibility(View.VISIBLE);
                                         gridView2.setVisibility(View.GONE);
                                     }
                                     adapterVideo.notifyDataSetChanged();
-                                }else{
+                                } else {
                                     Toast.makeText(SelectTelActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectTelActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -210,11 +210,11 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
 
 
     private void InitViewPager() {
-        viewPager=(ViewPager) findViewById(R.id.vPager);
-        views=new ArrayList<View>();
-        LayoutInflater inflater=getLayoutInflater();
-        view1=inflater.inflate(R.layout.four_shop_lay1, null);
-        view2=inflater.inflate(R.layout.four_shop_lay2, null);
+        viewPager = (ViewPager) findViewById(R.id.vPager);
+        views = new ArrayList<View>();
+        LayoutInflater inflater = getLayoutInflater();
+        view1 = inflater.inflate(R.layout.four_shop_lay1, null);
+        view2 = inflater.inflate(R.layout.four_shop_lay2, null);
 
         views.add(view1);
         views.add(view2);
@@ -238,9 +238,9 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(lists.size() > (i-1)){
-                    KefuTel kefuTel = lists.get(i-1);
-                    if(kefuTel != null){
+                if (lists.size() > (i - 1)) {
+                    KefuTel kefuTel = lists.get(i - 1);
+                    if (kefuTel != null) {
                         showTel(kefuTel.getMm_tel());
                     }
                 }
@@ -249,9 +249,9 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(listsAll.size() > (i-1)){
-                    KefuTel kefuTel = listsAll.get(i-1);
-                    if(kefuTel != null){
+                if (listsAll.size() > (i - 1)) {
+                    KefuTel kefuTel = listsAll.get(i - 1);
+                    if (kefuTel != null) {
                         showTel(kefuTel.getMm_tel());
                     }
                 }
@@ -259,6 +259,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         });
 
     }
+
     // 拨打电话窗口
     private void showTel(String tel) {
         final Dialog picAddDialog = new Dialog(SelectTelActivity.this, R.style.dialog);
@@ -272,7 +273,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 String contreport = jubao_cont.getText().toString();
-                if(!StringUtil.isNullOrEmpty(contreport)){
+                if (!StringUtil.isNullOrEmpty(contreport)) {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
                     startActivity(intent);
                 }
@@ -301,15 +302,14 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-
     private void InitImageView() {
-        cursor1= (ImageView) findViewById(R.id.cursor1);
-        cursor2= (ImageView) findViewById(R.id.cursor2);
+        cursor1 = (ImageView) findViewById(R.id.cursor1);
+        cursor2 = (ImageView) findViewById(R.id.cursor2);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -317,10 +317,12 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
     }
 
     private class MyOnClickListener implements View.OnClickListener {
-        private int index=0;
-        public MyOnClickListener(int i){
-            index=i;
+        private int index = 0;
+
+        public MyOnClickListener(int i) {
+            index = i;
         }
+
         public void onClick(View v) {
             viewPager.setCurrentItem(index);
         }
@@ -335,7 +337,7 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) 	{
+        public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(mListViews.get(position));
         }
 
@@ -348,12 +350,12 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
 
         @Override
         public int getCount() {
-            return  mListViews.size();
+            return mListViews.size();
         }
 
         @Override
         public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0==arg1;
+            return arg0 == arg1;
         }
     }
 
@@ -373,11 +375,11 @@ public class SelectTelActivity extends BaseActivity implements View.OnClickListe
 //            animation.setFillAfter(true);
 //            animation.setDuration(300);
 //            imageView.startAnimation(animation);
-            if(arg0 == 0){
+            if (arg0 == 0) {
                 cursor1.setImageDrawable(getResources().getDrawable(R.drawable.line_bg));
                 cursor2.setImageDrawable(getResources().getDrawable(R.drawable.line_bg_white));
             }
-            if(arg0 == 1){
+            if (arg0 == 1) {
                 cursor1.setImageDrawable(getResources().getDrawable(R.drawable.line_bg_white));
                 cursor2.setImageDrawable(getResources().getDrawable(R.drawable.line_bg));
             }

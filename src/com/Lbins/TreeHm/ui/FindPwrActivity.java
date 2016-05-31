@@ -48,7 +48,7 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
         initView();
     }
 
-    void initView(){
+    void initView() {
         yuanshipwr = (EditText) this.findViewById(R.id.yuanshipwr);
         password = (EditText) this.findViewById(R.id.password);
         surepass = (EditText) this.findViewById(R.id.surepass);
@@ -57,33 +57,34 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
         btn.setOnClickListener(this);
         this.findViewById(R.id.back).setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn:
                 //确定
-                if(StringUtil.isNullOrEmpty(yuanshipwr.getText().toString())){
+                if (StringUtil.isNullOrEmpty(yuanshipwr.getText().toString())) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_two));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(password.getText().toString())){
+                if (StringUtil.isNullOrEmpty(password.getText().toString())) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_three));
                     return;
                 }
-                if(password.getText().toString().length()>18 || password.getText().toString().length()<6){
+                if (password.getText().toString().length() > 18 || password.getText().toString().length() < 6) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_four));
                     return;
                 }
-                if(StringUtil.isNullOrEmpty(surepass.getText().toString())){
+                if (StringUtil.isNullOrEmpty(surepass.getText().toString())) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_five));
                     return;
                 }
-                if(!password.getText().toString().equals(surepass.getText().toString())){
+                if (!password.getText().toString().equals(surepass.getText().toString())) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_six));
                     return;
                 }
                 //判断原始密码是否正确
-                if(!yuanshipwr.getText().toString().equals(getGson().fromJson(getSp().getString("password", ""), String.class))){
+                if (!yuanshipwr.getText().toString().equals(getGson().fromJson(getSp().getString("password", ""), String.class))) {
                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_error_one));
                     return;
                 }
@@ -98,23 +99,22 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    void reg(){
+    void reg() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                InternetURL.UPDATE_PWR_URL ,
+                InternetURL.UPDATE_PWR_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200) {
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     showMsg(FindPwrActivity.this, getResources().getString(R.string.pwr_success_one));
                                     save("password", password.getText().toString());
                                     finish();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(FindPwrActivity.this, R.string.pwr_error_nine, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -141,8 +141,8 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mm_emp_mobile" , getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
-                params.put("newpass" , password.getText().toString());
+                params.put("mm_emp_mobile", getGson().fromJson(getSp().getString("mm_emp_mobile", ""), String.class));
+                params.put("newpass", password.getText().toString());
                 return params;
             }
 
@@ -157,8 +157,7 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    Handler mHandler = new Handler()
-    {
+    Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int event = msg.arg1;
@@ -166,13 +165,13 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
             Object data = msg.obj;
             Log.e("event", "event=" + event);
             if (result == SMSSDK.RESULT_COMPLETE) {
-                System.out.println("--------result"+event);
+                System.out.println("--------result" + event);
                 //短信注册成功后，返回MainActivity,然后提示新好友
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//提交验证码成功
 //                    Toast.makeText(getApplicationContext(), "提交验证码成功", Toast.LENGTH_SHORT).show();
                     reg();
 
-                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //已经验证
 //                    Toast.makeText(FindPwrActivity.this, R.string.code_msg_one, Toast.LENGTH_SHORT).show();
                 }
@@ -199,12 +198,16 @@ public class FindPwrActivity extends BaseActivity implements View.OnClickListene
             }
 
 
-        };
+        }
+
+        ;
     };
 
 
     public void onDestroy() {
         super.onPause();
-    };
+    }
+
+    ;
 
 }

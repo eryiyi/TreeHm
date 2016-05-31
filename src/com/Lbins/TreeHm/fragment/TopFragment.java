@@ -2,15 +2,18 @@ package com.Lbins.TreeHm.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -55,7 +58,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/1/22.
  */
-public class TopFragment extends BaseFragment implements OnClickContentItemListener,View.OnClickListener {
+public class TopFragment extends BaseFragment implements OnClickContentItemListener, View.OnClickListener {
     private View view;
     private Resources res;
     private PullToRefreshListView lstv;
@@ -110,9 +113,9 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         public void afterTextChanged(Editable s) {
             IS_REFRESH = true;
             pageIndex = 1;
-            if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+            if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                 initData();
-            }else {
+            } else {
                 lstv.onRefreshComplete();
                 //未登录
                 showLogin();
@@ -164,8 +167,8 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(lists.size() > position-2){
-                    recordVO = lists.get(position-2);
+                if (lists.size() > position - 2) {
+                    recordVO = lists.get(position - 2);
                     Intent mineV = new Intent(getActivity(), ProfileActivity.class);
                     mineV.putExtra("id", recordVO.getMm_emp_id());
                     startActivity(mineV);
@@ -177,24 +180,24 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
     }
 
     PaihangObj recordVO;
+
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
         String str = (String) object;
-        if("000".equals(str)){
-            switch (flag){
+        if ("000".equals(str)) {
+            switch (flag) {
                 case 0:
                     AdObj adObj = listsAd.get(position);
                     Intent webV = new Intent(getActivity(), WebViewActivity.class);
-                    webV.putExtra("strurl", adObj.getMm_ad_url()==null?"":adObj.getMm_ad_url());
+                    webV.putExtra("strurl", adObj.getMm_ad_url() == null ? "" : adObj.getMm_ad_url());
                     startActivity(webV);
                     break;
             }
         }
-        if("111".equals(str)){
-            switch (flag){
+        if ("111".equals(str)) {
+            switch (flag) {
                 case 2:
-                case 4:
-                {
+                case 4: {
                     //头像
                     recordVO = lists.get(position);
                     Intent mineV = new Intent(getActivity(), ProfileActivity.class);
@@ -205,9 +208,9 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                 case 3:
                     //电话
                     recordVO = lists.get(position);
-                    if(recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())){
+                    if (recordVO != null && !StringUtil.isNullOrEmpty(recordVO.getMm_emp_mobile())) {
                         showTel(recordVO.getMm_emp_mobile(), recordVO.getMm_emp_nickname());
-                    }else{
+                    } else {
                         //
                         Toast.makeText(getActivity(), R.string.no_tel, Toast.LENGTH_SHORT).show();
                     }
@@ -216,21 +219,34 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                     //导航
                 {
                     recordVO = lists.get(position);
-                    if(!StringUtil.isNullOrEmpty(recordVO.getLat()) && !StringUtil.isNullOrEmpty(recordVO.getLng())){
+                    if (!StringUtil.isNullOrEmpty(recordVO.getLat()) && !StringUtil.isNullOrEmpty(recordVO.getLng())) {
                         //开始导航
-                        if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)&& !StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                        if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
                             Intent naviV = new Intent(getActivity(), GPSNaviActivity.class);
-                            naviV.putExtra("lat_end" , recordVO.getLat());
-                            naviV.putExtra("lng_end" , recordVO.getLng());
+                            naviV.putExtra("lat_end", recordVO.getLat());
+                            naviV.putExtra("lng_end", recordVO.getLng());
                             startActivity(naviV);
-                        }else {
+                        } else {
+                            //如果定位为null说明没开导航 需要重新打开GPS 定位
                             Toast.makeText(getActivity(), getResources().getString(R.string.please_open_gps), Toast.LENGTH_SHORT).show();
+                            //打开GPS
+                            Intent gpsIntent = new Intent();
+                            gpsIntent.setClassName("com.android.settings",
+                                    "com.android.settings.widget.SettingsAppWidgetProvider");
+                            gpsIntent.addCategory("android.intent.category.ALTERNATIVE");
+                            gpsIntent.setData(Uri.parse("custom:3"));
+                            try {
+                                PendingIntent.getBroadcast(getActivity(), 0, gpsIntent, 0).send();
+                            }
+                            catch (PendingIntent.CanceledException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                     }
                 }
-                    break;
+                break;
             }
         }
 
@@ -250,7 +266,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         View picAddInflate = View.inflate(getActivity(), R.layout.tel_dialog, null);
         TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
         final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
-        jubao_cont.setText(tel +" " +name);
+        jubao_cont.setText(tel + " " + name);
         //提交
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
@@ -275,7 +291,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         picAddDialog.show();
     }
 
-    void initData(){
+    void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_PAIHANG_URL,
@@ -285,23 +301,22 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
-                                if(Integer.parseInt(code) == 200){
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
                                     PaihangObjData data = getGson().fromJson(s, PaihangObjData.class);
                                     if (IS_REFRESH) {
                                         lists.clear();
                                     }
-                                    lists .addAll(data.getData());
+                                    lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
-                                }else if(Integer.parseInt(code) == 9){
-                                    Toast.makeText(getActivity(), R.string.login_out , Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(code) == 9) {
+                                    Toast.makeText(getActivity(), R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
                                     Intent loginV = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(loginV);
                                     getActivity().finish();
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -309,10 +324,10 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                             }
                         }
 
-                        if(lists.size() > 0){
+                        if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
                             lstv.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             no_data.setVisibility(View.VISIBLE);
                             lstv.setVisibility(View.GONE);
                         }
@@ -332,12 +347,12 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                 params.put("index", String.valueOf(pageIndex));
                 params.put("is_del", "0");
                 params.put("size", "10");
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("access_token", ""), String.class))) {
                     params.put("accessToken", getGson().fromJson(getSp().getString("access_token", ""), String.class));
-                }else {
+                } else {
                     params.put("accessToken", "");
                 }
-                if(!StringUtil.isNullOrEmpty(keyword.getText().toString())){
+                if (!StringUtil.isNullOrEmpty(keyword.getText().toString())) {
                     params.put("keyword", keyword.getText().toString());
                 }
                 return params;
@@ -355,13 +370,13 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.no_data:
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     showLogin();
@@ -380,7 +395,7 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals("change_color_size")){
+            if (action.equals("change_color_size")) {
                 adapter.notifyDataSetChanged();
             }
         }
@@ -572,11 +587,11 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code =  jo.getString("code");
+                                String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     AdObjData data = getGson().fromJson(s, AdObjData.class);
                                     listsAd.clear();
-                                    if(data != null && data.getData().size() > 0){
+                                    if (data != null && data.getData().size() > 0) {
                                         listsAd.addAll(data.getData());
                                     }
                                     initViewPager();
@@ -603,17 +618,18 @@ public class TopFragment extends BaseFragment implements OnClickContentItemListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_ad_type", "1");
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class))) {
                     params.put("mm_emp_provinceId", getGson().fromJson(getSp().getString("mm_emp_provinceId", ""), String.class));
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class))) {
                     params.put("mm_emp_cityId", getGson().fromJson(getSp().getString("mm_emp_cityId", ""), String.class));
                 }
-                if(!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))){
+                if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class))) {
                     params.put("mm_emp_countryId", getGson().fromJson(getSp().getString("mm_emp_countryId", ""), String.class));
                 }
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();

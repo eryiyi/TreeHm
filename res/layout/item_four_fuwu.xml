@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@drawable/zhuye_item_select"
-              android:layout_width="match_parent"
-              android:padding="15dp"
-              android:layout_height="match_parent">
+                android:background="@drawable/zhuye_item_select"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:layout_height="match_parent">
 
     <TextView android:layout_width="wrap_content"
               android:textSize="18sp"
@@ -71,13 +71,13 @@
     </LinearLayout>
 
     <!--<TextView android:layout_width="wrap_content"-->
-              <!--android:text="主营：沙龙封口胶奥拉夫"-->
-              <!--android:textSize="16sp"-->
-              <!--android:layout_marginTop="12dp"-->
-              <!--android:layout_below="@+id/tel"-->
-              <!--android:layout_marginLeft="8dp"-->
-              <!--android:id="@+id/content"-->
-              <!--android:visibility="gone"-->
-              <!--android:textColor="@color/text_color"-->
-              <!--android:layout_height="wrap_content"/>-->
+    <!--android:text="主营：沙龙封口胶奥拉夫"-->
+    <!--android:textSize="16sp"-->
+    <!--android:layout_marginTop="12dp"-->
+    <!--android:layout_below="@+id/tel"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:id="@+id/content"-->
+    <!--android:visibility="gone"-->
+    <!--android:textColor="@color/text_color"-->
+    <!--android:layout_height="wrap_content"/>-->
 </RelativeLayout>

@@ -65,9 +65,9 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = true;
                 pageIndex = 1;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     Intent loginV = new Intent(SelectCityActivity.this, LoginActivity.class);
@@ -83,9 +83,9 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 IS_REFRESH = false;
                 pageIndex++;
-                if( "1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))){
+                if ("1".equals(getGson().fromJson(getSp().getString("isLogin", ""), String.class))) {
                     initData();
-                }else {
+                } else {
                     lstv.onRefreshComplete();
                     //未登录
                     Intent loginV = new Intent(SelectCityActivity.this, LoginActivity.class);
@@ -97,10 +97,10 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent countryV= new Intent(SelectCityActivity.this, SelectCountryActivity.class);
-                CityObj cityObj = lists.get(position-1);
+                Intent countryV = new Intent(SelectCityActivity.this, SelectCountryActivity.class);
+                CityObj cityObj = lists.get(position - 1);
                 countryV.putExtra("cityObj", cityObj);
-                countryV.putExtra("provinceObj" ,provinceObj);
+                countryV.putExtra("provinceObj", provinceObj);
                 startActivity(countryV);
                 finish();
             }
@@ -109,13 +109,14 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
         }
     }
-    public void initData(){
+
+    public void initData() {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 InternetURL.GET_CITY_URL,
@@ -125,18 +126,18 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                         if (StringUtil.isJson(s)) {
                             try {
                                 JSONObject jo = new JSONObject(s);
-                                String code1 =  jo.getString("code");
-                                if(Integer.parseInt(code1) == 200){
+                                String code1 = jo.getString("code");
+                                if (Integer.parseInt(code1) == 200) {
                                     CityData data = getGson().fromJson(s, CityData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
                                     lstv.onRefreshComplete();
                                     adapter.notifyDataSetChanged();
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(SelectCityActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
                         }
                         if (progressDialog != null) {
@@ -157,7 +158,7 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("father",provinceObj.getProvinceID());
+                params.put("father", provinceObj.getProvinceID());
                 params.put("is_use", "1");
                 return params;
             }

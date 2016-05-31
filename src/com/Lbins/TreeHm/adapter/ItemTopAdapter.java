@@ -34,10 +34,11 @@ public class ItemTopAdapter extends BaseAdapter {
         this.onClickContentItemListener = onClickContentItemListener;
     }
 
-    public ItemTopAdapter(List<PaihangObj> lists, Context mContect){
+    public ItemTopAdapter(List<PaihangObj> lists, Context mContect) {
         this.lists = lists;
         this.mContect = mContect;
     }
+
     public void refresh(List<PaihangObj> d) {
         lists = d;
         notifyDataSetChanged();
@@ -60,9 +61,9 @@ public class ItemTopAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_top,null);
+            convertView = LayoutInflater.from(mContect).inflate(R.layout.item_top, null);
             holder.btn_tel = (ImageView) convertView.findViewById(R.id.btn_tel);
             holder.head = (ImageView) convertView.findViewById(R.id.head);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
@@ -75,36 +76,36 @@ public class ItemTopAdapter extends BaseAdapter {
             holder.btn_nav = (ImageView) convertView.findViewById(R.id.btn_nav);
 
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         final PaihangObj cell = lists.get(position);
-        if(cell != null){
-            String title = (cell.getMm_emp_nickname()==null?"":cell.getMm_emp_nickname());
+        if (cell != null) {
+            String title = (cell.getMm_emp_nickname() == null ? "" : cell.getMm_emp_nickname());
             holder.nickname.setText(title);
             holder.dateline.setText("");
             holder.title.setText(cell.getMm_emp_company());
             String content = cell.getMm_emp_company_detail();
-            if(!StringUtil.isNullOrEmpty(content)){
-                if(content.length() > 200){
-                    holder.content.setText(content.substring(0,199));
-                }else {
+            if (!StringUtil.isNullOrEmpty(content)) {
+                if (content.length() > 200) {
+                    holder.content.setText(content.substring(0, 199));
+                } else {
                     holder.content.setText(content);
                 }
-            }else {
+            } else {
                 holder.content.setText(mContect.getString(R.string.no_content));
             }
-            if("1".equals(cell.getIs_chengxin())){
+            if ("1".equals(cell.getIs_chengxin())) {
                 holder.img_xinyong.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xinyong.setVisibility(View.GONE);
             }
-            if("1".equals(cell.getIs_miaomu())){
+            if ("1".equals(cell.getIs_miaomu())) {
                 holder.img_xiehui.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 holder.img_xiehui.setVisibility(View.GONE);
             }
-            switch (Integer.parseInt((cell.getMm_level_num()==null?"0":cell.getMm_level_num()))){
+            switch (Integer.parseInt((cell.getMm_level_num() == null ? "0" : cell.getMm_level_num()))) {
                 case 0:
                     holder.star.setImageResource(R.drawable.tree_icons_star_1);
                     break;
@@ -123,33 +124,33 @@ public class ItemTopAdapter extends BaseAdapter {
             }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
 
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontSize)) {
                 holder.content.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.title.setTextSize(Float.valueOf(UniversityApplication.fontSize));
                 holder.nickname.setTextSize(Float.valueOf(UniversityApplication.fontSize));
             }
-            if(!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)){
-                if("black".equals(UniversityApplication.fontColor)){
+            if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
+                if ("black".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLACK);
                     holder.title.setTextColor(Color.BLACK);
                     holder.nickname.setTextColor(Color.BLACK);
                 }
-                if("gray".equals(UniversityApplication.fontColor)){
+                if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.GRAY);
                     holder.title.setTextColor(Color.GRAY);
                     holder.nickname.setTextColor(Color.GRAY);
                 }
-                if("blue".equals(UniversityApplication.fontColor)){
+                if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLUE);
                     holder.title.setTextColor(Color.BLUE);
                     holder.nickname.setTextColor(Color.BLUE);
                 }
-                if("orange".equals(UniversityApplication.fontColor)){
+                if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.YELLOW);
                     holder.title.setTextColor(Color.YELLOW);
                     holder.nickname.setTextColor(Color.YELLOW);
                 }
-                if("red".equals(UniversityApplication.fontColor)){
+                if ("red".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.RED);
                     holder.title.setTextColor(Color.RED);
                     holder.nickname.setTextColor(Color.RED);
@@ -190,6 +191,7 @@ public class ItemTopAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
     class ViewHolder {
         ImageView btn_tel;
         ImageView head;
