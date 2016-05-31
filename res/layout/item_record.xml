@@ -95,13 +95,23 @@
                    android:id="@+id/is_read"
                    android:src="@drawable/tree_icons_read_0"
                    android:layout_height="wrap_content"/>
+
         <ImageView android:layout_width="wrap_content"
                    android:layout_alignParentRight="true"
                    android:layout_marginRight="3dp"
                    android:layout_centerVertical="true"
+                   android:id="@+id/btn_nav"
+                   android:src="@drawable/button_selector_nav_mine"
+                   android:layout_height="wrap_content"/>
+
+        <ImageView android:layout_width="wrap_content"
+                  android:layout_marginRight="3dp"
+                   android:layout_centerVertical="true"
                    android:id="@+id/btn_share"
+                  android:layout_toLeftOf="@+id/btn_nav"
                    android:src="@drawable/button_selector_share_mine"
                    android:layout_height="wrap_content"/>
+
         <ImageView android:layout_width="wrap_content"
                    android:layout_marginRight="3dp"
                    android:id="@+id/btn_favour"
@@ -124,12 +134,6 @@
                    android:id="@+id/btn_pic"
                    android:src="@drawable/button_selector_pic_mine"
                    android:layout_height="wrap_content"/>
-        <ImageView android:layout_width="wrap_content"
-                   android:layout_toLeftOf="@+id/btn_pic"
-                   android:layout_marginRight="3dp"
-                   android:layout_centerVertical="true"
-                   android:id="@+id/btn_nav"
-                   android:src="@drawable/button_selector_nav_mine"
-                   android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 </RelativeLayout>
