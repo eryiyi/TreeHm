@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="com.Lbins.TreeHm"
-          android:versionCode="25"
-          android:versionName="1.1.5">
+          android:versionCode="27"
+          android:versionName="1.1.7">
     <uses-sdk android:minSdkVersion="14"/>
 
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
@@ -153,6 +153,12 @@
         <activity android:name=".ui.FourFuwuActivity" android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.ShareMingpianActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddVideoActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddVideoSuccessActivity" android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VideoPlayerActivity2" android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustResize"/>
 
         <!--友盟-->

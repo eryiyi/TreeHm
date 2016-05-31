@@ -16,6 +16,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.dao.RecordMsg;
 import com.Lbins.TreeHm.util.StringUtil;
+import com.Lbins.TreeHm.widget.VideoPlayer;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -54,6 +55,10 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
 
     private RecordMsg recordVO;
 
+    private RelativeLayout video_liner;
+    private ImageView detail_video_pic;
+    private ImageView detail_player_icon_video;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +81,10 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         gridView = (GridView) this.findViewById(R.id.gridView);
         sharebtn = (ImageView) this.findViewById(R.id.sharebtn);
         telbtn = (TextView) this.findViewById(R.id.telbtn);
+        video_liner = (RelativeLayout) this.findViewById(R.id.video_liner);
+        detail_video_pic = (ImageView) this.findViewById(R.id.detail_video_pic);
+        detail_player_icon_video = (ImageView) this.findViewById(R.id.detail_player_icon_video);
+
 
         sharebtn.setOnClickListener(this);
         telbtn.setOnClickListener(this);
@@ -85,11 +94,20 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
         gridView.setAdapter(adapterPhot);
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         this.findViewById(R.id.reportbtn).setOnClickListener(this);
+        this.findViewById(R.id.detail_player_icon_video).setOnClickListener(this);
     }
 
     void initData() {
         //
         imageLoader.displayImage(recordVO.getMm_emp_cover(), head, UniversityApplication.txOptions, animateFirstListener);
+        //判断视频是否有
+        if(!StringUtil.isNullOrEmpty(recordVO.getMm_msg_video())){
+            //有视频
+            video_liner.setVisibility(View.VISIBLE);
+            imageLoader.displayImage(recordVO.getMm_msg_picurl(), head, UniversityApplication.options, animateFirstListener);
+        }else {
+            video_liner.setVisibility(View.GONE);
+        }
         nickname.setText(recordVO.getMm_emp_company() + recordVO.getMm_emp_nickname());
         dateline.setText((recordVO.getDateline() == null ? "" : recordVO.getDateline()) + " " + (recordVO.getArea() == null ? "" : recordVO.getArea()));
         content.setText(recordVO.getMm_msg_content());
@@ -121,7 +139,8 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
         telbtn.setText(recordVO.getMm_emp_nickname() + recordVO.getMm_emp_mobile());
-        if (!StringUtil.isNullOrEmpty(recordVO.getMm_msg_picurl())) {
+        if (StringUtil.isNullOrEmpty(recordVO.getMm_msg_video()) && !StringUtil.isNullOrEmpty(recordVO.getMm_msg_picurl())) {
+            //视频为空 且有图片 说明是图片的
             final String[] picUrls = recordVO.getMm_msg_picurl().split(",");//图片链接切割
             for (String str : picUrls) {
                 lists.add(str);
@@ -199,6 +218,14 @@ public class DetailRecordActivity extends BaseActivity implements View.OnClickLi
             case R.id.reportbtn:
                 //举报
                 showJubao();
+                break;
+            case R.id.detail_player_icon_video:
+                String videoUrl = recordVO.getMm_msg_video();
+                Intent intent = new Intent(DetailRecordActivity.this, VideoPlayerActivity2.class);
+                VideoPlayer video = new VideoPlayer(videoUrl);
+                intent.putExtra(Constants.EXTRA_LAYOUT, "0");
+                intent.putExtra(VideoPlayer.class.getName(), video);
+                startActivity(intent);
                 break;
         }
     }

@@ -223,6 +223,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         save("is_see_all", emp.getIs_see_all());
         save("is_use", emp.getIs_use());
         save("is_pic", emp.getIs_pic());
+        save("is_video", emp.getIs_video());
         save("is_chengxin", emp.getIs_chengxin());
         save("is_miaomu", emp.getIs_miaomu());
         save("lat", emp.getLat());

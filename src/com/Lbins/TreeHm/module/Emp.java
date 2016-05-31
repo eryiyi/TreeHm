@@ -58,6 +58,15 @@ public class Emp {
     private String is_cover;
     private String lat_company;
     private String lng_company;
+    private String is_video;
+
+    public String getIs_video() {
+        return is_video;
+    }
+
+    public void setIs_video(String is_video) {
+        this.is_video = is_video;
+    }
 
     public String getLat_company() {
         return lat_company;

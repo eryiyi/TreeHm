@@ -48,6 +48,7 @@ public class RecordMsgDao extends AbstractDao<RecordMsg, String> {
         public final static Property Is_miaomu = new Property(23, String.class, "is_miaomu", false, "IS_MIAOMU");
         public final static Property Mm_level_num = new Property(24, String.class, "mm_level_num", false, "MM_LEVEL_NUM");
         public final static Property Is_read = new Property(25, String.class, "is_read", false, "IS_READ");
+        public final static Property Mm_msg_video = new Property(26, String.class, "mm_msg_video", false, "MM_MSG_VIDEO");
     };
 
     private DaoSession daoSession;
@@ -91,7 +92,8 @@ public class RecordMsgDao extends AbstractDao<RecordMsg, String> {
                 "'IS_CHENGXIN' TEXT," + // 22: is_chengxin
                 "'IS_MIAOMU' TEXT," + // 23: is_miaomu
                 "'MM_LEVEL_NUM' TEXT," + // 24: mm_level_num
-                "'IS_READ' TEXT);"); // 25: is_read
+                "'IS_READ' TEXT," + // 25: is_read
+                "'MM_MSG_VIDEO' TEXT);"); // 26:   mm_msg_video
     }
 
     /** Drops the underlying database table. */
@@ -230,6 +232,10 @@ public class RecordMsgDao extends AbstractDao<RecordMsg, String> {
         if (is_read != null) {
             stmt.bindString(26, is_read);
         }
+        String mm_msg_video = entity.getMm_msg_video();
+        if(mm_msg_video != null){
+            stmt.bindString(27, mm_msg_video);
+        }
     }
 
     @Override
@@ -273,7 +279,8 @@ public class RecordMsgDao extends AbstractDao<RecordMsg, String> {
             cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // is_chengxin
             cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // is_miaomu
             cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // mm_level_num
-            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25) // is_read
+            cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25), // is_read
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26) // mm_msg_video
         );
         return entity;
     }
@@ -307,6 +314,7 @@ public class RecordMsgDao extends AbstractDao<RecordMsg, String> {
         entity.setIs_miaomu(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
         entity.setMm_level_num(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
         entity.setIs_read(cursor.isNull(offset + 25) ? null : cursor.getString(offset + 25));
+        entity.setMm_msg_video(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
      }
     
     /** @inheritdoc */

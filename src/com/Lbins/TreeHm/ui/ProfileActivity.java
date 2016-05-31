@@ -430,6 +430,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                 DBHelper.getInstance(ProfileActivity.this).updateRecord(recordVO);
                 break;
             case 5:
+            case 8:
                 //图片
                 Intent intent = new Intent(ProfileActivity.this, DetailRecordActivity.class);
                 recordVO = lists.get(position);

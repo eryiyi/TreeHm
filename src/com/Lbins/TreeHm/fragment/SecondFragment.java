@@ -262,6 +262,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                     DBHelper.getInstance(getActivity()).updateRecord(recordVO);
                     break;
                 case 5:
+                case 8:
                     //图片
                     Intent intent = new Intent(getActivity(), DetailRecordActivity.class);
                     recordVO = lists.get(position);

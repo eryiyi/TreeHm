@@ -123,6 +123,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         });
         this.findViewById(R.id.btn).setOnClickListener(this);
         this.findViewById(R.id.btn_kf).setOnClickListener(this);
+        this.findViewById(R.id.btn_video).setOnClickListener(this);
     }
 
     boolean isMobileNet, isWifiNet;
@@ -215,10 +216,11 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_eight));
                     return;
                 }
-                if (StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))) {
-                    showMsg(AddRecordActivity.this, getResources().getString(R.string.add_error_nine) + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + getResources().getString(R.string.add_error_ten));
-                    return;
-                }
+//                if (StringUtil.isNullOrEmpty((getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)))) {
+//                    String str = getResources().getString(R.string.add_msg_one )+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + getResources().getString(R.string.tiao);
+//                    showMsg(AddRecordActivity.this, str);
+//                    return;
+//                }
                 progressDialog = new ProgressDialog(AddRecordActivity.this);
                 progressDialog.setIndeterminate(true);
                 progressDialog.show();
@@ -266,6 +268,12 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                     }
                 }
 
+                break;
+            case R.id.btn_video:
+                //拍摄视频
+                Intent videoV = new Intent(AddRecordActivity.this, AddVideoActivity.class);
+                startActivity(videoV);
+                finish();
                 break;
         }
     }
@@ -469,9 +477,8 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 
                                     finish();
                                 } else if (Integer.parseInt(code) == 3) {
-                                    Toast.makeText(AddRecordActivity.this,
-                                            R.string.add_msg_one + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + R.string.tiao,
-                                            Toast.LENGTH_SHORT).show();
+                                    String str = getResources().getString(R.string.add_msg_one )+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + getResources().getString(R.string.tiao);
+                                    showMsg(AddRecordActivity.this, str);
                                 } else if (Integer.parseInt(code) == 9) {
                                     Toast.makeText(AddRecordActivity.this, R.string.login_out, Toast.LENGTH_SHORT).show();
                                     save("password", "");
@@ -577,9 +584,8 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
 
                                     finish();
                                 } else if (Integer.parseInt(code) == 3) {
-                                    Toast.makeText(AddRecordActivity.this,
-                                            R.string.add_msg_one + (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + R.string.tiao,
-                                            Toast.LENGTH_SHORT).show();
+                                    String str = getResources().getString(R.string.add_msg_one )+ (getGson().fromJson(getSp().getString("mm_emp_msg_num", ""), String.class)) + getResources().getString(R.string.tiao);
+                                    showMsg(AddRecordActivity.this, str);
                                 } else {
                                     Toast.makeText(AddRecordActivity.this, R.string.add_record_error_one, Toast.LENGTH_SHORT).show();
                                 }

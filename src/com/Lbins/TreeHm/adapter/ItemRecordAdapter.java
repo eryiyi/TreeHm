@@ -79,6 +79,7 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.is_read = (ImageView) convertView.findViewById(R.id.is_read);
             holder.btn_favour = (ImageView) convertView.findViewById(R.id.btn_favour);
             holder.btn_nav = (ImageView) convertView.findViewById(R.id.btn_nav);
+            holder.btn_video = (ImageView) convertView.findViewById(R.id.btn_video);
 
             convertView.setTag(holder);
         } else {
@@ -90,10 +91,6 @@ public class ItemRecordAdapter extends BaseAdapter {
             holder.nickname.setText(title);
             holder.dateline.setText((cell.getDateline() == null ? "" : cell.getDateline()) + " " + (cell.getArea() == null ? "" : cell.getArea()));
             String msg = cell.getMm_msg_content() == null ? "" : cell.getMm_msg_content();
-//            if(msg.length() > 80){
-//                msg = msg.substring(0,79)+"...";
-//            }
-//            holder.title.setText(cell.getMm_msg_title()==null?"":cell.getMm_msg_title());
             holder.content.setText(msg);
             if ("1".equals(cell.getIs_chengxin())) {
                 holder.img_xinyong.setVisibility(View.VISIBLE);
@@ -123,11 +120,20 @@ public class ItemRecordAdapter extends BaseAdapter {
                     break;
             }
             imageLoader.displayImage(cell.getMm_emp_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
-            if (StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())) {
+            if(!StringUtil.isNullOrEmpty(cell.getMm_msg_video())){
+                //说明存在视频
+                holder.btn_video.setVisibility(View.VISIBLE);
                 holder.btn_pic.setVisibility(View.GONE);
-            } else {
-                holder.btn_pic.setVisibility(View.VISIBLE);
+            }else {
+                holder.btn_video.setVisibility(View.GONE);
+                //不存在视频
+                if (StringUtil.isNullOrEmpty(cell.getMm_msg_picurl())) {
+                    holder.btn_pic.setVisibility(View.GONE);
+                } else {
+                    holder.btn_pic.setVisibility(View.VISIBLE);
+                }
             }
+
             RecordMsg recordMsg = DBHelper.getInstance(mContect).getRecord(cell.getMm_msg_id());
             if (recordMsg != null) {
                 if ("1".equals(recordMsg.getIs_read())) {
@@ -229,12 +235,12 @@ public class ItemRecordAdapter extends BaseAdapter {
                 onClickContentItemListener.onClickContentItem(position, 7, "111");//导航
             }
         });
-//        holder.content.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClickContentItemListener.onClickContentItem(position, 6, null);
-//            }
-//        });
+        holder.btn_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickContentItemListener.onClickContentItem(position, 8, "111");
+            }
+        });
 
 
         return convertView;
@@ -247,7 +253,6 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView head;
         TextView nickname;
         TextView dateline;
-        //        TextView title;
         TextView content;
         ImageView img_xinyong;
         ImageView img_xiehui;
@@ -255,5 +260,6 @@ public class ItemRecordAdapter extends BaseAdapter {
         ImageView is_read;
         ImageView btn_favour;
         ImageView btn_nav;
+        ImageView btn_video;
     }
 }

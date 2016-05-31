@@ -46,6 +46,7 @@ public class RecordMsg implements Serializable {
     private String is_miaomu;
     private String mm_level_num;
     private String is_read;
+    private String mm_msg_video;
 
     /**
      * Used to resolve relations
@@ -68,7 +69,7 @@ public class RecordMsg implements Serializable {
         this.mm_msg_id = mm_msg_id;
     }
 
-    public RecordMsg(String mm_msg_id, String mm_emp_id, String mm_msg_type, String mm_msg_title, String mm_msg_content, String mm_msg_picurl, String dateline, String is_del, String is_top, String top_num, String provinceid, String cityid, String countryid, String area, String accessToken, String mm_emp_mobile, String mm_emp_nickname, String mm_emp_type, String mm_emp_cover, String mm_emp_company_type, String mm_emp_company, String mm_level_id, String is_chengxin, String is_miaomu, String mm_level_num, String is_read) {
+    public RecordMsg(String mm_msg_id, String mm_emp_id, String mm_msg_type, String mm_msg_title, String mm_msg_content, String mm_msg_picurl, String dateline, String is_del, String is_top, String top_num, String provinceid, String cityid, String countryid, String area, String accessToken, String mm_emp_mobile, String mm_emp_nickname, String mm_emp_type, String mm_emp_cover, String mm_emp_company_type, String mm_emp_company, String mm_level_id, String is_chengxin, String is_miaomu, String mm_level_num, String is_read, String mm_msg_video) {
         this.mm_msg_id = mm_msg_id;
         this.mm_emp_id = mm_emp_id;
         this.mm_msg_type = mm_msg_type;
@@ -95,6 +96,7 @@ public class RecordMsg implements Serializable {
         this.is_miaomu = is_miaomu;
         this.mm_level_num = mm_level_num;
         this.is_read = is_read;
+        this.mm_msg_video = mm_msg_video;
     }
 
     /**
@@ -317,6 +319,14 @@ public class RecordMsg implements Serializable {
 
     public void setIs_read(String is_read) {
         this.is_read = is_read;
+    }
+
+    public String getMm_msg_video() {
+        return mm_msg_video;
+    }
+
+    public void setMm_msg_video(String mm_msg_video) {
+        this.mm_msg_video = mm_msg_video;
     }
 
     public void delete() {

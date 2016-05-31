@@ -80,13 +80,15 @@
     <string name="add_error_two">您暂无权限发布苗木求购信息，请联系客服！</string>
     <string name="add_error_three">请选择信息类型</string>
     <string name="please_input_text">请输入内容</string>
-    <string name="add_error_four">内容超出限制</string>
+    <string name="add_error_four">内容超出字数限制</string>
     <string name="add_error_five">您暂无权限发布图片，请联系客服！</string>
+    <string name="add_error_video">您暂无权限发布视频，请联系客服！</string>
     <string name="add_error_six">您可以发布3张图片，请联系客服！</string>
     <string name="add_error_seven">您可以发布6张图片，请联系客服！</string>
     <string name="add_error_eight">您可以发布9张图片，请联系客服！</string>
     <string name="add_error_nine">您每天最多发布</string>
     <string name="add_error_ten">条信息</string>
+    <string name="add_video_error">请先拍摄视频！</string>
     <string name="suggest_add_one">感谢您的参与</string>
     <string name="suggest_add_two">提交失败</string>
     <string name="miaomushop">苗木商店</string>

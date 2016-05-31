@@ -111,8 +111,32 @@
                     android:verticalSpacing="4dip"
                     android:padding="4dip"/>
 
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_below="@+id/gridView"
+                            android:id="@+id/video_liner"
+                            android:gravity="center">
+                <ImageView
+                        android:id="@+id/detail_video_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pic_none"
+                        android:minHeight="200dp"
+                        android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                        android:id="@+id/detail_player_icon_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_home_play"
+                        android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
             <View android:layout_width="match_parent"
-                  android:layout_below="@+id/gridView"
+                  android:layout_below="@+id/video_liner"
                   android:layout_marginTop="8dp"
                   android:id="@+id/line_two"
                   android:background="@color/orange_color"
