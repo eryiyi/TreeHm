@@ -111,6 +111,7 @@
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
                           android:padding="15dp"
+                          android:visibility="gone"
                           android:id="@+id/switch_shengyin_liner"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"
@@ -127,6 +128,7 @@
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
                           android:padding="15dp"
+                          android:visibility="gone"
                           android:id="@+id/switch_zhendong_liner"
                           android:layout_height="wrap_content">
                 <TextView android:layout_width="wrap_content"

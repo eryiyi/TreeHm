@@ -90,18 +90,18 @@
                     android:layout_marginTop="6dp"
                     android:layout_height="wrap_content">
         <ImageView android:layout_width="wrap_content"
-                   android:layout_toLeftOf="@+id/btn_tel"
                    android:layout_marginRight="3dp"
-                   android:id="@+id/btn_tel"
+                   android:id="@+id/btn_nav"
                    android:layout_alignParentRight="true"
-                   android:src="@drawable/button_selector_tel_mine"
+                   android:src="@drawable/button_selector_nav_mine"
                    android:layout_height="wrap_content"/>
 
         <ImageView android:layout_width="wrap_content"
-                   android:layout_toLeftOf="@+id/btn_tel"
+                   android:layout_toLeftOf="@+id/btn_nav"
                    android:layout_marginRight="3dp"
-                   android:id="@+id/btn_nav"
-                   android:src="@drawable/button_selector_nav_mine"
+                   android:id="@+id/btn_tel"
+                   android:src="@drawable/button_selector_tel_mine"
                    android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 </RelativeLayout>
