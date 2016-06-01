@@ -30,7 +30,7 @@ public class DBHelper {
             if (mContext == null) {
                 mContext = context;
             }
-            helper = new DaoMaster.DevOpenHelper(context, "tree_hm_db", null);
+            helper = new DaoMaster.DevOpenHelper(context, "tree_hm_db_t", null);
             db = helper.getWritableDatabase();
             daoMaster = new DaoMaster(db);
             instance.testDao = daoMaster.newSession().getShoppingCartDao();
