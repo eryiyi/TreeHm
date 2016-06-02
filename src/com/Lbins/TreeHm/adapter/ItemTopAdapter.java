@@ -132,28 +132,18 @@ public class ItemTopAdapter extends BaseAdapter {
             if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
                 if ("black".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLACK);
-                    holder.title.setTextColor(Color.BLACK);
-                    holder.nickname.setTextColor(Color.BLACK);
                 }
                 if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.GRAY);
-                    holder.title.setTextColor(Color.GRAY);
-                    holder.nickname.setTextColor(Color.GRAY);
                 }
                 if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLUE);
-                    holder.title.setTextColor(Color.BLUE);
-                    holder.nickname.setTextColor(Color.BLUE);
                 }
                 if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.YELLOW);
-                    holder.title.setTextColor(Color.YELLOW);
-                    holder.nickname.setTextColor(Color.YELLOW);
                 }
                 if ("red".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.RED);
-                    holder.title.setTextColor(Color.RED);
-                    holder.nickname.setTextColor(Color.RED);
                 }
             }
 

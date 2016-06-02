@@ -117,28 +117,18 @@ public class ItemFavourAdapter extends BaseAdapter {
             if (!StringUtil.isNullOrEmpty(UniversityApplication.fontColor)) {
                 if ("black".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLACK);
-                    holder.nickname.setTextColor(Color.BLACK);
-                    holder.dateline.setTextColor(Color.BLACK);
                 }
                 if ("gray".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.GRAY);
-                    holder.nickname.setTextColor(Color.GRAY);
-                    holder.dateline.setTextColor(Color.GRAY);
                 }
                 if ("blue".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.BLUE);
-                    holder.nickname.setTextColor(Color.BLUE);
-                    holder.dateline.setTextColor(Color.BLUE);
                 }
                 if ("orange".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.YELLOW);
-                    holder.nickname.setTextColor(Color.YELLOW);
-                    holder.dateline.setTextColor(Color.YELLOW);
                 }
                 if ("red".equals(UniversityApplication.fontColor)) {
                     holder.content.setTextColor(Color.RED);
-                    holder.dateline.setTextColor(Color.RED);
-                    holder.nickname.setTextColor(Color.RED);
                 }
 
             }
