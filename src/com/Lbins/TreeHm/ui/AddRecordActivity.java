@@ -60,6 +60,8 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     private Uri uri;
     private SelectPhoPop selectPhoPop;
 
+    private ImageView add_video;
+
     //内容
 //    private EditText mm_msg_title;
     private EditText mm_msg_content;
@@ -75,12 +77,13 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record_activity);
         initView();
-
     }
 
     void initView() {
         dataList.add("camera_default");
         this.findViewById(R.id.back).setOnClickListener(this);
+        add_video = (ImageView) this.findViewById(R.id.add_video);
+        add_video.setOnClickListener(this);
 //        mm_msg_title = (EditText) this.findViewById(R.id.mm_msg_title);
         mm_msg_content = (EditText) this.findViewById(R.id.mm_msg_content);
         msgTypeSpinner = (CustomerSpinner) this.findViewById(R.id.mm_msg_type);
@@ -106,7 +109,6 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
         adapter = new Publish_mood_GridView_Adapter(this, dataList);
         publish_moopd_gridview_image.setAdapter(adapter);
         publish_moopd_gridview_image.setOnItemClickListener(new GridView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -269,7 +271,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
                 }
 
                 break;
-            case R.id.btn_video:
+            case R.id.add_video:
                 //拍摄视频
                 Intent videoV = new Intent(AddRecordActivity.this, AddVideoActivity.class);
                 startActivity(videoV);
@@ -306,6 +308,7 @@ public class AddRecordActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        add_video.setVisibility(View.GONE);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case SELECT_LOCAL_PHOTO:

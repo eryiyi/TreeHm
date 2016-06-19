@@ -14,7 +14,6 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.upload.MultiPartStringRequest;
 import com.Lbins.TreeHm.util.HttpUtils;
-import com.Lbins.TreeHm.util.StringUtil;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;

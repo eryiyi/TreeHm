@@ -29,6 +29,7 @@
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="wrap_content"
                   android:text="拍摄视频"
+                  android:visibility="gone"
                   android:id="@+id/btn_video"
                   android:layout_centerVertical="true"
                   android:textColor="@color/white"
@@ -116,15 +117,26 @@
                     android:hint="@string/add_msg"
                     android:padding="10dp"
                     android:textColor="#ff000000"/>
-            <com.Lbins.TreeHm.widget.NoScrollGridView
-                    android:id="@+id/publish_moopd_gridview_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:listSelector="@drawable/selector_pressed_gray"
-                    android:horizontalSpacing="5dip"
-                    android:numColumns="4"
-                    android:padding="10dip"
-                    android:verticalSpacing="5dip"/>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_height="wrap_content">
+                <ImageView android:layout_width="75dp"
+                           android:id="@+id/add_video"
+                           android:layout_marginTop="8dp"
+                           android:src="@drawable/addvideo_button_pressed"
+                           android:layout_height="75dp"/>
+                <com.Lbins.TreeHm.widget.NoScrollGridView
+                        android:id="@+id/publish_moopd_gridview_image"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/add_video"
+                        android:layout_height="wrap_content"
+                        android:listSelector="@drawable/selector_pressed_gray"
+                        android:horizontalSpacing="5dip"
+                        android:numColumns="4"
+                        android:padding="8dp"
+                        android:verticalSpacing="5dip"/>
+            </RelativeLayout>
 
 
             <Button android:layout_width="match_parent"

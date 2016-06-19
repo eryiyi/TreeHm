@@ -453,12 +453,12 @@ public class FourFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.head:
                 //修改头像
             {
-                if ("0".equals(getGson().fromJson(getSp().getString("is_cover", ""), String.class))) {
+//                if ("0".equals(getGson().fromJson(getSp().getString("is_cover", ""), String.class))) {
                     //如果是0 默认允许
                     ShowPickDialog();
-                } else {
-                    Toast.makeText(getActivity(), "修改头像，请联系客服开通权限！", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(getActivity(), "修改头像，请联系客服开通权限！", Toast.LENGTH_SHORT).show();
+//                }
             }
             break;
             case R.id.relate_favour: {

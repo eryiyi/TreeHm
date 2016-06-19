@@ -1,10 +1,8 @@
 package com.Lbins.TreeHm.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MotionEvent;
@@ -16,7 +14,6 @@ import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.RecordSingData;
-import com.Lbins.TreeHm.util.FileUtils;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
 import com.Lbins.TreeHm.widget.CustomerSpinner;
@@ -236,7 +233,6 @@ public class AddVideoSuccessActivity extends BaseActivity implements OnClickList
 									e.printStackTrace();
 								}
 							}
-
 							@Override
 							public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 								super.onFailure(statusCode, headers, throwable, errorResponse);

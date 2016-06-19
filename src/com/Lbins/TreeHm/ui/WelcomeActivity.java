@@ -3,8 +3,7 @@ package com.Lbins.TreeHm.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.Lbins.TreeHm.MainActivity;
@@ -16,7 +15,6 @@ import com.Lbins.TreeHm.data.EmpData;
 import com.Lbins.TreeHm.module.Emp;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
-import com.Lbins.TreeHm.util.Utils;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -32,6 +30,8 @@ import com.umeng.update.UmengUpdateAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,23 +40,34 @@ import java.util.Map;
  */
 public class WelcomeActivity extends BaseActivity implements View.OnClickListener, Runnable, AMapLocationListener {
     boolean isMobileNet, isWifiNet;
+    //声明mLocationOption对象
+    public AMapLocationClientOption mLocationOption = null;
     //定位
-    private AMapLocationClient locationClient = null;
-    private AMapLocationClientOption locationOption = null;
-
+    private AMapLocationClient mlocationClient = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
         UmengUpdateAgent.update(this);
 
-        //定位
-        locationClient = new AMapLocationClient(this.getApplicationContext());
-        locationOption = new AMapLocationClientOption();
-        // 设置定位模式为高精度模式
-        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        // 设置定位监听
-        locationClient.setLocationListener(this);
+        mlocationClient = new AMapLocationClient(this);
+        //初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位监听
+        mlocationClient.setLocationListener(this);
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(20000);
+        //设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+        // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
+        // 在定位结束后，在合适的生命周期调用onDestroy()方法
+        // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
+        //启动定位
+        mlocationClient.startLocation();
+
         try {
             isMobileNet = HttpUtils.isMobileDataEnable(getApplicationContext());
             isWifiNet = HttpUtils.isWifiDataEnable(getApplicationContext());
@@ -115,12 +126,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                                 String code = jo.getString("code");
                                 if (Integer.parseInt(code) == 200) {
                                     EmpData data = getGson().fromJson(s, EmpData.class);
-                                    initOption();
-                                    // 设置定位参数
-                                    locationClient.setLocationOption(locationOption);
-                                    // 启动定位
-                                    locationClient.startLocation();
-                                    mHandler.sendEmptyMessage(Utils.MSG_LOCATION_START);
                                     saveAccount(data.getData());
                                 } else if (Integer.parseInt(code) == 1) {
                                     save("isLogin", "0");//1已经登录了  0未登录
@@ -245,56 +250,84 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         finish();
     }
 
-    // 根据控件的选择，重新设置定位参数
-    private void initOption() {
-        // 设置是否需要显示地址信息
-        locationOption.setNeedAddress(true);
-        /**
-         * 设置是否优先返回GPS定位结果，如果30秒内GPS没有返回定位结果则进行网络定位
-         * 注意：只有在高精度模式下的单次定位有效，其他方式无效
-         */
-        locationOption.setGpsFirst(true);
-//        String strInterval = etInterval.getText().toString();
-//        if (!TextUtils.isEmpty(strInterval)) {
-//            // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-        locationOption.setInterval(Long.valueOf("1000"));
+//    // 根据控件的选择，重新设置定位参数
+//    private void initOption() {
+//        // 设置是否需要显示地址信息
+//        locationOption.setNeedAddress(true);
+//        /**
+//         * 设置是否优先返回GPS定位结果，如果30秒内GPS没有返回定位结果则进行网络定位
+//         * 注意：只有在高精度模式下的单次定位有效，其他方式无效
+//         */
+//        locationOption.setGpsFirst(true);
+////        String strInterval = etInterval.getText().toString();
+////        if (!TextUtils.isEmpty(strInterval)) {
+////            // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
+//        locationOption.setInterval(Long.valueOf("1000"));
+////        }
+//
+//    }
+
+//    Handler mHandler = new Handler() {
+//        public void dispatchMessage(android.os.Message msg) {
+//            switch (msg.what) {
+//                case Utils.MSG_LOCATION_FINISH:
+//                    AMapLocation loc = (AMapLocation) msg.obj;
+//                    String result = Utils.getLocationStr(loc);
+//                    if ("true".equals(result)) {
+//                        //定位成功
+//                        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))) {
+//                            sendLocation();
+//                        }
+//                    } else if ("false".equals(result)) {
+//
+//                    }
+//                    break;
+//                default:
+//                    break;
+//            }
 //        }
+//
+//        ;
+//    };
+//
+//    // 定位监听
+//    @Override
+//    public void onLocationChanged(AMapLocation loc) {
+//        if (null != loc) {
+//            Message msg = mHandler.obtainMessage();
+//            msg.obj = loc;
+//            msg.what = Utils.MSG_LOCATION_FINISH;
+//            mHandler.sendMessage(msg);
+//        }
+//    }
 
-    }
-
-    Handler mHandler = new Handler() {
-        public void dispatchMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case Utils.MSG_LOCATION_FINISH:
-                    AMapLocation loc = (AMapLocation) msg.obj;
-                    String result = Utils.getLocationStr(loc);
-                    if ("true".equals(result)) {
-                        //定位成功
-                        if (!StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))) {
-                            sendLocation();
-                        }
-                    } else if ("false".equals(result)) {
-
-                    }
-                    break;
-                default:
-                    break;
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                amapLocation.getLatitude();//获取纬度
+                amapLocation.getLongitude();//获取经度
+                amapLocation.getAccuracy();//获取精度信息
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(amapLocation.getTime());
+                df.format(date);//定位时间
+                UniversityApplication.lat = String.valueOf(amapLocation.getLatitude());
+                UniversityApplication.lng = String.valueOf(amapLocation.getLongitude());
+                UniversityApplication.address = amapLocation.getAddress();
+                if(!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng) && !StringUtil.isNullOrEmpty(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class))){
+                    sendLocation();
+                }
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
             }
         }
-
-        ;
-    };
-
-    // 定位监听
-    @Override
-    public void onLocationChanged(AMapLocation loc) {
-        if (null != loc) {
-            Message msg = mHandler.obtainMessage();
-            msg.obj = loc;
-            msg.what = Utils.MSG_LOCATION_FINISH;
-            mHandler.sendMessage(msg);
-        }
     }
+
 
     void sendLocation() {
         StringRequest request = new StringRequest(
@@ -351,15 +384,14 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (null != locationClient) {
-            /**
-             * 如果AMapLocationClient是在当前Activity实例化的，
-             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
-             */
-            locationClient.onDestroy();
-            locationClient = null;
-            locationOption = null;
-        }
+//        if (null != mlocationClient) {
+//            /**
+//             * 如果AMapLocationClient是在当前Activity实例化的，
+//             * 在Activity的onDestroy中一定要执行AMapLocationClient的onDestroy
+//             */
+//            mlocationClient.onDestroy();
+//            mlocationClient = null;
+//        }
     }
 
 
