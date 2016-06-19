@@ -48,7 +48,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-        UmengUpdateAgent.update(this);
+//        UmengUpdateAgent.update(this);
 
         mlocationClient = new AMapLocationClient(this);
         //初始化定位参数

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="pushservice-4.6.2.39">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/pushservice-4.6.2.39.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/AMap_3DMap_V3.2.1_20160225.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/AMap_Navi_v1.7.0.2_20160311.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/Msc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
