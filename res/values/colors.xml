@@ -44,8 +44,7 @@
     <color name="bottom_text_color_normal">#ffffff</color>
     <color name="btn_white_normal">#f7f8f8</color>
     <color name="btn_white_pressed">#b5b5b6</color>
-    <color name="btn_green_noraml">#68C270</color>
-    <color name="btn_green_pressed">#6FCD78</color>
+
     <color name="btn_gray_normal">#c0c0c0</color>
     <color name="btn_gray_pressed_status">#b5b5b6</color>
     <color name="btn_gray_pressed">#666667</color>
@@ -152,9 +151,11 @@
     <color name="black_deep">#FF000000</color>
 
 
-    <color name="mm_top_bg">#09893e</color>
-    <color name="mm_btn_bg">#47b42c</color>
-    <color name="mm_main_bg">#f6f6f6</color>
+    <color name="mm_top_bg">#37363b</color>
+    <color name="mm_btn_bg">#666371</color>
+    <color name="mm_main_bg">#efeff4</color>
+    <color name="top_bg">#37363b</color>
 
-
+    <color name="btn_green_normal">#1aad19</color>
+    <color name="btn_green_press">#0c9d0b</color>
 </resources>

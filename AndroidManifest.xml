@@ -72,94 +72,51 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DetailRecordActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RegistActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RegistMsgActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddRecordActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AlbumActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AlbumChanceActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ImageDelActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.GalleryUrlActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectProvinceActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectCityActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FourShopActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddSuggestActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.UpdatePwrActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.VipActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.WebViewActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.VipDetailActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.CityAreaActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SelectTelActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.MineFavour" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DemoOneActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.DemoTwoActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.WeixinKefuActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.UpdateProfiletActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.SetGuanzhuActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NoticeActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.NoticeDetailActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.RecordGzActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FindPwrActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ErweimaActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AboutActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.GPSNaviActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddCompanyLocationActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FourFuwuActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ShareMingpianActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddVideoActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.AddVideoSuccessActivity" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.VideoPlayerActivity2" android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DetailRecordActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RegistActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RegistMsgActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddRecordActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AlbumActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AlbumChanceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ImageDelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.GalleryUrlActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectProvinceActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectCityActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FourShopActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddSuggestActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.UpdatePwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NearbyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VipActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.WebViewActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VipDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.CityAreaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SelectTelActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.MineFavour" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DemoOneActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.DemoTwoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.WeixinKefuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.UpdateProfiletActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.SetGuanzhuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NoticeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.NoticeDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.RecordGzActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FindPwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ErweimaActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AboutActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.GPSNaviActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddCompanyLocationActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.FourFuwuActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ShareMingpianActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddVideoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.AddVideoSuccessActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.VideoPlayerActivity2" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.CircleActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
 
         <!--友盟-->
         <meta-data android:value="56a1c62fe0f55af361001e45" android:name="UMENG_APPKEY"></meta-data>

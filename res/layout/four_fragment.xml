@@ -9,13 +9,13 @@
     <RelativeLayout android:layout_width="match_parent"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:background="@color/white"
+                    android:background="@color/top_bg"
                     android:layout_height="@dimen/top_title_height">
         <TextView android:layout_width="wrap_content"
                   android:layout_centerInParent="true"
                   android:text="服务中心"
                   android:gravity="center_vertical"
-                  android:textColor="@color/textColor"
+                  android:textColor="@color/white"
                   android:textSize="18sp"
                   android:layout_height="45dp"/>
         <TextView android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
                   android:padding="6dp"
                   android:id="@+id/addLocation"
                   android:textStyle="bold"
-                  android:textColor="@color/btn_green_noraml"
+                  android:textColor="@color/white"
                   android:textSize="16sp"
                   android:layout_alignParentRight="true"
                   android:layout_centerVertical="true"
@@ -135,11 +135,11 @@
                 </RelativeLayout>
                 <TextView android:layout_width="match_parent"
                           android:text="申请诚信单位|实名认证"
-                          android:textColor="@color/white"
+                          android:textColor="@color/text_color"
                           android:textSize="16sp"
                           android:id="@+id/btn_chengxin_xiehui"
                           android:padding="12dp"
-                          android:background="#ff0000"
+                          android:background="@color/white"
                           android:gravity="center"
                           android:layout_gravity="center"
                           android:layout_height="wrap_content"/>

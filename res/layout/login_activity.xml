@@ -71,7 +71,6 @@
                 android:onClick="sureLogin"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:background="@drawable/btn_green_shape"
                 android:layout_height="wrap_content"/>
 
@@ -87,7 +86,7 @@
                   android:text="新用户注册"
                   android:layout_marginLeft="30dp"
                   android:layout_marginRight="30dp"
-                  android:background="@drawable/btn_green_shape"
+                  android:background="@drawable/btn_orange_shape"
                   android:layout_height="wrap_content"/>
         <LinearLayout android:layout_width="match_parent"
                       android:orientation="horizontal"
@@ -104,7 +103,7 @@
                       android:text="客服咨询中心"
                       android:layout_marginLeft="30dp"
                       android:layout_marginRight="30dp"
-                      android:background="@drawable/btn_green_shape"
+                      android:background="@drawable/btn_orange_shape"
                       android:layout_height="wrap_content"/>
 
             <TextView android:layout_width="0dp"
@@ -118,7 +117,7 @@
                       android:text="忘记密码"
                       android:layout_marginLeft="30dp"
                       android:layout_marginRight="30dp"
-                      android:background="@drawable/btn_green_shape"
+                      android:background="@drawable/btn_orange_shape"
                       android:layout_height="wrap_content"/>
         </LinearLayout>
 

@@ -6,7 +6,7 @@
     <RelativeLayout android:layout_width="match_parent"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:background="@color/white"
+                    android:background="@color/top_bg"
                     android:layout_height="@dimen/top_title_height">
         <TextView android:layout_width="wrap_content"
                   android:layout_centerVertical="true"
@@ -16,14 +16,14 @@
                   android:layout_marginLeft="8dp"
                   android:drawablePadding="6dp"
                   android:gravity="center_vertical"
-                  android:textColor="@color/mm_top_bg"
+                  android:textColor="@color/white"
                   android:textSize="13sp"
                   android:layout_height="45dp"/>
         <TextView android:layout_width="45dp"
                   android:gravity="center"
                   android:id="@+id/add"
                   android:text="发布"
-                  android:textColor="@color/mm_top_bg"
+                  android:textColor="@color/white"
                   android:layout_centerVertical="true"
                   android:layout_alignParentRight="true"
                   android:layout_height="match_parent"/>

@@ -14,10 +14,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
 import com.Lbins.TreeHm.data.NearbyDistanceObjData;
-import com.Lbins.TreeHm.fragment.FirstFragment;
-import com.Lbins.TreeHm.fragment.FourFragment;
-import com.Lbins.TreeHm.fragment.SecondFragment;
-import com.Lbins.TreeHm.fragment.TopFragment;
+import com.Lbins.TreeHm.fragment.*;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
 import com.Lbins.TreeHm.module.NearbyDistanceObj;
 import com.Lbins.TreeHm.ui.*;
@@ -46,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private FirstFragment oneFragment;
     private SecondFragment twoFragment;
-    private TopFragment threeFragment;
+    private FindFragment threeFragment;
     private FourFragment fourFragment;
 
     private ImageView foot_one;
@@ -201,7 +198,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.foot_three:
                 if (threeFragment == null) {
-                    threeFragment = new TopFragment();
+                    threeFragment = new FindFragment();
                     fragmentTransaction.add(R.id.content_frame, threeFragment);
                 } else {
                     fragmentTransaction.show(threeFragment);
