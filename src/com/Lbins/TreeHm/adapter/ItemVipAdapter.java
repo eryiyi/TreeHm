@@ -59,6 +59,7 @@ public class ItemVipAdapter extends BaseAdapter {
             holder.item_cart_select = (ImageView) convertView.findViewById(R.id.item_cart_select);
             holder.title = (TextView) convertView.findViewById(R.id.title);
             holder.price = (TextView) convertView.findViewById(R.id.price);
+            holder.btn_detail = (TextView) convertView.findViewById(R.id.btn_detail);
 
             convertView.setTag(holder);
         } else {
@@ -79,6 +80,12 @@ public class ItemVipAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 1, null);
                 }
             });
+            holder.btn_detail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 2, null);
+                }
+            });
 
         }
         return convertView;
@@ -88,5 +95,6 @@ public class ItemVipAdapter extends BaseAdapter {
         ImageView item_cart_select;
         TextView title;
         TextView price;
+        TextView btn_detail;
     }
 }

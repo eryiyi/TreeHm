@@ -134,8 +134,14 @@
                 android:theme="@style/Theme.UMDefault"
                 android:excludeFromRecents="true"/>
 
+        <!--<activity-->
+                <!--android:name=".wxapi.WXEntryActivity"-->
+                <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+                <!--android:exported="true"-->
+                <!--android:screenOrientation="portrait"-->
+                <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
         <activity
-                android:name=".wxapi.WXEntryActivity"
+                android:name=".wxapi.WXPayEntryActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:exported="true"
                 android:screenOrientation="portrait"
@@ -244,6 +250,16 @@
 
         <!-- 在百度开发者中心查询应用的API Key -->
         <meta-data android:name="api_key" android:value="py440oPABt8q01nVMRfbMZkq"/>
+
+        <!--支付宝支付-->
+        <!-- alipay sdk begin -->
+        <activity
+                android:name="com.alipay.sdk.app.H5PayActivity"
+                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:exported="false"
+                android:screenOrientation="behind"
+                android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
 
     </application>
 </manifest>

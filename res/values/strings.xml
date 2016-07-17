@@ -91,7 +91,7 @@
     <string name="add_video_error">请先拍摄视频！</string>
     <string name="suggest_add_one">感谢您的参与</string>
     <string name="suggest_add_two">提交失败</string>
-    <string name="miaomushop">苗木商店</string>
+    <string name="miaomushop">园林资材</string>
     <string name="zhuangchework">装车工人</string>
     <string name="wuliucenter">物流中心</string>
     <string name="jiajieteam">嫁接团队</string>
@@ -200,5 +200,14 @@
     <string name="intell_bd_title">智能播报</string>
     <string name="no_location_lat_lng">暂无定位信息</string>
     <string name="please_open_gps">请打开手机GPS，方便我们进行定位导航</string>
+    <string name="order_error_one">订单生成失败</string>
+    <string name="order_success">订单生成成功</string>
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+
+
 
 </resources>

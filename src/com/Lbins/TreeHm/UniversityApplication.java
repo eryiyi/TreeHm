@@ -81,7 +81,7 @@ public class UniversityApplication extends Application {
         sp = getSharedPreferences("university_manage", Context.MODE_PRIVATE);
         imageLoader = new com.android.volley.toolbox.ImageLoader(requestQueue, new BitmapCache());
         initImageLoader(this);
-        PlatformConfig.setWeixin("wxb09b0dc1224f3d1d", "aba9d81a40bd411ebb3d0b4e55bcd76a");
+        PlatformConfig.setWeixin("wxe48c235e104c5332", "cd46a2cae4981a4fab91b2c3271052a1");
         //微信 appid appsecret
         PlatformConfig.setQQZone("1105177727", "BQ8MVq3t9yOFl1SP");
         // QQ和Qzone appid appkey

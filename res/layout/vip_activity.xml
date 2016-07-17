@@ -83,20 +83,23 @@
                   android:id="@+id/msg_jine"
                   android:textSize="20sp"
                   android:layout_height="wrap_content"/>
-
-        <Button android:layout_width="match_parent"
-                android:text="去支付"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:padding="15dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:onClick="goToPay"
-                android:layout_below="@+id/msg_jine"
-                android:textColor="@color/white"
-                android:background="@drawable/btn_green_shape"
-                android:layout_height="wrap_content"/>
     </RelativeLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:gravity="center"
+                  android:padding="15dp"
+                  android:orientation="horizontal"
+                  android:layout_height="wrap_content">
+        <Button android:layout_width="0dp"
+                android:layout_weight="1"
+                android:onClick="goToPayAliy"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/btn_pay_aliy_shape"
+                android:layout_height="wrap_content"/>
+
+        <Button android:layout_width="0dp"
+                android:layout_weight="1"
+                android:onClick="goToPayWeixin"
+                android:background="@drawable/btn_pay_weixin_shape"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

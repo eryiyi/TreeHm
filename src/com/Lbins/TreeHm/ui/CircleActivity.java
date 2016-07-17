@@ -74,6 +74,7 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
     private List<AdObj> listsAd = new ArrayList<AdObj>();
 
     private EditText keyword;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,8 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
     };
 
     void initView() {
-        //
+        title = (TextView) this.findViewById(R.id.title);
+        title.setOnClickListener(this);
         this.findViewById(R.id.back).setOnClickListener(this);
         headLiner = (LinearLayout) LayoutInflater.from(CircleActivity.this).inflate(R.layout.ad_header, null);
         TextView btn_top = (TextView) headLiner.findViewById(R.id.btn_top);
@@ -120,7 +122,7 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
         ListView listView = lstv.getRefreshableView();
 
-        keyword = (EditText) this.findViewById(R.id.keyword);
+        keyword = (EditText) headLiner.findViewById(R.id.keyword);
         keyword.addTextChangedListener(watcher);
 
         listView.addHeaderView(headLiner);
@@ -313,10 +315,8 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
 
                         if (lists.size() > 0) {
                             no_data.setVisibility(View.GONE);
-                            lstv.setVisibility(View.VISIBLE);
                         } else {
                             no_data.setVisibility(View.VISIBLE);
-                            lstv.setVisibility(View.GONE);
                         }
                     }
                 },
@@ -324,7 +324,6 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         Toast.makeText(CircleActivity.this, R.string.get_data_error, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -375,6 +374,14 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
                 break;
             case R.id.back:
                 finish();
+                break;
+            case R.id.title:
+            {
+                //返回顶部
+                IS_REFRESH = true;
+                pageIndex = 1;
+                initData();
+            }
                 break;
         }
     }

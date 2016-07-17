@@ -33,7 +33,9 @@ import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.EmpAdObjData;
 import com.Lbins.TreeHm.data.FavourCountData;
+import com.Lbins.TreeHm.data.NetwwwObjData;
 import com.Lbins.TreeHm.module.EmpAdObj;
+import com.Lbins.TreeHm.module.NetwwwObj;
 import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.CompressPhotoUtil;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -361,9 +363,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.relate_bank:
                 //银行
             {
-                final Uri uri = Uri.parse(Constants.BANK_URL);
-                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(it);
+                getNetobj("2");
             }
             break;
             case R.id.relate_work:
@@ -393,12 +393,7 @@ public class FourFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.relate_msg:
                 //短信
             {
-//                Intent webV = new Intent(getActivity(), WebViewActivity.class);
-//                webV.putExtra("strurl",Constants.DUANXIN_URL);
-//                startActivity(webV);
-                final Uri uri = Uri.parse(Constants.DUANXIN_URL);
-                final Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(it);
+                getNetobj("1");
             }
             break;
             case R.id.realte_diaoche:
@@ -840,6 +835,75 @@ public class FourFragment extends BaseFragment implements View.OnClickListener, 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mm_emp_id", getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
                 params.put("mm_emp_cover", uploadpic);
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
+
+
+
+    private void getNetobj(final String type) {
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.GET_NET_BY_TYPE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            try {
+                                JSONObject jo = new JSONObject(s);
+                                String code = jo.getString("code");
+                                if (Integer.parseInt(code) == 200) {
+
+                                    NetwwwObjData data = getGson().fromJson(s, NetwwwObjData.class);
+                                    List<NetwwwObj> list = data.getData();
+                                    if(list != null && list.size() > 0){
+                                        NetwwwObj netwwwObj = list.get(0);
+                                        if(netwwwObj != null && "1".equals(type)){
+                                            //短信平台
+                                            final Uri uri = Uri.parse(netwwwObj.getMm_net_url());
+                                            final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(it);
+                                        }
+                                        if(netwwwObj != null && "2".equals(type)){
+                                            //商业银行
+                                            final Uri uri = Uri.parse(netwwwObj.getMm_net_url());
+                                            final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                                            startActivity(it);
+                                        }
+                                    }
+
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getActivity(), R.string.get_data_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mm_net_type", type);
                 return params;
             }
 

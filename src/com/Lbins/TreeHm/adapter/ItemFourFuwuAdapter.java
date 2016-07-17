@@ -5,9 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.module.FuwuObj;
+import com.Lbins.TreeHm.util.StringUtil;
+import com.amap.api.maps.model.LatLng;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
@@ -63,6 +67,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             holder.tel = (TextView) convertView.findViewById(R.id.tel);
             holder.weiwangzhan = (TextView) convertView.findViewById(R.id.weiwangzhan);
             holder.navi = (TextView) convertView.findViewById(R.id.navi);
+            holder.head = (ImageView) convertView.findViewById(R.id.head);
 
             convertView.setTag(holder);
         } else {
@@ -73,11 +78,11 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             String strname = "";
             switch (Integer.parseInt(mm_fuwu_type)) {
                 case 0:
-                    strname = "商店名称:";
+                    strname = "名称:";
                     holder.weiwangzhan.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    strname = "工人姓名:";
+                    strname = "联系人:";
                     holder.weiwangzhan.setVisibility(View.GONE);
                     break;
                 case 2:
@@ -85,7 +90,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
                     holder.weiwangzhan.setVisibility(View.GONE);
                     break;
                 case 3:
-                    strname = "团队名称:";
+                    strname = "联系人:";
                     holder.weiwangzhan.setVisibility(View.GONE);
                     break;
                 case 4:
@@ -97,9 +102,17 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
             ;
             holder.title.setText(strname + cell.getMm_fuwu_nickname());
             holder.address.setText("服务内容:" + cell.getMm_fuwu_content());
-            holder.tel.setText(cell.getMm_fuwu_tel());
-            if (cell.getDistance() != null) {
-                holder.distance.setText(cell.getDistance() == null ? "未知距离" : cell.getDistance());
+//            holder.tel.setText(cell.getMm_fuwu_tel());
+
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng) && !StringUtil.isNullOrEmpty(cell.getLat()) && !StringUtil.isNullOrEmpty(cell.getLng())){
+                LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
+                LatLng latLng1 = new LatLng(Double.valueOf(cell.getLat()), Double.valueOf(cell.getLng()));
+                String distance = StringUtil.getDistance(latLng, latLng1);
+                holder.distance.setText(distance + "km");
+            }
+
+            if (!StringUtil.isNullOrEmpty(cell.getMm_fuwu_cover())) {
+                imageLoader.displayImage(cell.getMm_fuwu_cover(), holder.head, UniversityApplication.txOptions, animateFirstListener);
             }
             holder.weiwangzhan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,6 +143,7 @@ public class ItemFourFuwuAdapter extends BaseAdapter {
         TextView tel;
         TextView weiwangzhan;
         TextView navi;
+        ImageView head;
 //        TextView content;
     }
 }

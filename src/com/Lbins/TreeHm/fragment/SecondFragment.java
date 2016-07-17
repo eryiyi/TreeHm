@@ -85,6 +85,7 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     private List<AdObj> listsAd = new ArrayList<AdObj>();
 
     private LinearLayout headLiner;
+    private RelativeLayout search_liner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,8 +109,9 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
     }
 
     void initView() {
-        //
         headLiner = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.ad_header, null);
+        search_liner = (RelativeLayout) headLiner.findViewById(R.id.search_liner);
+        search_liner.setVisibility(View.GONE);
         mLocation = (TextView) view.findViewById(R.id.mLocation);
         mLocation.setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);

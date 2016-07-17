@@ -1,13 +1,12 @@
 package com.Lbins.TreeHm.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.UniversityApplication;
 import com.Lbins.TreeHm.adapter.ItemNearbyAdapter;
@@ -39,7 +38,7 @@ import java.util.Map;
 public class NearbyActivity extends BaseActivity implements View.OnClickListener, OnClickContentItemListener {
     private PullToRefreshListView lstv;
     ItemNearbyAdapter adapter;
-    List<Emp> lists;
+    List<Emp> lists = new ArrayList<Emp>();
     private ImageView no_data;
     private int pageIndex = 1;
     private static boolean IS_REFRESH = true;
@@ -48,7 +47,6 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearby_activity);
-
         initView();
         if (!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng)) {
             getData();
@@ -61,7 +59,6 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 lstv.setVisibility(View.GONE);
             }
         }
-
     }
 
     void getData() {
@@ -79,23 +76,26 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                                     EmpsData data = getGson().fromJson(s, EmpsData.class);
                                     if (data != null && data.getData().size() > 0) {
                                         //计算距离
-                                        List<Emp> listsAll = new ArrayList<Emp>();
-                                        listsAll.addAll(data.getData());
-                                        for (int i = 0; i < listsAll.size(); i++) {
-                                            Emp fuwuObj = listsAll.get(i);
-                                            if (fuwuObj != null && !StringUtil.isNullOrEmpty(fuwuObj.getLat()) && !StringUtil.isNullOrEmpty(fuwuObj.getLng())) {
-                                                LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
-                                                LatLng latLng1 = new LatLng(Double.valueOf(fuwuObj.getLat()), Double.valueOf(fuwuObj.getLng()));
-                                                String distance = StringUtil.getDistance(latLng, latLng1);
-                                                listsAll.get(i).setDistance(distance + "km");
-                                                fuwuObj.setDistance(distance + "km");
-                                                if (Double.valueOf(distance) < 100) {
-                                                    //100KM以内的
-                                                    lists.add(fuwuObj);
-                                                }
-                                            }
+//                                        List<Emp> listsAll = new ArrayList<Emp>();
+//                                        listsAll.addAll(data.getData());
+//                                        for (int i = 0; i < listsAll.size(); i++) {
+//                                            Emp fuwuObj = listsAll.get(i);
+//                                            if (fuwuObj != null && !StringUtil.isNullOrEmpty(fuwuObj.getLat()) && !StringUtil.isNullOrEmpty(fuwuObj.getLng())) {
+//                                                LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
+//                                                LatLng latLng1 = new LatLng(Double.valueOf(fuwuObj.getLat()), Double.valueOf(fuwuObj.getLng()));
+//                                                String distance = StringUtil.getDistance(latLng, latLng1);
+//                                                listsAll.get(i).setDistance(distance + "km");
+//                                                fuwuObj.setDistance(distance + "km");
+//                                                if (Double.valueOf(distance) < 100) {
+//                                                    //100KM以内的
+//                                                    lists.add(fuwuObj);
+//                                                }
+//                                            }
+//                                        }
+                                        if (IS_REFRESH) {
+                                            lists.clear();
                                         }
-
+                                        lists.addAll(data.getData());
                                         adapter.notifyDataSetChanged();
                                         if (lists.size() > 0) {
                                             no_data.setVisibility(View.GONE);
@@ -138,8 +138,12 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
-                params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
+                if(!StringUtil.isNullOrEmpty(UniversityApplication.lat)){
+                    params.put("lat", (UniversityApplication.lat == null ? "" : UniversityApplication.lat));
+                }
+                if(!StringUtil.isNullOrEmpty(UniversityApplication.lng)){
+                   params.put("lng", (UniversityApplication.lng == null ? "" : UniversityApplication.lng));
+                }
                 params.put("index", String.valueOf(pageIndex));
                 params.put("size", "10");
                 return params;
@@ -158,7 +162,6 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     void initView() {
         this.findViewById(R.id.back).setOnClickListener(this);
         lstv = (PullToRefreshListView) this.findViewById(R.id.lstv);
-        lists = new ArrayList<Emp>();
         adapter = new ItemNearbyAdapter(lists, NearbyActivity.this);
         no_data = (ImageView) this.findViewById(R.id.no_data);
         adapter.setOnClickContentItemListener(this);
@@ -213,6 +216,7 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
     public void onClickContentItem(int position, int flag, Object object) {
         switch (flag) {
             case 1:
+            {
                 Emp emp = lists.get(position);
                 if (!StringUtil.isNullOrEmpty(emp.getLat_company()) && !StringUtil.isNullOrEmpty(emp.getLng_company())) {
                     //开始导航
@@ -228,7 +232,49 @@ public class NearbyActivity extends BaseActivity implements View.OnClickListener
                 } else {
                     Toast.makeText(NearbyActivity.this, getResources().getString(R.string.no_location_lat_lng), Toast.LENGTH_SHORT).show();
                 }
+            }
+                break;
+            case 2:
+            {
+                Emp emp = lists.get(position);
+                if (emp != null) {
+                    showTel(emp.getMm_emp_mobile());
+                }
+            }
                 break;
         }
     }
+    // 拨打电话窗口
+    private void showTel(String tel) {
+        final Dialog picAddDialog = new Dialog(NearbyActivity.this, R.style.dialog);
+        View picAddInflate = View.inflate(NearbyActivity.this, R.layout.tel_dialog, null);
+        TextView btn_sure = (TextView) picAddInflate.findViewById(R.id.btn_sure);
+        final TextView jubao_cont = (TextView) picAddInflate.findViewById(R.id.jubao_cont);
+        jubao_cont.setText(tel);
+        //提交
+        btn_sure.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String contreport = jubao_cont.getText().toString();
+                if (!StringUtil.isNullOrEmpty(contreport)) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + jubao_cont.getText().toString()));
+                    startActivity(intent);
+                }
+                picAddDialog.dismiss();
+            }
+        });
+
+        //取消
+        TextView btn_cancel = (TextView) picAddInflate.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picAddDialog.dismiss();
+            }
+        });
+        picAddDialog.setContentView(picAddInflate);
+        picAddDialog.show();
+    }
+
 }

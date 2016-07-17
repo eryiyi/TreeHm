@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.Lbins.TreeHm.R;
 import com.Lbins.TreeHm.base.BaseFragment;
 import com.Lbins.TreeHm.ui.CircleActivity;
+import com.Lbins.TreeHm.ui.FourFuwuActivity;
 import com.Lbins.TreeHm.ui.NearbyActivity;
 
 /**
@@ -34,6 +35,7 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
     private void initView() {
         view.findViewById(R.id.liner_one).setOnClickListener(this);
         view.findViewById(R.id.liner_two).setOnClickListener(this);
+        view.findViewById(R.id.liner_three).setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +53,14 @@ public class FindFragment extends BaseFragment implements View.OnClickListener {
                 //附近的经纪人
                 Intent intent = new Intent(getActivity(), NearbyActivity.class);
                 startActivity(intent);
+            }
+                break;
+            case R.id.liner_three:
+            {
+                //园林资材
+                Intent shopV = new Intent(getActivity(), FourFuwuActivity.class);
+                shopV.putExtra("mm_fuwu_type", "0");
+                startActivity(shopV);
             }
                 break;
 

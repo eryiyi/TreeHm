@@ -13,10 +13,11 @@ import android.widget.Toast;
 import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.GuanzhuAreaObjData;
-import com.Lbins.TreeHm.data.NearbyDistanceObjData;
-import com.Lbins.TreeHm.fragment.*;
+import com.Lbins.TreeHm.fragment.FindFragment;
+import com.Lbins.TreeHm.fragment.FirstFragment;
+import com.Lbins.TreeHm.fragment.FourFragment;
+import com.Lbins.TreeHm.fragment.SecondFragment;
 import com.Lbins.TreeHm.module.GuanzhuAreaObj;
-import com.Lbins.TreeHm.module.NearbyDistanceObj;
 import com.Lbins.TreeHm.ui.*;
 import com.Lbins.TreeHm.util.HttpUtils;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -29,7 +30,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.umeng.update.UmengUpdateAgent;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,10 +85,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         mainPopMenu = new MainPopMenu(this);
         mainPopMenu.setOnItemClickListener(this);
-
-        //获得设置好的距离--附近的
-        getDistance();
-
     }
 
     boolean isMobileNet, isWifiNet;
@@ -392,60 +388,60 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     //--------附近商家用，附近服务用--------
-    List<NearbyDistanceObj> nearbyDistanceObjs = new ArrayList<NearbyDistanceObj>();
-
-    void getDistance() {
-        //获得附近距离--设置好的
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                InternetURL.GET_NEARBY_DISTANCE_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        if (StringUtil.isJson(s)) {
-                            try {
-                                JSONObject jo = new JSONObject(s);
-                                String code1 = jo.getString("code");
-                                if (Integer.parseInt(code1) == 200) {
-                                    NearbyDistanceObjData data = getGson().fromJson(s, NearbyDistanceObjData.class);
-                                    nearbyDistanceObjs = data.getData();
-                                    if (nearbyDistanceObjs != null && nearbyDistanceObjs.size() > 0) {
-                                        NearbyDistanceObj nearbyDistanceObj = nearbyDistanceObjs.get(0);
-                                        //保存设置好的距离
-                                        save("mm_distance", nearbyDistanceObj.getMm_distance());
-                                        save("mm_nearby_distance_id", nearbyDistanceObj.getMm_nearby_distance_id());
-                                    }
-
-                                } else {
-
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return params;
-            }
-        };
-        getRequestQueue().add(request);
-    }
+//    List<NearbyDistanceObj> nearbyDistanceObjs = new ArrayList<NearbyDistanceObj>();
+//
+//    void getDistance() {
+//        //获得附近距离--设置好的
+//        StringRequest request = new StringRequest(
+//                Request.Method.POST,
+//                InternetURL.GET_NEARBY_DISTANCE_URL,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String s) {
+//                        if (StringUtil.isJson(s)) {
+//                            try {
+//                                JSONObject jo = new JSONObject(s);
+//                                String code1 = jo.getString("code");
+//                                if (Integer.parseInt(code1) == 200) {
+//                                    NearbyDistanceObjData data = getGson().fromJson(s, NearbyDistanceObjData.class);
+//                                    nearbyDistanceObjs = data.getData();
+//                                    if (nearbyDistanceObjs != null && nearbyDistanceObjs.size() > 0) {
+//                                        NearbyDistanceObj nearbyDistanceObj = nearbyDistanceObjs.get(0);
+//                                        //保存设置好的距离
+//                                        save("mm_distance", nearbyDistanceObj.getMm_distance());
+//                                        save("mm_nearby_distance_id", nearbyDistanceObj.getMm_nearby_distance_id());
+//                                    }
+//
+//                                } else {
+//
+//                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        } else {
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                    }
+//                }
+//        ) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                return params;
+//            }
+//
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Content-Type", "application/x-www-form-urlencoded");
+//                return params;
+//            }
+//        };
+//        getRequestQueue().add(request);
+//    }
 
 }

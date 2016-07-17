@@ -71,7 +71,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
             holder.img_xiehui = (ImageView) convertView.findViewById(R.id.img_xiehui);
             holder.star = (ImageView) convertView.findViewById(R.id.star);
             holder.nav = (ImageView) convertView.findViewById(R.id.nav);
-
+            holder.tel = (ImageView) convertView.findViewById(R.id.tel);
 
             convertView.setTag(holder);
         } else {
@@ -82,10 +82,13 @@ public class ItemNearbyAdapter extends BaseAdapter {
             String title = (cell.getMm_emp_company() == null ? "" : cell.getMm_emp_company()) + " " + (cell.getMm_emp_nickname() == null ? "" : cell.getMm_emp_nickname());
             holder.nickname.setText(title);
 //            holder.distance.setText(cell.getDateline());
-            LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
-            LatLng latLng1 = new LatLng(Double.valueOf(cell.getLat()), Double.valueOf(cell.getLng()));
-            String distance = StringUtil.getDistance(latLng, latLng1);
-            holder.distance.setText(distance + "km");
+            if(!StringUtil.isNullOrEmpty(UniversityApplication.lat) && !StringUtil.isNullOrEmpty(UniversityApplication.lng) && !StringUtil.isNullOrEmpty(cell.getLat()) && !StringUtil.isNullOrEmpty(cell.getLng())){
+                LatLng latLng = new LatLng(Double.valueOf(UniversityApplication.lat), Double.valueOf(UniversityApplication.lng));
+                LatLng latLng1 = new LatLng(Double.valueOf(cell.getLat_company()), Double.valueOf(cell.getLng_company()));
+                String distance = StringUtil.getDistance(latLng, latLng1);
+                holder.distance.setText(distance + "km");
+            }
+
             if ("1".equals(cell.getIs_chengxin())) {
                 holder.img_xinyong.setVisibility(View.VISIBLE);
             } else {
@@ -121,6 +124,12 @@ public class ItemNearbyAdapter extends BaseAdapter {
                     onClickContentItemListener.onClickContentItem(position, 1, "111");
                 }
             });
+            holder.tel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickContentItemListener.onClickContentItem(position, 2, "111");
+                }
+            });
         }
 
         return convertView;
@@ -134,6 +143,7 @@ public class ItemNearbyAdapter extends BaseAdapter {
         ImageView img_xiehui;
         ImageView star;
         ImageView nav;
+        ImageView tel;
 
     }
 }

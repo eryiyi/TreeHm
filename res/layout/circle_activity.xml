@@ -4,6 +4,7 @@
               android:background="@color/mm_main_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
     <RelativeLayout android:layout_width="match_parent"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -20,36 +21,16 @@
                   android:layout_centerVertical="true"
                   android:layout_height="wrap_content"/>
         <TextView android:layout_width="wrap_content"
-                  android:text="商圈"
+                  android:text="金牌榜"
+                  android:id="@+id/title"
                   android:textSize="18sp"
                   android:layout_centerHorizontal="true"
                   android:layout_centerVertical="true"
                   android:textColor="@color/white"
                   android:layout_height="wrap_content"/>
     </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:background="@color/white"
-                    android:layout_height="@dimen/top_title_height">
 
-        <EditText android:layout_width="match_parent"
-                  android:drawableRight="@drawable/index_sousuo"
-                  android:paddingLeft="8dp"
-                  android:layout_marginLeft="6dp"
-                  android:layout_marginRight="6dp"
-                  android:paddingRight="8dp"
-                  android:layout_toRightOf="@+id/mLocation"
-                  android:hint="标题|手机号|公司名称|联系人"
-                  android:id="@+id/keyword"
-                  android:textSize="15sp"
-                  android:textColorHighlight="@color/textColortwo"
-                  android:layout_marginTop="1dp"
-                  android:layout_marginBottom="1dp"
-                  android:background="@drawable/index_sousuo_back"
-                  android:layout_centerInParent="true"
-                  android:layout_height="wrap_content"/>
-    </RelativeLayout>
+
 
     <View android:layout_width="match_parent"
           android:layout_alignTop="@+id/home_item_photo"
@@ -78,4 +59,5 @@
                 android:headerDividersEnabled="false"
                 android:smoothScrollbar="true"/>
     </RelativeLayout>
+
 </LinearLayout>

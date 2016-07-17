@@ -15,8 +15,7 @@
             android:id="@+id/head"
             android:layout_height="60dp"/>
     <TextView android:layout_width="wrap_content"
-              android:layout_marginTop="15dp"
-              android:singleLine="true"
+              android:layout_marginTop="10dp"
               android:layout_marginRight="65dp"
               android:layout_marginLeft="8dp"
               android:textSize="16sp"
@@ -69,5 +68,11 @@
                android:id="@+id/nav"
                android:src="@drawable/button_selector_nav_mine"
                android:layout_height="wrap_content"/>
-
+    <ImageView android:layout_width="wrap_content"
+               android:layout_marginRight="8dp"
+               android:layout_alignBottom="@+id/head"
+               android:id="@+id/tel"
+               android:layout_toLeftOf="@+id/nav"
+               android:src="@drawable/button_selector_tel_mine"
+               android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -21,6 +21,15 @@ public class FuwuObj {
     private String provinceid;
     private String cityid;
     private String countryid;
+    private String mm_fuwu_cover;
+
+    public String getMm_fuwu_cover() {
+        return mm_fuwu_cover;
+    }
+
+    public void setMm_fuwu_cover(String mm_fuwu_cover) {
+        this.mm_fuwu_cover = mm_fuwu_cover;
+    }
 
     public String getProvinceid() {
         return provinceid;

@@ -4,9 +4,10 @@ public class InternetURL {
     //mob
     public static final String APP_MOB_KEY = "f8238165a882";
     public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
+    public static final String WEIXIN_APPID = "wxe48c235e104c5332";
 
-//        public static final String INTERNAL = "http://192.168.0.224:8080/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
+        public static final String INTERNAL = "http://192.168.0.224:8080/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
     //        public static final String INTERNAL = "http://www.huamutong.vip/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
@@ -102,4 +103,12 @@ public class InternetURL {
     public static final String SHARE_MINGXINPIAN_URL = INTERNAL + "toShareMp.do";
     //上传头像
     public static final String UPDATE_COVER = INTERNAL + "uploadCover.do";
+
+    //传订单给服务端--生成订单
+    public static final String SEND_ORDER_TOSERVER = INTERNAL + "orderSave.do";
+
+    //查询短信平台 商业银行的网址等
+    public static final String GET_NET_BY_TYPE_URL = INTERNAL + "getNetwwwObjByType.do";
+
+
 }
