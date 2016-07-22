@@ -13,6 +13,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="httpcore-4.3.2" level="project" />
+    <orderEntry type="library" name="alipaySDK-20150724" level="project" />
+    <orderEntry type="library" name="SocialSDK_WeiXin_1" level="project" />
   </component>
 </module>

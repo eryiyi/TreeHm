@@ -77,7 +77,6 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
         msg_jine = (TextView) this.findViewById(R.id.msg_jine);
 
         //微信支付
-
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, InternetURL.WEIXIN_APPID, false);
 
@@ -191,7 +190,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
     }
 
     public void goToPayAliy(View view) {
-        //
+        //支付宝支付
         if (StringUtil.isNullOrEmpty(msg_jine.getText().toString())) {
             showMsg(VipActivity.this, getResources().getString(R.string.please_select));
         } else {
@@ -210,7 +209,10 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
     }
 
     public void goToPayWeixin(View view){
-        String url = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android";
+        // 将该app注册到微信
+        api.registerApp(InternetURL.WEIXIN_APPID);
+//        String url = "http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=android";
+        String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         Toast.makeText(VipActivity.this, "获取订单中...", Toast.LENGTH_SHORT).show();
         try{
             byte[] buf = Util.httpGet(url);
