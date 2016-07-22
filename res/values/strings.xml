@@ -202,6 +202,8 @@
     <string name="please_open_gps">请打开手机GPS，方便我们进行定位导航</string>
     <string name="order_error_one">订单生成失败</string>
     <string name="order_success">订单生成成功</string>
+    <string name="order_pay_success">订单支付成功</string>
+    <string name="order_error_two">操作失败，如有疑问，请联系客服</string>
 
     <string name="errcode_success">发送成功</string>
     <string name="errcode_cancel">发送取消</string>

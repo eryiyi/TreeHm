@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        UmengUpdateAgent.update(this);
+//        UmengUpdateAgent.update(this);
         //获得上一次登陆时间
 
         //保存这次登陆时间

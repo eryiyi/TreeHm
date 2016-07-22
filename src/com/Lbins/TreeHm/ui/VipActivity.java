@@ -17,6 +17,7 @@ import com.Lbins.TreeHm.base.BaseActivity;
 import com.Lbins.TreeHm.base.InternetURL;
 import com.Lbins.TreeHm.data.FeiyongData;
 import com.Lbins.TreeHm.data.OrderInfoAndSignDATA;
+import com.Lbins.TreeHm.data.SuccessData;
 import com.Lbins.TreeHm.module.FeiyongObj;
 import com.Lbins.TreeHm.module.Order;
 import com.Lbins.TreeHm.util.StringUtil;
@@ -197,7 +198,8 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
             //先传值给服务端
             Order order = new Order();
             order.setGoods_count("1");
-            order.setPayable_amount("1");
+            order.setPayable_amount("0.01");
+            order.setTrade_type("0");//trade_type  0支付宝 1微信支付
             order.setEmp_id(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
             if(order!=null ){
                 //传值给服务端
@@ -290,6 +292,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
                 params.put("emp_id", order.getEmp_id());
                 params.put("payable_amount", order.getPayable_amount());
                 params.put("goods_count", order.getGoods_count());
+                params.put("trade_type", order.getTrade_type());
                 return params;
             }
 
@@ -320,11 +323,10 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-//                        Toast.makeText(OrderMakeActivity.this, "支付成功",
-//                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(VipActivity.this, "支付成功",
+                                Toast.LENGTH_SHORT).show();
                         //更新订单状态
-                        //todo
-//                        updateMineOrder();
+                        updateMineOrder();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -432,6 +434,50 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
     }
 
 
+    //更新订单状态
+    void updateMineOrder(){
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                InternetURL.UPDATE_ORDER_TOSERVER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        if (StringUtil.isJson(s)) {
+                            SuccessData data = getGson().fromJson(s, SuccessData.class);
+                            if (Integer.parseInt(data.getCode()) == 200) {
+                                Toast.makeText(VipActivity.this, R.string.order_pay_success, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(VipActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(VipActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(VipActivity.this, R.string.order_error_two, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("trade_no",  out_trade_no);
+                params.put("pay_status",  "1");
+                params.put("status",  "1");
+                return params;
+            }
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        getRequestQueue().add(request);
+    }
 
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="com.Lbins.TreeHm"
-          android:versionCode="29"
-          android:versionName="1.1.9">
+          android:versionCode="31"
+          android:versionName="1.2.1">
     <uses-sdk android:minSdkVersion="14"/>
 
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
@@ -87,7 +87,6 @@
         <activity android:name=".ui.SelectCountryActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.ProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.SettingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.FourShopActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.AboutUsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.AddSuggestActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.UpdatePwrActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
@@ -249,16 +248,21 @@
         <!-- push结束 -->
 
         <!-- 在百度开发者中心查询应用的API Key -->
-        <meta-data android:name="api_key" android:value="py440oPABt8q01nVMRfbMZkq"/>
+        <meta-data android:name="api_key" android:value="HGGcyEBPPlfjIieCVnWSlMD6"/>
 
         <!--支付宝支付-->
         <!-- alipay sdk begin -->
         <activity
                 android:name="com.alipay.sdk.app.H5PayActivity"
-                android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+                android:configChanges="orientation|keyboardHidden|navigation"
                 android:exported="false"
-                android:screenOrientation="behind"
-                android:windowSoftInputMode="adjustResize|stateHidden" >
+                android:screenOrientation="behind" >
+        </activity>
+        <activity
+                android:name="com.alipay.sdk.auth.AuthActivity"
+                android:configChanges="orientation|keyboardHidden|navigation"
+                android:exported="false"
+                android:screenOrientation="behind" >
         </activity>
 
     </application>

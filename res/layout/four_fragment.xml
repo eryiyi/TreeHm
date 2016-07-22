@@ -135,11 +135,11 @@
                 </RelativeLayout>
                 <TextView android:layout_width="match_parent"
                           android:text="申请诚信单位|实名认证"
-                          android:textColor="@color/text_color"
+                          android:textColor="@color/white"
                           android:textSize="16sp"
                           android:id="@+id/btn_chengxin_xiehui"
                           android:padding="12dp"
-                          android:background="@color/white"
+                          android:background="@color/red_color"
                           android:gravity="center"
                           android:layout_gravity="center"
                           android:layout_height="wrap_content"/>
@@ -220,7 +220,7 @@
                                    android:layout_height="45dp"
                                    android:layout_marginTop="10dp"/>
                         <TextView android:layout_width="wrap_content"
-                                  android:text="设置关注区域"
+                                  android:text="关注区域"
                                   android:padding="5dp"
                                   android:layout_centerHorizontal="true"
                                   android:textSize="12sp"

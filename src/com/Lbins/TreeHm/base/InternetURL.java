@@ -110,5 +110,6 @@ public class InternetURL {
     //查询短信平台 商业银行的网址等
     public static final String GET_NET_BY_TYPE_URL = INTERNAL + "getNetwwwObjByType.do";
 
-
+    //更新订单状态
+    public static final String UPDATE_ORDER_TOSERVER = INTERNAL + "orderUpdate.do";
 }
