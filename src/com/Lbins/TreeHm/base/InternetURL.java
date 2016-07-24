@@ -4,7 +4,13 @@ public class InternetURL {
     //mob
     public static final String APP_MOB_KEY = "f8238165a882";
     public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
+
     public static final String WEIXIN_APPID = "wxe48c235e104c5332";
+    public static final String WEIXIN_SECRET = "cd46a2cae4981a4fab91b2c3271052a1";
+    public static final  String WX_API_KEY="cd46a2cae4981a4fab91b2c3271052aa";//yum
+
+    public static final String WEIXIN_partnerId = "1368485802";
+    public static final String WEIXIN_MCH_ID = "1368485802";
 
         public static final String INTERNAL = "http://192.168.0.224:8080/";
 //    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
@@ -106,10 +112,15 @@ public class InternetURL {
 
     //传订单给服务端--生成订单
     public static final String SEND_ORDER_TOSERVER = INTERNAL + "orderSave.do";
+    public static final String SEND_ORDER_TOSERVER_WX = INTERNAL + "orderSaveWx.do";
 
     //查询短信平台 商业银行的网址等
     public static final String GET_NET_BY_TYPE_URL = INTERNAL + "getNetwwwObjByType.do";
 
     //更新订单状态
     public static final String UPDATE_ORDER_TOSERVER = INTERNAL + "orderUpdate.do";
+    //微信统一下单notify_url
+    public static final String WEIXIN_NOTIFY_URL = INTERNAL + "orderSaveWxFk.do";
+
+
 }

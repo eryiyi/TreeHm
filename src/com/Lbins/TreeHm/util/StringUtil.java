@@ -3,19 +3,21 @@ package com.Lbins.TreeHm.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.util.Log;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -196,7 +198,6 @@ public class StringUtil {
         return String.valueOf(dis);
     }
 
-
     /**
      * 计算两点之间距离
      *
@@ -233,6 +234,43 @@ public class StringUtil {
             string += m.group();
         }
         return string;
+    }
+
+    public static String getLocalIpAddress(Context context) {
+//        WifiManager wifimanage=(WifiManager)context.getSystemService(Context.WIFI_SERVICE);//获取WifiManager
+//        if(!wifimanage.isWifiEnabled())  {
+//            wifimanage.setWifiEnabled(true);
+//        }
+//        WifiInfo wifiinfo= wifimanage.getConnectionInfo();
+//        String ip=intToIp(wifiinfo.getIpAddress());
+//        return ip;
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface
+                    .getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> ipAddr = intf.getInetAddresses(); ipAddr
+                        .hasMoreElements();) {
+                    InetAddress inetAddress = ipAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static String intToIp(int i)  {
+        return (i & 0xFF ) + "." +
+                ((i >> 8 ) & 0xFF) + "." +
+                ((i >> 16 ) & 0xFF) + "." +
+                ( i >> 24 & 0xFF) ;
+    }
+
+    public static String getSignWx(String strA){
+        return MD5Util.getMD5ofStr(strA).toUpperCase();
     }
 
 }

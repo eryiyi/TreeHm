@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.LruCache;
+import com.Lbins.TreeHm.base.InternetURL;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -79,7 +80,7 @@ public class UniversityApplication extends Application {
         sp = getSharedPreferences("university_manage", Context.MODE_PRIVATE);
         imageLoader = new com.android.volley.toolbox.ImageLoader(requestQueue, new BitmapCache());
         initImageLoader(this);
-        PlatformConfig.setWeixin("wxe48c235e104c5332", "cd46a2cae4981a4fab91b2c3271052a1");
+        PlatformConfig.setWeixin(InternetURL.WEIXIN_APPID, InternetURL.WEIXIN_SECRET);
         //微信 appid appsecret
         PlatformConfig.setQQZone("1105177727", "BQ8MVq3t9yOFl1SP");
         // QQ和Qzone appid appkey
