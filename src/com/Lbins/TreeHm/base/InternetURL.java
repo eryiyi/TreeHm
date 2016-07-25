@@ -12,7 +12,7 @@ public class InternetURL {
     public static final String WEIXIN_partnerId = "1368485802";
     public static final String WEIXIN_MCH_ID = "1368485802";
 
-        public static final String INTERNAL = "http://192.168.0.224:8080/";
+        public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
 //    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
     //        public static final String INTERNAL = "http://www.huamutong.vip/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
