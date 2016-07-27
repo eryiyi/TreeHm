@@ -200,14 +200,13 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
             //先传值给服务端
             Order order = new Order();
             order.setGoods_count("1");
-            order.setPayable_amount("0.01");
+            order.setPayable_amount(feiyongObj.getMm_feiyong_jine());
             order.setTrade_type("0");//trade_type  0支付宝 1微信支付
             order.setEmp_id(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
             if(order!=null ){
                 //传值给服务端
                 sendOrderToServer(order);
             }
-
         }
     }
 
@@ -222,7 +221,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
             //先传值给服务端
             final Order order = new Order();
             order.setGoods_count("1");
-            order.setPayable_amount("0.01");
+            order.setPayable_amount(feiyongObj.getMm_feiyong_jine());
             order.setTrade_type("1");//trade_type  0支付宝 1微信支付
             order.setEmp_id(getGson().fromJson(getSp().getString("mm_emp_id", ""), String.class));
             if(order!=null ){
@@ -280,7 +279,6 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
 
         }
     }
-
 
     public Map<String,String> decodeXml(String content) {
         try {

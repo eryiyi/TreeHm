@@ -1,20 +1,20 @@
 package com.Lbins.TreeHm.base;
 
 public class InternetURL {
+    //public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
+    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
+
     //mob
     public static final String APP_MOB_KEY = "f8238165a882";
     public static final String APP_MOB_SCRECT = "7b3833871687dfa31baa880701907b4e";
 
     public static final String WEIXIN_APPID = "wxe48c235e104c5332";
     public static final String WEIXIN_SECRET = "cd46a2cae4981a4fab91b2c3271052a1";
-    public static final  String WX_API_KEY="cd46a2cae4981a4fab91b2c3271052aa";//yum
+    public static final  String WX_API_KEY="cd46a2cae4981a4fab91b2c3271052aa";
 
     public static final String WEIXIN_partnerId = "1368485802";
     public static final String WEIXIN_MCH_ID = "1368485802";
 
-        public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
-//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
-    //        public static final String INTERNAL = "http://www.huamutong.vip/";
     public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
 
     public static final String QINIU_SPACE = "hmmm-pic";
@@ -121,6 +121,4 @@ public class InternetURL {
     public static final String UPDATE_ORDER_TOSERVER = INTERNAL + "orderUpdate.do";
     //微信统一下单notify_url
     public static final String WEIXIN_NOTIFY_URL = INTERNAL + "orderSaveWxFk.do";
-
-
 }
