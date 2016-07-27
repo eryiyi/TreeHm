@@ -6,8 +6,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import com.Lbins.TreeHm.MainActivity;
 import com.Lbins.TreeHm.R;
+import com.Lbins.TreeHm.base.ActivityTack;
 import com.Lbins.TreeHm.base.BaseActivity;
+import com.Lbins.TreeHm.ui.VipActivity;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -52,6 +55,8 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 			Log.d(TAG, "resp.errStr +\";code=\" + String.valueOf(resp.errCode)) = " + resp.errStr +";code=" + String.valueOf(resp.errCode));
 			if(resp.errCode == 0){
 				//说明支付成功
+				showMsg(WXPayEntryActivity.this, "支付成功");
+				ActivityTack.getInstanse().popUntilActivity(VipActivity.class);
 			}else {
 				//支付失败
 			}
