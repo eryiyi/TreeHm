@@ -311,13 +311,15 @@ public class CircleActivity extends BaseActivity implements OnClickContentItemLi
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            if (lists.size() == 0) {
+                                no_data.setVisibility(View.GONE);
+                                lstv.setVisibility(View.VISIBLE);
+                            } else {
+                                no_data.setVisibility(View.GONE);
+                                lstv.setVisibility(View.VISIBLE);
+                            }
                         }
 
-                        if (lists.size() > 0) {
-                            no_data.setVisibility(View.GONE);
-                        } else {
-                            no_data.setVisibility(View.VISIBLE);
-                        }
                     }
                 },
                 new Response.ErrorListener() {

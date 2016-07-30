@@ -449,14 +449,13 @@ public class SecondFragment extends BaseFragment implements OnClickContentItemLi
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
-
-                        if (lists.size() > 0) {
-                            no_data.setVisibility(View.GONE);
-                            lstv.setVisibility(View.VISIBLE);
-                        } else {
-                            no_data.setVisibility(View.VISIBLE);
-                            lstv.setVisibility(View.GONE);
+                            if (lists.size() == 0) {
+                                no_data.setVisibility(View.GONE);
+                                lstv.setVisibility(View.VISIBLE);
+                            } else {
+                                no_data.setVisibility(View.GONE);
+                                lstv.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 },
