@@ -100,9 +100,6 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
                                     FeiyongData data = getGson().fromJson(s, FeiyongData.class);
                                     lists.clear();
                                     lists.addAll(data.getData());
-                                    if (lists != null && lists.size() > 0) {
-                                        lists.get(0).setIs_select("1");
-                                    }
                                     toC();
                                     adapter.notifyDataSetChanged();
                                 }
@@ -159,7 +156,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
         }
     }
 
-    FeiyongObj feiyongObj;
+    FeiyongObj feiyongObj = null;
 
     @Override
     public void onClickContentItem(int position, int flag, Object object) {
@@ -194,7 +191,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
 
     public void goToPayAliy(View view) {
         //支付宝支付
-        if (StringUtil.isNullOrEmpty(msg_jine.getText().toString())) {
+        if (StringUtil.isNullOrEmpty(msg_jine.getText().toString()) || feiyongObj == null) {
             showMsg(VipActivity.this, getResources().getString(R.string.please_select));
         } else {
             //先传值给服务端
@@ -215,7 +212,7 @@ public class VipActivity extends BaseActivity implements View.OnClickListener, O
     public void goToPayWeixin(View view){
         // 将该app注册到微信
         api.registerApp(InternetURL.WEIXIN_APPID);
-        if (StringUtil.isNullOrEmpty(msg_jine.getText().toString())) {
+        if (StringUtil.isNullOrEmpty(msg_jine.getText().toString()) || feiyongObj == null) {
             showMsg(VipActivity.this, getResources().getString(R.string.please_select));
         } else {
             //先传值给服务端
