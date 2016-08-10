@@ -59,6 +59,8 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 				ActivityTack.getInstanse().popUntilActivity(VipActivity.class);
 			}else {
 				//支付失败
+				showMsg(WXPayEntryActivity.this, "支付失败");
+				ActivityTack.getInstanse().popUntilActivity(VipActivity.class);
 			}
 		}
 
