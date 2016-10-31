@@ -67,7 +67,7 @@ public class ItemDetailPhotoAdapter extends BaseAdapter {
         }
         String cell = lists.get(position);
         if (cell != null) {
-            if (cell.indexOf("7xqzj9.com1.z0.glb.clouddn.com") > 0) {
+            if (cell.indexOf("image.zgbfhmt.com") > 0) {
                 //图片保存到七牛上了，有缩率图
                 cell = cell + "-yasuoone";
             }

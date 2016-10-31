@@ -2,7 +2,9 @@ package com.Lbins.TreeHm.base;
 
 public class InternetURL {
     //public static final String INTERNAL = "http://smilekyle.xicp.net:42765/";
-    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
+//    public static final String INTERNAL = "http://xhmt.sdhmmm.cn/";
+    public static final String INTERNAL = "http://www.zgbfhmt.com/";
+//    public static final String INTERNAL = "http://192.168.0.224:8080/";
 
     //mob
     public static final String APP_MOB_KEY = "f8238165a882";
@@ -15,7 +17,7 @@ public class InternetURL {
     public static final String WEIXIN_partnerId = "1368485802";
     public static final String WEIXIN_MCH_ID = "1368485802";
 
-    public static final String QINIU_URL = "http://7xqzj9.com1.z0.glb.clouddn.com/";
+    public static final String QINIU_URL = "http://image.zgbfhmt.com/";
 
     public static final String QINIU_SPACE = "hmmm-pic";
     //多媒体文件上传接口
@@ -121,4 +123,9 @@ public class InternetURL {
     public static final String UPDATE_ORDER_TOSERVER = INTERNAL + "orderUpdate.do";
     //微信统一下单notify_url
     public static final String WEIXIN_NOTIFY_URL = INTERNAL + "orderSaveWxFk.do";
+
+    //判断版本号
+    public static final String CHECK_VERSION_CODE_URL = INTERNAL + "getVersionCode.do";
+
+
 }
